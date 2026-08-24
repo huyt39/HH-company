@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     MONGODB_DB_NAME: str = "company_db"
 
     UPLOAD_DIR: str = "./data/uploads"
+    # Token cho Vercel Blob Storage (đặt trong Vercel env vars khi deploy)
+    BLOB_READ_WRITE_TOKEN: str = ""
 
     SECRET_KEY: str = "doi-chuoi-nay-truoc-khi-deploy"
     ALGORITHM: str = "HS256"

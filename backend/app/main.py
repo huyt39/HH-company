@@ -78,10 +78,13 @@ app.add_middleware(
 
 app.include_router(api_router, prefix=settings.API_V1_PREFIX)
 
-# Ảnh do admin tải lên — phục vụ tĩnh, ai cũng xem được.
-upload_dir = settings.upload_path
-upload_dir.mkdir(parents=True, exist_ok=True)
-app.mount("/uploads", StaticFiles(directory=upload_dir), name="uploads")
+# Ảnh do admin tải lên — phục vụ tĩnh qua /uploads/... (chỉ ở local).
+# Trên Vercel, ảnh lưu trên Blob Storage, không cần static mount.
+if not settings.BLOB_READ_WRITE_TOKEN:
+    upload_dir = settings.upload_path
+    upload_dir.mkdir(parents=True, exist_ok=True)
+    app.mount("/uploads", StaticFiles(directory=upload_dir), name="uploads")
+
 
 
 @app.get("/health", tags=["system"])
