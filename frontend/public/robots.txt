@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Khu vực quản trị không cần lập chỉ mục
+Disallow: /admin
+Disallow: /admin/
+
+# Bổ sung dòng dưới khi đã có domain thật:
+# Sitemap: https://ten-domain.vn/sitemap.xml

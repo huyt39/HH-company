@@ -1,0 +1,33 @@
+:root {
+  /* Bảng màu doanh nghiệp hạ tầng: xanh navy chủ đạo + accent cam */
+  --c-navy-900: #0b2545;
+  --c-navy-800: #10305a;
+  --c-navy-700: #164079;
+  --c-navy-600: #1d549b;
+  --c-blue-500: #2b7bd4;
+  --c-blue-100: #e6f0fb;
+
+  --c-accent: #e8842a;
+  --c-accent-dark: #c96c17;
+
+  --c-text: #14202e;
+  --c-text-muted: #5b6b7d;
+  --c-border: #e2e8f0;
+  --c-bg: #ffffff;
+  --c-bg-soft: #f5f7fa;
+  --c-bg-dark: #0b2545;
+
+  --font-sans: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --container: 1200px;
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 14px;
+
+  --shadow-sm: 0 1px 3px rgba(11, 37, 69, 0.08);
+  --shadow: 0 6px 20px rgba(11, 37, 69, 0.10);
+  --shadow-lg: 0 16px 44px rgba(11, 37, 69, 0.16);
+
+  --header-h: 76px;
+  --transition: 0.25s ease;
+}
