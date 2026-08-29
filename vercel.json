@@ -5,7 +5,6 @@
   "installCommand": "cd frontend && npm install",
   "functions": {
     "api/index.py": {
-      "runtime": "python3.12",
       "maxDuration": 30
     }
   },
@@ -15,7 +14,7 @@
       "dest": "/api/index.py"
     },
     {
-      "src": "/uploads/(.*)",
+      "src": "/health",
       "dest": "/api/index.py"
     },
     {

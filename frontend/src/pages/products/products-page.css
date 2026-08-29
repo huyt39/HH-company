@@ -1,0 +1,81 @@
+/* ---------- Quick table of contents ---------- */
+.product-toc {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 8px;
+  margin-bottom: 48px;
+  padding: 22px;
+  background: var(--c-bg-soft);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+}
+.product-toc a {
+  display: flex; align-items: baseline; gap: 10px;
+  padding: 7px 10px;
+  font-size: .89rem;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+.product-toc a:hover { background: #fff; color: var(--c-navy-600); }
+.product-toc span { font-weight: 800; color: var(--c-accent); font-size: .8rem; }
+
+/* ---------- Product groups ---------- */
+.product-list { display: grid; gap: 28px; }
+
+.product-row {
+  padding: 28px;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  scroll-margin-top: calc(var(--header-h) + 20px);
+}
+.product-row__head { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 14px; }
+.product-row__icon {
+  flex-shrink: 0;
+  display: grid; place-items: center;
+  width: 52px; height: 52px;
+  border-radius: var(--radius);
+  background: var(--c-blue-100);
+  color: var(--c-navy-600);
+  font-size: 1.4rem;
+}
+.product-row__index {
+  display: block;
+  font-size: .74rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--c-accent);
+  margin-bottom: 4px;
+}
+.product-row__head h2 { font-size: 1.25rem; margin-bottom: 0; }
+
+.product-row__detail {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 28px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--c-border);
+}
+@media (max-width: 720px) { .product-row__detail { grid-template-columns: 1fr; gap: 20px; } }
+
+.product-row__detail h3 {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--c-text-muted); margin-bottom: 10px;
+}
+
+.bullet-list li {
+  position: relative; padding-left: 18px; margin-bottom: 7px;
+  font-size: .91rem; color: var(--c-text);
+}
+.bullet-list li::before {
+  content: '—'; position: absolute; left: 0; color: var(--c-accent);
+}
+
+.tag-list { display: flex; flex-wrap: wrap; gap: 7px; }
+.tag-list li {
+  padding: 5px 12px;
+  background: var(--c-blue-100);
+  color: var(--c-navy-700);
+  border-radius: 100px;
+  font-size: .82rem;
+  font-weight: 500;
+}

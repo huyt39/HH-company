@@ -1,13 +1,12 @@
-"""Entry point cho Vercel Serverless Python Runtime.
+"""Vercel serverless entry point.
 
-Vercel yêu cầu file này nằm ở thư mục `api/` và export biến `app`.
-Toàn bộ logic nằm trong `backend/app/`, file này chỉ re-export.
+Vercel requires the handler to live under `api/` and export a module-level
+`app`. All source lives in `backend/src/`; this file only wires the path.
 """
 
 import sys
 from pathlib import Path
 
-# Thêm thư mục backend vào sys.path để import được app.*
-sys.path.insert(0, str(Path(__file__).parent.parent / "backend"))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "backend"))
 
-from app.main import app  # noqa: F401, E402 — Vercel cần biến `app`
+from src.main import app  # noqa: E402, F401 — Vercel needs `app` at module level

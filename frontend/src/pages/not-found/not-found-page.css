@@ -1,0 +1,7 @@
+.not-found { padding-block: 60px; }
+
+.not-found__code {
+  margin: 0;
+  font-size: 4rem; font-weight: 800;
+  color: var(--c-blue-100);
+}

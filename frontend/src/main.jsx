@@ -2,9 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 
-import App from './App'
-import './styles/global.css'
-import './admin/admin.css'
+import { App } from '@/app'
+
+// Import order is cascade order: component CSS first (via App's import tree),
+// then global, then admin.
+import '@/styles/global.css'
+import '@/styles/admin.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

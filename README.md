@@ -4,11 +4,11 @@ Website giới thiệu **Công ty TNHH Đầu tư Xây dựng và Dịch vụ Th
 (Hoa Hoang Intra Co., Ltd) — cung cấp và thi công hệ cáp dự ứng lực, gối cầu, khe co giãn
 cho công trình hạ tầng giao thông.
 
-Stack: **FastAPI + SQLite** (backend) + **React + Vite** (frontend). Giao diện tham khảo
-cấu trúc của deoca.vn. Có **trang quản trị** tại `/admin` để tự sửa nội dung.
+Stack: **FastAPI + MongoDB (Beanie)** (backend) + **React + Vite** (frontend). Giao diện
+tham khảo cấu trúc của deoca.vn. Có **trang quản trị** tại `/admin` để tự sửa nội dung.
 
 Nội dung ban đầu trích từ hai tài liệu công ty, nạp vào database qua
-`backend/app/services/seed_data.py`:
+`backend/src/services/seed_data.py`:
 
 - Giấy chứng nhận ĐKKD số 0106346833 (thay đổi lần 8, ngày 16/12/2025)
 - Hồ sơ năng lực HSNL-HH 2026.06.23 R5
@@ -23,28 +23,33 @@ giao diện hai mục đó tự hiển thị trạng thái "đang cập nhật".
 
 ```
 company/
+├── api/index.py                  # điểm vào Vercel — re-export backend/src/main.py
 ├── backend/
-│   ├── app/
-│   │   ├── main.py               # khởi tạo FastAPI, CORS, health check
-│   │   ├── core/config.py        # cấu hình đọc từ .env (pydantic-settings)
-│   │   ├── api/v1/
-│   │   │   ├── router.py         # gom toàn bộ router
-│   │   │   └── endpoints/        # company, fields, projects, news, careers, contact
-│   │   ├── api/deps.py           # dependency xác thực JWT
-│   │   ├── api/v1/admin/          # CRUD quản trị (crud.py là factory dùng chung)
-│   │   ├── core/security.py       # băm mật khẩu PBKDF2 + phát hành JWT
-│   │   ├── db/
-│   │   │   ├── session.py        # engine + session SQLAlchemy
-│   │   │   ├── seed.py           # tạo bảng, nạp dữ liệu lần đầu, tạo admin
-│   │   │   └── manage.py         # CLI quản lý tài khoản
-│   │   ├── models/               # bảng SQLAlchemy
-│   │   ├── schemas/              # pydantic models (common / content / admin)
-│   │   └── services/
-│   │       ├── seed_data.py      # 📄 NỘI DUNG trích từ ĐKKD + hồ sơ năng lực
-│   │       └── store.py          # tầng truy vấn public (đọc từ DB)
-│   └── data/app.db               # database SQLite (gitignored)
-│   ├── requirements.txt
+│   ├── src/
+│   │   ├── main.py               # FastAPI app: lifespan, middleware, xử lý lỗi
+│   │   ├── configs/              # mỗi mối quan tâm một lớp BaseSettings
+│   │   │   ├── app.py            #   tên app, prefix, CORS, môi trường
+│   │   │   ├── mongo.py          #   chuỗi kết nối MongoDB
+│   │   │   ├── security.py       #   SECRET_KEY, JWT, tài khoản admin khởi tạo
+│   │   │   ├── storage.py        #   nơi lưu ảnh (local hay Vercel Blob)
+│   │   │   └── constants.py      #   hằng số dùng chung (SETTING_KEY…)
+│   │   ├── models/               # 🗄️ schema database (Beanie Document) — CHỈ database
+│   │   ├── types/                # 📦 kiểu request/response của API — CHỈ API
+│   │   ├── repositories/         # tầng truy vấn; chỉ nơi này biết đến MongoDB
+│   │   ├── services/             # nghiệp vụ + client dịch vụ ngoài
+│   │   │   ├── content_service.py   # nội dung công khai
+│   │   │   ├── auth_service.py      # đăng nhập, đổi mật khẩu
+│   │   │   ├── storage_service.py   # lưu ảnh: local ⇄ Vercel Blob cùng một giao diện
+│   │   │   ├── image_service.py     # nén ảnh, xoá EXIF, sinh thumbnail
+│   │   │   ├── seed_data.py         # 📄 NỘI DUNG trích từ ĐKKD + hồ sơ năng lực
+│   │   │   └── seed_service.py      # nạp dữ liệu lần đầu, tạo admin
+│   │   ├── routers/              # endpoint; admin/ dùng chung một factory CRUD
+│   │   ├── dependencies/         # DI: xác thực Bearer token
+│   │   └── utils/logger.py       # logger singleton, có màu, ghi file theo ngày
+│   ├── scripts/                  # CLI: manage_users, optimize_images
+│   ├── data/uploads/             # ảnh tải lên khi chạy local (gitignored)
 │   └── .env.example
+├── requirements.txt              # deps Python — Vercel cài từ gốc repo
 └── frontend/
     ├── src/
     │   ├── api/
@@ -67,6 +72,55 @@ company/
     └── vite.config.js            # proxy /api → http://127.0.0.1:8000
 ```
 
+## Kiến trúc backend
+
+Phân tầng, mỗi tầng chỉ nói chuyện với tầng ngay dưới:
+
+```
+router  →  service  →  repository  →  MongoDB
+   ↑                        ↑
+ types/                 models/
+(API DTO)          (schema database)
+```
+
+Bốn quy ước quan trọng:
+
+**1. `models/` và `types/` không được lẫn nhau.** `models/` là schema database
+(Beanie Document), `types/` là kiểu request/response của API. Nhờ tách đôi mà
+trường chỉ dành cho database — ví dụ `password_hash` — không bao giờ lọt ra API.
+
+| Thêm cái gì | Đặt ở đâu |
+|---|---|
+| Collection mới | `src/models/` |
+| Body của request | `src/types/` |
+| Body của response | `src/types/` |
+
+**2. Chỉ `repositories/` biết đến MongoDB.** Router và service không gọi thẳng
+Beanie. Đổi cách truy vấn (thêm index, đổi bộ lọc, thêm cache) chỉ sửa một tầng.
+
+**3. Mọi response dùng chung một vỏ `BaseApiResponse`:**
+
+```jsonc
+{
+  "success": true,          // yêu cầu thành công hay không
+  "detail": "Danh sách dự án",  // thông báo đọc được cho người dùng
+  "data": { }               // payload thật sự
+}
+```
+
+Lỗi cũng cùng khuôn đó, kèm `job_id` để tra log:
+
+```jsonc
+{ "success": false, "detail": "Không tìm thấy dự án", "data": { "job_id": "…" } }
+```
+
+HTTP status code vẫn giữ đúng ngữ nghĩa (404, 409, 422, 500) — vỏ response
+không thay thế status code.
+
+**4. Mỗi request có một `job_id`.** Middleware gắn UUID vào `request.state.job_id`,
+log và response lỗi đều mang mã này, nên lần ngược từ báo lỗi của người dùng về
+đúng dòng log rất nhanh.
+
 ## Chạy dự án
 
 Cần **hai terminal**.
@@ -77,12 +131,13 @@ Cần **hai terminal**.
 cd backend
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r ../requirements.txt
 cp .env.example .env          # nhớ đặt SECRET_KEY: openssl rand -hex 32
-uvicorn app.main:app --reload --port 8000
+uvicorn src.main:app --reload --port 8000
 ```
 
-Lần chạy đầu tiên sẽ tự tạo `data/app.db`, nạp nội dung và tạo tài khoản admin.
+Cần một MongoDB đang chạy (mặc định `mongodb://localhost:27017`).
+Lần chạy đầu tiên sẽ nạp nội dung mẫu và tạo tài khoản admin.
 Nếu `ADMIN_PASSWORD` trong `.env` để trống, mật khẩu được sinh ngẫu nhiên và
 **in ra console đúng một lần** — lưu lại ngay.
 
@@ -121,14 +176,14 @@ Bấm nhãn “Đang hiện / Đang ẩn” trong bảng để bật tắt nhanh
 
 ```bash
 cd backend && source .venv/bin/activate
-python -m app.db.manage list
-python -m app.db.manage reset-password admin@hoahoang.vn        # tự sinh mật khẩu
-python -m app.db.manage create-user nguoimoi@hoahoang.vn
+python -m scripts.manage_users list
+python -m scripts.manage_users reset-password admin@hoahoang.vn   # tự sinh mật khẩu
+python -m scripts.manage_users create-user nguoimoi@hoahoang.vn
 ```
 
 **Thêm trường mới cho một loại nội dung** cần sửa 3 chỗ:
-cột trong `backend/app/models/content.py` → trường trong `backend/app/schemas/admin.py`
-→ mục trong `frontend/src/admin/resources.js`.
+trường trong `backend/src/models/<thực_thể>.py` → trường trong
+`backend/src/types/<thực_thể>.py` → mục trong `frontend/src/admin/resources.js`.
 
 > Frontend gọi API qua proxy `/api` của Vite nên **không cần** cấu hình URL khi chạy local.
 > Khi deploy, đặt `VITE_API_BASE_URL` trong file `.env` của frontend.
@@ -153,7 +208,8 @@ cột trong `backend/app/models/content.py` → trường trong `backend/app/sch
 
 ## API endpoints
 
-Tất cả nằm dưới prefix `/api/v1`.
+Tất cả nằm dưới prefix `/api/v1`, và mọi response đều bọc trong
+`BaseApiResponse` (xem *Kiến trúc backend*) — dữ liệu thật nằm ở khoá `data`.
 
 | Method | Path | Mô tả |
 |---|---|---|
@@ -187,14 +243,16 @@ Nhóm quản trị — **mọi endpoint yêu cầu Bearer token**:
 
 ## Ảnh
 
-Ảnh trong `backend/data/uploads/`, phục vụ tĩnh qua `/uploads/...`. Tải lên trong trang
-quản trị (JPG, PNG, GIF, WEBP, tối đa 20 MB). Định dạng được kiểm bằng magic byte chứ
+Chạy local: ảnh nằm trong `backend/data/uploads/`, phục vụ tĩnh qua `/uploads/...`.
+Trên Vercel: có `BLOB_READ_WRITE_TOKEN` thì ảnh được đẩy lên Vercel Blob Storage.
+Hai cách dùng chung một giao diện `StorageService`, endpoint và frontend không đổi.
+Tải lên trong trang quản trị (JPG, PNG, GIF, WEBP, tối đa 20 MB). Định dạng được kiểm bằng magic byte chứ
 không tin phần mở rộng; SVG bị chặn vì có thể chứa script. Tên file gắn hash nội dung
 nên tải cùng một ảnh hai lần không tạo bản sao.
 
 ### Xử lý tự động khi tải lên
 
-`backend/app/services/images.py` xử lý mọi ảnh trước khi lưu:
+`backend/src/services/image_service.py` xử lý mọi ảnh trước khi lưu:
 
 | Bước | Lý do |
 |---|---|
@@ -217,8 +275,8 @@ Hai điểm cần biết:
 
 ```bash
 cd backend && source .venv/bin/activate
-python -m app.db.optimize_images --dry-run   # xem trước sẽ tiết kiệm bao nhiêu
-python -m app.db.optimize_images             # thực hiện
+python -m scripts.optimize_images --dry-run   # xem trước sẽ tiết kiệm bao nhiêu
+python -m scripts.optimize_images             # thực hiện
 ```
 
 Ghi đè tại chỗ nên URL trong database không đổi; script tự bổ sung khoá `thumb`
@@ -288,5 +346,6 @@ không phù hợp công bố công khai. Chỉ giữ tên và chức danh ngư�
 - [ ] Đổi mật khẩu admin khỏi giá trị trong `.env`, rồi xoá `ADMIN_PASSWORD`
 - [ ] Cập nhật `BACKEND_CORS_ORIGINS` theo domain thật
 - [ ] Chạy backend sau HTTPS (token JWT nằm trong `localStorage`)
-- [ ] Sao lưu định kỳ `backend/data/app.db` **và** `backend/data/uploads/`
-- [ ] Cho web server phục vụ `/uploads` trực tiếp (nginx) thay vì qua FastAPI
+- [ ] Sao lưu định kỳ database MongoDB **và** ảnh đã tải lên
+- [ ] Khi tự host: cho nginx phục vụ `/uploads` trực tiếp thay vì qua FastAPI.
+      Trên Vercel không cần — ảnh nằm trên Blob Storage với URL tuyệt đối.

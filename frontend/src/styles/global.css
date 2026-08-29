@@ -84,16 +84,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
 }
 
-/* ---------- Placeholder ảnh (dùng khi chưa có media thật) ---------- */
-.media-placeholder {
-  aspect-ratio: 4 / 3;
-  border-radius: var(--radius);
-  background: linear-gradient(140deg, var(--c-blue-100), #d7e3f1);
-  border: 1px solid var(--c-border);
-}
-.media-placeholder--tall { aspect-ratio: 3 / 4; }
-
-/* ---------- Thẻ nội dung dạng cột (About / Culture / Investors) ---------- */
+/* ---------- Column content cards (About / Culture / Investors) ---------- */
 .pillar {
   padding: 30px 26px;
   background: #fff;

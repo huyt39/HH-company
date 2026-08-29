@@ -1,0 +1,43 @@
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 36px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--c-border);
+}
+.filter-bar__btn {
+  padding: 9px 20px;
+  border: 1px solid var(--c-border);
+  border-radius: 100px;
+  background: #fff;
+  font: inherit;
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--c-text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.filter-bar__btn:hover { border-color: var(--c-navy-600); color: var(--c-navy-600); }
+.filter-bar__btn.is-active { background: var(--c-navy-700); border-color: var(--c-navy-700); color: #fff; }
+.filter-bar__count { margin-left: auto; font-size: .86rem; color: var(--c-text-muted); }
+
+/* ---------- Grouped by year ---------- */
+.year-groups { display: grid; gap: 48px; }
+
+.year-group__title {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  font-size: 1.6rem;
+  color: var(--c-navy-600);
+  margin-bottom: 22px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--c-blue-100);
+}
+.year-group__title span {
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--c-text-muted);
+}
