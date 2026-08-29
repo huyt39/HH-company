@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 
 import { thumbUrl } from '@/lib/utils/media'
 
+import { CardPlaceholder } from './card-placeholder'
+
 import './card.css'
 
 /**
@@ -21,7 +23,7 @@ export function Card({ to, media, tag, title, meta, excerpt }) {
         {image ? (
           <img src={image} alt={media?.alt || ''} loading="lazy" decoding="async" />
         ) : (
-          <div className="card__placeholder" aria-hidden="true" />
+          <CardPlaceholder seed={title} />
         )}
         {tag && <span className="card__tag">{tag}</span>}
       </div>

@@ -656,7 +656,217 @@ _PROJECT_CONTEXT: dict[str, tuple[str, str | None]] = {'duong-sat-toc-do-cao-ha-
 # Site photos shipped with the frontend under `frontend/public/images/`, so a
 # fresh deployment has pictures before anyone opens the admin. Shape:
 # slug -> list of media; the first entry doubles as the project cover.
+# Photo montages lifted from the capability profile. They read fine full-size on
+# a detail page, but cropped into a 16:10 card they turn to mush against a white
+# ground, so these keep the drawn card cover and show the montage in the gallery.
+_MONTAGE_ONLY = {
+    "cau-nhon-trach-vanh-dai-3",
+    "cau-dai-ngai-2-ql60",
+    "cau-gioi-phien-yen-bai",
+    "cau-phong-chau-moi-ql32c",
+}
+
 _PROJECT_MEDIA: dict[str, list[dict]] = {
+    "cau-nguyen-huu-canh": [
+        {
+            "url": "/images/cau-nguyen-huu-canh/cang-keo-cap-cau-nguyen-huu-canh-cddafdeb.jpg",
+            "thumb": "/images/cau-nguyen-huu-canh/cang-keo-cap-cau-nguyen-huu-canh-cddafdeb-thumb.jpg",
+            "alt": "Lắp đặt và căng kéo cáp dự ứng lực ngoài tại cầu Nguyễn Hữu Cảnh",
+            "width": 802,
+            "height": 1081,
+        },
+        {
+            "url": "/images/cau-nguyen-huu-canh/cang-keo-cap-cau-nguyen-huu-canh-09654685.jpg",
+            "thumb": "/images/cau-nguyen-huu-canh/cang-keo-cap-cau-nguyen-huu-canh-09654685-thumb.jpg",
+            "alt": "Lắp đặt và căng kéo cáp dự ứng lực ngoài tại cầu Nguyễn Hữu Cảnh",
+            "width": 802,
+            "height": 1099,
+        },
+        {
+            "url": "/images/cau-nguyen-huu-canh/cang-keo-cap-cau-nguyen-huu-canh-f79b6b1f.jpg",
+            "thumb": "/images/cau-nguyen-huu-canh/cang-keo-cap-cau-nguyen-huu-canh-f79b6b1f-thumb.jpg",
+            "alt": "Lắp đặt và căng kéo cáp dự ứng lực ngoài tại cầu Nguyễn Hữu Cảnh",
+            "width": 833,
+            "height": 1081,
+        },
+    ],
+    "cau-mong-sen-lao-cai": [
+        {
+            "url": "/images/cau-mong-sen-lao-cai/lap-dat-va-cang-keo-cap-cau-mong-sen-7baaeaf8.jpg",
+            "thumb": None,
+            "alt": "Lắp đặt ống gen và căng kéo cáp dự ứng lực tại cầu Móng Sến",
+            "width": 379,
+            "height": 453,
+        },
+        {
+            "url": "/images/cau-mong-sen-lao-cai/lap-dat-va-cang-keo-cap-cau-mong-sen-95d1d0b0.jpg",
+            "thumb": "/images/cau-mong-sen-lao-cai/lap-dat-va-cang-keo-cap-cau-mong-sen-95d1d0b0-thumb.jpg",
+            "alt": "Lắp đặt ống gen và căng kéo cáp dự ứng lực tại cầu Móng Sến",
+            "width": 383,
+            "height": 511,
+        },
+        {
+            "url": "/images/cau-mong-sen-lao-cai/lap-dat-va-cang-keo-cap-cau-mong-sen-b759b806.jpg",
+            "thumb": None,
+            "alt": "Lắp đặt ống gen và căng kéo cáp dự ứng lực tại cầu Móng Sến",
+            "width": 400,
+            "height": 510,
+        },
+        {
+            "url": "/images/cau-mong-sen-lao-cai/lap-dat-va-cang-keo-cap-cau-mong-sen-cf199e6f.jpg",
+            "thumb": None,
+            "alt": "Lắp đặt ống gen và căng kéo cáp dự ứng lực tại cầu Móng Sến",
+            "width": 404,
+            "height": 449,
+        },
+    ],
+    "cau-tra-khuc-ql1": [
+        {
+            "url": "/images/cau-tra-khuc-ql1/sua-chua-cau-tra-khuc-2-f2b78790.jpg",
+            "thumb": "/images/cau-tra-khuc-ql1/sua-chua-cau-tra-khuc-2-f2b78790-thumb.jpg",
+            "alt": "Sửa chữa cầu Trà Khúc 2 trên Quốc lộ 1",
+            "width": 825,
+            "height": 619,
+        },
+        {
+            "url": "/images/cau-tra-khuc-ql1/sua-chua-cau-tra-khuc-2-6bc6cb19.jpg",
+            "thumb": None,
+            "alt": "Sửa chữa cầu Trà Khúc 2 trên Quốc lộ 1",
+            "width": 563,
+            "height": 389,
+        },
+        {
+            "url": "/images/cau-tra-khuc-ql1/sua-chua-cau-tra-khuc-2-7ad750f8.jpg",
+            "thumb": None,
+            "alt": "Sửa chữa cầu Trà Khúc 2 trên Quốc lộ 1",
+            "width": 562,
+            "height": 422,
+        },
+    ],
+    "cau-xom-cui-thay-he-cap": [
+        {
+            "url": "/images/cau-xom-cui-thay-he-cap/thay-cap-treo-cau-xom-cui-b95f3b09.jpg",
+            "thumb": "/images/cau-xom-cui-thay-he-cap/thay-cap-treo-cau-xom-cui-b95f3b09-thumb.jpg",
+            "alt": "Thay thế hệ cáp treo và cáp giằng cầu vòm Xóm Củi",
+            "width": 825,
+            "height": 619,
+        },
+        {
+            "url": "/images/cau-xom-cui-thay-he-cap/thay-cap-treo-cau-xom-cui-352afd83.jpg",
+            "thumb": "/images/cau-xom-cui-thay-he-cap/thay-cap-treo-cau-xom-cui-352afd83-thumb.jpg",
+            "alt": "Thay thế hệ cáp treo và cáp giằng cầu vòm Xóm Củi",
+            "width": 825,
+            "height": 619,
+        },
+        {
+            "url": "/images/cau-xom-cui-thay-he-cap/thay-cap-treo-cau-xom-cui-b7dbb845.jpg",
+            "thumb": "/images/cau-xom-cui-thay-he-cap/thay-cap-treo-cau-xom-cui-b7dbb845-thumb.jpg",
+            "alt": "Thay thế hệ cáp treo và cáp giằng cầu vòm Xóm Củi",
+            "width": 825,
+            "height": 619,
+        },
+        {
+            "url": "/images/cau-xom-cui-thay-he-cap/thay-cap-treo-cau-xom-cui-bd9c3461.jpg",
+            "thumb": "/images/cau-xom-cui-thay-he-cap/thay-cap-treo-cau-xom-cui-bd9c3461-thumb.jpg",
+            "alt": "Thay thế hệ cáp treo và cáp giằng cầu vòm Xóm Củi",
+            "width": 825,
+            "height": 619,
+        },
+        {
+            "url": "/images/cau-xom-cui-thay-he-cap/thay-cap-treo-cau-xom-cui-daf510ce.jpg",
+            "thumb": "/images/cau-xom-cui-thay-he-cap/thay-cap-treo-cau-xom-cui-daf510ce-thumb.jpg",
+            "alt": "Thay thế hệ cáp treo và cáp giằng cầu vòm Xóm Củi",
+            "width": 825,
+            "height": 618,
+        },
+        {
+            "url": "/images/cau-xom-cui-thay-he-cap/thay-cap-giang-cau-xom-cui-49f575de.jpg",
+            "thumb": "/images/cau-xom-cui-thay-he-cap/thay-cap-giang-cau-xom-cui-49f575de-thumb.jpg",
+            "alt": "Thay thế hệ cáp treo và cáp giằng cầu vòm Xóm Củi",
+            "width": 825,
+            "height": 619,
+        },
+        {
+            "url": "/images/cau-xom-cui-thay-he-cap/thay-cap-giang-cau-xom-cui-6b9e6ca9.jpg",
+            "thumb": "/images/cau-xom-cui-thay-he-cap/thay-cap-giang-cau-xom-cui-6b9e6ca9-thumb.jpg",
+            "alt": "Thay thế hệ cáp treo và cáp giằng cầu vòm Xóm Củi",
+            "width": 825,
+            "height": 619,
+        },
+        {
+            "url": "/images/cau-xom-cui-thay-he-cap/thay-cap-giang-cau-xom-cui-a79c3020.jpg",
+            "thumb": "/images/cau-xom-cui-thay-he-cap/thay-cap-giang-cau-xom-cui-a79c3020-thumb.jpg",
+            "alt": "Thay thế hệ cáp treo và cáp giằng cầu vòm Xóm Củi",
+            "width": 825,
+            "height": 619,
+        },
+        {
+            "url": "/images/cau-xom-cui-thay-he-cap/thay-cap-giang-cau-xom-cui-ea530bbf.jpg",
+            "thumb": "/images/cau-xom-cui-thay-he-cap/thay-cap-giang-cau-xom-cui-ea530bbf-thumb.jpg",
+            "alt": "Thay thế hệ cáp treo và cáp giằng cầu vòm Xóm Củi",
+            "width": 820,
+            "height": 619,
+        },
+    ],
+    "cau-nhon-trach-vanh-dai-3": [
+        {
+            "url": "/images/cau-nhon-trach-vanh-dai-3/thi-cong-cau-nhon-trach-3eeda75d.jpg",
+            "thumb": "/images/cau-nhon-trach-vanh-dai-3/thi-cong-cau-nhon-trach-3eeda75d-thumb.jpg",
+            "alt": "Cung cấp và thi công vật tư dự ứng lực tại cầu Nhơn Trạch",
+            "width": 593,
+            "height": 660,
+        },
+    ],
+    "cau-dai-ngai-2-ql60": [
+        {
+            "url": "/images/cau-dai-ngai-2-ql60/thi-cong-cau-dai-ngai-2-cf54594c.jpg",
+            "thumb": "/images/cau-dai-ngai-2-ql60/thi-cong-cau-dai-ngai-2-cf54594c-thumb.jpg",
+            "alt": "Thi công cung cấp vật tư tại cầu Đại Ngãi 2",
+            "width": 594,
+            "height": 810,
+        },
+    ],
+    "cau-gioi-phien-yen-bai": [
+        {
+            "url": "/images/cau-gioi-phien-yen-bai/thi-cong-cau-gioi-phien-29783144.jpg",
+            "thumb": "/images/cau-gioi-phien-yen-bai/thi-cong-cau-gioi-phien-29783144-thumb.jpg",
+            "alt": "Thi công hệ cáp và thiết bị tại cầu Giới Phiên",
+            "width": 773,
+            "height": 1021,
+        },
+    ],
+    "cau-phong-chau-moi-ql32c": [
+        {
+            "url": "/images/cau-phong-chau-moi-ql32c/thi-cong-cau-phong-chau-moi-20b336ef.jpg",
+            "thumb": "/images/cau-phong-chau-moi-ql32c/thi-cong-cau-phong-chau-moi-20b336ef-thumb.jpg",
+            "alt": "Thi công cung cấp vật tư tại cầu Phong Châu mới",
+            "width": 554,
+            "height": 791,
+        },
+    ],
+    "cau-vuot-song-van-ninh-binh": [
+        {
+            "url": "/images/cau-vuot-song-van-ninh-binh/thi-cong-cau-song-van-1b5ee5bc.jpg",
+            "thumb": None,
+            "alt": "Thi công cầu vượt sông Vân, Ninh Bình",
+            "width": 839,
+            "height": 509,
+        },
+        {
+            "url": "/images/cau-vuot-song-van-ninh-binh/thi-cong-cau-song-van-2b6f1f27.jpg",
+            "thumb": "/images/cau-vuot-song-van-ninh-binh/thi-cong-cau-song-van-2b6f1f27-thumb.jpg",
+            "alt": "Thi công cầu vượt sông Vân, Ninh Bình",
+            "width": 791,
+            "height": 508,
+        },
+        {
+            "url": "/images/cau-vuot-song-van-ninh-binh/thi-cong-cau-song-van-f0c283bb.jpg",
+            "thumb": None,
+            "alt": "Thi công cầu vượt sông Vân, Ninh Bình",
+            "width": 505,
+            "height": 381,
+        },
+    ],
     "cau-may-chai-vu-yen": [
         {
             "url": "/images/khe-co-gian-cau-may-chai/khe-co-gian-cau-may-chai-f5cfdf78.jpg",
@@ -695,7 +905,7 @@ PROJECTS = [
         status=status,
         context=_PROJECT_CONTEXT.get(slug, (None, None))[0],
         context_source=_PROJECT_CONTEXT.get(slug, (None, None))[1],
-        cover=next(iter(_PROJECT_MEDIA.get(slug, [])), None),
+        cover=None if slug in _MONTAGE_ONLY else next(iter(_PROJECT_MEDIA.get(slug, [])), None),
         gallery=_PROJECT_MEDIA.get(slug, []),
     )
     for (slug, name, year, client, location, scope, status) in _PROJECTS

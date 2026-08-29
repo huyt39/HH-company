@@ -13,6 +13,9 @@ dist/
 # Log ghi theo ngày (backend)
 logs/
 
+# Hồ sơ PDF (DKKD, hồ sơ năng lực) — nặng, không thuộc mã nguồn
+*.pdf
+
 # Editor / OS
 .DS_Store
 .vscode/
@@ -20,4 +23,3 @@ logs/
 data/
 .vercel
 
-.pdf
