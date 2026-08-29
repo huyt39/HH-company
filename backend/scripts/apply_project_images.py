@@ -14,10 +14,22 @@ the admin elsewhere survives.
 
 import asyncio
 import sys
+from urllib.parse import urlsplit
 
+from src.configs import mongo_config
 from src.repositories import ProjectRepository
 from src.services import MongoDatabase
 from src.services.seed_data import PROJECTS
+
+
+def target_description() -> str:
+    """Host and database being written to, with any credentials stripped.
+
+    Local and production commonly share a database name, so printing the name
+    alone is not enough to tell which one a run is about to modify.
+    """
+    host = urlsplit(mongo_config.MONGODB_URL).hostname or "?"
+    return f"{host} / {mongo_config.MONGODB_DB_NAME}"
 
 
 async def apply_media(dry_run: bool) -> int:
@@ -47,8 +59,10 @@ async def apply_media(dry_run: bool) -> int:
 
 async def main_async(argv: list[str]) -> int:
     dry_run = "--dry-run" in argv
+    print(f"Đích: {target_description()}")
     if dry_run:
-        print("CHẾ ĐỘ THỬ — không ghi gì lên database\n")
+        print("CHẾ ĐỘ THỬ — không ghi gì lên database")
+    print()
 
     database = MongoDatabase()
     await database.connect()
