@@ -166,6 +166,7 @@ export const ADMIN_RESOURCES = {
     singular: 'đối tác',
     searchable: true,
     columns: [
+      { name: 'logo', label: '', type: 'thumb', width: 64 },
       { name: 'name', label: 'Tên đơn vị', primary: true },
       { name: 'country', label: 'Quốc gia', width: 140 },
       { name: 'role', label: 'Vai trò', width: 150, options: PARTNER_ROLE_OPTIONS },
@@ -174,6 +175,12 @@ export const ADMIN_RESOURCES = {
       { name: 'name', label: 'Tên đơn vị', type: 'text', required: true },
       { name: 'country', label: 'Quốc gia', type: 'text' },
       { name: 'role', label: 'Vai trò', type: 'select', options: PARTNER_ROLE_OPTIONS },
+      {
+        name: 'logo',
+        label: 'Logo',
+        type: 'image',
+        hint: 'Để trống thì hiện tên đơn vị dạng chữ như hiện tại',
+      },
       ...PUBLISH_FIELDS,
     ],
   },
