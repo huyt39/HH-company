@@ -21,7 +21,6 @@ export function ContactPage() {
       <PageBanner
         title="Liên hệ"
         subtitle="Gửi yêu cầu báo giá hoặc thông tin dự án, chúng tôi sẽ phản hồi trong thời gian sớm nhất."
-        breadcrumb={[{ label: 'Liên hệ' }]}
       />
 
       <section className="section">

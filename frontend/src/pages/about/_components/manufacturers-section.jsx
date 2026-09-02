@@ -10,7 +10,6 @@ export function ManufacturersSection({ partners }) {
         <SectionHeading
           eyebrow="Nguồn cung"
           title="Nhà sản xuất hợp tác"
-          description="Hòa Hoàng là đơn vị nhập khẩu và phân phối sản phẩm của các nhà sản xuất sau."
           align="center"
         />
         <div className="grid grid--3">

@@ -25,7 +25,6 @@ export function NewsPage() {
       <PageBanner
         title="Tin tức & sự kiện"
         subtitle="Cập nhật hoạt động, dự án và thông tin truyền thông của tập đoàn."
-        breadcrumb={[{ label: 'Tin tức' }]}
       />
 
       <section className="section">

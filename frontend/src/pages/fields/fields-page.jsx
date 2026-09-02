@@ -20,7 +20,6 @@ export function FieldsPage() {
       <PageBanner
         title="Lĩnh vực hoạt động"
         subtitle="Các lĩnh vực kinh doanh đăng ký và đang triển khai của công ty Hòa Hoàng."
-        breadcrumb={[{ label: 'Lĩnh vực hoạt động' }]}
       />
 
       <section className="section">

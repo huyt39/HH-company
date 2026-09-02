@@ -25,7 +25,6 @@ export function ProductsPage() {
       <PageBanner
         title="Sản phẩm cung cấp"
         subtitle="Vật tư và thiết bị chuyên dụng cho công trình cầu đường, nhập khẩu từ các nhà sản xuất Nhật Bản, Italy và Trung Quốc."
-        breadcrumb={[{ label: 'Sản phẩm' }]}
       />
 
       <section className="section">

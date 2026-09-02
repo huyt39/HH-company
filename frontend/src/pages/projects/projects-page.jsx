@@ -48,7 +48,6 @@ export function ProjectsPage() {
       <PageBanner
         title="Dự án đã thực hiện"
         subtitle="Các công trình cầu đường, cao tốc và đường sắt Hòa Hoàng đã cung cấp vật tư và thi công lắp đặt."
-        breadcrumb={[{ label: 'Dự án' }]}
       />
 
       <section className="section">

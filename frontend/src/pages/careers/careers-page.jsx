@@ -26,7 +26,6 @@ export function CareersPage() {
       <PageBanner
         title="Tuyển dụng"
         subtitle="Cơ hội nghề nghiệp và môi trường phát triển tại tập đoàn."
-        breadcrumb={[{ label: 'Tuyển dụng' }]}
       />
 
       <section className="section">

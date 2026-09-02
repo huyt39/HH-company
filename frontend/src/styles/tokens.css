@@ -11,9 +11,11 @@
   --c-accent-dark: #c96c17;
 
   /* Project status badges: green reads as finished, orange as still running.
-     All three are dark enough for white 11px bold text to clear WCAG AA. */
+     "Active" uses the bright brand amber, so it takes dark text instead of
+     white to keep 11px bold above WCAG AA; the other two stay dark + white. */
   --c-status-done: #1f8657;
-  --c-status-active: #b46011;
+  --c-status-active: #e8842a;
+  --c-status-active-text: #3d1e02;
   --c-status-planned: #627894;
 
   --c-text: #14202e;

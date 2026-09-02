@@ -29,7 +29,6 @@ export function AboutPage() {
       <PageBanner
         title="Giới thiệu"
         subtitle={profile?.tagline}
-        breadcrumb={[{ label: 'Giới thiệu' }]}
       />
 
       <CompanyFacts profile={profile} />
