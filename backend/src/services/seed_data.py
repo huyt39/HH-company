@@ -890,6 +890,62 @@ _PROJECT_MEDIA: dict[str, list[dict]] = {
             "height": 1280,
         },
     ],
+    # Aerial site photos, one per project. Unlike the montages above these crop
+    # cleanly into a 16:10 card, so they double as the project cover.
+    "duong-sat-toc-do-cao-ha-noi-quang-ninh": [
+        {
+            "url": "/images/duong-sat-toc-do-cao-ha-noi-quang-ninh/thi-cong-cau-vuot-song-duong-duong-sat-toc-do-cao-d7f8f714.jpg",
+            "thumb": "/images/duong-sat-toc-do-cao-ha-noi-quang-ninh/thi-cong-cau-vuot-song-duong-duong-sat-toc-do-cao-d7f8f714-thumb.jpg",
+            "alt": "Thi công cầu vượt sông Đuống thuộc tuyến đường sắt tốc độ cao Hà Nội – Quảng Ninh",
+            "width": 1600,
+            "height": 822,
+        },
+    ],
+    "cau-giai-phong-9-rach-gia": [
+        {
+            "url": "/images/cau-giai-phong-9-rach-gia/thi-cong-cau-giai-phong-9-rach-gia-fa722e4d.jpg",
+            "thumb": "/images/cau-giai-phong-9-rach-gia/thi-cong-cau-giai-phong-9-rach-gia-fa722e4d-thumb.jpg",
+            "alt": "Thi công cầu vòm Giải Phóng 9 tại thành phố Rạch Giá",
+            "width": 1600,
+            "height": 660,
+        },
+    ],
+    "cau-long-thanh-khe-co-gian-p26": [
+        {
+            "url": "/images/cau-long-thanh-khe-co-gian-p26/sua-chua-khe-co-gian-cau-long-thanh-cc6ca3fb.jpg",
+            "thumb": "/images/cau-long-thanh-khe-co-gian-p26/sua-chua-khe-co-gian-cau-long-thanh-cc6ca3fb-thumb.jpg",
+            "alt": "Sửa chữa khe co giãn trên mặt cầu Long Thành, cao tốc TP. Hồ Chí Minh – Long Thành – Dầu Giây",
+            "width": 1600,
+            "height": 659,
+        },
+    ],
+    "cau-song-rang-long-son-cai-mep": [
+        {
+            "url": "/images/cau-song-rang-long-son-cai-mep/thi-cong-cau-song-rang-long-son-cai-mep-7738ab78.jpg",
+            "thumb": "/images/cau-song-rang-long-son-cai-mep/thi-cong-cau-song-rang-long-son-cai-mep-7738ab78-thumb.jpg",
+            "alt": "Lao lắp dầm cầu Sông Rạng trên tuyến đường Long Sơn – Cái Mép",
+            "width": 1660,
+            "height": 961,
+        },
+    ],
+    "cau-can-giuoc-thay-he-cap": [
+        {
+            "url": "/images/cau-can-giuoc-thay-he-cap/thay-he-cap-cau-vom-can-giuoc-36f7ce62.jpg",
+            "thumb": "/images/cau-can-giuoc-thay-he-cap/thay-he-cap-cau-vom-can-giuoc-36f7ce62-thumb.jpg",
+            "alt": "Thay thế hệ cáp cầu vòm Cần Giuộc trên tuyến đường Nguyễn Văn Linh",
+            "width": 1652,
+            "height": 957,
+        },
+    ],
+    "cau-non-nuoc-ql10": [
+        {
+            "url": "/images/cau-non-nuoc-ql10/sua-chua-cau-non-nuoc-ql10-c992eb3a.jpg",
+            "thumb": "/images/cau-non-nuoc-ql10/sua-chua-cau-non-nuoc-ql10-c992eb3a-thumb.jpg",
+            "alt": "Sửa chữa mặt cầu Non Nước Km135+905 trên Quốc lộ 10",
+            "width": 1652,
+            "height": 965,
+        },
+    ],
 }
 
 

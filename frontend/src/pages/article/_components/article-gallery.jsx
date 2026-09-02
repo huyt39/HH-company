@@ -1,7 +1,10 @@
 import { thumbUrl } from '@/lib/utils/media'
 
-export function ArticleGallery({ media }) {
-  if (!media?.length) return null
+export function ArticleGallery({ media, cover }) {
+  // The cover is already shown full width above, so a gallery holding nothing
+  // else is just the same photo twice.
+  const extras = media?.filter((item) => item.url !== cover?.url) ?? []
+  if (!media?.length || !extras.length) return null
 
   // A whole gallery sharing one `alt` means it is a group label, not a caption
   // for each shot — printing it under every tile just repeats the same line.

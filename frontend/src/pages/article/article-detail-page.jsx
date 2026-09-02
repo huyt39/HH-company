@@ -90,7 +90,7 @@ export function ArticleDetailPage({ type }) {
                 }}
               />
 
-              <ArticleGallery media={data.gallery} />
+              <ArticleGallery media={data.gallery} cover={data.cover} />
 
               {isProject && (
                 <ProjectContext context={data.context} sourceUrl={data.context_source} />
