@@ -9,6 +9,12 @@ export function ContactDetails({ info }) {
     { label: 'Mã số thuế', value: info?.tax_code },
   ]
 
+  const mapUrl =
+    info?.map_embed_url ||
+    (info?.address
+      ? `https://maps.google.com/maps?q=${encodeURIComponent(info.address)}&t=&z=16&ie=UTF8&iwloc=&output=embed`
+      : null)
+
   return (
     <div>
       <SectionHeading eyebrow="Thông tin" title="Trụ sở chính" />
@@ -22,9 +28,9 @@ export function ContactDetails({ info }) {
       </ul>
 
       <div className="contact-map">
-        {info?.map_embed_url ? (
+        {mapUrl ? (
           <iframe
-            src={info.map_embed_url}
+            src={mapUrl}
             title="Bản đồ trụ sở"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"

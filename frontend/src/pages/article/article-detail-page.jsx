@@ -74,12 +74,17 @@ export function ArticleDetailPage({ type }) {
             <article>
               {isProject && <ProjectFacts project={data} />}
 
+              {/* Stretching a small photo past its own width is what makes older
+                  shots look pixelated, so cap the cover at its real size. */}
               {coverUrl && (
                 <img
                   className="article__cover"
                   src={coverUrl}
                   alt={data.cover.alt || ''}
+                  width={data.cover.width || undefined}
+                  height={data.cover.height || undefined}
                   decoding="async"
+                  style={data.cover.width ? { maxWidth: `${data.cover.width}px` } : undefined}
                 />
               )}
 

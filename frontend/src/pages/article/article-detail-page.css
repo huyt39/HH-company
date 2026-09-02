@@ -2,7 +2,7 @@
 
 .article__facts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   margin: 0 0 32px;
   background: var(--c-border);
@@ -10,11 +10,23 @@
   border-radius: var(--radius);
   overflow: hidden;
 }
+@media (max-width: 640px) {
+  .article__facts {
+    grid-template-columns: 1fr;
+  }
+}
 .article__facts > div { background: #fff; padding: 16px 18px; }
 .article__facts dt { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--c-text-muted); }
 .article__facts dd { margin: 4px 0 0; font-weight: 600; color: var(--c-navy-800); }
 
-.article__cover { width: 100%; border-radius: var(--radius); margin-bottom: 28px; }
+/* `width: 100%` up to the photo's own size — an inline max-width caps it — so a
+   small photo sits centred at its real size instead of being blown up. */
+.article__cover {
+  display: block;
+  width: 100%; height: auto;
+  margin: 0 auto 28px;
+  border-radius: var(--radius);
+}
 
 .article__content { font-size: 1.02rem; line-height: 1.8; }
 .article__content img { border-radius: var(--radius); margin-block: 20px; }

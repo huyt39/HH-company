@@ -132,7 +132,9 @@ CONTACT_INFO = ContactInfo(
     phone="024 2200 8708",
     email="vnhoahoang@gmail.com",
     tax_code="0106346833",
-    map_embed_url=None,
+    map_embed_url=(
+        "https://maps.google.com/maps?q=MD+Complex+Tower,+Khu+%C4%91%C3%B4+th%E1%BB%8B+M%E1%BB%B9+%C4%90%C3%ACnh+1,+Nam+T%E1%BB%AB+Li%C3%AAm,+H%C3%A0+N%E1%BB%99i&t=&z=16&ie=UTF8&iwloc=&output=embed"
+    ),
 )
 
 # --------------------------------------------------------------------------- #
@@ -660,10 +662,7 @@ _PROJECT_CONTEXT: dict[str, tuple[str, str | None]] = {'duong-sat-toc-do-cao-ha-
 # a detail page, but cropped into a 16:10 card they turn to mush against a white
 # ground, so these keep the drawn card cover and show the montage in the gallery.
 _MONTAGE_ONLY = {
-    "cau-nhon-trach-vanh-dai-3",
-    "cau-dai-ngai-2-ql60",
     "cau-gioi-phien-yen-bai",
-    "cau-phong-chau-moi-ql32c",
 }
 
 _PROJECT_MEDIA: dict[str, list[dict]] = {
@@ -810,20 +809,62 @@ _PROJECT_MEDIA: dict[str, list[dict]] = {
     ],
     "cau-nhon-trach-vanh-dai-3": [
         {
-            "url": "/images/cau-nhon-trach-vanh-dai-3/thi-cong-cau-nhon-trach-3eeda75d.jpg",
-            "thumb": "/images/cau-nhon-trach-vanh-dai-3/thi-cong-cau-nhon-trach-3eeda75d-thumb.jpg",
-            "alt": "Cung cấp và thi công vật tư dự ứng lực tại cầu Nhơn Trạch",
-            "width": 593,
-            "height": 660,
+            "url": "/images/cau-nhon-trach-vanh-dai-3/cau-nhon-trach-vanh-dai-3-01-f16caf22.jpg",
+            "thumb": "/images/cau-nhon-trach-vanh-dai-3/cau-nhon-trach-vanh-dai-3-01-f16caf22-thumb.jpg",
+            "alt": "Toàn cảnh cầu Nhơn Trạch trên đường Vành đai 3 TP. Hồ Chí Minh đang thi công",
+            "width": 1536,
+            "height": 529,
+        },
+        {
+            "url": "/images/cau-nhon-trach-vanh-dai-3/cau-nhon-trach-vanh-dai-3-02-e07fd1fb.jpg",
+            "thumb": "/images/cau-nhon-trach-vanh-dai-3/cau-nhon-trach-vanh-dai-3-02-e07fd1fb-thumb.jpg",
+            "alt": "Trụ tháp và hệ dây văng cầu Nhơn Trạch",
+            "width": 505,
+            "height": 491,
+        },
+        {
+            "url": "/images/cau-nhon-trach-vanh-dai-3/cau-nhon-trach-vanh-dai-3-03-7c0a9803.jpg",
+            "thumb": "/images/cau-nhon-trach-vanh-dai-3/cau-nhon-trach-vanh-dai-3-03-7c0a9803-thumb.jpg",
+            "alt": "Xe đúc hẫng thi công dầm cầu Nhơn Trạch",
+            "width": 468,
+            "height": 491,
+        },
+        {
+            "url": "/images/cau-nhon-trach-vanh-dai-3/cau-nhon-trach-vanh-dai-3-04-2a9da8fc.jpg",
+            "thumb": "/images/cau-nhon-trach-vanh-dai-3/cau-nhon-trach-vanh-dai-3-04-2a9da8fc-thumb.jpg",
+            "alt": "Cầu Nhơn Trạch sau khi thông xe và biển tên công trình",
+            "width": 555,
+            "height": 491,
         },
     ],
     "cau-dai-ngai-2-ql60": [
         {
-            "url": "/images/cau-dai-ngai-2-ql60/thi-cong-cau-dai-ngai-2-cf54594c.jpg",
-            "thumb": "/images/cau-dai-ngai-2-ql60/thi-cong-cau-dai-ngai-2-cf54594c-thumb.jpg",
-            "alt": "Thi công cung cấp vật tư tại cầu Đại Ngãi 2",
-            "width": 594,
-            "height": 810,
+            "url": "/images/cau-dai-ngai-2-ql60/cau-dai-ngai-2-ql60-01-5d65df74.jpg",
+            "thumb": "/images/cau-dai-ngai-2-ql60/cau-dai-ngai-2-ql60-01-5d65df74-thumb.jpg",
+            "alt": "Toàn cảnh cầu dây văng Đại Ngãi 2 vượt sông Hậu đang thi công",
+            "width": 1536,
+            "height": 514,
+        },
+        {
+            "url": "/images/cau-dai-ngai-2-ql60/cau-dai-ngai-2-ql60-02-d01e3144.jpg",
+            "thumb": "/images/cau-dai-ngai-2-ql60/cau-dai-ngai-2-ql60-02-d01e3144-thumb.jpg",
+            "alt": "Trụ tháp và hệ dây văng cầu Đại Ngãi 2 trong quá trình thi công",
+            "width": 360,
+            "height": 507,
+        },
+        {
+            "url": "/images/cau-dai-ngai-2-ql60/cau-dai-ngai-2-ql60-03-185f092c.jpg",
+            "thumb": "/images/cau-dai-ngai-2-ql60/cau-dai-ngai-2-ql60-03-185f092c-thumb.jpg",
+            "alt": "Thi công cốt thép mặt cầu và hệ dây văng cầu Đại Ngãi 2",
+            "width": 364,
+            "height": 507,
+        },
+        {
+            "url": "/images/cau-dai-ngai-2-ql60/cau-dai-ngai-2-ql60-04-eac73be0.jpg",
+            "thumb": "/images/cau-dai-ngai-2-ql60/cau-dai-ngai-2-ql60-04-eac73be0-thumb.jpg",
+            "alt": "Đường dẫn cầu Đại Ngãi 2 và biển thông tin gói thầu 11-XL",
+            "width": 803,
+            "height": 507,
         },
     ],
     "cau-gioi-phien-yen-bai": [
@@ -837,11 +878,32 @@ _PROJECT_MEDIA: dict[str, list[dict]] = {
     ],
     "cau-phong-chau-moi-ql32c": [
         {
-            "url": "/images/cau-phong-chau-moi-ql32c/thi-cong-cau-phong-chau-moi-20b336ef.jpg",
-            "thumb": "/images/cau-phong-chau-moi-ql32c/thi-cong-cau-phong-chau-moi-20b336ef-thumb.jpg",
-            "alt": "Thi công cung cấp vật tư tại cầu Phong Châu mới",
-            "width": 554,
-            "height": 791,
+            "url": "/images/cau-phong-chau-moi-ql32c/cau-phong-chau-moi-ql32c-01-ba9839f5.jpg",
+            "thumb": "/images/cau-phong-chau-moi-ql32c/cau-phong-chau-moi-ql32c-01-ba9839f5-thumb.jpg",
+            "alt": "Toàn cảnh cầu Phong Châu mới trên QL32C đang thi công",
+            "width": 1536,
+            "height": 658,
+        },
+        {
+            "url": "/images/cau-phong-chau-moi-ql32c/cau-phong-chau-moi-ql32c-02-0e1ca43c.jpg",
+            "thumb": "/images/cau-phong-chau-moi-ql32c/cau-phong-chau-moi-ql32c-02-0e1ca43c-thumb.jpg",
+            "alt": "Lao lắp dầm cầu Phong Châu mới",
+            "width": 507,
+            "height": 362,
+        },
+        {
+            "url": "/images/cau-phong-chau-moi-ql32c/cau-phong-chau-moi-ql32c-03-86c8540c.jpg",
+            "thumb": "/images/cau-phong-chau-moi-ql32c/cau-phong-chau-moi-ql32c-03-86c8540c-thumb.jpg",
+            "alt": "Thi công cốt thép mặt cầu Phong Châu mới",
+            "width": 513,
+            "height": 362,
+        },
+        {
+            "url": "/images/cau-phong-chau-moi-ql32c/cau-phong-chau-moi-ql32c-04-bbbdaf1d.jpg",
+            "thumb": "/images/cau-phong-chau-moi-ql32c/cau-phong-chau-moi-ql32c-04-bbbdaf1d-thumb.jpg",
+            "alt": "Trụ cầu và thiết bị thi công trên sông tại cầu Phong Châu mới",
+            "width": 508,
+            "height": 362,
         },
     ],
     "cau-vuot-song-van-ninh-binh": [
@@ -894,20 +956,48 @@ _PROJECT_MEDIA: dict[str, list[dict]] = {
     # cleanly into a 16:10 card, so they double as the project cover.
     "duong-sat-toc-do-cao-ha-noi-quang-ninh": [
         {
-            "url": "/images/duong-sat-toc-do-cao-ha-noi-quang-ninh/thi-cong-cau-vuot-song-duong-duong-sat-toc-do-cao-d7f8f714.jpg",
-            "thumb": "/images/duong-sat-toc-do-cao-ha-noi-quang-ninh/thi-cong-cau-vuot-song-duong-duong-sat-toc-do-cao-d7f8f714-thumb.jpg",
+            "url": "/images/duong-sat-toc-do-cao-ha-noi-quang-ninh/thi-cong-cau-vuot-song-duong-duong-sat-toc-do-cao-7d837405.jpg",
+            "thumb": "/images/duong-sat-toc-do-cao-ha-noi-quang-ninh/thi-cong-cau-vuot-song-duong-duong-sat-toc-do-cao-7d837405-thumb.jpg",
             "alt": "Thi công cầu vượt sông Đuống thuộc tuyến đường sắt tốc độ cao Hà Nội – Quảng Ninh",
-            "width": 1600,
-            "height": 822,
+            "width": 1536,
+            "height": 578,
+        },
+        {
+            "url": "/images/duong-sat-toc-do-cao-ha-noi-quang-ninh/cac-cau-vuot-tren-tuyen-duong-sat-toc-do-cao-8cc54354.jpg",
+            "thumb": "/images/duong-sat-toc-do-cao-ha-noi-quang-ninh/cac-cau-vuot-tren-tuyen-duong-sat-toc-do-cao-8cc54354-thumb.jpg",
+            "alt": "Các cầu vượt trên tuyến đường sắt tốc độ cao Hà Nội – Quảng Ninh đang thi công",
+            "width": 1536,
+            "height": 1024,
         },
     ],
     "cau-giai-phong-9-rach-gia": [
         {
-            "url": "/images/cau-giai-phong-9-rach-gia/thi-cong-cau-giai-phong-9-rach-gia-fa722e4d.jpg",
-            "thumb": "/images/cau-giai-phong-9-rach-gia/thi-cong-cau-giai-phong-9-rach-gia-fa722e4d-thumb.jpg",
-            "alt": "Thi công cầu vòm Giải Phóng 9 tại thành phố Rạch Giá",
-            "width": 1600,
-            "height": 660,
+            "url": "/images/cau-giai-phong-9-rach-gia/cau-giai-phong-9-rach-gia-01-3e37dad3.jpg",
+            "thumb": "/images/cau-giai-phong-9-rach-gia/cau-giai-phong-9-rach-gia-01-3e37dad3-thumb.jpg",
+            "alt": "Toàn cảnh cầu Giải Phóng 9 vượt sông tại thành phố Rạch Giá",
+            "width": 1536,
+            "height": 598,
+        },
+        {
+            "url": "/images/cau-giai-phong-9-rach-gia/cau-giai-phong-9-rach-gia-02-675b7c5a.jpg",
+            "thumb": "/images/cau-giai-phong-9-rach-gia/cau-giai-phong-9-rach-gia-02-675b7c5a-thumb.jpg",
+            "alt": "Nhịp dẫn cầu Giải Phóng 9 nhìn từ bờ",
+            "width": 526,
+            "height": 422,
+        },
+        {
+            "url": "/images/cau-giai-phong-9-rach-gia/cau-giai-phong-9-rach-gia-03-6800ff0d.jpg",
+            "thumb": None,
+            "alt": "Trụ tháp cầu Giải Phóng 9 nhìn từ mặt cầu",
+            "width": 477,
+            "height": 422,
+        },
+        {
+            "url": "/images/cau-giai-phong-9-rach-gia/cau-giai-phong-9-rach-gia-04-69495423.jpg",
+            "thumb": "/images/cau-giai-phong-9-rach-gia/cau-giai-phong-9-rach-gia-04-69495423-thumb.jpg",
+            "alt": "Cầu Giải Phóng 9 nhìn từ phía hạ lưu",
+            "width": 526,
+            "height": 422,
         },
     ],
     "cau-long-thanh-khe-co-gian-p26": [
@@ -946,33 +1036,6 @@ _PROJECT_MEDIA: dict[str, list[dict]] = {
             "height": 965,
         },
     ],
-    "tuyen-ket-noi-cau-gie-ninh-binh-ql1": [
-        {
-            "url": "/images/tuyen-ket-noi-cau-gie-ninh-binh-ql1/tuyen-ket-noi-cao-toc-cau-gie-ninh-binh-quoc-lo-1-104c8e9f.jpg",
-            "thumb": "/images/tuyen-ket-noi-cau-gie-ninh-binh-ql1/tuyen-ket-noi-cao-toc-cau-gie-ninh-binh-quoc-lo-1-104c8e9f-thumb.jpg",
-            "alt": "Tuyến đường kết nối cao tốc Cầu Giẽ – Ninh Bình với Quốc lộ 1 sau khi thông xe",
-            "width": 550,
-            "height": 367,
-        },
-    ],
-    "cau-vuot-hoang-minh-giam": [
-        {
-            "url": "/images/cau-vuot-hoang-minh-giam/cau-vuot-hoang-minh-giam-nguyen-chanh-b58e4277.jpg",
-            "thumb": "/images/cau-vuot-hoang-minh-giam/cau-vuot-hoang-minh-giam-nguyen-chanh-b58e4277-thumb.jpg",
-            "alt": "Cầu vượt nút giao Hoàng Minh Giám – Nguyễn Chánh sau khi thông xe",
-            "width": 600,
-            "height": 450,
-        },
-    ],
-    "cau-vuot-o-dong-mac": [
-        {
-            "url": "/images/cau-vuot-o-dong-mac/cau-vuot-o-dong-mac-3223cea0.jpg",
-            "thumb": "/images/cau-vuot-o-dong-mac/cau-vuot-o-dong-mac-3223cea0-thumb.jpg",
-            "alt": "Cầu vượt Ô Đông Mác – Nguyễn Khoái đưa vào khai thác",
-            "width": 640,
-            "height": 464,
-        },
-    ],
     "cau-song-hieu": [
         {
             "url": "/images/cau-song-hieu/phoi-canh-cau-song-hieu-fcfcbdef.jpg",
@@ -989,6 +1052,31 @@ _PROJECT_MEDIA: dict[str, list[dict]] = {
             "alt": "Mặt cầu Tuần trên tuyến tránh phía tây thành phố Huế",
             "width": 700,
             "height": 393,
+        },
+    ],
+    "cau-vuot-ql51": [
+        {
+            "url": "/images/cau-vuot-ql51/cau-vuot-ql51-01-ff617c1d.jpg",
+            "thumb": "/images/cau-vuot-ql51/cau-vuot-ql51-01-ff617c1d-thumb.jpg",
+            "alt": "Cầu vượt Quốc lộ 51 nhìn từ trên cao",
+            "width": 1672,
+            "height": 941,
+        },
+    ],
+    "cau-hoa-binh-2-goi-khe": [
+        {
+            "url": "/images/cau-hoa-binh-2-goi-khe/cau-hoa-binh-2-goi-khe-01-4c5128ba.jpg",
+            "thumb": "/images/cau-hoa-binh-2-goi-khe/cau-hoa-binh-2-goi-khe-01-4c5128ba-thumb.jpg",
+            "alt": "Gối cầu đã lắp đặt trên đỉnh trụ cầu Hòa Bình 2",
+            "width": 1448,
+            "height": 556,
+        },
+        {
+            "url": "/images/cau-hoa-binh-2-goi-khe/cau-hoa-binh-2-goi-khe-02-ac92fb4f.jpg",
+            "thumb": "/images/cau-hoa-binh-2-goi-khe/cau-hoa-binh-2-goi-khe-02-ac92fb4f-thumb.jpg",
+            "alt": "Khe co giãn răng lược trên mặt cầu Hòa Bình 2",
+            "width": 1448,
+            "height": 525,
         },
     ],
 }
