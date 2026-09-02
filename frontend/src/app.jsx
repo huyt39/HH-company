@@ -16,7 +16,6 @@ import { CareersPage } from '@/pages/careers/careers-page'
 import { JobDetailPage } from '@/pages/careers/job-detail-page'
 import { ContactPage } from '@/pages/contact/contact-page'
 import { FieldsPage } from '@/pages/fields/fields-page'
-import { FinancialsPage } from '@/pages/financials/financials-page'
 import { HomePage } from '@/pages/home/home-page'
 import { NewsPage } from '@/pages/news/news-page'
 import { NotFoundPage } from '@/pages/not-found/not-found-page'
@@ -55,7 +54,6 @@ export function App() {
         <Route path="san-pham" element={<ProductsPage />} />
         <Route path="du-an" element={<ProjectsPage />} />
         <Route path="du-an/:slug" element={<ArticleDetailPage type="project" />} />
-        <Route path="nang-luc-tai-chinh" element={<FinancialsPage />} />
         <Route path="tin-tuc" element={<NewsPage />} />
         <Route path="tin-tuc/:slug" element={<ArticleDetailPage type="news" />} />
         <Route path="tuyen-dung" element={<CareersPage />} />

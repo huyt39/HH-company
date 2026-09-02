@@ -15,7 +15,6 @@ export const SITE_NAVIGATION = [
   { label: 'Lĩnh vực hoạt động', to: '/linh-vuc' },
   { label: 'Sản phẩm', to: '/san-pham' },
   { label: 'Dự án', to: '/du-an' },
-  { label: 'Năng lực tài chính', to: '/nang-luc-tai-chinh' },
   { label: 'Tin tức', to: '/tin-tuc' },
   { label: 'Tuyển dụng', to: '/tuyen-dung' },
   { label: 'Liên hệ', to: '/lien-he' },
@@ -35,7 +34,6 @@ export const FOOTER_LINK_GROUPS = [
   {
     title: 'Liên kết',
     links: [
-      { label: 'Năng lực tài chính', to: '/nang-luc-tai-chinh' },
       { label: 'Tin tức', to: '/tin-tuc' },
       { label: 'Tuyển dụng', to: '/tuyen-dung' },
       { label: 'Liên hệ', to: '/lien-he' },

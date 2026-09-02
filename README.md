@@ -200,7 +200,6 @@ trường trong `backend/src/models/<thực_thể>.py` → trường trong
 | `/tin-tuc` | Danh sách tin tức (có phân trang) | `/news` |
 | `/tin-tuc/:slug` | Chi tiết bài viết | `/news/{slug}` |
 | `/san-pham` | Danh mục 10 nhóm sản phẩm | `/products` |
-| `/nang-luc-tai-chinh` | Số liệu tài chính 3 năm | `/company/financials` |
 | `/tuyen-dung` | Danh sách tuyển dụng | `/careers` |
 | `/tuyen-dung/:slug` | Chi tiết vị trí | `/careers/{slug}` |
 | `/lien-he` | Liên hệ + form gửi tin | `/company/contact-info`, `POST /contact` |
