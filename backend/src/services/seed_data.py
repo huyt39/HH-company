@@ -662,7 +662,7 @@ _PROJECT_CONTEXT: dict[str, tuple[str, str | None]] = {'duong-sat-toc-do-cao-ha-
 # a detail page, but cropped into a 16:10 card they turn to mush against a white
 # ground, so these keep the drawn card cover and show the montage in the gallery.
 _MONTAGE_ONLY = {
-    "cau-gioi-phien-yen-bai",
+    "cung-cap-vat-tu-thi-cong-cau-2018",
 }
 
 _PROJECT_MEDIA: dict[str, list[dict]] = {
@@ -868,6 +868,13 @@ _PROJECT_MEDIA: dict[str, list[dict]] = {
         },
     ],
     "cau-gioi-phien-yen-bai": [
+        {
+            "url": "/images/cau-gioi-phien-yen-bai/cau-gioi-phien-yen-bai-01-3c52073b.jpg",
+            "thumb": "/images/cau-gioi-phien-yen-bai/cau-gioi-phien-yen-bai-01-3c52073b-thumb.jpg",
+            "alt": "Cầu Giới Phiên vượt sông Hồng đã đưa vào khai thác",
+            "width": 1536,
+            "height": 1024,
+        },
         {
             "url": "/images/cau-gioi-phien-yen-bai/thi-cong-cau-gioi-phien-29783144.jpg",
             "thumb": "/images/cau-gioi-phien-yen-bai/thi-cong-cau-gioi-phien-29783144-thumb.jpg",
@@ -1077,6 +1084,265 @@ _PROJECT_MEDIA: dict[str, list[dict]] = {
             "alt": "Khe co giãn răng lược trên mặt cầu Hòa Bình 2",
             "width": 1448,
             "height": 525,
+        },
+    ],
+    "cau-hoa-binh-2-cap-day-vang": [
+        {
+            "url": "/images/cau-hoa-binh-2-cap-day-vang/cau-hoa-binh-2-cap-day-vang-01-7ba6b275.jpg",
+            "thumb": "/images/cau-hoa-binh-2-cap-day-vang/cau-hoa-binh-2-cap-day-vang-01-7ba6b275-thumb.jpg",
+            "alt": "Hệ cáp dây văng cầu Hòa Bình 2 nhìn từ mặt cầu",
+            "width": 1448,
+            "height": 1086,
+        },
+    ],
+    "cau-ngoi-gianh-phu-tho": [
+        {
+            "url": "/images/cau-ngoi-gianh-phu-tho/cau-ngoi-gianh-phu-tho-01-f9ce2f30.jpg",
+            "thumb": "/images/cau-ngoi-gianh-phu-tho/cau-ngoi-gianh-phu-tho-01-f9ce2f30-thumb.jpg",
+            "alt": "Cầu Ngòi Giành trên QL32C, tỉnh Phú Thọ",
+            "width": 1536,
+            "height": 609,
+        },
+        {
+            "url": "/images/cau-ngoi-gianh-phu-tho/cau-ngoi-gianh-phu-tho-02-75d7380b.jpg",
+            "thumb": None,
+            "alt": "Bảng thông tin công trình cầu Ngòi Giành",
+            "width": 432,
+            "height": 408,
+        },
+        {
+            "url": "/images/cau-ngoi-gianh-phu-tho/cau-ngoi-gianh-phu-tho-03-de881c7e.jpg",
+            "thumb": None,
+            "alt": "Mặt cầu Ngòi Giành sau khi hoàn thành",
+            "width": 576,
+            "height": 408,
+        },
+        {
+            "url": "/images/cau-ngoi-gianh-phu-tho/cau-ngoi-gianh-phu-tho-04-a53bee8a.jpg",
+            "thumb": None,
+            "alt": "Trụ và dầm cầu Ngòi Giành nhìn từ dưới",
+            "width": 515,
+            "height": 408,
+        },
+    ],
+    "cau-phu-thinh-lao-cai": [
+        {
+            "url": "/images/cau-phu-thinh-lao-cai/cau-phu-thinh-lao-cai-01-49db8ed4.jpg",
+            "thumb": "/images/cau-phu-thinh-lao-cai/cau-phu-thinh-lao-cai-01-49db8ed4-thumb.jpg",
+            "alt": "Cầu Phú Thịnh nối Quốc lộ 4E với khu đô thị Vạn Hòa, Lào Cai",
+            "width": 1536,
+            "height": 1024,
+        },
+    ],
+    "cau-rach-vong-long-an": [
+        {
+            "url": "/images/cau-rach-vong-long-an/cau-rach-vong-long-an-01-4a1945a1.jpg",
+            "thumb": "/images/cau-rach-vong-long-an/cau-rach-vong-long-an-01-4a1945a1-thumb.jpg",
+            "alt": "Cầu Rạch Vông, tỉnh Long An",
+            "width": 1536,
+            "height": 627,
+        },
+        {
+            "url": "/images/cau-rach-vong-long-an/cau-rach-vong-long-an-02-5e4cd468.jpg",
+            "thumb": None,
+            "alt": "Bảng thông tin công trình cầu Rạch Vông",
+            "width": 459,
+            "height": 390,
+        },
+        {
+            "url": "/images/cau-rach-vong-long-an/cau-rach-vong-long-an-03-afe5abce.jpg",
+            "thumb": None,
+            "alt": "Mặt cầu Rạch Vông sau khi hoàn thành",
+            "width": 574,
+            "height": 390,
+        },
+        {
+            "url": "/images/cau-rach-vong-long-an/cau-rach-vong-long-an-04-7c8d6c1d.jpg",
+            "thumb": None,
+            "alt": "Trụ và dầm cầu Rạch Vông nhìn từ dưới",
+            "width": 489,
+            "height": 390,
+        },
+    ],
+    "cau-tan-de-neo-kich": [
+        {
+            "url": "/images/cau-tan-de-neo-kich/cau-tan-de-neo-kich-01-b7d6c044.jpg",
+            "thumb": "/images/cau-tan-de-neo-kich/cau-tan-de-neo-kich-01-b7d6c044-thumb.jpg",
+            "alt": "Cầu Tân Đệ Km99+200 trên Quốc lộ 10",
+            "width": 1536,
+            "height": 515,
+        },
+        {
+            "url": "/images/cau-tan-de-neo-kich/cau-tan-de-neo-kich-02-566e8f51.jpg",
+            "thumb": "/images/cau-tan-de-neo-kich/cau-tan-de-neo-kich-02-566e8f51-thumb.jpg",
+            "alt": "Neo dự ứng lực tại đầu dầm cầu Tân Đệ",
+            "width": 622,
+            "height": 503,
+        },
+        {
+            "url": "/images/cau-tan-de-neo-kich/cau-tan-de-neo-kich-03-76530b55.jpg",
+            "thumb": None,
+            "alt": "Kích thủy lực căng kéo cáp dự ứng lực tại cầu Tân Đệ",
+            "width": 908,
+            "height": 503,
+        },
+    ],
+    "cau-tang-long-cau-1-thang-long": [
+        {
+            "url": "/images/cau-tang-long-cau-1-thang-long/cau-tang-long-cau-1-thang-long-01-71076877.jpg",
+            "thumb": None,
+            "alt": "Cầu Tăng Long sau khi khánh thành ngày 26/10/2013",
+            "width": 872,
+            "height": 462,
+        },
+        {
+            "url": "/images/cau-tang-long-cau-1-thang-long/cau-tang-long-cau-1-thang-long-02-fee865d7.jpg",
+            "thumb": "/images/cau-tang-long-cau-1-thang-long/cau-tang-long-cau-1-thang-long-02-fee865d7-thumb.jpg",
+            "alt": "Tổng hợp hình ảnh gói thầu Cầu 1 Thăng Long tại cầu Tăng Long",
+            "width": 1536,
+            "height": 1024,
+        },
+    ],
+    "cau-tang-long-co-khi-4": [
+        {
+            "url": "/images/cau-tang-long-co-khi-4/cau-tang-long-co-khi-4-01-6e8728c9.jpg",
+            "thumb": None,
+            "alt": "Cầu Tăng Long sau khi khánh thành ngày 26/10/2013",
+            "width": 767,
+            "height": 480,
+        },
+        {
+            "url": "/images/cau-tang-long-co-khi-4/cau-tang-long-co-khi-4-02-a1a37cf4.jpg",
+            "thumb": "/images/cau-tang-long-co-khi-4/cau-tang-long-co-khi-4-02-a1a37cf4-thumb.jpg",
+            "alt": "Tổng hợp hình ảnh gói thầu Cơ khí 4 Thăng Long tại cầu Tăng Long",
+            "width": 1536,
+            "height": 1024,
+        },
+    ],
+    "cau-vuot-hoang-minh-giam": [
+        {
+            "url": "/images/cau-vuot-hoang-minh-giam/cau-vuot-hoang-minh-giam-01-3879c1d0.jpg",
+            "thumb": None,
+            "alt": "Cầu vượt nút giao Hoàng Minh Giám – Nguyễn Chánh sau khi thông xe",
+            "width": 600,
+            "height": 450,
+        },
+    ],
+    "cau-vuot-o-dong-mac": [
+        {
+            "url": "/images/cau-vuot-o-dong-mac/cau-vuot-o-dong-mac-01-c23ac62d.jpg",
+            "thumb": "/images/cau-vuot-o-dong-mac/cau-vuot-o-dong-mac-01-c23ac62d-thumb.jpg",
+            "alt": "Cầu vượt Ô Đông Mác – Nguyễn Khoái trên phố Đại Cồ Việt về đêm",
+            "width": 800,
+            "height": 532,
+        },
+    ],
+    "cung-cap-vat-tu-thi-cong-cau-2018": [
+        {
+            "url": "/images/cung-cap-vat-tu-thi-cong-cau-2018/cung-cap-vat-tu-thi-cong-cau-2018-01-813e6dfe.jpg",
+            "thumb": "/images/cung-cap-vat-tu-thi-cong-cau-2018/cung-cap-vat-tu-thi-cong-cau-2018-01-813e6dfe-thumb.jpg",
+            "alt": "Tổng hợp các nhóm vật tư thi công cầu do Hòa Hoàng cung cấp",
+            "width": 1536,
+            "height": 1024,
+        },
+    ],
+    "ke-bo-song-cai-nha-trang": [
+        {
+            "url": "/images/ke-bo-song-cai-nha-trang/ke-bo-song-cai-nha-trang-01-c7069c57.jpg",
+            "thumb": "/images/ke-bo-song-cai-nha-trang/ke-bo-song-cai-nha-trang-01-c7069c57-thumb.jpg",
+            "alt": "Kè bờ sông Cái, TP. Nha Trang sau khi hoàn thành",
+            "width": 1536,
+            "height": 626,
+        },
+        {
+            "url": "/images/ke-bo-song-cai-nha-trang/ke-bo-song-cai-nha-trang-02-a266be7f.jpg",
+            "thumb": None,
+            "alt": "Bảng thông tin công trình kè bờ sông Cái",
+            "width": 523,
+            "height": 390,
+        },
+        {
+            "url": "/images/ke-bo-song-cai-nha-trang/ke-bo-song-cai-nha-trang-03-95e9a0c2.jpg",
+            "thumb": None,
+            "alt": "Thân kè bê tông dọc bờ sông Cái",
+            "width": 491,
+            "height": 390,
+        },
+        {
+            "url": "/images/ke-bo-song-cai-nha-trang/ke-bo-song-cai-nha-trang-04-a9ed58b3.jpg",
+            "thumb": None,
+            "alt": "Mái kè và hệ thống thoát nước bờ sông Cái",
+            "width": 508,
+            "height": 390,
+        },
+    ],
+    "nut-giao-vanh-dai-3-ha-noi": [
+        {
+            "url": "/images/nut-giao-vanh-dai-3-ha-noi/nut-giao-vanh-dai-3-ha-noi-01-7a8086eb.jpg",
+            "thumb": "/images/nut-giao-vanh-dai-3-ha-noi/nut-giao-vanh-dai-3-ha-noi-01-7a8086eb-thumb.jpg",
+            "alt": "Phối cảnh nút giao Vành đai 3 và các nhánh rẽ",
+            "width": 1600,
+            "height": 900,
+        },
+    ],
+    "sua-chua-cau-tan-de-ql10": [
+        {
+            "url": "/images/sua-chua-cau-tan-de-ql10/sua-chua-cau-tan-de-ql10-01-f1639e13.jpg",
+            "thumb": "/images/sua-chua-cau-tan-de-ql10/sua-chua-cau-tan-de-ql10-01-f1639e13-thumb.jpg",
+            "alt": "Biển thông báo sửa chữa cầu Tân Đệ Km99+200 QL10 trên mặt cầu",
+            "width": 1536,
+            "height": 599,
+        },
+        {
+            "url": "/images/sua-chua-cau-tan-de-ql10/sua-chua-cau-tan-de-ql10-02-a5dd033c.jpg",
+            "thumb": None,
+            "alt": "Bảng thông tin cầu Tân Đệ Km99+200 QL10",
+            "width": 456,
+            "height": 417,
+        },
+        {
+            "url": "/images/sua-chua-cau-tan-de-ql10/sua-chua-cau-tan-de-ql10-03-61003426.jpg",
+            "thumb": None,
+            "alt": "Thi công cốt thép mặt cầu Tân Đệ",
+            "width": 503,
+            "height": 417,
+        },
+        {
+            "url": "/images/sua-chua-cau-tan-de-ql10/sua-chua-cau-tan-de-ql10-04-2c578aa3.jpg",
+            "thumb": None,
+            "alt": "Giàn giáo thi công dưới gầm cầu Tân Đệ",
+            "width": 562,
+            "height": 417,
+        },
+    ],
+    "tuyen-ket-noi-cau-gie-ninh-binh-ql1": [
+        {
+            "url": "/images/tuyen-ket-noi-cau-gie-ninh-binh-ql1/tuyen-ket-noi-cau-gie-ninh-binh-ql1-01-2d4a6862.jpg",
+            "thumb": "/images/tuyen-ket-noi-cau-gie-ninh-binh-ql1/tuyen-ket-noi-cau-gie-ninh-binh-ql1-01-2d4a6862-thumb.jpg",
+            "alt": "Tuyến đường kết nối cao tốc Cầu Giẽ – Ninh Bình với Quốc lộ 1 sau khi thông xe",
+            "width": 1536,
+            "height": 601,
+        },
+        {
+            "url": "/images/tuyen-ket-noi-cau-gie-ninh-binh-ql1/tuyen-ket-noi-cau-gie-ninh-binh-ql1-02-27be7d2d.jpg",
+            "thumb": None,
+            "alt": "Bảng thông tin dự án tuyến kết nối cao tốc Cầu Giẽ – Ninh Bình",
+            "width": 443,
+            "height": 417,
+        },
+        {
+            "url": "/images/tuyen-ket-noi-cau-gie-ninh-binh-ql1/tuyen-ket-noi-cau-gie-ninh-binh-ql1-03-e54cfb56.jpg",
+            "thumb": None,
+            "alt": "Mặt đường tuyến kết nối sau khi hoàn thành",
+            "width": 502,
+            "height": 417,
+        },
+        {
+            "url": "/images/tuyen-ket-noi-cau-gie-ninh-binh-ql1/tuyen-ket-noi-cau-gie-ninh-binh-ql1-04-7199c4de.jpg",
+            "thumb": None,
+            "alt": "Nút giao trên tuyến kết nối nhìn từ trên cao",
+            "width": 579,
+            "height": 417,
         },
     ],
 }

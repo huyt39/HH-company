@@ -142,9 +142,9 @@ thực hiện (ghi đè tại chỗ nên URL trong database không đổi).
   mọi trang hiện cùng một tiêu đề. Muốn preview riêng từng dự án cần SSR hoặc prerender.
   `robots.txt` đã chặn `/admin`; sitemap chưa tạo vì cần domain thật.
 - **Liên hệ mới** chỉ lưu vào DB và hiện ở hộp thư, chưa gửi email thông báo (cần gắn SMTP).
-- Chỉ một phần dự án có ảnh thi công thật; số còn lại được `CardPlaceholder` sinh hình
-  minh hoạ theo tên dự án. Ảnh có sẵn nằm trong `frontend/public/images/`, khai báo ở
-  `_PROJECT_MEDIA` trong `seed_data.py`.
+- Cả 34 dự án đều có ảnh thật (87 ảnh). Riêng `cung-cap-vat-tu-thi-cong-cau-2018` chỉ có
+  ảnh dạng poster chữ nên vẫn dùng hình vẽ `CardPlaceholder` cho thẻ — poster cắt vào khung
+  16:10 thì không đọc được. Cơ chế này khai báo ở `_MONTAGE_ONLY` trong `seed_data.py`.
 - Thông tin cá nhân của thành viên góp vốn trong giấy ĐKKD (số định danh, địa chỉ, ngày
   sinh, tỷ lệ góp vốn) **cố ý không đưa lên website**; chỉ giữ tên và chức danh người đại
   diện pháp luật.
