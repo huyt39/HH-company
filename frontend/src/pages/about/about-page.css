@@ -79,7 +79,13 @@
 }
 
 /* ---------- Timeline ---------- */
-.timeline { position: relative; max-width: 780px; margin-inline: auto; padding-left: 34px; }
+.timeline {
+  position: relative;
+  max-width: 780px;
+  margin-inline: auto;
+  padding-left: 34px;
+  list-style: none; /* an <ol> for semantics; the dots on the rail are the markers */
+}
 .timeline::before {
   content: '';
   position: absolute; left: 8px; top: 6px; bottom: 6px;

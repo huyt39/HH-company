@@ -14,15 +14,16 @@ export function PageBanner({ title, subtitle, breadcrumb = [] }) {
         <h1>{title}</h1>
         {subtitle && <p className="page-banner__subtitle">{subtitle}</p>}
 
-        <nav className="breadcrumb" aria-label="Breadcrumb">
-          <Link to="/">Trang chủ</Link>
-          {breadcrumb.map((crumb) => (
-            <span key={crumb.label}>
-              <span className="breadcrumb__sep" aria-hidden="true">/</span>
-              {crumb.to ? <Link to={crumb.to}>{crumb.label}</Link> : <span>{crumb.label}</span>}
-            </span>
-          ))}
-        </nav>
+        {breadcrumb.length > 0 && (
+          <nav className="breadcrumb" aria-label="Breadcrumb">
+            {breadcrumb.map((crumb, index) => (
+              <span key={crumb.label}>
+                {index > 0 && <span className="breadcrumb__sep" aria-hidden="true">/</span>}
+                {crumb.to ? <Link to={crumb.to}>{crumb.label}</Link> : <span>{crumb.label}</span>}
+              </span>
+            ))}
+          </nav>
+        )}
       </div>
     </section>
   )

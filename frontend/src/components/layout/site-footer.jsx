@@ -4,8 +4,6 @@ import { FOOTER_LINK_GROUPS } from '@/lib/constants/site-navigation'
 
 import './site-footer.css'
 
-const SOCIAL_ICONS = ['f', 'in', 'yt']
-
 export function SiteFooter() {
   return (
     <footer className="site-footer">
@@ -22,11 +20,6 @@ export function SiteFooter() {
             Cung cấp và thi công hệ cáp dự ứng lực, gối cầu, khe co giãn cho các dự án
             hạ tầng giao thông tại Việt Nam từ năm 2014.
           </p>
-          <div className="site-footer__social" aria-label="Mạng xã hội">
-            {SOCIAL_ICONS.map((icon) => (
-              <a key={icon} href="#" aria-label={`Liên kết ${icon}`}>{icon}</a>
-            ))}
-          </div>
         </div>
 
         {FOOTER_LINK_GROUPS.map((group) => (
