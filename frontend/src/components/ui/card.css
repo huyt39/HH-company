@@ -31,6 +31,9 @@ a.card:hover .card__placeholder-art { opacity: .38; transition: opacity .4s ease
   letter-spacing: .04em; text-transform: uppercase;
   border-radius: var(--radius-sm);
 }
+.card__tag--done { background: var(--c-status-done); }
+.card__tag--active { background: var(--c-status-active); }
+.card__tag--planned { background: var(--c-status-planned); }
 
 .card__body { padding: 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
 .card__meta { font-size: .8rem; color: var(--c-text-muted); }

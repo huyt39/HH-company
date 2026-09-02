@@ -9,6 +9,13 @@ export const PROJECT_STATUS_LABEL = Object.fromEntries(
   PROJECT_STATUS_OPTIONS.map((option) => [option.value, option.label]),
 )
 
+/** Badge colour per status — see `.card__tag--*` in card.css. */
+export const PROJECT_STATUS_TONE = {
+  completed: 'done',
+  in_progress: 'active',
+  planning: 'planned',
+}
+
 /** Filters on the project list page. */
 export const PROJECT_STATUS_FILTERS = [
   { value: '', label: 'Tất cả' },

@@ -8,11 +8,12 @@ import './card.css'
 
 /**
  * Shared card for news and projects. `media` is { url, thumb, alt };
- * the card picks the thumbnail itself.
+ * the card picks the thumbnail itself. `tagTone` colours the badge — omit it
+ * for the default accent, as news categories and project years use.
  *
- * @param {{to?: string, media?: object, tag?: string, title: string, meta?: string, excerpt?: string}} props
+ * @param {{to?: string, media?: object, tag?: string, tagTone?: string, title: string, meta?: string, excerpt?: string}} props
  */
-export function Card({ to, media, tag, title, meta, excerpt }) {
+export function Card({ to, media, tag, tagTone, title, meta, excerpt }) {
   const Wrapper = to ? Link : 'article'
   const wrapperProps = to ? { to } : {}
   const image = thumbUrl(media)
@@ -25,7 +26,9 @@ export function Card({ to, media, tag, title, meta, excerpt }) {
         ) : (
           <CardPlaceholder seed={title} />
         )}
-        {tag && <span className="card__tag">{tag}</span>}
+        {tag && (
+          <span className={`card__tag ${tagTone ? `card__tag--${tagTone}` : ''}`}>{tag}</span>
+        )}
       </div>
       <div className="card__body">
         {meta && <span className="card__meta">{meta}</span>}

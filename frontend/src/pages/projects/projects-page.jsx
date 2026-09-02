@@ -4,7 +4,11 @@ import { Card } from '@/components/ui/card'
 import { PageBanner } from '@/components/ui/page-banner'
 import { StateBlock } from '@/components/ui/state-block'
 import { projectsApi } from '@/lib/api/projects-client'
-import { PROJECT_STATUS_FILTERS, PROJECT_STATUS_LABEL } from '@/lib/constants/project-status'
+import {
+  PROJECT_STATUS_FILTERS,
+  PROJECT_STATUS_LABEL,
+  PROJECT_STATUS_TONE,
+} from '@/lib/constants/project-status'
 import { useDocumentMeta } from '@/lib/hooks/use-document-meta'
 import { useFetch } from '@/lib/hooks/use-fetch'
 
@@ -85,6 +89,7 @@ export function ProjectsPage() {
                         to={`/du-an/${project.slug}`}
                         media={project.cover}
                         tag={PROJECT_STATUS_LABEL[project.status]}
+                        tagTone={PROJECT_STATUS_TONE[project.status]}
                         title={project.name}
                         meta={project.location}
                         excerpt={project.summary}

@@ -946,6 +946,51 @@ _PROJECT_MEDIA: dict[str, list[dict]] = {
             "height": 965,
         },
     ],
+    "tuyen-ket-noi-cau-gie-ninh-binh-ql1": [
+        {
+            "url": "/images/tuyen-ket-noi-cau-gie-ninh-binh-ql1/tuyen-ket-noi-cao-toc-cau-gie-ninh-binh-quoc-lo-1-104c8e9f.jpg",
+            "thumb": "/images/tuyen-ket-noi-cau-gie-ninh-binh-ql1/tuyen-ket-noi-cao-toc-cau-gie-ninh-binh-quoc-lo-1-104c8e9f-thumb.jpg",
+            "alt": "Tuyến đường kết nối cao tốc Cầu Giẽ – Ninh Bình với Quốc lộ 1 sau khi thông xe",
+            "width": 550,
+            "height": 367,
+        },
+    ],
+    "cau-vuot-hoang-minh-giam": [
+        {
+            "url": "/images/cau-vuot-hoang-minh-giam/cau-vuot-hoang-minh-giam-nguyen-chanh-b58e4277.jpg",
+            "thumb": "/images/cau-vuot-hoang-minh-giam/cau-vuot-hoang-minh-giam-nguyen-chanh-b58e4277-thumb.jpg",
+            "alt": "Cầu vượt nút giao Hoàng Minh Giám – Nguyễn Chánh sau khi thông xe",
+            "width": 600,
+            "height": 450,
+        },
+    ],
+    "cau-vuot-o-dong-mac": [
+        {
+            "url": "/images/cau-vuot-o-dong-mac/cau-vuot-o-dong-mac-3223cea0.jpg",
+            "thumb": "/images/cau-vuot-o-dong-mac/cau-vuot-o-dong-mac-3223cea0-thumb.jpg",
+            "alt": "Cầu vượt Ô Đông Mác – Nguyễn Khoái đưa vào khai thác",
+            "width": 640,
+            "height": 464,
+        },
+    ],
+    "cau-song-hieu": [
+        {
+            "url": "/images/cau-song-hieu/phoi-canh-cau-song-hieu-fcfcbdef.jpg",
+            "thumb": None,
+            "alt": "Phối cảnh thiết kế cầu Sông Hiếu vượt sông Hiếu, Quảng Trị",
+            "width": 843,
+            "height": 572,
+        },
+    ],
+    "cau-tuan-hue": [
+        {
+            "url": "/images/cau-tuan-hue/cau-tuan-hue-b6a7ce4a.jpg",
+            "thumb": None,
+            "alt": "Mặt cầu Tuần trên tuyến tránh phía tây thành phố Huế",
+            "width": 700,
+            "height": 393,
+        },
+    ],
 }
 
 
