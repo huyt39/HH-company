@@ -5,7 +5,7 @@ export const SITE_NAVIGATION = [
     label: 'Giới thiệu',
     to: '/gioi-thieu',
     children: [
-      { label: 'Tổng quan', to: '/gioi-thieu' },
+      { label: 'Tổng quan', to: '/gioi-thieu#tong-quan' },
       { label: 'Tầm nhìn - Sứ mệnh', to: '/gioi-thieu#tam-nhin' },
       { label: 'Ban lãnh đạo', to: '/gioi-thieu#lanh-dao' },
       { label: 'Cơ cấu tổ chức', to: '/gioi-thieu#co-cau' },

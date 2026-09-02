@@ -18,7 +18,7 @@ export function SiteHeader() {
   }, [])
 
   // Close the mobile menu on every navigation.
-  useEffect(() => setMenuOpen(false), [location.pathname])
+  useEffect(() => setMenuOpen(false), [location.pathname, location.hash, location.key])
 
   return (
     <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>

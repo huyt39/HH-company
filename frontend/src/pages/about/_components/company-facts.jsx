@@ -19,7 +19,7 @@ export function CompanyFacts({ profile }) {
   ]
 
   return (
-    <section className="section">
+    <section className="section" id="tong-quan">
       <div className="container about-grid">
         <div>
           <SectionHeading eyebrow="Tổng quan" title="Đôi nét về Hòa Hoàng" />
