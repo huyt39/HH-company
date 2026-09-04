@@ -10,6 +10,10 @@ nội dung, không cần lập trình viên và không cần build lại.
 Stack: **FastAPI + MongoDB (Beanie)** cho backend, **React + Vite** cho frontend,
 deploy trên Vercel.
 
+Slogan: **Công nghệ vươn tầm, hợp tác thành công** — hiện ở footer và lưu trong trường
+`tagline` của hồ sơ công ty (sửa được ở `/admin`). Logo và favicon ở `frontend/public/`,
+cắt từ file gốc trong `docs/brand/`; `logo-full.png` là bản kèm slogan cho ấn phẩm in.
+
 Dữ liệu ban đầu nạp qua `backend/src/services/seed_data.py`: hồ sơ công ty, 11 lĩnh vực
 hoạt động, 10 nhóm sản phẩm, 34 dự án (2015–2026), số liệu tài chính 3 năm,
 24 khách hàng/nhà sản xuất. Tin tức và tuyển dụng chưa có dữ liệu — hai mục đó tự hiển thị
@@ -21,6 +25,8 @@ trạng thái "đang cập nhật" cho tới khi nhập trong trang quản trị
 company/
 ├── api/index.py            # điểm vào Vercel — re-export backend/src/main.py
 ├── requirements.txt        # deps Python (Vercel cài từ gốc repo)
+├── docs/                   # tài liệu nguồn: ĐKKD, hồ sơ năng lực, báo cáo thương hiệu
+│   └── brand/              # file logo gốc do bên thiết kế giao
 ├── backend/src/
 │   ├── main.py             # FastAPI app: lifespan, middleware, xử lý lỗi
 │   ├── configs/            # BaseSettings: app, mongo, security, storage
@@ -103,6 +109,12 @@ python -m scripts.manage_users list
 python -m scripts.manage_users reset-password admin@hoahoang.vn
 python -m scripts.manage_users create-user nguoimoi@hoahoang.vn
 ```
+
+Sửa `seed_data.py` **không** tự tới được database đã seed. Ảnh dự án đẩy bằng
+`python -m scripts.apply_project_images`; một trường lẻ của hồ sơ công ty (khẩu hiệu, mã số
+thuế…) đẩy bằng `python -m scripts.apply_profile_field <tên trường>`. Cả hai đều có
+`--dry-run`, và script hồ sơ từ chối ghi các trường dạng danh sách (ban lãnh đạo, mốc lịch
+sử…) vì đó là nội dung sửa qua `/admin`.
 
 Thêm một trường mới cho loại nội dung nào đó cần sửa 3 chỗ:
 `backend/src/models/<thực_thể>.py` → `backend/src/types/<thực_thể>.py` →

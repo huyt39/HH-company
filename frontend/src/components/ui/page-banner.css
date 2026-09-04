@@ -20,5 +20,5 @@
 .page-banner__subtitle { max-width: 62ch; color: #cfdcea; margin-bottom: 16px; }
 
 .breadcrumb { font-size: .85rem; color: #b9cbe0; }
-.breadcrumb a:hover { color: var(--c-accent); }
+.breadcrumb a:hover { color: var(--c-accent-light); }
 .breadcrumb__sep { margin-inline: 8px; opacity: .6; }

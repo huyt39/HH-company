@@ -1,5 +1,5 @@
 :root {
-  /* Infrastructure palette: navy base, orange accent */
+  /* Infrastructure palette: navy base, logo green accent */
   --c-navy-900: #0b2545;
   --c-navy-800: #10305a;
   --c-navy-700: #164079;
@@ -7,8 +7,13 @@
   --c-blue-500: #2b7bd4;
   --c-blue-100: #e6f0fb;
 
-  --c-accent: #e8842a;
-  --c-accent-dark: #c96c17;
+  /* Accent = the green of the 2026 logo, sampled from docs/brand/. The old
+     orange belonged to no part of the mark. `--c-accent-light` exists because
+     one green cannot serve both grounds: the dark green needed for AA on white
+     disappears against the navy hero, banners and footer. */
+  --c-accent: #146334;
+  --c-accent-dark: #0c5430;
+  --c-accent-light: #5fc48c;
 
   /* Project status badges: green reads as finished, orange as still running.
      "Active" uses the bright brand amber, so it takes dark text instead of

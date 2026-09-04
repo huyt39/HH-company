@@ -57,7 +57,9 @@
 .admin-nav__link.is-active { background: var(--c-navy-600); color: #fff; font-weight: 600; }
 .admin-nav__badge {
   min-width: 20px; padding: 1px 6px;
-  background: var(--c-accent); color: #fff;
+  /* The only accent on the navy sidebar: the light green pops off it, and
+     navy text on light green beats white text for legibility at .72rem. */
+  background: var(--c-accent-light); color: var(--c-navy-900);
   border-radius: 100px; font-size: .72rem; font-weight: 700; text-align: center;
 }
 .admin-sidebar__foot {

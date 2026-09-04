@@ -16,6 +16,7 @@ export function SiteFooter() {
               <small>HOA HOANG INTRA CO., LTD</small>
             </span>
           </div>
+          <p className="site-footer__slogan">Công nghệ vươn tầm, hợp tác thành công</p>
           <p className="site-footer__desc">
             Cung cấp và thi công hệ cáp dự ứng lực, gối cầu, khe co giãn cho các dự án
             hạ tầng giao thông tại Việt Nam từ năm 2014.
