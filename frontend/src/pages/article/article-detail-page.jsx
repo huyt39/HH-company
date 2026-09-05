@@ -7,7 +7,6 @@ import { projectsApi } from '@/lib/api/projects-client'
 import { useDocumentMeta } from '@/lib/hooks/use-document-meta'
 import { useFetch } from '@/lib/hooks/use-fetch'
 import { useLang } from '@/lib/i18n/language-context'
-import { fullUrl } from '@/lib/utils/media'
 
 import { ArticleGallery } from './_components/article-gallery'
 import { ProjectContext } from './_components/project-context'
@@ -51,7 +50,6 @@ export function ArticleDetailPage({ type }) {
 
   const isProject = type === 'project'
   const title = data?.title || data?.name || (loading ? t('article.loadingTitle') : t('article.notFoundTitle'))
-  const coverUrl = fullUrl(data?.cover)
 
   return (
     <>
@@ -77,19 +75,7 @@ export function ArticleDetailPage({ type }) {
             <article>
               {isProject && <ProjectFacts project={data} />}
 
-              {/* Stretching a small photo past its own width is what makes older
-                  shots look pixelated, so cap the cover at its real size. */}
-              {coverUrl && (
-                <img
-                  className="article__cover"
-                  src={coverUrl}
-                  alt={data.cover.alt || ''}
-                  width={data.cover.width || undefined}
-                  height={data.cover.height || undefined}
-                  decoding="async"
-                  style={data.cover.width ? { maxWidth: `${data.cover.width}px` } : undefined}
-                />
-              )}
+              <ArticleGallery cover={data.cover} media={data.gallery} />
 
               <div
                 className="article__content"
@@ -97,8 +83,6 @@ export function ArticleDetailPage({ type }) {
                   __html: data.content || `<p>${data.summary || t('article.contentFallback')}</p>`,
                 }}
               />
-
-              <ArticleGallery media={data.gallery} cover={data.cover} />
 
               {isProject && (
                 <ProjectContext context={data.context} sourceUrl={data.context_source} />

@@ -19,15 +19,6 @@
 .article__facts dt { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--c-text-muted); }
 .article__facts dd { margin: 4px 0 0; font-weight: 600; color: var(--c-navy-800); }
 
-/* `width: 100%` up to the photo's own size — an inline max-width caps it — so a
-   small photo sits centred at its real size instead of being blown up. */
-.article__cover {
-  display: block;
-  width: 100%; height: auto;
-  margin: 0 auto 28px;
-  border-radius: var(--radius);
-}
-
 .article__content { font-size: 1.02rem; line-height: 1.8; }
 .article__content img { border-radius: var(--radius); margin-block: 20px; }
 .article__content h2, .article__content h3 { margin-top: 1.6em; }
@@ -64,20 +55,85 @@
 }
 .context-box__note a { color: var(--c-navy-600); font-weight: 600; text-decoration: underline; }
 
-/* ---------- Construction gallery ---------- */
-.article__gallery { margin-top: 40px; }
-.article__gallery h2 {
-  font-size: .82rem; text-transform: uppercase; letter-spacing: .1em;
-  color: var(--c-navy-600); margin-bottom: 16px;
+/* ---------- Photo viewer: one big photo, swipe/arrows to move, click to zoom ---------- */
+.gallery { position: relative; margin: 0 auto 28px; }
+
+.gallery__frame {
+  position: relative;
+  height: min(64vh, 560px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--c-bg-soft);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: zoom-in;
+  touch-action: pan-y;
+  outline: none;
 }
-.article__gallery-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px;
+.gallery__frame:focus-visible { box-shadow: 0 0 0 2px var(--c-navy-600); }
+.gallery__frame img {
+  max-width: 100%; max-height: 100%;
+  width: auto; height: auto;
+  object-fit: contain;
+  display: block;
+  user-select: none;
 }
-.article__gallery-grid figure { margin: 0; }
-.article__gallery-grid img {
-  width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
-  border-radius: var(--radius); border: 1px solid var(--c-border);
+/* Zoomed: drop the fit constraint so the photo renders at its real pixel size
+   and the frame scrolls — that's the "zoom in", no transform math needed. */
+.gallery__frame.is-zoomed {
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow: auto;
+  cursor: grab;
+  touch-action: pan-x pan-y;
 }
-.article__gallery-grid figcaption {
-  margin-top: 6px; font-size: .82rem; color: var(--c-text-muted); line-height: 1.5;
+.gallery__frame.is-zoomed img { max-width: none; max-height: none; }
+
+.gallery__nav {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  border: none; border-radius: 50%;
+  background: rgba(15, 30, 50, 0.45);
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.gallery__nav:hover { background: rgba(15, 30, 50, 0.7); }
+.gallery__nav--prev { left: 12px; }
+.gallery__nav--next { right: 12px; }
+
+.gallery__dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  translate: -50% 0;
+  display: flex;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: 100px;
+  background: rgba(15, 30, 50, 0.45);
+}
+.gallery__dot {
+  width: 7px; height: 7px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+.gallery__dot.is-active { background: #fff; }
+
+.gallery__hint {
+  display: block;
+  margin-top: 8px;
+  font-size: .8rem;
+  color: var(--c-text-muted);
+  text-align: center;
 }
