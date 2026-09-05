@@ -26,7 +26,7 @@ company/
 ├── api/index.py            # điểm vào Vercel — re-export backend/src/main.py
 ├── requirements.txt        # deps Python (Vercel cài từ gốc repo)
 ├── docs/                   # tài liệu nguồn: ĐKKD, hồ sơ năng lực, báo cáo thương hiệu
-│   └── brand/              # file logo gốc do bên thiết kế giao
+│   └── brand/              # file gốc do bên thiết kế giao: logo + poster sản phẩm
 ├── backend/src/
 │   ├── main.py             # FastAPI app: lifespan, middleware, xử lý lỗi
 │   ├── configs/            # BaseSettings: app, mongo, security, storage
@@ -112,9 +112,10 @@ python -m scripts.manage_users create-user nguoimoi@hoahoang.vn
 
 Sửa `seed_data.py` **không** tự tới được database đã seed. Ảnh dự án đẩy bằng
 `python -m scripts.apply_project_images`; một trường lẻ của hồ sơ công ty (khẩu hiệu, mã số
-thuế…) đẩy bằng `python -m scripts.apply_profile_field <tên trường>`. Cả hai đều có
-`--dry-run`, và script hồ sơ từ chối ghi các trường dạng danh sách (ban lãnh đạo, mốc lịch
-sử…) vì đó là nội dung sửa qua `/admin`.
+thuế…) đẩy bằng `python -m scripts.apply_profile_field <tên trường>`; ảnh minh hoạ nhóm sản phẩm bằng
+`python -m scripts.apply_product_images`. Cả ba đều có `--dry-run`, và script hồ sơ từ
+chối ghi các trường dạng danh sách (ban lãnh đạo, mốc lịch sử…) vì đó là nội dung sửa
+qua `/admin`.
 
 Thêm một trường mới cho loại nội dung nào đó cần sửa 3 chỗ:
 `backend/src/models/<thực_thể>.py` → `backend/src/types/<thực_thể>.py` →

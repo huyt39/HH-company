@@ -2,7 +2,7 @@
 
 from pydantic import BaseModel, Field
 
-from src.types.common import AuditedResponse, PublishFields, make_optional
+from src.types.common import AuditedResponse, Media, PublishFields, make_optional
 
 
 class ProductResponse(BaseModel):
@@ -13,6 +13,7 @@ class ProductResponse(BaseModel):
     specs: list[str] = Field(default_factory=list)
     applications: list[str] = Field(default_factory=list)
     icon: str | None = None
+    image: Media | None = None
 
 
 class ProductBase(PublishFields):
@@ -22,6 +23,7 @@ class ProductBase(PublishFields):
     specs: list[str] = Field(default_factory=list)
     applications: list[str] = Field(default_factory=list)
     icon: str | None = Field(default=None, max_length=16)
+    image: Media | None = None
 
 
 class ProductAdminResponse(ProductBase, AuditedResponse):

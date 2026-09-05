@@ -44,6 +44,7 @@ export const ADMIN_RESOURCES = {
     singular: 'nhóm sản phẩm',
     searchable: true,
     columns: [
+      { name: 'image', label: '', type: 'thumb', width: 64 },
       { name: 'name', label: 'Nhóm sản phẩm', primary: true },
       { name: 'slug', label: 'Slug', mono: true },
       { name: 'icon', label: 'Icon', width: 60 },
@@ -52,6 +53,12 @@ export const ADMIN_RESOURCES = {
       { name: 'name', label: 'Tên nhóm sản phẩm', type: 'text', required: true, slugSource: true },
       { name: 'slug', label: 'Slug', type: 'text', required: true, mono: true },
       { name: 'description', label: 'Mô tả', type: 'textarea', rows: 4 },
+      {
+        name: 'image',
+        label: 'Ảnh minh hoạ',
+        type: 'image',
+        hint: 'Hiện cạnh mô tả ở trang Sản phẩm, cắt theo khung 16:9',
+      },
       { name: 'specs', label: 'Thông số / chủng loại', type: 'list' },
       { name: 'applications', label: 'Ứng dụng', type: 'list' },
       { name: 'icon', label: 'Ký tự icon', type: 'text' },

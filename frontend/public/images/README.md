@@ -12,5 +12,9 @@ nén hay đổi tên. Ảnh chỉ hiện lên web sau khi được xử lý và 
    trong `seed_data.py` — ảnh đầu danh sách được dùng làm ảnh bìa.
 3. `python -m scripts.apply_project_images` để đẩy vào database đã seed.
 
+`san-pham/` là ngoại lệ: mỗi nhóm sản phẩm một file `<slug>-<hash>.jpg`, cắt sẵn theo
+khung 16:9, khai báo ở trường `image` của `_PRODUCTS` và đẩy lên database bằng
+`python -m scripts.apply_product_images`.
+
 Ảnh dùng chung, không thuộc dự án nào cụ thể (`cong-truong/`,
 `cao-toc-ben-luc-long-thanh-j2/`…) được tham chiếu trực tiếp từ CSS hoặc JSX.

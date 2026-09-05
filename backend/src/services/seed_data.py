@@ -238,6 +238,13 @@ _PRODUCTS: list[dict] = [
         "specs": ["Loại PWS: 31W7, 35W7, 49W7, 55W7", "Ép đùn HDPE 2 lớp", "Neo hệ bắt đai ốc"],
         "applications": ["Cầu dây văng", "Cầu vòm ống thép", "Cầu treo dây võng"],
         "icon": "◇",
+        "image": {
+            "url": "/images/san-pham/cap-thanh-pham-cau-day-vang-fae72b7f.jpg",
+            "thumb": None,
+            "alt": "Cầu dây văng sử dụng cáp thành phẩm",
+            "width": 665,
+            "height": 374,
+        },
     },
     {
         "slug": "cap-epoxy-hdpe",
@@ -246,6 +253,13 @@ _PRODUCTS: list[dict] = [
         "specs": ["Bọc epoxy từng tao + HDPE cả bó", "Bó 3T, 7T, 15T, 18T, 19T, 22T-15.2"],
         "applications": ["Cầu đúc hẫng", "Cầu vòm dây treo", "Cầu extradosed"],
         "icon": "◆",
+        "image": {
+            "url": "/images/san-pham/cap-epoxy-hdpe-7ff16138.jpg",
+            "thumb": None,
+            "alt": "Cáp mạ kẽm ép đùn epoxy có vỏ bọc HDPE, cắt lớp",
+            "width": 729,
+            "height": 410,
+        },
     },
     {
         "slug": "cap-du-ung-luc",
@@ -258,6 +272,13 @@ _PRODUCTS: list[dict] = [
         ],
         "applications": ["Dầm cầu dự ứng lực", "Kết cấu bê tông dự ứng lực"],
         "icon": "≡",
+        "image": {
+            "url": "/images/san-pham/cap-du-ung-luc-9e6fc6b1.jpg",
+            "thumb": None,
+            "alt": "Bó cáp dự ứng lực PC Strand",
+            "width": 729,
+            "height": 410,
+        },
     },
     {
         "slug": "neo-du-ung-luc",
@@ -266,6 +287,13 @@ _PRODUCTS: list[dict] = [
         "specs": ["Bộ neo chủ động", "Bộ neo cố định (đầu ép chết)", "Neo dẹt", "Neo nối", "Neo công cụ"],
         "applications": ["Dầm cầu", "Hệ cáp DƯL ngoài", "Neo đất, neo mái dốc"],
         "icon": "◉",
+        "image": {
+            "url": "/images/san-pham/neo-du-ung-luc-0bde9c04.jpg",
+            "thumb": None,
+            "alt": "Đầu neo dự ứng lực và bó cáp",
+            "width": 729,
+            "height": 410,
+        },
     },
     {
         "slug": "goi-cau",
@@ -280,6 +308,13 @@ _PRODUCTS: list[dict] = [
         ],
         "applications": ["Cầu đường bộ, cao tốc", "Cầu đường sắt", "Cầu giàn thép, cầu quay"],
         "icon": "▣",
+        "image": {
+            "url": "/images/san-pham/goi-cau-30704738.jpg",
+            "thumb": None,
+            "alt": "Gối cầu lắp đặt trên đỉnh trụ",
+            "width": 729,
+            "height": 410,
+        },
     },
     {
         "slug": "khe-co-gian",
@@ -293,6 +328,13 @@ _PRODUCTS: list[dict] = [
         ],
         "applications": ["Cầu đường bộ", "Cầu đường sắt", "Đường sắt trên cao"],
         "icon": "▦",
+        "image": {
+            "url": "/images/san-pham/khe-co-gian-4c8e2c6c.jpg",
+            "thumb": None,
+            "alt": "Khe co giãn trên mặt cầu",
+            "width": 729,
+            "height": 410,
+        },
     },
     {
         "slug": "thiet-bi-cang-keo",
@@ -301,6 +343,13 @@ _PRODUCTS: list[dict] = [
         "specs": ["Máy bơm thủy lực (hệ thống bơm thông minh)", "Kích thủy lực", "Máy bơm vữa, máy trộn vữa"],
         "applications": ["Thi công căng kéo cáp DƯL", "Bơm vữa ống ghen"],
         "icon": "⚙",
+        "image": {
+            "url": "/images/san-pham/thiet-bi-cang-keo-784c2f27.jpg",
+            "thumb": None,
+            "alt": "Kích thủy lực căng kéo cáp dự ứng lực",
+            "width": 729,
+            "height": 410,
+        },
     },
     {
         "slug": "neo-dat-mai-doc",
@@ -309,6 +358,13 @@ _PRODUCTS: list[dict] = [
         "specs": ["Bó cáp giằng neo bờ kè", "Neo hệ bắt đai ốc"],
         "applications": ["Gia cố mái dốc", "Kè đê sông", "Công trình cảng biển"],
         "icon": "▲",
+        "image": {
+            "url": "/images/san-pham/neo-dat-mai-doc-3513f52f.jpg",
+            "thumb": None,
+            "alt": "Hệ neo đất gia cố ổn định mái dốc",
+            "width": 729,
+            "height": 410,
+        },
     },
     {
         "slug": "thiet-bi-duong-sat",
@@ -317,6 +373,13 @@ _PRODUCTS: list[dict] = [
         "specs": ["Máy hàn ray", "Máy chèn đường"],
         "applications": ["Thi công đường sắt", "Bảo trì tuyến"],
         "icon": "▬",
+        "image": {
+            "url": "/images/san-pham/thiet-bi-duong-sat-3ae98c61.jpg",
+            "thumb": None,
+            "alt": "Cầu đường sắt lắp đặt thiết bị chuyên dụng",
+            "width": 700,
+            "height": 394,
+        },
     },
     {
         "slug": "thiet-bi-duong-sat-cao-toc",
@@ -330,6 +393,13 @@ _PRODUCTS: list[dict] = [
         ],
         "applications": ["Đường sắt tốc độ cao", "Hầm đường sắt / tàu điện ngầm"],
         "icon": "◈",
+        "image": {
+            "url": "/images/san-pham/thiet-bi-duong-sat-cao-toc-fb4fdd6d.jpg",
+            "thumb": None,
+            "alt": "Máy đào hầm TBM và thiết bị thi công đường sắt cao tốc",
+            "width": 729,
+            "height": 410,
+        },
     },
 ]
 

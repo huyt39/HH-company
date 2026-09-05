@@ -1,3 +1,5 @@
+from typing import Any
+
 from beanie import Indexed
 from pydantic import Field
 
@@ -13,6 +15,7 @@ class Product(PublishableDocument):
     specs: list[str] = Field(default_factory=list)
     applications: list[str] = Field(default_factory=list)
     icon: str | None = None
+    image: dict[str, Any] | None = None
 
     class Settings:
         name = "products"

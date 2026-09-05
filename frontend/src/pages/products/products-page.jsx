@@ -6,6 +6,7 @@ import { StateBlock } from '@/components/ui/state-block'
 import { productsApi } from '@/lib/api/products-client'
 import { useDocumentMeta } from '@/lib/hooks/use-document-meta'
 import { useFetch } from '@/lib/hooks/use-fetch'
+import { thumbUrl } from '@/lib/utils/media'
 
 import './products-page.css'
 
@@ -49,15 +50,30 @@ export function ProductsPage() {
               <div className="product-list">
                 {data?.map((product, index) => (
                   <article className="product-row" id={product.slug} key={product.id}>
-                    <div className="product-row__head">
-                      <span className="product-row__icon" aria-hidden="true">{product.icon || '◆'}</span>
+                    <div className="product-row__intro">
                       <div>
-                        <span className="product-row__index">Nhóm {groupIndex(index)}</span>
-                        <h2>{product.name}</h2>
+                        <div className="product-row__head">
+                          <span className="product-row__icon" aria-hidden="true">{product.icon || '◆'}</span>
+                          <div>
+                            <span className="product-row__index">Nhóm {groupIndex(index)}</span>
+                            <h2>{product.name}</h2>
+                          </div>
+                        </div>
+                        <p className="text-muted mb-0">{product.description}</p>
                       </div>
-                    </div>
 
-                    <p className="text-muted">{product.description}</p>
+                      {thumbUrl(product.image) && (
+                        <img
+                          className="product-row__photo"
+                          src={thumbUrl(product.image)}
+                          alt={product.image.alt || product.name}
+                          width={product.image.width || undefined}
+                          height={product.image.height || undefined}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      )}
+                    </div>
 
                     <div className="product-row__detail">
                       {product.specs?.length > 0 && (
