@@ -5,16 +5,42 @@ import { SITE_NAVIGATION } from '@/lib/constants/site-navigation'
 
 import './site-header.css'
 
+/**
+ * Collapsing the topbar removes 36px from a header that sits in the document
+ * flow, so the page jumps. With a single threshold the two states chase each
+ * other: hiding the bar shortens the document, the browser clamps the scroll
+ * back under the threshold, the bar returns, and the header flickers. These two
+ * values leave a dead zone wide enough that neither momentum scrolling nor the
+ * clamp can cross back over.
+ */
+const COLLAPSE_TOPBAR_AT = 72
+const RESTORE_TOPBAR_AT = 8
+
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    onScroll()
+    let frame = 0
+
+    const read = () => {
+      frame = 0
+      const y = window.scrollY
+      setScrolled((wasScrolled) => (wasScrolled ? y > RESTORE_TOPBAR_AT : y > COLLAPSE_TOPBAR_AT))
+    }
+
+    // One read per frame: scroll fires far more often than the page can paint.
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(read)
+    }
+
+    read()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
   }, [])
 
   // Close the mobile menu on every navigation.

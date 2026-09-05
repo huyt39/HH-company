@@ -11,6 +11,11 @@
   background: var(--c-navy-900);
   color: #c7d6e7;
   font-size: 0.82rem;
+  /* Collapsed by height rather than `display: none`: the header is in the
+     document flow, so dropping it outright yanked the whole page up 36px. */
+  max-height: 36px;
+  overflow: hidden;
+  transition: max-height var(--transition);
 }
 .site-header__topbar-inner {
   display: flex;
@@ -28,7 +33,11 @@
 }
 .lang-switch:hover { color: #fff; }
 
-.site-header.is-scrolled .site-header__topbar { display: none; }
+.site-header.is-scrolled .site-header__topbar { max-height: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header__topbar { transition: none; }
+}
 
 .site-header__main {
   display: flex;
