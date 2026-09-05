@@ -29,24 +29,22 @@
   border-radius: var(--radius);
   scroll-margin-top: calc(var(--header-h) + 20px);
 }
-/* Title + description on the left, the illustration on the right; the specs
-   grid below still spans the full card so long lists stay readable. */
-.product-row__intro {
-  display: grid;
-  grid-template-columns: 1fr minmax(260px, 340px);
-  gap: 28px;
-  align-items: start;
-}
-.product-row__photo {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
+/* The supplier sheet runs the full width of the card: shrunk into a column it
+   showed one corner of one product, which is the whole point of the picture. */
+.product-row__sheet { display: block; margin-top: 18px; }
+.product-row__sheet img {
+  display: block;
+  width: 100%; height: auto;
   border-radius: var(--radius);
   border: 1px solid var(--c-border);
 }
-@media (max-width: 860px) {
-  .product-row__intro { grid-template-columns: 1fr; gap: 20px; }
+.product-row__sheet span {
+  display: block;
+  margin-top: 8px;
+  font-size: .82rem;
+  color: var(--c-text-muted);
 }
+.product-row__sheet:hover span { color: var(--c-navy-600); }
 
 .product-row__head { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 14px; }
 .product-row__icon {
