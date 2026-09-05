@@ -9,7 +9,9 @@ from typing import Any
 from src.models.base import BaseDocument
 from src.repositories import (
     BusinessFieldRepository,
-    FinancialYearRepository,
+    CertificateRepository,
+    DocumentRepository,
+    EquipmentRepository,
     JobPostingRepository,
     NewsRepository,
     PartnerRepository,
@@ -19,7 +21,9 @@ from src.repositories import (
 from src.types import (
     BusinessFieldResponse,
     Category,
-    FinancialYearResponse,
+    CertificateResponse,
+    DocumentResponse,
+    EquipmentResponse,
     JobResponse,
     NewsResponse,
     Page,
@@ -48,14 +52,20 @@ class ContentService:
         self.projects = ProjectRepository()
         self.news = NewsRepository()
         self.jobs = JobPostingRepository()
-        self.financials = FinancialYearRepository()
         self.partners = PartnerRepository()
+        self.certificates = CertificateRepository()
+        self.equipment = EquipmentRepository()
+        self.documents = DocumentRepository()
 
-    # ---- Business fields --------------------------------------------------- #
+    # ---- Construction services --------------------------------------------- #
 
     async def list_fields(self) -> list[BusinessFieldResponse]:
         rows = await self.fields.list_published()
         return [BusinessFieldResponse.model_validate(_as_dict(r)) for r in rows]
+
+    async def get_field(self, slug: str) -> BusinessFieldResponse | None:
+        row = await self.fields.get_published_by_slug(slug)
+        return BusinessFieldResponse.model_validate(_as_dict(row)) if row else None
 
     # ---- Products ---------------------------------------------------------- #
 
@@ -117,12 +127,25 @@ class ContentService:
         row = await self.jobs.get_published_by_slug(slug)
         return JobResponse.model_validate(_as_dict(row)) if row else None
 
-    # ---- Financials and partners ------------------------------------------- #
+    # ---- Partners ---------------------------------------------------------- #
 
-    async def list_financials(self) -> list[FinancialYearResponse]:
-        rows = await self.financials.find_many({"is_published": True})
-        return [FinancialYearResponse.model_validate(_as_dict(r)) for r in rows]
+    # Financial figures have no public reader on purpose: they stay in the admin
+    # for the capability profile handed over with a bid, not on the website.
 
     async def list_partners(self, role: str | None = None) -> list[PartnerResponse]:
         rows = await self.partners.list_published({"role": role} if role else None)
         return [PartnerResponse.model_validate(_as_dict(r)) for r in rows]
+
+    # ---- Contractor capability ---------------------------------------------- #
+
+    async def list_certificates(self, category: str | None = None) -> list[CertificateResponse]:
+        rows = await self.certificates.list_published({"category": category} if category else None)
+        return [CertificateResponse.model_validate(_as_dict(r)) for r in rows]
+
+    async def list_equipment(self) -> list[EquipmentResponse]:
+        rows = await self.equipment.list_published()
+        return [EquipmentResponse.model_validate(_as_dict(r)) for r in rows]
+
+    async def list_documents(self) -> list[DocumentResponse]:
+        rows = await self.documents.list_published()
+        return [DocumentResponse.model_validate(_as_dict(r)) for r in rows]

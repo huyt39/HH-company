@@ -1,7 +1,14 @@
 import { SectionHeading } from '@/components/ui/section-heading'
 import { useLang } from '@/lib/i18n/language-context'
 
-/** Four key commitments; static content, not from the API. */
+/**
+ * Four commitments; static content, not from the API.
+ *
+ * These answer what a main contractor asks of a specialist subcontractor —
+ * crew, plant, safety, handover paperwork. The material-origin and test
+ * certificates that used to sit here belong to the supply side and now live on
+ * the products page.
+ */
 export function StrengthsSection() {
   const { t } = useLang()
   const strengths = t('home.strengths')

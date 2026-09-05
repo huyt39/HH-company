@@ -5,7 +5,10 @@ API request/response types live in `src.types`.
 
 from src.models.base import BaseDocument, PublishableDocument, utcnow
 from src.models.business_field import BusinessField
+from src.models.certificate import Certificate
 from src.models.contact_message import ContactMessage
+from src.models.document import DocumentFile
+from src.models.equipment import Equipment
 from src.models.financial_year import FinancialYear
 from src.models.job_posting import JobPosting
 from src.models.news_item import NewsItem
@@ -26,6 +29,9 @@ DOCUMENT_MODELS = [
     JobPosting,
     FinancialYear,
     Partner,
+    Certificate,
+    Equipment,
+    DocumentFile,
     ContactMessage,
 ]
 
@@ -34,7 +40,10 @@ __all__ = [
     "PublishableDocument",
     "utcnow",
     "BusinessField",
+    "Certificate",
     "ContactMessage",
+    "DocumentFile",
+    "Equipment",
     "FinancialYear",
     "JobPosting",
     "NewsItem",

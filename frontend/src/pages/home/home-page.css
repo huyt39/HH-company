@@ -88,19 +88,6 @@
 /* 3:2 rather than 4:3 so the stack lands level with the tall photo beside it. */
 .about-intro__photo--wide { aspect-ratio: 3 / 2; }
 
-.check-list { margin-bottom: 28px; }
-.check-list li { position: relative; padding-left: 30px; margin-bottom: 12px; }
-.check-list li::before {
-  content: '✓';
-  position: absolute; left: 0; top: 0;
-  display: grid; place-items: center;
-  width: 20px; height: 20px; margin-top: 3px;
-  border-radius: 50%;
-  background: var(--c-blue-100);
-  color: var(--c-navy-600);
-  font-size: .72rem; font-weight: 700;
-}
-
 @media (max-width: 860px) {
   .about-intro { grid-template-columns: 1fr; }
   .about-intro__media { order: -1; }
@@ -177,3 +164,47 @@
 .cta p { color: #cfdcea; }
 
 .home-section__more { margin-top: 32px; }
+
+
+/* ---------- Services split (thi công mới / sửa chữa) ---------- */
+
+.service-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.service-group-card {
+  padding: 30px 28px;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-top: 3px solid var(--c-accent);
+  border-radius: var(--radius);
+}
+.service-group-card__title {
+  font-size: 1.06rem;
+  padding-bottom: 14px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--c-border);
+}
+.service-group-card__list { list-style: none; margin-bottom: 18px; }
+.service-group-card__list li { border-bottom: 1px dashed var(--c-border); }
+.service-group-card__list li:last-child { border-bottom: 0; }
+.service-group-card__list a {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 0;
+  color: var(--c-text);
+  font-size: .93rem;
+  transition: var(--transition);
+}
+.service-group-card__list a:hover { color: var(--c-accent); }
+.service-group-card__list span { color: var(--c-navy-600); }
+.service-group-card__more {
+  font-size: .82rem; font-weight: 700; letter-spacing: .04em;
+  color: var(--c-accent);
+}
+.service-group-card__more::after { content: ' →'; }
+
+.about-intro__actions { display: flex; flex-wrap: wrap; gap: 12px; }

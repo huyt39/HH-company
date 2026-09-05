@@ -51,6 +51,26 @@ export const COMPANY_PROFILE_REPEATERS = [
     ],
   },
   {
+    name: 'capability_stats',
+    label: 'Số liệu năng lực',
+    hint: 'Bốn con số hiện ở đầu trang chủ và trang Năng lực nhà thầu.',
+    columns: [
+      { name: 'value', label: 'Con số' },
+      { name: 'label', label: 'Nhãn (tiếng Việt)' },
+      { name: 'label_en', label: 'Nhãn (tiếng Anh)' },
+    ],
+  },
+  {
+    name: 'personnel',
+    label: 'Nhân sự thi công',
+    hint: 'Hiện ở trang Năng lực nhà thầu. Bỏ trống số lượng thì web hiện "Đang cập nhật".',
+    columns: [
+      { name: 'title', label: 'Vị trí' },
+      { name: 'count', label: 'Số lượng' },
+      { name: 'note', label: 'Ghi chú' },
+    ],
+  },
+  {
     name: 'milestones',
     label: 'Lịch sử phát triển',
     columns: [

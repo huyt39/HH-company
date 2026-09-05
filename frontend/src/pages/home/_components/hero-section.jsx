@@ -5,6 +5,10 @@ import { useLang } from '@/lib/i18n/language-context'
 /**
  * Home hero with the highlight stats strip.
  *
+ * The primary action goes to the project record, not the catalogue: a main
+ * contractor deciding whether to invite Hoa Hoang to a bridge job wants to see
+ * what has been built, then the capability behind it.
+ *
  * @param {{stats: {value: string, label: string}[]}} props
  */
 export function HeroSection({ stats }) {
@@ -24,8 +28,8 @@ export function HeroSection({ stats }) {
         </h1>
         <p className="hero__desc">{t('home.heroDesc')}</p>
         <div className="hero__actions">
-          <Link to="/san-pham" className="btn btn--primary">{t('home.heroCtaProducts')}</Link>
-          <Link to="/du-an" className="btn btn--ghost-light">{t('home.heroCtaProjects')}</Link>
+          <Link to="/du-an" className="btn btn--primary">{t('home.heroCtaProjects')}</Link>
+          <Link to="/nang-luc" className="btn btn--ghost-light">{t('home.heroCtaCapability')}</Link>
         </div>
       </div>
 

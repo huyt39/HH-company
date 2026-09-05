@@ -100,7 +100,27 @@ export function ProductsPage() {
         </div>
       </section>
 
+      {/* Material paperwork moved here from the home page: it is the reason to
+          trust the supply side, not the contracting side. */}
       <section className="section section--soft">
+        <div className="container">
+          <SectionHeading
+            eyebrow={t('products.assuranceEyebrow')}
+            title={t('products.assuranceTitle')}
+            description={t('products.assuranceDesc')}
+          />
+          <div className="grid grid--2">
+            {t('products.assuranceItems').map((item) => (
+              <div className="pillar" key={item.title}>
+                <h3>{item.title}</h3>
+                <p className="text-muted mb-0">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
         <div className="container text-center">
           <SectionHeading
             eyebrow={t('products.supportEyebrow')}

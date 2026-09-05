@@ -1,0 +1,169 @@
+/* ---------- Headline figures ---------- */
+
+.capability-stats-section { padding-bottom: 0; }
+
+.capability-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.capability-stat {
+  padding: 24px 20px;
+  border: 1px solid var(--c-border);
+  border-top: 3px solid var(--c-accent);
+  border-radius: var(--radius);
+  background: #fff;
+}
+.capability-stat strong {
+  display: block;
+  font-size: 1.9rem;
+  line-height: 1.1;
+  color: var(--c-navy-900);
+}
+.capability-stat span {
+  display: block;
+  margin-top: 6px;
+  font-size: .86rem;
+  color: var(--c-text-muted);
+}
+
+/* ---------- Certificates ---------- */
+
+.capability-subgroup + .capability-subgroup { margin-top: 36px; }
+.capability-subgroup__title {
+  font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--c-accent);
+  margin-bottom: 16px;
+}
+
+.certificate-card {
+  padding: 24px;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+}
+.certificate-card h4 { font-size: 1rem; margin-bottom: 16px; }
+.certificate-card dl { margin-bottom: 12px; }
+.certificate-card dl > div {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--c-border);
+  font-size: .88rem;
+}
+.certificate-card dt { color: var(--c-text-muted); }
+.certificate-card dd { font-weight: 600; }
+.certificate-card .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.certificate-card p { font-size: .86rem; }
+
+/* ---------- Tables (personnel, equipment) ---------- */
+
+.capability-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .capability-columns { grid-template-columns: 1fr; }
+}
+
+.capability-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  font-size: .92rem;
+}
+.capability-table th {
+  text-align: left;
+  padding: 14px 18px;
+  background: var(--c-navy-900);
+  color: #fff;
+  font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+}
+.capability-table td {
+  padding: 14px 18px;
+  border-top: 1px solid var(--c-border);
+  vertical-align: top;
+}
+.capability-table__note {
+  display: block;
+  margin-top: 4px;
+  font-size: .82rem;
+  color: var(--c-text-muted);
+}
+
+.capability-aside {
+  padding: 24px;
+  background: var(--c-bg-soft);
+  border-radius: var(--radius);
+}
+.capability-aside h3 { font-size: 1rem; margin-bottom: 10px; }
+.capability-aside p { font-size: .88rem; margin-bottom: 18px; }
+
+/* ---------- Quality process ---------- */
+
+.capability-steps { list-style: none; }
+.capability-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 18px 0;
+  border-bottom: 1px dashed var(--c-border);
+}
+.capability-steps li:last-child { border-bottom: 0; }
+.capability-steps h3 { font-size: 1rem; margin-bottom: 6px; }
+.capability-steps p { font-size: .9rem; }
+.capability-steps__index {
+  flex-shrink: 0;
+  display: grid; place-items: center;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--c-blue-100);
+  color: var(--c-navy-700);
+  font-size: .78rem; font-weight: 700;
+}
+
+/* ---------- Downloads ---------- */
+
+.document-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 22px;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  color: inherit;
+  transition: var(--transition);
+}
+.document-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.document-card__icon {
+  flex-shrink: 0;
+  display: grid; place-items: center;
+  width: 42px; height: 42px;
+  border-radius: var(--radius);
+  background: var(--c-accent);
+  color: #fff;
+}
+.document-card h3 { font-size: .98rem; margin-bottom: 6px; }
+.document-card p { font-size: .86rem; margin-bottom: 6px; }
+.document-card__meta { font-size: .8rem; color: var(--c-text-muted); }
+
+.capability-request {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 28px;
+  background: var(--c-bg-soft);
+  border-left: 3px solid var(--c-accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.capability-request p { margin-bottom: 0; max-width: 62ch; }

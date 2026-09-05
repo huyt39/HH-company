@@ -1,4 +1,8 @@
-"""Company profile, contact info, financials and partners — public."""
+"""Company profile, contact info and partners — public.
+
+Financial figures are intentionally absent: they are kept in the admin for the
+capability profile submitted with a bid, not published on the website.
+"""
 
 from fastapi import APIRouter, Query
 
@@ -7,7 +11,6 @@ from src.types import (
     BaseApiResponse,
     CompanyProfile,
     ContactInfo,
-    FinancialYearResponse,
     PartnerResponse,
 )
 
@@ -24,12 +27,6 @@ async def get_profile():
 async def get_contact_info():
     """Address, phone and contact email."""
     return BaseApiResponse(detail="Thông tin liên hệ", data=await CompanyService().get_contact_info())
-
-
-@router.get("/financials", response_model=BaseApiResponse[list[FinancialYearResponse]])
-async def list_financials():
-    """Published financial figures by year."""
-    return BaseApiResponse(detail="Số liệu tài chính", data=await ContentService().list_financials())
 
 
 @router.get("/partners", response_model=BaseApiResponse[list[PartnerResponse]])

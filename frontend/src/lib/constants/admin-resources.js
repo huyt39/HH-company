@@ -1,4 +1,5 @@
 import { PROJECT_STATUS_OPTIONS } from './project-status'
+import { PROJECT_ROLE_OPTIONS, SERVICE_CATEGORY_OPTIONS } from './services'
 
 /**
  * Config for the admin CRUD pages: each resource declares its table columns and
@@ -14,6 +15,27 @@ const PUBLISH_FIELDS = [
   { name: 'is_published', label: 'Hiển thị trên web', type: 'switch', default: true },
 ]
 
+const CERTIFICATE_CATEGORY_OPTIONS = [
+  { value: 'legal', label: 'Pháp lý & năng lực hoạt động' },
+  { value: 'iso', label: 'Hệ thống quản lý (ISO)' },
+  { value: 'product', label: 'Chứng chỉ sản phẩm' },
+  { value: 'acceptance', label: 'Thư chấp thuận của chủ đầu tư / TVGS' },
+]
+
+const EQUIPMENT_CATEGORY_OPTIONS = [
+  { value: 'cang-keo', label: 'Căng kéo dự ứng lực' },
+  { value: 'nang-ha', label: 'Nâng hạ & giàn thao tác' },
+  { value: 'do-kiem', label: 'Đo đạc & kiểm định' },
+  { value: 'khac', label: 'Khác' },
+]
+
+const DOCUMENT_CATEGORY_OPTIONS = [
+  { value: 'profile', label: 'Hồ sơ năng lực' },
+  { value: 'catalogue', label: 'Catalogue sản phẩm' },
+  { value: 'method', label: 'Biện pháp thi công mẫu' },
+  { value: 'certificate', label: 'Chứng chỉ' },
+]
+
 const PARTNER_ROLE_OPTIONS = [
   { value: 'customer', label: 'Khách hàng' },
   { value: 'manufacturer', label: 'Nhà sản xuất' },
@@ -21,18 +43,43 @@ const PARTNER_ROLE_OPTIONS = [
 
 export const ADMIN_RESOURCES = {
   fields: {
-    label: 'Lĩnh vực hoạt động',
-    singular: 'lĩnh vực',
+    label: 'Dịch vụ thi công',
+    singular: 'dịch vụ',
     searchable: true,
     columns: [
-      { name: 'name', label: 'Tên lĩnh vực', primary: true },
+      { name: 'name', label: 'Tên dịch vụ', primary: true },
+      { name: 'category', label: 'Nhóm', options: SERVICE_CATEGORY_OPTIONS, width: 170 },
       { name: 'slug', label: 'Slug', mono: true },
       { name: 'icon', label: 'Icon', width: 60 },
     ],
     form: [
-      { name: 'name', label: 'Tên lĩnh vực', type: 'text', required: true, slugSource: true },
+      { name: 'name', label: 'Tên dịch vụ', type: 'text', required: true, slugSource: true },
       { name: 'slug', label: 'Slug', type: 'text', required: true, mono: true },
-      { name: 'description', label: 'Mô tả', type: 'textarea', rows: 4 },
+      {
+        name: 'category',
+        label: 'Nhóm dịch vụ',
+        type: 'select',
+        options: SERVICE_CATEGORY_OPTIONS,
+        hint: 'Quyết định dịch vụ nằm ở khối nào trên trang Dịch vụ thi công',
+      },
+      { name: 'summary', label: 'Mô tả ngắn (hiện ở thẻ dịch vụ)', type: 'textarea', rows: 2 },
+      { name: 'description', label: 'Mô tả đầy đủ', type: 'textarea', rows: 5 },
+      {
+        name: 'process_steps',
+        label: 'Quy trình thi công',
+        type: 'list',
+        rows: 8,
+        hint: 'Mỗi dòng là một bước, hiện theo thứ tự đánh số',
+      },
+      { name: 'standards', label: 'Tiêu chuẩn áp dụng', type: 'list', rows: 4 },
+      { name: 'deliverables', label: 'Hồ sơ bàn giao', type: 'list', rows: 6 },
+      {
+        name: 'work_type',
+        label: 'Mã loại công việc',
+        type: 'text',
+        mono: true,
+        hint: 'Khớp với "Loại công việc" ở Dự án để trang dịch vụ tự lấy dự án liên quan. Thường trùng slug.',
+      },
       { name: 'icon', label: 'Ký tự icon', type: 'text', hint: 'Ví dụ: ◆ ◇ ▣ ⚙' },
       { name: 'cover', label: 'Ảnh minh hoạ', type: 'image' },
       ...PUBLISH_FIELDS,
@@ -74,6 +121,7 @@ export const ADMIN_RESOURCES = {
       { name: 'cover', label: '', type: 'thumb', width: 64 },
       { name: 'name', label: 'Tên dự án', primary: true },
       { name: 'year', label: 'Năm', width: 70 },
+      { name: 'role', label: 'Vai trò', options: PROJECT_ROLE_OPTIONS, width: 110 },
       { name: 'location', label: 'Địa điểm' },
       { name: 'status', label: 'Trạng thái', options: PROJECT_STATUS_OPTIONS, width: 130 },
     ],
@@ -82,9 +130,24 @@ export const ADMIN_RESOURCES = {
       { name: 'slug', label: 'Slug', type: 'text', required: true, mono: true },
       { name: 'year', label: 'Năm thực hiện', type: 'number' },
       { name: 'status', label: 'Trạng thái', type: 'select', options: PROJECT_STATUS_OPTIONS },
+      {
+        name: 'role',
+        label: 'Vai trò của Hòa Hoàng',
+        type: 'select',
+        options: PROJECT_ROLE_OPTIONS,
+        hint: 'Chọn "Thi công" khi công ty trực tiếp lắp đặt / căng kéo, "Cung cấp" khi chỉ bán vật tư',
+      },
+      {
+        name: 'work_types',
+        label: 'Loại công việc',
+        type: 'list',
+        rows: 3,
+        hint: 'Mỗi dòng là mã của một dịch vụ (xem "Mã loại công việc" ở mục Dịch vụ thi công)',
+      },
+      { name: 'structure_type', label: 'Loại kết cấu', type: 'text', hint: 'Ví dụ: Cầu dây văng, Cầu vòm, Cầu cạn' },
       { name: 'location', label: 'Địa điểm', type: 'text' },
       { name: 'investor', label: 'Khách hàng / nhà thầu', type: 'textarea', rows: 2 },
-      { name: 'scale', label: 'Phạm vi cung cấp', type: 'textarea', rows: 4 },
+      { name: 'scale', label: 'Phạm vi công việc', type: 'textarea', rows: 4 },
       { name: 'summary', label: 'Tóm tắt (hiện ở thẻ dự án)', type: 'textarea', rows: 3 },
       { name: 'content', label: 'Nội dung chi tiết (HTML)', type: 'html', rows: 8 },
       {
@@ -146,9 +209,12 @@ export const ADMIN_RESOURCES = {
     ],
   },
 
+  // Not published anywhere on the public site — kept so the capability profile
+  // handed over with a bid can be produced from one place.
   financials: {
     label: 'Số liệu tài chính',
     singular: 'năm tài chính',
+    note: 'Số liệu này KHÔNG hiển thị trên website. Chỉ dùng để lập hồ sơ năng lực khi dự thầu.',
     pk: 'year',
     sortable: false,
     columns: [
@@ -164,7 +230,82 @@ export const ADMIN_RESOURCES = {
       { name: 'profit_after_tax', label: 'Lợi nhuận sau thuế (VNĐ)', type: 'number' },
       { name: 'total_assets', label: 'Tổng tài sản (VNĐ)', type: 'number' },
       { name: 'equity', label: 'Vốn chủ sở hữu (VNĐ)', type: 'number' },
-      { name: 'is_published', label: 'Hiển thị trên web', type: 'switch', default: true },
+    ],
+  },
+
+  certificates: {
+    label: 'Chứng chỉ & hồ sơ pháp lý',
+    singular: 'chứng chỉ',
+    searchable: true,
+    columns: [
+      { name: 'name', label: 'Tên chứng chỉ', primary: true },
+      { name: 'category', label: 'Nhóm', options: CERTIFICATE_CATEGORY_OPTIONS, width: 190 },
+      { name: 'code', label: 'Số hiệu', mono: true, width: 160 },
+      { name: 'issued', label: 'Ngày cấp' },
+    ],
+    form: [
+      { name: 'name', label: 'Tên chứng chỉ', type: 'text', required: true },
+      {
+        name: 'category',
+        label: 'Nhóm',
+        type: 'select',
+        options: CERTIFICATE_CATEGORY_OPTIONS,
+        hint: 'Quyết định khối hiển thị trên trang Năng lực nhà thầu',
+      },
+      { name: 'issuer', label: 'Đơn vị cấp', type: 'text' },
+      { name: 'code', label: 'Số hiệu', type: 'text', mono: true },
+      { name: 'issued', label: 'Ngày cấp / hiệu lực', type: 'text', hint: 'Ví dụ: 16/12/2025, hoặc "Còn hiệu lực đến 2027"' },
+      { name: 'note', label: 'Ghi chú', type: 'textarea', rows: 3 },
+      { name: 'image', label: 'Ảnh chụp chứng chỉ', type: 'image' },
+      ...PUBLISH_FIELDS,
+    ],
+  },
+
+  equipment: {
+    label: 'Thiết bị thi công',
+    singular: 'thiết bị',
+    searchable: true,
+    columns: [
+      { name: 'name', label: 'Tên thiết bị', primary: true },
+      { name: 'category', label: 'Nhóm', options: EQUIPMENT_CATEGORY_OPTIONS, width: 160 },
+      { name: 'quantity', label: 'SL', width: 60 },
+    ],
+    form: [
+      { name: 'name', label: 'Tên thiết bị', type: 'text', required: true },
+      { name: 'category', label: 'Nhóm thiết bị', type: 'select', options: EQUIPMENT_CATEGORY_OPTIONS },
+      { name: 'spec', label: 'Thông số / công suất', type: 'textarea', rows: 2 },
+      { name: 'quantity', label: 'Số lượng', type: 'number', hint: 'Để trống thì trang web hiện "Đang cập nhật"' },
+      { name: 'unit', label: 'Đơn vị', type: 'text', hint: 'Bộ, chiếc, máy…' },
+      { name: 'note', label: 'Ghi chú', type: 'textarea', rows: 2 },
+      { name: 'image', label: 'Ảnh thiết bị', type: 'image' },
+      ...PUBLISH_FIELDS,
+    ],
+  },
+
+  documents: {
+    label: 'Tài liệu tải về',
+    singular: 'tài liệu',
+    searchable: true,
+    columns: [
+      { name: 'title', label: 'Tên tài liệu', primary: true },
+      { name: 'category', label: 'Nhóm', options: DOCUMENT_CATEGORY_OPTIONS, width: 170 },
+      { name: 'language', label: 'Ngôn ngữ', width: 100 },
+    ],
+    form: [
+      { name: 'title', label: 'Tên tài liệu', type: 'text', required: true },
+      { name: 'category', label: 'Nhóm tài liệu', type: 'select', options: DOCUMENT_CATEGORY_OPTIONS },
+      { name: 'description', label: 'Mô tả ngắn', type: 'textarea', rows: 2 },
+      {
+        name: 'file_url',
+        label: 'Đường dẫn file',
+        type: 'text',
+        mono: true,
+        hint: 'Dán link file PDF đã tải lên, hoặc link Google Drive chia sẻ công khai',
+      },
+      { name: 'language', label: 'Ngôn ngữ', type: 'text', hint: 'VI, EN hoặc VI–EN' },
+      { name: 'size_label', label: 'Dung lượng', type: 'text', hint: 'Ví dụ: PDF · 12 MB' },
+      { name: 'cover', label: 'Ảnh bìa', type: 'image' },
+      ...PUBLISH_FIELDS,
     ],
   },
 

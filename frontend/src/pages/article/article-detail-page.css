@@ -27,6 +27,10 @@
 .article__back { margin-top: 40px; }
 
 .article__facts--wide { grid-column: 1 / -1; }
+.article__facts--span2 { grid-column: span 2; }
+@media (max-width: 640px) {
+  .article__facts--span2 { grid-column: auto; }
+}
 .article__facts--wide dd { font-weight: 500; line-height: 1.6; white-space: normal; }
 
 /* ---------- Project context (public sources) ---------- */
@@ -310,3 +314,22 @@
   .lightbox__track.is-animating { transition: none; }
   .lightbox__slide img { transition: none; animation: none; }
 }
+
+
+/* Service tags under the project fact sheet — each links to its service page. */
+.article__work-types {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.article__work-types-label {
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+  margin-right: 4px;
+}
+.article__work-types .chip { text-decoration: none; }

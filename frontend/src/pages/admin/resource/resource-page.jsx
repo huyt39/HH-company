@@ -148,6 +148,7 @@ export function ResourcePage() {
         </button>
       </AdminPageHead>
 
+      {config.note && <AdminAlert tone="info">{config.note}</AdminAlert>}
       {notice && <AdminAlert tone="ok">{notice}</AdminAlert>}
       <AdminAlert tone="error">{error}</AdminAlert>
 

@@ -12,15 +12,17 @@ import { LoginPage } from '@/pages/admin/login/login-page'
 import { MessagesPage } from '@/pages/admin/messages/messages-page'
 import { ResourcePage } from '@/pages/admin/resource/resource-page'
 import { ArticleDetailPage } from '@/pages/article/article-detail-page'
+import { CapabilityPage } from '@/pages/capability/capability-page'
 import { CareersPage } from '@/pages/careers/careers-page'
 import { JobDetailPage } from '@/pages/careers/job-detail-page'
 import { ContactPage } from '@/pages/contact/contact-page'
-import { FieldsPage } from '@/pages/fields/fields-page'
 import { HomePage } from '@/pages/home/home-page'
 import { NewsPage } from '@/pages/news/news-page'
 import { NotFoundPage } from '@/pages/not-found/not-found-page'
 import { ProductsPage } from '@/pages/products/products-page'
 import { ProjectsPage } from '@/pages/projects/projects-page'
+import { ServiceDetailPage } from '@/pages/services/service-detail-page'
+import { ServicesPage } from '@/pages/services/services-page'
 
 /** Split out so only the admin area is wrapped in AuthProvider. */
 function AdminRoutes() {
@@ -50,7 +52,11 @@ export function App() {
       <Route element={<SiteLayout />}>
         <Route index element={<HomePage />} />
         <Route path="gioi-thieu" element={<AboutPage />} />
-        <Route path="linh-vuc" element={<FieldsPage />} />
+        <Route path="dich-vu" element={<ServicesPage />} />
+        <Route path="dich-vu/:slug" element={<ServiceDetailPage />} />
+        <Route path="nang-luc" element={<CapabilityPage />} />
+        {/* The services page replaced "Lĩnh vực hoạt động"; keep old links alive. */}
+        <Route path="linh-vuc" element={<Navigate to="/dich-vu" replace />} />
         <Route path="san-pham" element={<ProductsPage />} />
         <Route path="du-an" element={<ProjectsPage />} />
         <Route path="du-an/:slug" element={<ArticleDetailPage type="project" />} />

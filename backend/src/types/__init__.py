@@ -11,6 +11,20 @@ from src.types.business_field import (
     BusinessFieldResponse,
     BusinessFieldUpdate,
 )
+from src.types.capability import (
+    CertificateAdminResponse,
+    CertificateCreate,
+    CertificateResponse,
+    CertificateUpdate,
+    DocumentAdminResponse,
+    DocumentCreate,
+    DocumentResponse,
+    DocumentUpdate,
+    EquipmentAdminResponse,
+    EquipmentCreate,
+    EquipmentResponse,
+    EquipmentUpdate,
+)
 from src.types.career import JobAdminResponse, JobCreate, JobResponse, JobUpdate
 from src.types.common import (
     AuditedResponse,
@@ -24,11 +38,13 @@ from src.types.common import (
     make_optional,
 )
 from src.types.company import (
+    CapabilityStat,
     CompanyMilestone,
     CompanyProfile,
     ContactInfo,
     Leader,
     OrgUnit,
+    PersonnelGroup,
 )
 from src.types.contact import (
     ContactMessagePatch,
@@ -90,6 +106,8 @@ __all__ = [
     "Leader",
     "OrgUnit",
     "CompanyMilestone",
+    "PersonnelGroup",
+    "CapabilityStat",
     # business field
     "BusinessFieldResponse",
     "BusinessFieldAdminResponse",
@@ -121,6 +139,19 @@ __all__ = [
     "FinancialAdminResponse",
     "FinancialCreate",
     "FinancialUpdate",
+    # capability
+    "CertificateResponse",
+    "CertificateAdminResponse",
+    "CertificateCreate",
+    "CertificateUpdate",
+    "EquipmentResponse",
+    "EquipmentAdminResponse",
+    "EquipmentCreate",
+    "EquipmentUpdate",
+    "DocumentResponse",
+    "DocumentAdminResponse",
+    "DocumentCreate",
+    "DocumentUpdate",
     # partner
     "PartnerResponse",
     "PartnerAdminResponse",

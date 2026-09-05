@@ -1,7 +1,7 @@
 """Builds a CRUD router for one content collection.
 
-The seven admin resources (fields, products, projects, news, careers,
-financials, partners) share the same lifecycle — list, create, read, update,
+Every admin resource (services, products, projects, news, careers,
+financials, certificates, equipment, documents, partners) shares the same lifecycle — list, create, read, update,
 delete, reorder — so it is described once and configured per resource.
 """
 

@@ -5,6 +5,7 @@ import { PageBanner } from '@/components/ui/page-banner'
 import { StateBlock } from '@/components/ui/state-block'
 import { projectsApi } from '@/lib/api/projects-client'
 import { PROJECT_STATUS_TONE } from '@/lib/constants/project-status'
+import { PROJECT_ROLE_TONE, PROJECT_WORK_TYPE_FILTERS } from '@/lib/constants/services'
 import { useDocumentMeta } from '@/lib/hooks/use-document-meta'
 import { useFetch } from '@/lib/hooks/use-fetch'
 import { useLang } from '@/lib/i18n/language-context'
@@ -16,6 +17,9 @@ const PAGE_SIZE = 100
 
 // Matches PROJECT_STATUS_FILTERS' values; labels are translated at render time.
 const STATUS_FILTER_VALUES = ['', 'in_progress', 'completed']
+
+// Role tells a main contractor whether Hoa Hoang built the job or supplied it.
+const ROLE_FILTER_VALUES = ['', 'construction', 'supply']
 
 /** Strip Vietnamese diacritics and lowercase, so search ignores accents. */
 function normalize(text) {
@@ -42,6 +46,8 @@ export function ProjectsPage() {
   useDocumentMeta({ title: t('projects.metaTitle'), description: t('projects.metaDesc') })
 
   const [status, setStatus] = useState('')
+  const [role, setRole] = useState('')
+  const [workType, setWorkType] = useState('')
   const [query, setQuery] = useState('')
   const { data, loading, error } = useFetch(
     (options) => projectsApi.getProjects({ page: 1, page_size: PAGE_SIZE, status }, options),
@@ -49,17 +55,24 @@ export function ProjectsPage() {
   )
 
   const filteredProjects = useMemo(() => {
-    const items = data?.items ?? []
     const term = normalize(query.trim())
-    if (!term) return items
-    return items.filter((project) =>
-      [project.name, project.location, project.summary].some((field) =>
-        normalize(field).includes(term),
-      ),
-    )
-  }, [data, query])
+    return (data?.items ?? []).filter((project) => {
+      if (role && project.role !== role) return false
+      if (workType && !project.work_types?.includes(workType)) return false
+      if (!term) return true
+      return [project.name, project.location, project.summary, project.structure_type].some(
+        (field) => normalize(field).includes(term),
+      )
+    })
+  }, [data, query, role, workType])
 
   const yearGroups = useMemo(() => groupByYear(filteredProjects), [filteredProjects])
+
+  // Only offer work-type chips that actually match something in the list.
+  const availableWorkTypes = useMemo(() => {
+    const present = new Set((data?.items ?? []).flatMap((project) => project.work_types ?? []))
+    return PROJECT_WORK_TYPE_FILTERS.filter((value) => present.has(value))
+  }, [data])
 
   return (
     <>
@@ -98,11 +111,57 @@ export function ProjectsPage() {
             )}
           </div>
 
+          <div className="filter-row">
+            <div className="filter-row__group" role="group" aria-label={t('projects.roleFilterAriaLabel')}>
+              <span className="filter-row__label">{t('projects.roleFilterLabel')}</span>
+              {ROLE_FILTER_VALUES.map((value) => (
+                <button
+                  key={value || 'all'}
+                  type="button"
+                  aria-pressed={role === value}
+                  className={`chip ${role === value ? 'is-active' : ''}`}
+                  onClick={() => setRole(value)}
+                >
+                  {t(`projectRole.${value || 'all'}`)}
+                </button>
+              ))}
+            </div>
+
+            {availableWorkTypes.length > 0 && (
+              <div
+                className="filter-row__group"
+                role="group"
+                aria-label={t('projects.workTypeFilterAriaLabel')}
+              >
+                <span className="filter-row__label">{t('projects.workTypeFilterLabel')}</span>
+                <button
+                  type="button"
+                  aria-pressed={workType === ''}
+                  className={`chip ${workType === '' ? 'is-active' : ''}`}
+                  onClick={() => setWorkType('')}
+                >
+                  {t('projectStatus.all')}
+                </button>
+                {availableWorkTypes.map((value) => (
+                  <button
+                    key={value}
+                    type="button"
+                    aria-pressed={workType === value}
+                    className={`chip ${workType === value ? 'is-active' : ''}`}
+                    onClick={() => setWorkType(value)}
+                  >
+                    {t('workTypes')[value] ?? value}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           <StateBlock
             loading={loading}
             error={error}
             isEmpty={!filteredProjects.length}
-            emptyTitle={query.trim() ? t('projects.emptyNoMatch') : t('projects.emptyNone')}
+            emptyTitle={query.trim() || role || workType ? t('projects.emptyNoMatch') : t('projects.emptyNone')}
           >
             <div className="year-groups">
               {yearGroups.map(([year, projects]) => (
@@ -117,10 +176,14 @@ export function ProjectsPage() {
                         key={project.id}
                         to={`/du-an/${project.slug}`}
                         media={project.cover}
-                        tag={t(`projectStatus.${project.status}`)}
-                        tagTone={PROJECT_STATUS_TONE[project.status]}
+                        tag={project.role ? t(`projectRole.${project.role}`) : t(`projectStatus.${project.status}`)}
+                        tagTone={
+                          project.role
+                            ? PROJECT_ROLE_TONE[project.role]
+                            : PROJECT_STATUS_TONE[project.status]
+                        }
                         title={project.name}
-                        meta={project.location}
+                        meta={[project.structure_type, project.location].filter(Boolean).join(' · ')}
                         excerpt={project.summary}
                       />
                     ))}

@@ -85,6 +85,20 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 /* ---------- Column content cards (About / Culture / Investors) ---------- */
+/* Ticked list, used by the home intro, the services pages and capability. */
+.check-list { margin-bottom: 28px; }
+.check-list li { position: relative; padding-left: 30px; margin-bottom: 12px; }
+.check-list li::before {
+  content: '✓';
+  position: absolute; left: 0; top: 0;
+  display: grid; place-items: center;
+  width: 20px; height: 20px; margin-top: 3px;
+  border-radius: 50%;
+  background: var(--c-blue-100);
+  color: var(--c-navy-600);
+  font-size: .72rem; font-weight: 700;
+}
+
 .pillar {
   padding: 30px 26px;
   background: #fff;

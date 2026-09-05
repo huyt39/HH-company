@@ -2,6 +2,9 @@
 
 from src.models import (
     BusinessField,
+    Certificate,
+    DocumentFile,
+    Equipment,
     FinancialYear,
     JobPosting,
     NewsItem,
@@ -51,3 +54,21 @@ class PartnerRepository(PublishableRepository[Partner]):
     model = Partner
     default_sort = (("sort_order", 1), ("_id", 1))
     searchable = ("name", "country")
+
+
+class CertificateRepository(PublishableRepository[Certificate]):
+    model = Certificate
+    default_sort = (("sort_order", 1), ("_id", 1))
+    searchable = ("name", "issuer", "code")
+
+
+class EquipmentRepository(PublishableRepository[Equipment]):
+    model = Equipment
+    default_sort = (("sort_order", 1), ("_id", 1))
+    searchable = ("name", "spec")
+
+
+class DocumentRepository(PublishableRepository[DocumentFile]):
+    model = DocumentFile
+    default_sort = (("sort_order", 1), ("_id", 1))
+    searchable = ("title", "description")

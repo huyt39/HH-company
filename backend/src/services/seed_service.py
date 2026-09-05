@@ -11,6 +11,9 @@ To recreate the admin account after seeding:
 from src.configs import SETTING_KEY, security_config
 from src.repositories import (
     BusinessFieldRepository,
+    CertificateRepository,
+    DocumentRepository,
+    EquipmentRepository,
     FinancialYearRepository,
     PartnerRepository,
     ProductRepository,
@@ -34,6 +37,9 @@ class SeedService:
         self.projects = ProjectRepository()
         self.financials = FinancialYearRepository()
         self.partners = PartnerRepository()
+        self.certificates = CertificateRepository()
+        self.equipment = EquipmentRepository()
+        self.documents = DocumentRepository()
 
     async def run(self) -> None:
         """Seed the database unless it has been seeded before."""
@@ -96,6 +102,9 @@ class SeedService:
         await self._insert_ordered(self.products, seed_data.PRODUCTS)
         await self._insert_ordered(self.projects, seed_data.PROJECTS)
         await self._insert_ordered(self.partners, seed_data.PARTNERS)
+        await self._insert_ordered(self.certificates, seed_data.CERTIFICATES)
+        await self._insert_ordered(self.equipment, seed_data.EQUIPMENT)
+        await self._insert_ordered(self.documents, seed_data.DOCUMENTS)
 
         if not await self.financials.find_one():
             for item in seed_data.FINANCIALS:

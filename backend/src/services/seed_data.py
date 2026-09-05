@@ -13,14 +13,19 @@ no id yet — MongoDB assigns it on insert.
 
 from src.types import (
     BusinessFieldCreate,
+    CapabilityStat,
+    CertificateCreate,
     CompanyMilestone,
     CompanyProfile,
     ContactInfo,
+    DocumentCreate,
+    EquipmentCreate,
     FinancialCreate,
     Leader,
     Media,
     OrgUnit,
     PartnerCreate,
+    PersonnelGroup,
     ProductCreate,
     ProjectCreate,
 )
@@ -33,7 +38,7 @@ COMPANY_PROFILE = CompanyProfile(
     name="Công ty TNHH Đầu tư Xây dựng và Dịch vụ Thương mại Hòa Hoàng",
     name_en="Hoa Hoang Construction Investment and Trade Service Company Limited",
     short_name="HOA HOANG INTRA CO., LTD",
-    tagline="HOÀ HOÀNG — Công nghệ vươn tầm, hợp tác thành công",
+    tagline="HOÀ HOÀNG — Nhà thầu chuyên ngành kết cấu cầu",
     tax_code="0106346833",
     established="Tháng 10 năm 2013",
     charter_capital="6.000.000.000 VNĐ (Sáu tỷ đồng)",
@@ -43,35 +48,51 @@ COMPANY_PROFILE = CompanyProfile(
     business_lines_count=41,
     intro=[
         "Công ty TNHH Đầu tư xây dựng và dịch vụ thương mại Hòa Hoàng (Hoa Hoang Intra "
-        "Co., Ltd) là đơn vị chuyên cung cấp và thi công lắp đặt hệ cáp neo dự ứng lực "
-        "ngoài, neo dự ứng lực trong, hệ cáp cho cầu dây võng, dây văng và cầu vòm, gối "
-        "cầu các loại, khe co giãn các loại cùng những thiết bị liên quan cho các dự án "
-        "hạ tầng giao thông tại Việt Nam từ năm 2014 (trước đây công ty mang tên TCC).",
-        "Chúng tôi phân phối sản phẩm của các thương hiệu hàng đầu Trung Quốc, cáp hãng "
-        "SHINKO Nhật Bản, cáp và gối hãng Hirun của Italy. Các sản phẩm này đã được sử "
-        "dụng cho nhiều dự án cầu đường bộ và tuyến cao tốc trọng điểm: cao tốc Sài Gòn "
-        "– Long Thành – Dầu Giây, Bến Lức – Long Thành, Hà Nội – Lào Cai, cầu Móng Sến "
-        "– Sa Pa, cầu Tân Đệ, cầu Nguyễn Hữu Cảnh, cầu Trà Khúc 2, cầu Xóm Củi, cầu "
-        "Nhơn Trạch, cầu Đại Ngãi 2 và nhiều công trình khác.",
+        "Co., Ltd) là nhà thầu chuyên ngành trong lĩnh vực kết cấu cầu: thi công lắp đặt "
+        "và căng kéo hệ cáp dự ứng lực ngoài, hệ cáp cho cầu dây võng, dây văng và cầu "
+        "vòm, lắp đặt gối cầu và khe co giãn cho các dự án hạ tầng giao thông tại Việt Nam.",
+        "Công ty thành lập năm 2013 (trước đây mang tên TCC). Giai đoạn 2013 – 2018, Hòa "
+        "Hoàng hoạt động chủ yếu ở mảng thương mại, nhập khẩu và phân phối vật tư chuyên "
+        "ngành cầu đường. Từ năm 2018, công ty chuyển trọng tâm sang thi công: đưa kỹ sư, "
+        "công nhân và thiết bị của chính mình ra công trường, trực tiếp đảm nhận công tác "
+        "lắp đặt, căng kéo và nghiệm thu thay vì dừng lại ở khâu cung cấp.",
+        "Các công trình Hòa Hoàng đã tham gia gồm cao tốc Sài Gòn – Long Thành – Dầu Giây, "
+        "Bến Lức – Long Thành, Hà Nội – Lào Cai, cầu Móng Sến – Sa Pa, cầu Tân Đệ, cầu "
+        "Nguyễn Hữu Cảnh, cầu Trà Khúc 2, cầu Xóm Củi, cầu Nhơn Trạch, cầu Đại Ngãi 2, "
+        "cầu Phong Châu mới và nhiều dự án khác.",
+        "Đi cùng năng lực thi công là hệ công nghệ công ty làm chủ và được ủy quyền tại "
+        "Việt Nam: cáp hãng SHINKO (Nhật Bản), cáp và gối hãng Hirun (Italy) cùng các "
+        "thương hiệu hàng đầu Trung Quốc — nhờ đó vật tư, thiết bị căng kéo và đội thi "
+        "công là một khối thống nhất, không phụ thuộc vào bên thứ ba khi có sự cố hiện trường.",
         "Hòa Hoàng đang hợp tác với các Viện thiết kế đường sắt Trung Quốc và các nhà "
         "máy cung cấp thiết bị thi công đường sắt cao tốc, phối hợp cùng chuyên gia để "
         "cung cấp thiết bị và tư vấn chuyển giao công nghệ thi công kết cấu hạ tầng "
         "đường sắt tốc độ cao cũng như tàu điện ngầm.",
     ],
     vision=(
-        "Trở thành nhà cung cấp hàng đầu Việt Nam về hệ cáp dự ứng lực, gối cầu và khe "
-        "co giãn cho công trình cầu đường, đồng thời làm chủ công nghệ thi công đường "
+        "Trở thành nhà thầu chuyên ngành hàng đầu Việt Nam về thi công hệ cáp dự ứng lực, "
+        "hệ cáp cầu, gối cầu và khe co giãn; đồng thời làm chủ công nghệ thi công đường "
         "sắt tốc độ cao và hầm bằng máy TBM."
     ),
     mission=(
-        "Cung cấp vật tư đạt chuẩn quốc tế cùng dịch vụ kỹ thuật tận nơi, cam kết chất "
-        "lượng sản phẩm và thời gian giao hàng, đáp ứng tiến độ thi công của dự án."
+        "Thi công đúng biện pháp đã được Tư vấn giám sát phê duyệt, bằng đội ngũ và thiết "
+        "bị của chính công ty; bàn giao hồ sơ nghiệm thu đầy đủ và giữ đúng tiến độ đã "
+        "cam kết với nhà thầu chính."
     ),
     core_values=[
-        "Chất lượng sản phẩm đạt tiêu chuẩn ASTM, ISO và tiêu chuẩn dự án",
-        "Đáp ứng đúng tiến độ giao hàng và thi công",
-        "Dịch vụ kỹ thuật và hỗ trợ hiện trường xuyên suốt",
-        "Minh bạch trong hồ sơ pháp lý, xuất xứ và thí nghiệm vật liệu",
+        "An toàn lao động là điều kiện tiên quyết của mọi công tác trên công trường",
+        "Thi công đúng biện pháp và tiêu chuẩn nghiệm thu đã được phê duyệt",
+        "Hồ sơ minh bạch: nhật ký thi công, kết quả thí nghiệm, biên bản nghiệm thu đầy đủ",
+        "Huy động nhanh, giữ đúng tiến độ đã cam kết với nhà thầu chính",
+    ],
+    # Numbers a main contractor can check against the project list on this site.
+    # 750+ is the conservative rounding of 762,68 tấn — the sum of every cable
+    # tonnage stated in `_PROJECTS` below.
+    capability_stats=[
+        CapabilityStat(value="34", label="Dự án cầu đường đã thực hiện", label_en="Bridge projects delivered"),
+        CapabilityStat(value="750+", label="Tấn cáp đã cung cấp và thi công", label_en="Tonnes of cable supplied and installed"),
+        CapabilityStat(value="2018", label="Bắt đầu trực tiếp thi công", label_en="Started self-performing site works"),
+        CapabilityStat(value="25 – 99", label="Cán bộ, kỹ sư và công nhân", label_en="Staff, engineers and workers"),
     ],
     leaders=[
         Leader(name="Bà Vũ Bảo Ngọc", title="Chủ tịch Hội đồng thành viên, người đại diện pháp luật"),
@@ -86,6 +107,16 @@ COMPANY_PROFILE = CompanyProfile(
         OrgUnit(name="Phòng Dự án", name_en="Project Dept."),
         OrgUnit(name="Phòng Dịch vụ", name_en="Service Dept.", children=["Kho sản phẩm"]),
     ],
+    # Seeded without counts on purpose — the real headcount per role is not in
+    # any source file, so the capability page prints "Đang cập nhật" until
+    # someone fills these in from the admin.
+    personnel=[
+        PersonnelGroup(title="Chỉ huy trưởng công trường"),
+        PersonnelGroup(title="Kỹ sư cầu đường"),
+        PersonnelGroup(title="Kỹ sư cơ khí — thiết bị căng kéo"),
+        PersonnelGroup(title="Công nhân kỹ thuật căng kéo, lắp đặt"),
+        PersonnelGroup(title="Cán bộ an toàn (HSE)"),
+    ],
     milestones=[
         CompanyMilestone(
             year=2013,
@@ -95,12 +126,23 @@ COMPANY_PROFILE = CompanyProfile(
         CompanyMilestone(
             year=2014,
             title="Tham gia thị trường hạ tầng giao thông",
-            description="Bắt đầu cung cấp vật tư cho các dự án cầu đường bộ và cao tốc tại Việt Nam.",
+            description=(
+                "Bắt đầu nhập khẩu và cung cấp vật tư chuyên ngành cho các dự án cầu "
+                "đường bộ và cao tốc tại Việt Nam."
+            ),
         ),
         CompanyMilestone(
             year=2015,
             title="Dự án gối cầu đầu tiên",
             description="Cung cấp gối chậu cho cầu vượt đường Hoàng Minh Giám, Hà Nội.",
+        ),
+        CompanyMilestone(
+            year=2018,
+            title="Chuyển trọng tâm sang thi công",
+            description=(
+                "Sau 5 năm hoạt động thương mại, công ty chuyển sang trực tiếp nhận thầu "
+                "thi công: tự tổ chức đội lắp đặt, căng kéo và nghiệm thu tại công trường."
+            ),
         ),
         CompanyMilestone(
             year=2021,
@@ -110,7 +152,15 @@ COMPANY_PROFILE = CompanyProfile(
         CompanyMilestone(
             year=2023,
             title="Tham gia dự án vốn ODA",
-            description="Cung cấp cáp dự ứng lực ngoài cho Vành đai 3 TP. Hồ Chí Minh (hiệp định vay VNM-58).",
+            description="Thi công cáp dự ứng lực ngoài cho Vành đai 3 TP. Hồ Chí Minh (hiệp định vay VNM-58).",
+        ),
+        CompanyMilestone(
+            year=2024,
+            title="Trực tiếp đứng tên nhà thầu thi công",
+            description=(
+                "Đảm nhận vai trò nhà thầu thi công gói sửa chữa đột xuất cầu Trà Khúc "
+                "Km1056+076 trên Quốc lộ 1."
+            ),
         ),
         CompanyMilestone(
             year=2025,
@@ -139,93 +189,378 @@ CONTACT_INFO = ContactInfo(
 )
 
 # --------------------------------------------------------------------------- #
-# Business fields (section 6 of the capability profile)
+# Construction services
+#
+# Replaces the old flat "lĩnh vực kinh doanh" list. Grouped the way a specialist
+# bridge contractor's clients think about the work — new build, repair and
+# strengthening, technology and supply — after the structure used by Freyssinet
+# and VSL, the closest international peers.
+#
+# `work_type` matches the entries in `_PROJECT_WORK_TYPES` below, so a service
+# page can list the projects where that work was actually done.
+#
+# `process_steps` describe the standard sequence for each trade. `standards` and
+# `deliverables` deliberately stay generic — the binding list is whatever the
+# project's own specification says, and no per-project standard list exists in
+# the source documents.
 # --------------------------------------------------------------------------- #
 
-_FIELDS: list[tuple[str, str, str, str]] = [
-    (
-        "duong-sat-toc-do-cao",
-        "Chuyển giao công nghệ đường sắt tốc độ cao",
-        "Chuyển giao công nghệ thi công dầm đường sắt tốc độ cao và công nghệ thi công "
-        "hầm bằng máy TBM; cung cấp thiết bị thi công đồng bộ.",
-        "◈",
-    ),
-    (
-        "he-cap-cau",
-        "Hệ cáp cho cầu dây văng, cầu vòm, cầu treo",
-        "Nhập khẩu và thi công hệ cáp treo, cáp giằng cho cầu vòm, hệ cáp dây văng cho "
-        "cầu dây văng và cầu extradosed, hệ cáp chủ và cáp treo cho cầu dây võng.",
-        "◇",
-    ),
-    (
-        "cap-dul-ngoai",
-        "Hệ cáp dự ứng lực ngoài",
-        "Nhập khẩu và thi công hệ cáp dự ứng lực ngoài cho các cầu dầm hộp; cung cấp "
-        "cáp DƯL cho dự án xây dựng cầu đường.",
-        "◆",
-    ),
-    (
-        "goi-cau-duong-bo",
-        "Gối cầu đường bộ và cao tốc",
-        "Nhập khẩu, thi công lắp đặt các loại gối cầu cao su, gối chậu cao su và gối "
-        "thép (gối chậu, gối chỏm cầu) cho dự án cầu đường bộ và đường cao tốc.",
-        "▣",
-    ),
-    (
-        "goi-cau-duong-sat",
-        "Gối cầu đường sắt",
-        "Nhập khẩu và thi công lắp đặt gối thép (gối chậu, gối chỏm cầu) cho các dự án "
-        "đường sắt và đường sắt đô thị.",
-        "▤",
-    ),
-    (
-        "goi-cao-su-ben-cang",
-        "Gối cao su chống va chạm bến cảng",
-        "Nhập khẩu và thi công lắp đặt các loại gối cao su chống va chạm phục vụ dự án "
-        "bến cảng.",
-        "▥",
-    ),
-    (
-        "khe-co-gian",
-        "Khe co giãn",
-        "Nhập khẩu và thi công lắp đặt các loại khe co giãn (loại thép, nhôm) cho dự án "
-        "đường bộ, đường sắt và đường sắt trên cao.",
-        "▦",
-    ),
-    (
-        "neo-cang-keo",
-        "Sản phẩm neo căng kéo",
-        "Nhập khẩu và kinh doanh các sản phẩm neo căng kéo phục vụ công trình xây dựng: "
-        "neo chủ động, neo cố định, neo dẹt, neo nối, neo công cụ.",
-        "◉",
-    ),
-    (
-        "may-moc-thiet-bi",
-        "Máy móc thiết bị xây dựng",
-        "Nhập khẩu và kinh doanh máy móc thiết bị xây dựng: bơm thủy lực, kích thủy "
-        "lực, máy bơm vữa, máy trộn vữa và các thiết bị liên quan.",
-        "⚙",
-    ),
-    (
-        "sua-chua-cau-cu",
-        "Thi công, tăng cường và sửa chữa cầu cũ",
-        "Thi công, tăng cường hoặc sửa chữa cầu cũ; nhập khẩu và lắp đặt phao nổi chống "
-        "va xô cho trụ cầu.",
-        "⚒",
-    ),
-    (
-        "dich-vu-ky-thuat",
-        "Dịch vụ kỹ thuật và hỗ trợ",
-        "Dịch vụ kỹ thuật và hỗ trợ hiện trường cho các sản phẩm được nhà sản xuất ủy "
-        "quyền, bao gồm hướng dẫn lắp đặt và nghiệm thu.",
-        "◐",
-    ),
+_HANDOVER_DOCS = [
+    "Biện pháp thi công được Tư vấn giám sát phê duyệt",
+    "Chứng chỉ xuất xứ (CO), chứng chỉ chất lượng (CQ) và kết quả thí nghiệm vật tư",
+    "Nhật ký thi công và biên bản nghiệm thu từng hạng mục",
+    "Hồ sơ hoàn công của phần việc đã thực hiện",
 ]
 
-BUSINESS_FIELDS = [
-    BusinessFieldCreate(slug=slug, name=name, description=desc, icon=icon)
-    for (slug, name, desc, icon) in _FIELDS
+_SERVICES: list[dict] = [
+    # ---- Thi công mới ------------------------------------------------------ #
+    {
+        "slug": "cang-keo-du-ung-luc-ngoai",
+        "name": "Thi công căng kéo cáp dự ứng lực ngoài",
+        "category": "build",
+        "work_type": "cang-keo-du-ung-luc-ngoai",
+        "summary": "Lắp đặt, luồn cáp và căng kéo hệ cáp DƯL ngoài cho cầu dầm hộp và cầu đúc hẫng.",
+        "description": (
+            "Hòa Hoàng thi công trọn gói hệ cáp dự ứng lực ngoài: từ định vị ụ neo và ụ "
+            "chuyển hướng, lắp đặt ống ghen, luồn cáp, đến căng kéo theo từng cấp lực "
+            "thiết kế và bơm vữa bảo vệ. Đội thi công và bộ thiết bị căng kéo do công ty "
+            "trực tiếp huy động."
+        ),
+        "process_steps": [
+            "Nhận hồ sơ thiết kế, lập biện pháp thi công và trình Tư vấn giám sát phê duyệt",
+            "Kiểm tra vật tư đầu vào: chứng chỉ xuất xứ, chất lượng và kết quả thí nghiệm cáp, neo",
+            "Định vị ụ neo và ụ chuyển hướng, lắp đặt ống ghen theo tọa độ thiết kế",
+            "Luồn cáp, lắp đầu neo; kiểm định kích và đồng hồ áp lực trước khi căng",
+            "Căng kéo theo từng cấp lực, đo và đối chiếu độ giãn dài thực tế với giá trị lý thuyết",
+            "Cắt cáp thừa, bơm vữa bảo vệ và bịt đầu neo",
+            "Nghiệm thu, bàn giao nhật ký căng kéo và biểu đồ lực — độ giãn dài",
+        ],
+        "standards": [
+            "Thí nghiệm cáp theo ASTM A370, cáp phun epoxy theo ASTM A822/A822M",
+            "Tiêu chuẩn nghiệm thu theo hồ sơ thiết kế và chỉ dẫn kỹ thuật của từng dự án",
+        ],
+        "deliverables": _HANDOVER_DOCS + ["Nhật ký căng kéo và biểu đồ lực — độ giãn dài từng bó cáp"],
+        "icon": "◆",
+    },
+    {
+        "slug": "he-cap-cau",
+        "name": "Lắp dựng và căng chỉnh hệ cáp cầu vòm, dây văng, dây võng",
+        "category": "build",
+        "work_type": "he-cap-cau",
+        "summary": "Hệ cáp treo và cáp giằng cho cầu vòm, hệ dây văng cho cầu dây văng và cầu extradosed.",
+        "description": (
+            "Thi công hệ cáp treo và cáp giằng cho cầu vòm ống thép, hệ cáp dây văng cho "
+            "cầu dây văng và cầu extradosed, hệ cáp chủ và cáp treo cho cầu dây võng. "
+            "Cáp thành phẩm loại PWS dùng sợi thép mạ kẽm song song, ép đùn HDPE hai lớp."
+        ),
+        "process_steps": [
+            "Kiểm tra kích thước hình học của kết cấu và vị trí neo trước khi lắp cáp",
+            "Nghiệm thu bó cáp thành phẩm: chiều dài chế tạo, đầu neo, lớp bảo vệ HDPE",
+            "Lắp dựng bó cáp, lắp neo hai đầu theo trình tự đã được phê duyệt",
+            "Căng chỉnh theo từng vòng, đo lực cáp và cao độ kết cấu sau mỗi bước",
+            "Hiệu chỉnh lực cáp đạt giá trị thiết kế, khóa neo và lắp thiết bị bảo vệ",
+            "Nghiệm thu, bàn giao bảng lực cáp và cao độ đo đạc sau căng chỉnh",
+        ],
+        "standards": [
+            "Bó cáp PWS 31W7, 35W7, 49W7, 55W7 — ép đùn HDPE 2 lớp, neo hệ bắt đai ốc",
+            "Lực cáp và cao độ nghiệm thu theo hồ sơ thiết kế của từng dự án",
+        ],
+        "deliverables": _HANDOVER_DOCS + ["Bảng lực cáp và cao độ kết cấu đo sau căng chỉnh"],
+        "icon": "◇",
+    },
+    {
+        "slug": "lap-dat-goi-cau",
+        "name": "Lắp đặt gối cầu đường bộ, cao tốc và đường sắt",
+        "category": "build",
+        "work_type": "lap-dat-goi-cau",
+        "summary": "Gối chậu, gối chỏm cầu, gối cao su và gối công năng đặc biệt cho cầu đường bộ và đường sắt.",
+        "description": (
+            "Lắp đặt gối cao su, gối chậu cao su và gối thép (gối chậu, gối chỏm cầu) cho "
+            "dự án cầu đường bộ, cao tốc, đường sắt và đường sắt đô thị — bao gồm cả gối "
+            "cách ly địa chấn, gối chống nhổ, gối chống gió và gối khóa tốc độ."
+        ),
+        "process_steps": [
+            "Đối chiếu chủng loại, tải trọng và hướng chuyển vị của gối với hồ sơ thiết kế",
+            "Kiểm tra cao độ, độ phẳng và tim tuyến đá kê gối trên đỉnh trụ",
+            "Định vị gối theo tim dọc — tim ngang, cân chỉnh cao độ và độ nghiêng",
+            "Đổ vữa không co ngót chân gối, chờ đạt cường độ theo quy định",
+            "Hạ dầm lên gối, tháo thanh khóa vận chuyển đúng trình tự",
+            "Nghiệm thu vị trí, cao độ và trạng thái làm việc của gối sau khi hạ dầm",
+        ],
+        "standards": [
+            "Thí nghiệm cao su theo ASTM D412, ASTM E376 và tiêu chuẩn riêng của dự án",
+            "Dung sai lắp đặt theo chỉ dẫn kỹ thuật và hướng dẫn của nhà sản xuất",
+        ],
+        "deliverables": _HANDOVER_DOCS + ["Biên bản định vị, cao độ và trạng thái gối sau khi hạ dầm"],
+        "icon": "▣",
+    },
+    {
+        "slug": "lap-dat-khe-co-gian",
+        "name": "Lắp đặt khe co giãn",
+        "category": "build",
+        "work_type": "lap-dat-khe-co-gian",
+        "summary": "Khe ray thép mô đun và khe răng lược cho cầu đường bộ, đường sắt và đường sắt trên cao.",
+        "description": (
+            "Lắp đặt khe co giãn loại thép và nhôm cho dự án đường bộ, đường sắt và đường "
+            "sắt trên cao: khe ray thép mô đun loại SSFB, khe LR27 độ chuyển tới 2.160 mm, "
+            "khe răng lược loại cân bằng và lệch tâm."
+        ),
+        "process_steps": [
+            "Xác định độ mở khe theo nhiệt độ thi công thực tế tại thời điểm lắp đặt",
+            "Cắt, đục tạo hốc khe và vệ sinh bề mặt bê tông tiếp giáp",
+            "Định vị khe theo cao độ mặt cầu, cố định tạm bằng hệ khung dẫn",
+            "Hàn nối cốt thép chờ, đổ bê tông hốc khe theo mác thiết kế",
+            "Tháo hệ khung dẫn, lắp gioăng cao su và kiểm tra độ kín nước",
+            "Nghiệm thu độ mở khe, cao độ mặt khe và độ êm thuận khi thông xe",
+        ],
+        "standards": [
+            "Độ mở khe hiệu chỉnh theo nhiệt độ thi công và bảng tra của nhà sản xuất",
+            "Cao độ và độ êm thuận nghiệm thu theo chỉ dẫn kỹ thuật của dự án",
+        ],
+        "deliverables": _HANDOVER_DOCS + ["Biên bản độ mở khe theo nhiệt độ thi công và kết quả kiểm tra kín nước"],
+        "icon": "▦",
+    },
+    {
+        "slug": "neo-dat-mai-doc",
+        "name": "Thi công hệ neo đất, ổn định mái dốc và kè",
+        "category": "build",
+        "work_type": "neo-dat-mai-doc",
+        "summary": "Bó cáp giằng neo bờ kè, hệ neo đất gia cố mái dốc cho công trình đường bộ và cảng biển.",
+        "description": (
+            "Cung cấp và thi công cấu kiện hệ neo đất, ổn định mái dốc và kè: bó cáp giằng "
+            "neo bờ kè, neo hệ bắt đai ốc, neo chủ động và neo cố định."
+        ),
+        "process_steps": [
+            "Khoan tạo lỗ neo theo góc nghiêng và chiều sâu thiết kế",
+            "Lắp bó cáp neo, đặt ống bơm vữa và định tâm bó trong lỗ khoan",
+            "Bơm vữa bầu neo, chờ đạt cường độ theo quy định",
+            "Thí nghiệm kéo nhổ neo thử theo tỷ lệ được duyệt",
+            "Căng kéo neo đại trà đến lực thiết kế và khóa neo",
+            "Nghiệm thu, bàn giao kết quả thí nghiệm và nhật ký căng neo",
+        ],
+        "standards": [
+            "Lực thí nghiệm và lực khóa neo theo hồ sơ thiết kế của từng dự án",
+        ],
+        "deliverables": _HANDOVER_DOCS + ["Kết quả thí nghiệm kéo nhổ neo và nhật ký căng neo"],
+        "icon": "▲",
+    },
+    # ---- Sửa chữa – tăng cường --------------------------------------------- #
+    {
+        "slug": "thay-the-he-cap",
+        "name": "Thay thế hệ cáp cầu vòm và cầu dây văng",
+        "category": "repair",
+        "work_type": "thay-the-he-cap",
+        "summary": "Tháo dỡ và thay mới cáp treo, cáp giằng trên cầu đang khai thác, có kiểm soát nội lực từng bước.",
+        "description": (
+            "Thay thế hệ cáp treo và cáp giằng cho cầu vòm đang khai thác — công tác đòi "
+            "hỏi kiểm soát nội lực kết cấu qua từng bước tháo và lắp. Hòa Hoàng đã thực "
+            "hiện tại cầu Xóm Củi và cầu Cần Giuộc trên tuyến đường Nguyễn Văn Linh."
+        ),
+        "process_steps": [
+            "Khảo sát hiện trạng cáp cũ, đo lực cáp và đánh giá kết cấu trước khi thay",
+            "Lập biện pháp thay cáp theo trình tự có kiểm soát nội lực, trình phê duyệt",
+            "Lắp hệ giàn thao tác và thiết bị bảo đảm an toàn giao thông trong quá trình thi công",
+            "Giảm lực cáp cũ theo từng cấp, tháo dỡ và đưa ra khỏi kết cấu",
+            "Lắp bó cáp mới, căng chỉnh theo từng vòng, đo lực và cao độ sau mỗi bước",
+            "Hiệu chỉnh đạt lực thiết kế, nghiệm thu và hoàn trả mặt cầu",
+        ],
+        "standards": [
+            "Trình tự tháo — lắp và giới hạn nội lực từng bước theo biện pháp được phê duyệt",
+        ],
+        "deliverables": _HANDOVER_DOCS + ["Bảng so sánh lực cáp trước và sau khi thay thế"],
+        "icon": "⚒",
+    },
+    {
+        "slug": "tang-cuong-cau-cu",
+        "name": "Tăng cường cầu cũ bằng dự ứng lực ngoài",
+        "category": "repair",
+        "work_type": "tang-cuong-cau-cu",
+        "summary": "Bổ sung hệ cáp DƯL ngoài để khôi phục và nâng năng lực chịu tải của cầu đang khai thác.",
+        "description": (
+            "Thi công, tăng cường hoặc sửa chữa cầu cũ bằng hệ cáp dự ứng lực ngoài — "
+            "phương án được dùng khi cầu suy giảm năng lực chịu tải nhưng vẫn phải duy trì "
+            "khai thác. Hòa Hoàng đã thực hiện tại cầu Trà Khúc trên Quốc lộ 1 và cầu Tân "
+            "Đệ trên Quốc lộ 10."
+        ),
+        "process_steps": [
+            "Khảo sát hiện trạng kết cấu và đối chiếu với hồ sơ thiết kế tăng cường",
+            "Khoan cấy, thi công ụ neo và ụ chuyển hướng trong lòng dầm hộp",
+            "Lắp đặt ống ghen, luồn bó cáp DƯL ngoài theo tuyến thiết kế",
+            "Căng kéo theo từng cấp lực, theo dõi biến dạng kết cấu trong quá trình căng",
+            "Bơm vữa bảo vệ, bịt đầu neo và hoàn thiện chống ăn mòn",
+            "Nghiệm thu, bàn giao nhật ký căng kéo và số liệu quan trắc biến dạng",
+        ],
+        "standards": [
+            "Lực căng và trình tự căng theo hồ sơ thiết kế tăng cường được phê duyệt",
+        ],
+        "deliverables": _HANDOVER_DOCS + ["Nhật ký căng kéo và số liệu quan trắc biến dạng kết cấu"],
+        "icon": "◈",
+    },
+    {
+        "slug": "thay-the-khe-co-gian",
+        "name": "Sửa chữa và thay thế khe co giãn",
+        "category": "repair",
+        "work_type": "thay-the-khe-co-gian",
+        "summary": "Thay khe hỏng trên cầu đang khai thác, tổ chức thi công theo làn để không phải cấm đường.",
+        "description": (
+            "Sửa chữa và thay thế khe co giãn trên cầu đang khai thác, gồm cả khe ray mô "
+            "đun khẩu độ lớn. Hòa Hoàng đã thực hiện tại trụ P26 cầu Long Thành trên cao "
+            "tốc TP. Hồ Chí Minh – Long Thành – Dầu Giây."
+        ),
+        "process_steps": [
+            "Khảo sát hiện trạng khe cũ, xác định chủng loại và độ chuyển vị cần thay thế",
+            "Lập phương án phân luồng và bảo đảm an toàn giao thông trong thời gian thi công",
+            "Cắt, phá dỡ khe cũ và vệ sinh hốc khe",
+            "Định vị và lắp khe mới theo độ mở tương ứng nhiệt độ thi công",
+            "Đổ bê tông hốc khe, bảo dưỡng đạt cường độ trước khi thông xe",
+            "Nghiệm thu độ êm thuận, kín nước và hoàn trả mặt đường",
+        ],
+        "standards": [
+            "Độ mở khe hiệu chỉnh theo nhiệt độ thi công, nghiệm thu theo chỉ dẫn kỹ thuật dự án",
+        ],
+        "deliverables": _HANDOVER_DOCS + ["Phương án phân luồng và biên bản nghiệm thu thông xe"],
+        "icon": "▤",
+    },
+    {
+        "slug": "thay-the-goi-cau",
+        "name": "Kích nâng dầm và thay thế gối cầu",
+        "category": "repair",
+        "work_type": "thay-the-goi-cau",
+        "summary": "Kích nâng dầm có kiểm soát để thay gối hỏng hoặc lắp gối điều chỉnh tải trọng.",
+        "description": (
+            "Thay thế gối cầu trên công trình đang khai thác bằng kích nâng dầm có kiểm "
+            "soát chuyển vị, gồm cả việc lắp gối điều chỉnh tải trọng. Hòa Hoàng đã thực "
+            "hiện tại cầu Non Nước trên Quốc lộ 10."
+        ),
+        "process_steps": [
+            "Khảo sát hiện trạng gối, xác định tải trọng và hành trình kích cần thiết",
+            "Bố trí hệ kích và gối kê tạm, kiểm tra khả năng chịu lực của vị trí kê",
+            "Kích nâng dầm theo từng cấp, kiểm soát chuyển vị và khe hở đồng đều",
+            "Tháo gối cũ, xử lý đá kê và định vị gối mới",
+            "Hạ dầm theo từng cấp, kiểm tra tiếp xúc và trạng thái làm việc của gối",
+            "Nghiệm thu, bàn giao nhật ký kích nâng và số liệu chuyển vị",
+        ],
+        "standards": [
+            "Hành trình kích và giới hạn chuyển vị theo biện pháp thi công được phê duyệt",
+        ],
+        "deliverables": _HANDOVER_DOCS + ["Nhật ký kích nâng và số liệu chuyển vị theo từng cấp"],
+        "icon": "▥",
+    },
+    {
+        "slug": "chong-va-tru-cau",
+        "name": "Lắp đặt phao nổi chống va xô trụ cầu",
+        "category": "repair",
+        "work_type": "chong-va-tru-cau",
+        "summary": "Hệ phao nổi bảo vệ trụ cầu và gối cao su chống va chạm cho bến cảng.",
+        "description": (
+            "Nhập khẩu và lắp đặt phao nổi chống va xô cho trụ cầu, cùng các loại gối cao "
+            "su chống va chạm phục vụ dự án bến cảng."
+        ),
+        "process_steps": [
+            "Khảo sát kích thước trụ, mực nước và luồng chạy tàu tại vị trí lắp đặt",
+            "Xác định chủng loại và số lượng phao theo năng lượng va thiết kế",
+            "Tổ chức thi công trên mặt nước, bố trí phương tiện thủy và cảnh giới luồng",
+            "Lắp đặt hệ phao, neo giữ và liên kết vào thân trụ",
+            "Kiểm tra hoạt động của hệ phao theo dao động mực nước",
+            "Nghiệm thu và bàn giao hồ sơ lắp đặt",
+        ],
+        "standards": [
+            "Năng lượng va và cấu tạo liên kết theo hồ sơ thiết kế của từng dự án",
+        ],
+        "deliverables": _HANDOVER_DOCS,
+        "icon": "◐",
+    },
+    # ---- Công nghệ và cung cấp --------------------------------------------- #
+    {
+        "slug": "chuyen-giao-cong-nghe-duong-sat-toc-do-cao",
+        "name": "Chuyển giao công nghệ thi công đường sắt tốc độ cao và hầm TBM",
+        "category": "technology",
+        "work_type": "chuyen-giao-cong-nghe-duong-sat-toc-do-cao",
+        "summary": "Thiết bị thi công đồng bộ và tư vấn chuyển giao công nghệ dầm ĐSTĐC, hầm đào bằng máy TBM.",
+        "description": (
+            "Phối hợp với các Viện thiết kế đường sắt Trung Quốc và nhà máy chế tạo thiết "
+            "bị để cung cấp thiết bị thi công đồng bộ và tư vấn chuyển giao công nghệ thi "
+            "công dầm đường sắt tốc độ cao, thi công hầm bằng máy TBM cho đường sắt và tàu "
+            "điện ngầm."
+        ),
+        "process_steps": [
+            "Khảo sát yêu cầu công nghệ và điều kiện mặt bằng của dự án",
+            "Đề xuất cấu hình thiết bị thi công đồng bộ phù hợp với tiến độ và địa hình",
+            "Phối hợp nhà máy chế tạo, giám sát sản xuất và nghiệm thu thiết bị tại xưởng",
+            "Vận chuyển, lắp dựng và chạy thử thiết bị tại công trường",
+            "Đào tạo, chuyển giao quy trình vận hành cho đội thi công của chủ đầu tư",
+            "Hỗ trợ kỹ thuật trong giai đoạn đầu khai thác thiết bị",
+        ],
+        "standards": [
+            "Cấu hình thiết bị và quy trình vận hành theo hồ sơ công nghệ được chuyển giao",
+        ],
+        "deliverables": [
+            "Hồ sơ kỹ thuật và biên bản nghiệm thu thiết bị tại xưởng",
+            "Tài liệu quy trình vận hành và biên bản đào tạo chuyển giao",
+        ],
+        "icon": "⚙",
+    },
+    {
+        "slug": "cung-cap-vat-tu-thiet-bi",
+        "name": "Cung cấp vật tư và thiết bị chuyên ngành cầu đường",
+        "category": "technology",
+        "work_type": "cung-cap-vat-tu-thiet-bi",
+        "summary": "Cáp, neo, gối cầu, khe co giãn và thiết bị căng kéo từ các nhà sản xuất được ủy quyền.",
+        "description": (
+            "Nhập khẩu và cung cấp cáp dự ứng lực, cáp thành phẩm cho cầu dây văng và cầu "
+            "vòm, hệ neo căng kéo, gối cầu, khe co giãn cùng thiết bị thi công — sản phẩm "
+            "của SHINKO (Nhật Bản), Hirun (Italy) và các nhà sản xuất hàng đầu Trung Quốc. "
+            "Mỗi lô hàng đi kèm chứng chỉ xuất xứ, chứng chỉ chất lượng và kết quả thí nghiệm."
+        ),
+        "process_steps": [
+            "Tiếp nhận thông số kỹ thuật của dự án và đề xuất chủng loại phù hợp",
+            "Trình mẫu, chứng chỉ nhà sản xuất và hồ sơ vật liệu để Tư vấn giám sát chấp thuận",
+            "Đặt hàng sản xuất, theo dõi tiến độ và nghiệm thu tại nhà máy",
+            "Thí nghiệm vật liệu theo yêu cầu của dự án trước khi đưa vào công trình",
+            "Giao hàng tại công trường theo tiến độ thi công đã thống nhất",
+            "Hướng dẫn lắp đặt và hỗ trợ kỹ thuật tại hiện trường",
+        ],
+        "standards": [
+            "Thí nghiệm vật liệu theo ASTM A370, ASTM D412, ASTM E376, ASTM A822/A822M và TCVN",
+            "Nhà sản xuất đạt chứng nhận hệ thống quản lý ISO 9001, ISO 14001, ISO 45001",
+        ],
+        "deliverables": [
+            "Chứng chỉ xuất xứ (CO) và chứng chỉ chất lượng (CQ) theo từng lô hàng",
+            "Kết quả thí nghiệm vật liệu của lô hàng cung cấp",
+            "Hướng dẫn lắp đặt của nhà sản xuất",
+        ],
+        "icon": "◉",
+    },
+    {
+        "slug": "dich-vu-ky-thuat-hien-truong",
+        "name": "Dịch vụ kỹ thuật và hỗ trợ hiện trường",
+        "category": "technology",
+        "work_type": "dich-vu-ky-thuat-hien-truong",
+        "summary": "Hướng dẫn lắp đặt, giám sát căng kéo và hỗ trợ nghiệm thu cho sản phẩm được ủy quyền.",
+        "description": (
+            "Dịch vụ kỹ thuật và hỗ trợ hiện trường cho các sản phẩm được nhà sản xuất ủy "
+            "quyền: hướng dẫn lắp đặt, giám sát công tác căng kéo, xử lý vướng mắc kỹ "
+            "thuật và hỗ trợ hoàn thiện hồ sơ nghiệm thu."
+        ),
+        "process_steps": [
+            "Tiếp nhận yêu cầu hỗ trợ và hồ sơ hiện trạng từ nhà thầu chính",
+            "Cử kỹ sư có mặt tại công trường theo lịch thi công",
+            "Hướng dẫn lắp đặt, giám sát căng kéo và kiểm tra thông số thực tế",
+            "Xử lý vướng mắc kỹ thuật phát sinh, lập biên bản hiện trường",
+            "Hỗ trợ hoàn thiện hồ sơ nghiệm thu của hạng mục",
+        ],
+        "standards": [
+            "Hướng dẫn lắp đặt và dung sai theo tài liệu kỹ thuật của nhà sản xuất",
+        ],
+        "deliverables": [
+            "Biên bản hiện trường và biên bản hướng dẫn lắp đặt",
+            "Hỗ trợ hồ sơ nghiệm thu của hạng mục liên quan",
+        ],
+        "icon": "◑",
+    },
 ]
+
+BUSINESS_FIELDS = [BusinessFieldCreate(**service) for service in _SERVICES]
 
 # --------------------------------------------------------------------------- #
 # Product groups ("Các sản phẩm cung cấp" section of the capability profile)
@@ -437,7 +772,7 @@ _PROJECTS: list[tuple[str, str, int, str, str, str, str]] = [
         2025,
         "Tổng Công ty Đầu tư phát triển đường cao tốc Việt Nam (VEC)",
         "TP. Hồ Chí Minh – Đồng Nai",
-        "Cung cấp, sửa chữa và lắp đặt khe co giãn mô đun SSFB320.",
+        "Sửa chữa, lắp đặt và cung cấp khe co giãn mô đun SSFB320.",
         "completed",
     ),
     (
@@ -446,7 +781,7 @@ _PROJECTS: list[tuple[str, str, int, str, str, str, str]] = [
         2025,
         "CTCP – Tổng Công ty Cơ khí Xây dựng Thăng Long (MECO)",
         "TP. Vũng Tàu và TX. Phú Mỹ, Bà Rịa – Vũng Tàu",
-        "Cung cấp và thi công hệ cáp treo cầu vòm thép: cáp treo 11 tấn, 195 bộ neo cáp, 337 m ống thép inox D89.",
+        "Thi công lắp đặt và cung cấp hệ cáp treo cầu vòm thép: cáp treo 11 tấn, 195 bộ neo cáp, 337 m ống thép inox D89.",
         "completed",
     ),
     (
@@ -455,7 +790,7 @@ _PROJECTS: list[tuple[str, str, int, str, str, str, str]] = [
         2025,
         "Công ty TNHH Phát triển Phú Mỹ Hưng",
         "TP. Hồ Chí Minh",
-        "Cung cấp và thi công hệ cáp giằng 51 tấn và cáp treo 10 tấn.",
+        "Thi công lắp đặt và cung cấp hệ cáp giằng 51 tấn và cáp treo 10 tấn.",
         "completed",
     ),
     (
@@ -482,7 +817,7 @@ _PROJECTS: list[tuple[str, str, int, str, str, str, str]] = [
         2025,
         "CTCP Xây dựng Đạt Phương số 2 — CTCP Xây dựng công trình 525 — CTCP ĐTXD Thương mại Trường Thành",
         "TP. Hồ Chí Minh – Đồng Nai",
-        "Cung cấp, thi công lắp đặt và căng kéo hệ cáp DƯL ngoài: bó cáp 19T-15.2 bọc epoxy và PE từng tao, khối lượng khoảng 150 tấn.",
+        "Thi công lắp đặt, căng kéo và cung cấp hệ cáp DƯL ngoài: bó cáp 19T-15.2 bọc epoxy và PE từng tao, khối lượng khoảng 150 tấn.",
         "completed",
     ),
     (
@@ -491,7 +826,7 @@ _PROJECTS: list[tuple[str, str, int, str, str, str, str]] = [
         2025,
         "Liên danh Tổng Công ty Xây dựng số 1 – CTCP, CTCP ĐTXD Trường Sơn, CTCP Tập đoàn Đạt Phương, CTCP Tập đoàn Thuận An – TAG",
         "Trà Vinh – Sóc Trăng",
-        "Cung cấp, thi công lắp đặt và căng kéo hệ cáp DƯL ngoài: bó cáp 19T-15.2 bọc epoxy và PE từng tao, tao cáp chạy trong ống HDPE, khối lượng khoảng 104 tấn.",
+        "Thi công lắp đặt, căng kéo và cung cấp hệ cáp DƯL ngoài: bó cáp 19T-15.2 bọc epoxy và PE từng tao, tao cáp chạy trong ống HDPE, khối lượng khoảng 104 tấn.",
         "completed",
     ),
     (
@@ -500,7 +835,7 @@ _PROJECTS: list[tuple[str, str, int, str, str, str, str]] = [
         2024,
         "Công ty TNHH ĐTXD & DVTM Hòa Hoàng (nhà thầu thi công)",
         "Tỉnh Quảng Ngãi",
-        "Cung cấp, lắp đặt và căng kéo hệ cáp DƯL ngoài: bó cáp 15T-15.2 bọc epoxy và HDPE từng tao, khối lượng 36,97 tấn.",
+        "Lắp đặt, căng kéo và cung cấp hệ cáp DƯL ngoài: bó cáp 15T-15.2 bọc epoxy và HDPE từng tao, khối lượng 36,97 tấn.",
         "completed",
     ),
     (
@@ -509,7 +844,7 @@ _PROJECTS: list[tuple[str, str, int, str, str, str, str]] = [
         2024,
         "CTCP – Tổng Công ty Cơ khí Xây dựng Thăng Long (MECO) — CTCP Đầu tư và Xây dựng Tín Thịnh",
         "Tỉnh Ninh Bình",
-        "Cung cấp và thi công hệ neo cáp treo vòm: bó cáp 3T-15.2 bọc epoxy, ép đùn HDPE 2 lớp, khối lượng 5,71 tấn.",
+        "Thi công lắp đặt và cung cấp hệ neo cáp treo vòm: bó cáp 3T-15.2 bọc epoxy, ép đùn HDPE 2 lớp, khối lượng 5,71 tấn.",
         "completed",
     ),
     (
@@ -527,7 +862,7 @@ _PROJECTS: list[tuple[str, str, int, str, str, str, str]] = [
         2024,
         "Công ty TNHH Phát triển Phú Mỹ Hưng",
         "TP. Hồ Chí Minh",
-        "Cung cấp và thi công hệ cáp giằng 51 tấn và cáp treo 10 tấn; cáp treo vòm loại 55W7 và 16 bó cáp giằng 22T-15.2 mm.",
+        "Thi công lắp đặt và cung cấp hệ cáp giằng 51 tấn và cáp treo 10 tấn; cáp treo vòm loại 55W7 và 16 bó cáp giằng 22T-15.2 mm.",
         "completed",
     ),
     (
@@ -536,7 +871,7 @@ _PROJECTS: list[tuple[str, str, int, str, str, str, str]] = [
         2023,
         "CTCP – Tổng Công ty Cơ khí Xây dựng Thăng Long (MECO)",
         "TP. Lào Cai, tỉnh Lào Cai",
-        "Cung cấp và thi công hệ neo cáp treo vòm loại 49W7, 35W7, 31W7 — bó cáp thành phẩm dùng dây thép mạ kẽm song song, ép đùn HDPE 2 lớp, khối lượng 14 tấn.",
+        "Thi công lắp đặt và cung cấp hệ neo cáp treo vòm loại 49W7, 35W7, 31W7 — bó cáp thành phẩm dùng dây thép mạ kẽm song song, ép đùn HDPE 2 lớp, khối lượng 14 tấn.",
         "completed",
     ),
     (
@@ -554,7 +889,7 @@ _PROJECTS: list[tuple[str, str, int, str, str, str, str]] = [
         2022,
         "Công ty Cổ phần SBTECH",
         "TP. Hồ Chí Minh",
-        "Cung cấp và thi công 8 bó cáp giằng thành phẩm loại 7x15.2, tao cáp mạ kẽm bọc HDPE từng tao và 2 lớp HDPE bọc ngoài bó; mỗi bó dài 57,6 m, khối lượng 6 tấn.",
+        "Thi công lắp đặt và cung cấp 8 bó cáp giằng thành phẩm loại 7x15.2, tao cáp mạ kẽm bọc HDPE từng tao và 2 lớp HDPE bọc ngoài bó; mỗi bó dài 57,6 m, khối lượng 6 tấn.",
         "completed",
     ),
     (
@@ -563,7 +898,7 @@ _PROJECTS: list[tuple[str, str, int, str, str, str, str]] = [
         2022,
         "Tổng Công ty Xây dựng công trình giao thông 8 – CTCP",
         "Tỉnh Thái Bình",
-        "Cung cấp và thi công 27 bó cáp DƯL ngoài loại 19T15.2 và 18T15.2, mỗi bó dài 73–120 m, tao cáp mạ kẽm bọc HDPE từng tao và cả bó, khối lượng 70 tấn.",
+        "Thi công lắp đặt, căng kéo và cung cấp 27 bó cáp DƯL ngoài loại 19T15.2 và 18T15.2, mỗi bó dài 73–120 m, tao cáp mạ kẽm bọc HDPE từng tao và cả bó, khối lượng 70 tấn.",
         "completed",
     ),
     (
@@ -1418,6 +1753,48 @@ _PROJECT_MEDIA: dict[str, list[dict]] = {
     ],
 }
 
+# Whether Hoa Hoang built it or only supplied the materials, plus which service
+# the work belongs to. Read off the scope text of each row above — a scope that
+# says "thi công", "lắp đặt" or "căng kéo" is construction; one that stops at
+# "cung cấp" or "hướng dẫn thi công" is supply, and the site says so.
+# Shape: slug -> (role, work_types, structure_type)
+_PROJECT_CLASSIFICATION: dict[str, tuple[str, list[str], str | None]] = {
+    "duong-sat-toc-do-cao-ha-noi-quang-ninh": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Đường sắt tốc độ cao"),
+    "cau-giai-phong-9-rach-gia": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Cầu đường bộ"),
+    "cau-long-thanh-khe-co-gian-p26": ("construction", ["thay-the-khe-co-gian"], "Cầu trên cao tốc"),
+    "cau-song-rang-long-son-cai-mep": ("construction", ["he-cap-cau"], "Cầu vòm thép"),
+    "cau-can-giuoc-thay-he-cap": ("construction", ["thay-the-he-cap"], "Cầu vòm"),
+    "cau-phong-chau-moi-ql32c": ("supply", ["cung-cap-vat-tu-thiet-bi", "dich-vu-ky-thuat-hien-truong"], "Cầu đường bộ"),
+    "cau-may-chai-vu-yen": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Cầu dây văng"),
+    "cau-nhon-trach-vanh-dai-3": ("construction", ["cang-keo-du-ung-luc-ngoai"], "Cầu dây văng"),
+    "cau-dai-ngai-2-ql60": ("construction", ["cang-keo-du-ung-luc-ngoai"], "Cầu dây văng"),
+    "cau-tra-khuc-ql1": ("construction", ["cang-keo-du-ung-luc-ngoai", "tang-cuong-cau-cu"], "Cầu đường bộ"),
+    "cau-vuot-song-van-ninh-binh": ("construction", ["he-cap-cau"], "Cầu vòm"),
+    "cau-non-nuoc-ql10": ("supply", ["cung-cap-vat-tu-thiet-bi", "thay-the-goi-cau"], "Cầu đường bộ"),
+    "cau-xom-cui-thay-he-cap": ("construction", ["thay-the-he-cap"], "Cầu vòm"),
+    "cau-phu-thinh-lao-cai": ("construction", ["he-cap-cau"], "Cầu vòm"),
+    "cau-gioi-phien-yen-bai": ("supply", ["cung-cap-vat-tu-thiet-bi", "dich-vu-ky-thuat-hien-truong"], "Cầu vòm thép"),
+    "cau-nguyen-huu-canh": ("construction", ["he-cap-cau"], "Cầu vòm"),
+    "sua-chua-cau-tan-de-ql10": ("construction", ["cang-keo-du-ung-luc-ngoai", "tang-cuong-cau-cu"], "Cầu đường bộ"),
+    "ke-bo-song-cai-nha-trang": ("supply", ["cung-cap-vat-tu-thiet-bi", "neo-dat-mai-doc"], "Kè bờ sông"),
+    "cau-mong-sen-lao-cai": ("construction", ["cang-keo-du-ung-luc-ngoai"], "Cầu cạn"),
+    "cau-vuot-ql51": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Cầu vượt"),
+    "cau-hoa-binh-2-cap-day-vang": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Cầu dây văng"),
+    "cau-hoa-binh-2-goi-khe": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Cầu đường bộ"),
+    "cau-song-hieu": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Cầu đường bộ"),
+    "cau-tan-de-neo-kich": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Cầu đường bộ"),
+    "cau-rach-vong-long-an": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Cầu đường bộ"),
+    "cau-tuan-hue": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Cầu đường bộ"),
+    "nut-giao-vanh-dai-3-ha-noi": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Nút giao, cầu vượt"),
+    "cau-ngoi-gianh-phu-tho": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Cầu đường bộ"),
+    "tuyen-ket-noi-cau-gie-ninh-binh-ql1": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Cầu dầm Super T"),
+    "cung-cap-vat-tu-thi-cong-cau-2018": ("supply", ["cung-cap-vat-tu-thiet-bi"], None),
+    "cau-tang-long-co-khi-4": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Cầu đường bộ"),
+    "cau-tang-long-cau-1-thang-long": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Cầu đường bộ"),
+    "cau-vuot-o-dong-mac": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Cầu vượt"),
+    "cau-vuot-hoang-minh-giam": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Cầu vượt"),
+}
+
 
 PROJECTS = [
     ProjectCreate(
@@ -1429,6 +1806,9 @@ PROJECTS = [
         summary=scope,
         scale=scope,
         status=status,
+        role=_PROJECT_CLASSIFICATION.get(slug, ("supply", [], None))[0],
+        work_types=_PROJECT_CLASSIFICATION.get(slug, ("supply", [], None))[1],
+        structure_type=_PROJECT_CLASSIFICATION.get(slug, ("supply", [], None))[2],
         context=_PROJECT_CONTEXT.get(slug, (None, None))[0],
         context_source=_PROJECT_CONTEXT.get(slug, (None, None))[1],
         cover=None if slug in _MONTAGE_ONLY else next(iter(_PROJECT_MEDIA.get(slug, [])), None),
@@ -1438,7 +1818,74 @@ PROJECTS = [
 ]
 
 # --------------------------------------------------------------------------- #
-# Last three years of financials (forms B01a/B02 - DNN, amounts in VND)
+# Contractor capability records
+#
+# Seeded only with what the source documents actually prove. The registration
+# certificate is on file; the construction capability licence (chứng chỉ năng
+# lực hoạt động xây dựng) and the company's own ISO certificates are not in any
+# source here, so they are left for the admin to add rather than invented.
+# --------------------------------------------------------------------------- #
+
+CERTIFICATES = [
+    CertificateCreate(
+        name="Giấy chứng nhận đăng ký doanh nghiệp",
+        category="legal",
+        issuer="Phòng Đăng ký kinh doanh — Sở Kế hoạch và Đầu tư thành phố Hà Nội",
+        code="0106346833",
+        issued="Đăng ký lần đầu 25/10/2013, thay đổi lần thứ 8 ngày 16/12/2025",
+        note="Ngành nghề chính: 4212 — Xây dựng công trình đường bộ. Tổng 41 ngành nghề đăng ký.",
+    ),
+    CertificateCreate(
+        name="Chấp thuận nhà cung cấp gối cầu — đường sắt tốc độ cao Hà Nội – Quảng Ninh",
+        category="acceptance",
+        issuer="Công ty TNHH Thương mại và Xây dựng Trung Chính",
+        code="HĐ 0602/2026/ĐV/HĐ/VINSPEED-LDSGCTC",
+        issued="2026",
+        note="Cầu vượt sông Đuống Km016+168 và các cầu vượt quy hoạch trên tuyến.",
+    ),
+    CertificateCreate(
+        name="Chấp thuận của Tư vấn giám sát — cầu Giải Phóng 9, thành phố Rạch Giá",
+        category="acceptance",
+        issuer="Tư vấn giám sát Gói thầu số 03 — thi công xây dựng cầu",
+        issued="2026",
+        note="Chấp thuận Hòa Hoàng là đơn vị cung cấp gối cầu cho gói thầu.",
+    ),
+]
+
+# Equipment types evidenced by the company's own site photographs and by the
+# prestressing work it self-performs. Quantities are left empty on purpose —
+# no source states them, and the page prints "Đang cập nhật" until filled in.
+EQUIPMENT = [
+    EquipmentCreate(
+        name="Kích thủy lực căng kéo cáp dự ứng lực",
+        category="cang-keo",
+        spec="Kích rỗng tâm dùng cho bó cáp 3T đến 22T-15.2",
+    ),
+    EquipmentCreate(
+        name="Bộ nguồn và bơm thủy lực điều khiển căng kéo",
+        category="cang-keo",
+        spec="Hệ thống bơm điều khiển căng theo từng cấp lực",
+    ),
+    EquipmentCreate(
+        name="Máy bơm vữa và máy trộn vữa",
+        category="cang-keo",
+        spec="Phục vụ bơm vữa bảo vệ ống ghen sau khi căng kéo",
+    ),
+    EquipmentCreate(
+        name="Giàn thao tác căng kéo cáp dự ứng lực ngoài",
+        category="nang-ha",
+        spec="Giàn treo bên hông dầm hộp phục vụ thi công cáp DƯL ngoài",
+    ),
+]
+
+# Left empty on purpose: no capability-profile PDF has been published yet, and a
+# download entry with no file behind it is worse than an honest empty state.
+DOCUMENTS: list[DocumentCreate] = []
+
+# --------------------------------------------------------------------------- #
+# Last three years of financials (forms B01a/B02 - DNN, amounts in VND).
+# Admin-only: there is no public endpoint reading these. They exist so the
+# capability profile handed over with a bid can be produced from one place.
 # --------------------------------------------------------------------------- #
 
 FINANCIALS = [

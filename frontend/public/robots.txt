@@ -5,5 +5,6 @@ Allow: /
 Disallow: /admin
 Disallow: /admin/
 
-# Bổ sung dòng dưới khi đã có domain thật:
+# Sitemap: tạo bằng `SITE_URL=https://ten-domain.vn npm run sitemap`
+# rồi bỏ dấu # ở dòng dưới và thay bằng domain thật.
 # Sitemap: https://ten-domain.vn/sitemap.xml

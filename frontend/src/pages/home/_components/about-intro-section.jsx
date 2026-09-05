@@ -19,7 +19,10 @@ export function AboutIntroSection() {
           <ul className="check-list">
             {t('home.aboutIntroHighlights').map((item) => <li key={item}>{item}</li>)}
           </ul>
-          <Link to="/gioi-thieu" className="btn btn--outline">{t('home.aboutIntroCta')}</Link>
+          <div className="about-intro__actions">
+            <Link to="/gioi-thieu" className="btn btn--outline">{t('home.aboutIntroCta')}</Link>
+            <Link to="/nang-luc" className="btn btn--outline">{t('home.aboutIntroCapabilityCta')}</Link>
+          </div>
         </div>
         <div className="about-intro__media">
           <img

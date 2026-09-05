@@ -4,6 +4,9 @@ from src.repositories.base import BaseRepository, PublishableRepository
 from src.repositories.contact_message import ContactMessageRepository
 from src.repositories.content import (
     BusinessFieldRepository,
+    CertificateRepository,
+    DocumentRepository,
+    EquipmentRepository,
     FinancialYearRepository,
     JobPostingRepository,
     NewsRepository,
@@ -24,6 +27,9 @@ __all__ = [
     "JobPostingRepository",
     "FinancialYearRepository",
     "PartnerRepository",
+    "CertificateRepository",
+    "EquipmentRepository",
+    "DocumentRepository",
     "UserRepository",
     "SettingRepository",
     "ContactMessageRepository",

@@ -14,6 +14,22 @@ class OrgUnit(BaseModel):
     children: list[str] = Field(default_factory=list)
 
 
+class PersonnelGroup(BaseModel):
+    """One row of the site-team headcount table on the capability page."""
+
+    title: str
+    count: str | None = Field(default=None, description="Số lượng, để trống nếu chưa chốt")
+    note: str | None = None
+
+
+class CapabilityStat(BaseModel):
+    """A headline figure on the home hero and the capability page."""
+
+    value: str
+    label: str
+    label_en: str | None = None
+
+
 class CompanyMilestone(BaseModel):
     year: int
     title: str
@@ -39,6 +55,8 @@ class CompanyProfile(BaseModel):
     leaders: list[Leader] = Field(default_factory=list)
     org_units: list[OrgUnit] = Field(default_factory=list)
     milestones: list[CompanyMilestone] = Field(default_factory=list)
+    personnel: list[PersonnelGroup] = Field(default_factory=list)
+    capability_stats: list[CapabilityStat] = Field(default_factory=list)
 
 
 class ContactInfo(BaseModel):
