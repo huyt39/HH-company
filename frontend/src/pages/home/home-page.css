@@ -72,8 +72,10 @@
   align-items: center;
 }
 .about-intro__media { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+/* The right column stacks two photos so it stops running short of the tall one. */
+.about-intro__stack { display: grid; gap: 16px; }
 
-/* Both photos are portrait, so the second is cropped to the wider box. */
+/* The first two sources are portrait, so they are cropped to their boxes. */
 .about-intro__photo {
   width: 100%;
   height: auto;
@@ -83,6 +85,8 @@
   border: 1px solid var(--c-border);
 }
 .about-intro__photo--tall { aspect-ratio: 3 / 4; margin-top: 28px; }
+/* 3:2 rather than 4:3 so the stack lands level with the tall photo beside it. */
+.about-intro__photo--wide { aspect-ratio: 3 / 2; }
 
 .check-list { margin-bottom: 28px; }
 .check-list li { position: relative; padding-left: 30px; margin-bottom: 12px; }
