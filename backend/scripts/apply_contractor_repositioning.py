@@ -9,7 +9,7 @@ repositioning across, one concern at a time, and prints what it will do first.
 
 What it touches:
 
-  profile     tagline, vision, mission, intro, core_values, capability_stats,
+  profile     vision, mission, intro, core_values, capability_stats,
               personnel and any milestone year not already present. Leaders and
               org units are left alone — those are maintained through /admin.
   services    replaces the old "lĩnh vực hoạt động" records with the service
@@ -40,7 +40,12 @@ from src.services import seed_data
 
 # Profile fields safe to overwrite: single values written by the seed and not
 # edited through /admin in normal use.
-_SCALAR_PROFILE_FIELDS = ("tagline", "vision", "mission")
+#
+# `tagline` is deliberately NOT in this list. It holds the company's own slogan
+# ("Công nghệ vươn tầm, hợp tác thành công"), which is a brand asset — the
+# repositioning changes how the site describes the work, not what the company
+# calls itself.
+_SCALAR_PROFILE_FIELDS = ("vision", "mission")
 
 # The intro paragraphs the original seed wrote. They lead the About page and
 # still carry the supplier voice, so they need replacing — but only when they

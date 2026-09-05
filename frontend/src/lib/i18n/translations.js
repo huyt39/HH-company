@@ -36,7 +36,7 @@ export const translations = {
       ariaLanguage: 'Chọn ngôn ngữ',
     },
     footer: {
-      slogan: 'Nhà thầu chuyên ngành kết cấu cầu',
+      slogan: 'Công nghệ vươn tầm, hợp tác thành công',
       desc: 'Thi công lắp đặt và căng kéo hệ cáp dự ứng lực, hệ cáp cầu, gối cầu và khe co giãn cho các dự án hạ tầng giao thông tại Việt Nam.',
       aboutUsCol: 'Về chúng tôi',
       linksCol: 'Liên kết',
@@ -483,7 +483,7 @@ export const translations = {
       ariaLanguage: 'Select language',
     },
     footer: {
-      slogan: 'Specialist bridge structures contractor',
+      slogan: 'Technology that reaches further, partnerships that succeed',
       desc: 'Installing and stressing prestressing cable systems, bridge cables, bearings and expansion joints for transport infrastructure projects in Vietnam.',
       aboutUsCol: 'About Us',
       linksCol: 'Links',
