@@ -21,7 +21,23 @@
 }
 .filter-bar__btn:hover { border-color: var(--c-navy-600); color: var(--c-navy-600); }
 .filter-bar__btn.is-active { background: var(--c-navy-700); border-color: var(--c-navy-700); color: #fff; }
+.filter-bar__search {
+  padding: 9px 16px;
+  border: 1px solid var(--c-border);
+  border-radius: 100px;
+  background: #fff;
+  font: inherit;
+  font-size: .88rem;
+  color: var(--c-text);
+  min-width: 220px;
+  transition: var(--transition);
+}
+.filter-bar__search:focus { outline: none; border-color: var(--c-navy-600); }
 .filter-bar__count { margin-left: auto; font-size: .86rem; color: var(--c-text-muted); }
+@media (max-width: 640px) {
+  .filter-bar__search { min-width: 0; width: 100%; }
+  .filter-bar__count { margin-left: 0; }
+}
 
 /* ---------- Grouped by year ---------- */
 .year-groups { display: grid; gap: 48px; }

@@ -17,6 +17,15 @@ import './projects-page.css'
 // The page groups every project by year client-side, so fetch them in one go.
 const PAGE_SIZE = 100
 
+/** Strip Vietnamese diacritics and lowercase, so search ignores accents. */
+function normalize(text) {
+  return (text ?? '')
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/đ/gi, 'd')
+    .toLowerCase()
+}
+
 /** Group projects by year, newest first. */
 function groupByYear(projects) {
   const groups = new Map()
@@ -36,12 +45,24 @@ export function ProjectsPage() {
   })
 
   const [status, setStatus] = useState('')
+  const [query, setQuery] = useState('')
   const { data, loading, error } = useFetch(
     (options) => projectsApi.getProjects({ page: 1, page_size: PAGE_SIZE, status }, options),
     [status],
   )
 
-  const yearGroups = useMemo(() => groupByYear(data?.items ?? []), [data])
+  const filteredProjects = useMemo(() => {
+    const items = data?.items ?? []
+    const term = normalize(query.trim())
+    if (!term) return items
+    return items.filter((project) =>
+      [project.name, project.location, project.summary].some((field) =>
+        normalize(field).includes(term),
+      ),
+    )
+  }, [data, query])
+
+  const yearGroups = useMemo(() => groupByYear(filteredProjects), [filteredProjects])
 
   return (
     <>
@@ -65,14 +86,24 @@ export function ProjectsPage() {
                 {filter.label}
               </button>
             ))}
-            {data?.total > 0 && <span className="filter-bar__count">{data.total} dự án</span>}
+            <input
+              type="search"
+              className="filter-bar__search"
+              placeholder="Tìm kiếm dự án…"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              aria-label="Tìm kiếm dự án"
+            />
+            {data?.total > 0 && (
+              <span className="filter-bar__count">{filteredProjects.length} dự án</span>
+            )}
           </div>
 
           <StateBlock
             loading={loading}
             error={error}
-            isEmpty={!data?.items?.length}
-            emptyTitle="Chưa có dự án"
+            isEmpty={!filteredProjects.length}
+            emptyTitle={query.trim() ? 'Không tìm thấy dự án phù hợp' : 'Chưa có dự án'}
           >
             <div className="year-groups">
               {yearGroups.map(([year, projects]) => (
