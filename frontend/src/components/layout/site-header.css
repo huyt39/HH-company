@@ -27,11 +27,14 @@
 .site-header__topbar-links { display: flex; align-items: center; gap: 10px; }
 .site-header__topbar a:hover { color: #fff; }
 
-.lang-switch {
+.lang-switch { display: flex; align-items: center; gap: 6px; }
+.lang-switch button {
   background: none; border: none; color: inherit;
   font: inherit; font-weight: 600; cursor: pointer; padding: 0;
+  opacity: 0.6;
 }
-.lang-switch:hover { color: #fff; }
+.lang-switch button:hover { opacity: 1; color: #fff; }
+.lang-switch button.is-active { opacity: 1; color: #fff; text-decoration: underline; text-underline-offset: 3px; }
 
 .site-header.is-scrolled .site-header__topbar { max-height: 0; }
 

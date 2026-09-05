@@ -1,25 +1,31 @@
 import { Link } from 'react-router-dom'
 
+import { useLang } from '@/lib/i18n/language-context'
+
 /**
  * Home hero with the highlight stats strip.
  *
  * @param {{stats: {value: string, label: string}[]}} props
  */
 export function HeroSection({ stats }) {
+  const { t } = useLang()
+
   return (
     <section className="hero">
       <div className="container hero__inner">
         <span className="hero__eyebrow">Hoa Hoang Intra Co., Ltd</span>
         <h1 className="hero__title">
-          Hệ cáp dự ứng lực, gối cầu và khe co giãn<br />cho công trình hạ tầng giao thông
+          {t('home.heroTitle').split('\n').map((line, index) => (
+            <span key={index}>
+              {index > 0 && <br />}
+              {line}
+            </span>
+          ))}
         </h1>
-        <p className="hero__desc">
-          Từ năm 2014, Hòa Hoàng cung cấp và thi công lắp đặt vật tư chuyên dụng cho các dự án
-          cầu đường bộ, cao tốc và đường sắt trọng điểm trên cả nước.
-        </p>
+        <p className="hero__desc">{t('home.heroDesc')}</p>
         <div className="hero__actions">
-          <Link to="/san-pham" className="btn btn--primary">Xem sản phẩm</Link>
-          <Link to="/du-an" className="btn btn--ghost-light">Dự án đã thực hiện</Link>
+          <Link to="/san-pham" className="btn btn--primary">{t('home.heroCtaProducts')}</Link>
+          <Link to="/du-an" className="btn btn--ghost-light">{t('home.heroCtaProjects')}</Link>
         </div>
       </div>
 

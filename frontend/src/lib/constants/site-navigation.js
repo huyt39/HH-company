@@ -1,42 +1,46 @@
-/** Single source for the site menu: header, mobile menu and footer. */
+/**
+ * Single source for the site menu: header, mobile menu and footer.
+ * `labelKey` resolves through `t()` (see lib/i18n/translations.js under `nav`),
+ * so header/footer stay in sync across languages.
+ */
 export const SITE_NAVIGATION = [
-  { label: 'Trang chủ', to: '/' },
+  { labelKey: 'home', to: '/' },
   {
-    label: 'Giới thiệu',
+    labelKey: 'about',
     to: '/gioi-thieu',
     children: [
-      { label: 'Tổng quan', to: '/gioi-thieu#tong-quan' },
-      { label: 'Tầm nhìn - Sứ mệnh', to: '/gioi-thieu#tam-nhin' },
-      { label: 'Ban lãnh đạo', to: '/gioi-thieu#lanh-dao' },
-      { label: 'Cơ cấu tổ chức', to: '/gioi-thieu#co-cau' },
-      { label: 'Lịch sử phát triển', to: '/gioi-thieu#lich-su' },
+      { labelKey: 'aboutOverview', to: '/gioi-thieu#tong-quan' },
+      { labelKey: 'aboutMission', to: '/gioi-thieu#tam-nhin' },
+      { labelKey: 'aboutLeadership', to: '/gioi-thieu#lanh-dao' },
+      { labelKey: 'aboutStructure', to: '/gioi-thieu#co-cau' },
+      { labelKey: 'aboutHistory', to: '/gioi-thieu#lich-su' },
     ],
   },
-  { label: 'Lĩnh vực hoạt động', to: '/linh-vuc' },
-  { label: 'Sản phẩm', to: '/san-pham' },
-  { label: 'Dự án', to: '/du-an' },
-  { label: 'Tin tức', to: '/tin-tuc' },
-  { label: 'Tuyển dụng', to: '/tuyen-dung' },
-  { label: 'Liên hệ', to: '/lien-he' },
+  { labelKey: 'fields', to: '/linh-vuc' },
+  { labelKey: 'products', to: '/san-pham' },
+  { labelKey: 'projects', to: '/du-an' },
+  { labelKey: 'news', to: '/tin-tuc' },
+  { labelKey: 'careers', to: '/tuyen-dung' },
+  { labelKey: 'contact', to: '/lien-he' },
 ]
 
 /** The two link columns in the footer. */
 export const FOOTER_LINK_GROUPS = [
   {
-    title: 'Về chúng tôi',
+    titleKey: 'aboutUsCol',
     links: [
-      { label: 'Giới thiệu', to: '/gioi-thieu' },
-      { label: 'Lĩnh vực hoạt động', to: '/linh-vuc' },
-      { label: 'Sản phẩm', to: '/san-pham' },
-      { label: 'Dự án tiêu biểu', to: '/du-an' },
+      { labelKey: 'about', to: '/gioi-thieu' },
+      { labelKey: 'fields', to: '/linh-vuc' },
+      { labelKey: 'products', to: '/san-pham' },
+      { labelKey: 'projectsFeatured', to: '/du-an' },
     ],
   },
   {
-    title: 'Liên kết',
+    titleKey: 'linksCol',
     links: [
-      { label: 'Tin tức', to: '/tin-tuc' },
-      { label: 'Tuyển dụng', to: '/tuyen-dung' },
-      { label: 'Liên hệ', to: '/lien-he' },
+      { labelKey: 'news', to: '/tin-tuc' },
+      { labelKey: 'careers', to: '/tuyen-dung' },
+      { labelKey: 'contact', to: '/lien-he' },
     ],
   },
 ]

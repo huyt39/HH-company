@@ -1,10 +1,13 @@
 import { SectionHeading } from '@/components/ui/section-heading'
+import { useLang } from '@/lib/i18n/language-context'
 
 export function MilestonesSection({ milestones }) {
+  const { t } = useLang()
+
   return (
     <section className="section" id="lich-su">
       <div className="container">
-        <SectionHeading eyebrow="Chặng đường" title="Lịch sử phát triển" align="center" />
+        <SectionHeading eyebrow={t('about.milestonesEyebrow')} title={t('about.milestonesTitle')} align="center" />
         <ol className="timeline">
           {milestones?.map((item) => (
             <li className="timeline__item" key={item.year}>

@@ -1,16 +1,18 @@
 import { SectionHeading } from '@/components/ui/section-heading'
+import { useLang } from '@/lib/i18n/language-context'
 import { thumbUrl } from '@/lib/utils/media'
 
 /** Manufacturers whose products the company imports and distributes. */
 export function ManufacturersSection({ partners }) {
+  const { t } = useLang()
   if (!partners?.length) return null
 
   return (
     <section className="section section--soft">
       <div className="container">
         <SectionHeading
-          eyebrow="Nguồn cung"
-          title="Nhà sản xuất hợp tác"
+          eyebrow={t('about.manufacturersEyebrow')}
+          title={t('about.manufacturersTitle')}
           align="center"
         />
         <div className="grid grid--3">

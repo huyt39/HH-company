@@ -1,28 +1,25 @@
 import { Link } from 'react-router-dom'
 
 import { SectionHeading } from '@/components/ui/section-heading'
-
-const HIGHLIGHTS = [
-  'Phân phối sản phẩm SHINKO (Nhật Bản), Hirun (Italy) và các thương hiệu hàng đầu Trung Quốc',
-  'Chuyển giao công nghệ thi công dầm đường sắt tốc độ cao và hầm bằng máy TBM',
-  'Tham gia cao tốc Sài Gòn – Long Thành – Dầu Giây, Bến Lức – Long Thành, Hà Nội – Lào Cai',
-]
+import { useLang } from '@/lib/i18n/language-context'
 
 /** Short company intro on the home page. */
 export function AboutIntroSection() {
+  const { t } = useLang()
+
   return (
     <section className="section">
       <div className="container about-intro">
         <div>
           <SectionHeading
-            eyebrow="Về chúng tôi"
-            title="Nhà cung cấp chuyên ngành cầu đường"
-            description="Công ty TNHH Đầu tư xây dựng và dịch vụ thương mại Hòa Hoàng chuyên cung cấp và thi công lắp đặt hệ cáp neo dự ứng lực ngoài, hệ cáp cho cầu dây võng, dây văng và cầu vòm, gối cầu và khe co giãn các loại."
+            eyebrow={t('home.aboutIntroEyebrow')}
+            title={t('home.aboutIntroTitle')}
+            description={t('home.aboutIntroDesc')}
           />
           <ul className="check-list">
-            {HIGHLIGHTS.map((item) => <li key={item}>{item}</li>)}
+            {t('home.aboutIntroHighlights').map((item) => <li key={item}>{item}</li>)}
           </ul>
-          <Link to="/gioi-thieu" className="btn btn--outline">Xem chi tiết</Link>
+          <Link to="/gioi-thieu" className="btn btn--outline">{t('home.aboutIntroCta')}</Link>
         </div>
         <div className="about-intro__media">
           <img

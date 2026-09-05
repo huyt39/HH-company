@@ -6,6 +6,7 @@ import { newsApi } from '@/lib/api/news-client'
 import { projectsApi } from '@/lib/api/projects-client'
 import { useDocumentMeta } from '@/lib/hooks/use-document-meta'
 import { useFetch } from '@/lib/hooks/use-fetch'
+import { useLang } from '@/lib/i18n/language-context'
 import { fullUrl } from '@/lib/utils/media'
 
 import { ArticleGallery } from './_components/article-gallery'
@@ -13,16 +14,16 @@ import { ProjectContext } from './_components/project-context'
 import { ProjectFacts } from './_components/project-facts'
 import './article-detail-page.css'
 
-/** Per-type config; two routes share this detail page. */
+/** Per-type config; two routes share this detail page. `navKey` resolves through `nav.*`. */
 const VARIANTS = {
   news: {
     listPath: '/tin-tuc',
-    listLabel: 'Tin tức',
+    navKey: 'news',
     fetch: (slug, options) => newsApi.getArticle(slug, options),
   },
   project: {
     listPath: '/du-an',
-    listLabel: 'Dự án',
+    navKey: 'projects',
     fetch: (slug, options) => projectsApi.getProject(slug, options),
   },
 }
@@ -33,8 +34,10 @@ const VARIANTS = {
  * @param {{type: 'news' | 'project'}} props
  */
 export function ArticleDetailPage({ type }) {
+  const { t } = useLang()
   const { slug } = useParams()
   const variant = VARIANTS[type]
+  const listLabel = t(`nav.${variant.navKey}`)
 
   const { data, loading, error } = useFetch(
     (options) => variant.fetch(slug, options),
@@ -47,14 +50,14 @@ export function ArticleDetailPage({ type }) {
   })
 
   const isProject = type === 'project'
-  const title = data?.title || data?.name || (loading ? 'Đang tải…' : 'Không tìm thấy nội dung')
+  const title = data?.title || data?.name || (loading ? t('article.loadingTitle') : t('article.notFoundTitle'))
   const coverUrl = fullUrl(data?.cover)
 
   return (
     <>
       <PageBanner
         title={title}
-        breadcrumb={[{ label: variant.listLabel, to: variant.listPath }, { label: 'Chi tiết' }]}
+        breadcrumb={[{ label: listLabel, to: variant.listPath }, { label: t('article.detailCrumb') }]}
       />
 
       <section className="section">
@@ -91,7 +94,7 @@ export function ArticleDetailPage({ type }) {
               <div
                 className="article__content"
                 dangerouslySetInnerHTML={{
-                  __html: data.content || `<p>${data.summary || 'Nội dung đang được cập nhật.'}</p>`,
+                  __html: data.content || `<p>${data.summary || t('article.contentFallback')}</p>`,
                 }}
               />
 
@@ -104,7 +107,7 @@ export function ArticleDetailPage({ type }) {
           )}
 
           <Link to={variant.listPath} className="btn btn--outline article__back">
-            ← Quay lại {variant.listLabel.toLowerCase()}
+            {t('article.backTo')(listLabel)}
           </Link>
         </div>
       </section>

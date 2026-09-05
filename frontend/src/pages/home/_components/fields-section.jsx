@@ -2,18 +2,21 @@ import { Link } from 'react-router-dom'
 
 import { SectionHeading } from '@/components/ui/section-heading'
 import { StateBlock } from '@/components/ui/state-block'
+import { useLang } from '@/lib/i18n/language-context'
 
 const MAX_ITEMS = 8
 
 /** Trimmed grid of business fields, linking to the fields page. */
 export function FieldsSection({ fields, loading, error }) {
+  const { t } = useLang()
+
   return (
     <section className="section section--soft">
       <div className="container">
         <SectionHeading
-          eyebrow="Năng lực"
-          title="Lĩnh vực hoạt động"
-          description="Mười một lĩnh vực kinh doanh cốt lõi, từ cung cấp vật tư đến thi công và chuyển giao công nghệ."
+          eyebrow={t('home.fieldsEyebrow')}
+          title={t('home.fieldsTitle')}
+          description={t('home.fieldsDesc')}
           align="center"
         />
         <StateBlock loading={loading} error={error} isEmpty={!fields?.length} skeletonCount={4}>
@@ -28,7 +31,7 @@ export function FieldsSection({ fields, loading, error }) {
           </div>
         </StateBlock>
         <div className="text-center home-section__more">
-          <Link to="/linh-vuc" className="btn btn--outline">Tất cả lĩnh vực</Link>
+          <Link to="/linh-vuc" className="btn btn--outline">{t('home.fieldsViewAll')}</Link>
         </div>
       </div>
     </section>

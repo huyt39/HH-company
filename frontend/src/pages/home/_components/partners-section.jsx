@@ -1,14 +1,16 @@
 import { SectionHeading } from '@/components/ui/section-heading'
+import { useLang } from '@/lib/i18n/language-context'
 import { thumbUrl } from '@/lib/utils/media'
 
 /** Past customers; hidden entirely when there is no data. */
 export function PartnersSection({ partners }) {
+  const { t } = useLang()
   if (!partners?.length) return null
 
   return (
     <section className="section section--soft">
       <div className="container">
-        <SectionHeading eyebrow="Đối tác" title="Khách hàng đã hợp tác" align="center" />
+        <SectionHeading eyebrow={t('home.partnersEyebrow')} title={t('home.partnersTitle')} align="center" />
         <ul className="partner-list">
           {partners.map((partner) => (
             <li className="partner-chip" key={partner.name}>

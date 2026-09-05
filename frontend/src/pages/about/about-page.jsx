@@ -2,6 +2,7 @@ import { PageBanner } from '@/components/ui/page-banner'
 import { companyApi } from '@/lib/api/company-client'
 import { useDocumentMeta } from '@/lib/hooks/use-document-meta'
 import { useFetch } from '@/lib/hooks/use-fetch'
+import { useLang } from '@/lib/i18n/language-context'
 
 import { CompanyFacts } from './_components/company-facts'
 import { LeadersSection } from './_components/leaders-section'
@@ -12,11 +13,8 @@ import { VisionSection } from './_components/vision-section'
 import './about-page.css'
 
 export function AboutPage() {
-  useDocumentMeta({
-    title: 'Giới thiệu',
-    description:
-      'Tổng quan về Công ty Hòa Hoàng: lịch sử hình thành, tầm nhìn, ban lãnh đạo và cơ cấu tổ chức.',
-  })
+  const { t } = useLang()
+  useDocumentMeta({ title: t('about.metaTitle'), description: t('about.metaDesc') })
 
   const { data: profile } = useFetch((options) => companyApi.getProfile(options), [])
   const { data: partners } = useFetch(
@@ -27,7 +25,7 @@ export function AboutPage() {
   return (
     <>
       <PageBanner
-        title="Giới thiệu"
+        title={t('nav.about')}
         subtitle={profile?.tagline}
       />
 

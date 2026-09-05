@@ -7,12 +7,14 @@ import { StateBlock } from '@/components/ui/state-block'
 import { newsApi } from '@/lib/api/news-client'
 import { useDocumentMeta } from '@/lib/hooks/use-document-meta'
 import { useFetch } from '@/lib/hooks/use-fetch'
+import { useLang } from '@/lib/i18n/language-context'
 import { formatDate } from '@/lib/utils/date-format'
 
 const PAGE_SIZE = 9
 
 export function NewsPage() {
-  useDocumentMeta({ title: 'Tin tức', description: 'Tin tức và sự kiện của Công ty Hòa Hoàng.' })
+  const { t } = useLang()
+  useDocumentMeta({ title: t('news.metaTitle'), description: t('news.metaDesc') })
 
   const [page, setPage] = useState(1)
   const { data, loading, error } = useFetch(
@@ -22,10 +24,7 @@ export function NewsPage() {
 
   return (
     <>
-      <PageBanner
-        title="Tin tức & sự kiện"
-        subtitle="Cập nhật hoạt động, dự án và thông tin truyền thông của tập đoàn."
-      />
+      <PageBanner title={t('news.bannerTitle')} subtitle={t('news.bannerSubtitle')} />
 
       <section className="section">
         <div className="container">
@@ -33,7 +32,7 @@ export function NewsPage() {
             loading={loading}
             error={error}
             isEmpty={!data?.items?.length}
-            emptyTitle="Chưa có bài viết"
+            emptyTitle={t('news.empty')}
           >
             <div className="grid grid--3">
               {data?.items?.map((article) => (

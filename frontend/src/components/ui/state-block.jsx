@@ -1,3 +1,5 @@
+import { useLang } from '@/lib/i18n/language-context'
+
 import './state-block.css'
 
 /** Skeleton placeholder while a list loads. */
@@ -19,26 +21,25 @@ export function SkeletonGrid({ count = 3 }) {
 }
 
 /** Shown when the API returns no data. */
-export function EmptyState({
-  title = 'Chưa có dữ liệu',
-  description = 'Nội dung đang được cập nhật.',
-}) {
+export function EmptyState({ title, description }) {
+  const { t } = useLang()
   return (
     <div className="state-block">
       <div className="state-block__icon" aria-hidden="true">◔</div>
-      <h3>{title}</h3>
-      <p className="text-muted mb-0">{description}</p>
+      <h3>{title ?? t('common.noData')}</h3>
+      <p className="text-muted mb-0">{description ?? t('common.noDataDesc')}</p>
     </div>
   )
 }
 
 /** Shown when the API call fails. */
 export function ErrorState({ error }) {
+  const { t } = useLang()
   return (
     <div className="state-block state-block--error">
       <div className="state-block__icon" aria-hidden="true">!</div>
-      <h3>Không tải được dữ liệu</h3>
-      <p className="text-muted mb-0">{error?.message || 'Vui lòng thử lại sau.'}</p>
+      <h3>{t('common.errorTitle')}</h3>
+      <p className="text-muted mb-0">{error?.message || t('common.errorDesc')}</p>
     </div>
   )
 }

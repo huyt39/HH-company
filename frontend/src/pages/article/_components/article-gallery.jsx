@@ -1,6 +1,8 @@
+import { useLang } from '@/lib/i18n/language-context'
 import { thumbUrl } from '@/lib/utils/media'
 
 export function ArticleGallery({ media, cover }) {
+  const { t } = useLang()
   // The cover is already shown full width above, so a gallery holding nothing
   // else is just the same photo twice.
   const extras = media?.filter((item) => item.url !== cover?.url) ?? []
@@ -12,7 +14,7 @@ export function ArticleGallery({ media, cover }) {
 
   return (
     <section className="article__gallery">
-      <h2>Hình ảnh thi công</h2>
+      <h2>{t('article.galleryTitle')}</h2>
       <div className="article__gallery-grid">
         {media.map((item) => (
           <figure key={item.url}>

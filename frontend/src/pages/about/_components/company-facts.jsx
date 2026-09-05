@@ -1,28 +1,33 @@
 import { SectionHeading } from '@/components/ui/section-heading'
+import { useLang } from '@/lib/i18n/language-context'
 
 /** Overview: intro paragraphs on the left, legal details on the right. */
 export function CompanyFacts({ profile }) {
+  const { t } = useLang()
+  const labels = t('about.factLabels')
   const facts = [
-    { label: 'Tên đầy đủ', value: profile?.name },
-    { label: 'Tên tiếng Anh', value: profile?.name_en },
-    { label: 'Tên viết tắt', value: profile?.short_name },
-    { label: 'Mã số doanh nghiệp', value: profile?.tax_code },
-    { label: 'Năm thành lập', value: profile?.established },
-    { label: 'Vốn điều lệ', value: profile?.charter_capital },
-    { label: 'Ngành nghề chính', value: profile?.main_business_line },
+    { label: labels.fullName, value: profile?.name },
+    { label: labels.nameEn, value: profile?.name_en },
+    { label: labels.shortName, value: profile?.short_name },
+    { label: labels.businessCode, value: profile?.tax_code },
+    { label: labels.established, value: profile?.established },
+    { label: labels.charterCapital, value: profile?.charter_capital },
+    { label: labels.mainBusinessLine, value: profile?.main_business_line },
     {
-      label: 'Số ngành nghề đăng ký',
-      value: profile?.business_lines_count ? `${profile.business_lines_count} ngành` : null,
+      label: labels.businessLinesCount,
+      value: profile?.business_lines_count
+        ? t('about.businessLinesCountValue')(profile.business_lines_count)
+        : null,
     },
-    { label: 'Quy mô nhân sự', value: profile?.employees },
-    { label: 'Tình trạng', value: profile?.status },
+    { label: labels.employeeScale, value: profile?.employees },
+    { label: labels.status, value: profile?.status },
   ]
 
   return (
     <section className="section" id="tong-quan">
       <div className="container about-grid">
         <div>
-          <SectionHeading eyebrow="Tổng quan" title="Đôi nét về Hòa Hoàng" />
+          <SectionHeading eyebrow={t('about.factsEyebrow')} title={t('about.factsTitle')} />
           {profile?.intro?.map((paragraph, index) => (
             <p className="text-muted" key={index}>{paragraph}</p>
           ))}
@@ -31,7 +36,7 @@ export function CompanyFacts({ profile }) {
           {facts.map((fact) => (
             <div key={fact.label}>
               <dt>{fact.label}</dt>
-              <dd>{fact.value || 'Đang cập nhật'}</dd>
+              <dd>{fact.value || t('common.updating')}</dd>
             </div>
           ))}
         </dl>

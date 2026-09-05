@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 
 import { SITE_NAVIGATION } from '@/lib/constants/site-navigation'
+import { useLang } from '@/lib/i18n/language-context'
 
 import './site-header.css'
 
@@ -20,6 +21,7 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
+  const { lang, setLang, t } = useLang()
 
   useEffect(() => {
     let frame = 0
@@ -50,17 +52,32 @@ export function SiteHeader() {
     <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="site-header__topbar">
         <div className="container site-header__topbar-inner">
-          <span>Hotline: 024 2200 8708</span>
+          <span>{t('common.hotline')} 024 2200 8708</span>
           <div className="site-header__topbar-links">
             <a href="mailto:vnhoahoang@gmail.com">vnhoahoang@gmail.com</a>
             <span aria-hidden="true">|</span>
-            <button type="button" className="lang-switch">VI</button>
+            <div className="lang-switch" role="group" aria-label={t('nav.ariaLanguage')}>
+              <button
+                type="button"
+                className={lang === 'vi' ? 'is-active' : ''}
+                onClick={() => setLang('vi')}
+              >
+                VI
+              </button>
+              <button
+                type="button"
+                className={lang === 'en' ? 'is-active' : ''}
+                onClick={() => setLang('en')}
+              >
+                EN
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
       <div className="container site-header__main">
-        <Link to="/" className="brand" aria-label="Về trang chủ">
+        <Link to="/" className="brand" aria-label={t('nav.ariaHome')}>
           <img className="brand__logo" src="/logo.png" alt="" width="44" height="44" />
           <span className="brand__text">
             <strong>HÒA HOÀNG</strong>
@@ -68,7 +85,7 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className={`site-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Điều hướng chính">
+        <nav className={`site-nav ${menuOpen ? 'is-open' : ''}`} aria-label={t('nav.ariaMain')}>
           <ul className="site-nav__list">
             {SITE_NAVIGATION.map((item) => (
               <li key={item.to} className={item.children ? 'has-children' : ''}>
@@ -77,14 +94,14 @@ export function SiteHeader() {
                   end={item.to === '/'}
                   className={({ isActive }) => `site-nav__link ${isActive ? 'is-active' : ''}`}
                 >
-                  {item.label}
+                  {t(`nav.${item.labelKey}`)}
                 </NavLink>
 
                 {item.children && (
                   <ul className="site-nav__submenu">
                     {item.children.map((child) => (
                       <li key={child.to}>
-                        <Link to={child.to}>{child.label}</Link>
+                        <Link to={child.to}>{t(`nav.${child.labelKey}`)}</Link>
                       </li>
                     ))}
                   </ul>
@@ -98,7 +115,7 @@ export function SiteHeader() {
           type="button"
           className="nav-toggle"
           aria-expanded={menuOpen}
-          aria-label="Mở menu"
+          aria-label={t('nav.ariaMenuToggle')}
           onClick={() => setMenuOpen((open) => !open)}
         >
           <span /><span /><span />

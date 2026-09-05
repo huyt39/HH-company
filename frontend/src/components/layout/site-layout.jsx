@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 
+import { LanguageProvider } from '@/lib/i18n/language-context'
+
 import { SiteFooter } from './site-footer'
 import { SiteHeader } from './site-header'
 
@@ -41,12 +43,14 @@ export function SiteLayout() {
   }, [hash, key])
 
   return (
-    <div className="app-shell">
-      <SiteHeader />
-      <main className="app-main">
-        <Outlet />
-      </main>
-      <SiteFooter />
-    </div>
+    <LanguageProvider>
+      <div className="app-shell">
+        <SiteHeader />
+        <main className="app-main">
+          <Outlet />
+        </main>
+        <SiteFooter />
+      </div>
+    </LanguageProvider>
   )
 }

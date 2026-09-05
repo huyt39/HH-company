@@ -4,6 +4,7 @@ import { newsApi } from '@/lib/api/news-client'
 import { projectsApi } from '@/lib/api/projects-client'
 import { useDocumentMeta } from '@/lib/hooks/use-document-meta'
 import { useFetch } from '@/lib/hooks/use-fetch'
+import { useLang } from '@/lib/i18n/language-context'
 import { formatBillion } from '@/lib/utils/number-format'
 
 import { AboutIntroSection } from './_components/about-intro-section'
@@ -21,6 +22,7 @@ const LATEST_NEWS = 3
 
 export function HomePage() {
   useDocumentMeta()
+  const { t } = useLang()
 
   const fields = useFetch((options) => fieldsApi.getFields(options), [])
   const projects = useFetch(
@@ -40,13 +42,13 @@ export function HomePage() {
 
   const latestYear = financials?.[financials.length - 1]
   const stats = [
-    { value: '2013', label: 'Năm thành lập' },
-    { value: `${projects.data?.total ?? '30'}+`, label: 'Dự án đã thực hiện' },
+    { value: '2013', label: t('home.statEstablished') },
+    { value: `${projects.data?.total ?? '30'}+`, label: t('home.statProjectsDone') },
     {
       value: latestYear ? formatBillion(latestYear.revenue) : '—',
-      label: `Doanh thu ${latestYear?.year ?? ''} (tỷ đồng)`,
+      label: t('home.statRevenue')(latestYear?.year),
     },
-    { value: profile?.employees?.replace(' nhân sự', '') ?? '25 – 99', label: 'Cán bộ nhân viên' },
+    { value: profile?.employees?.replace(' nhân sự', '') ?? '25 – 99', label: t('home.statStaff') },
   ]
 
   return (

@@ -6,6 +6,7 @@ import { StateBlock } from '@/components/ui/state-block'
 import { productsApi } from '@/lib/api/products-client'
 import { useDocumentMeta } from '@/lib/hooks/use-document-meta'
 import { useFetch } from '@/lib/hooks/use-fetch'
+import { useLang } from '@/lib/i18n/language-context'
 import { fullUrl } from '@/lib/utils/media'
 
 import './products-page.css'
@@ -13,20 +14,14 @@ import './products-page.css'
 const groupIndex = (index) => String(index + 1).padStart(2, '0')
 
 export function ProductsPage() {
-  useDocumentMeta({
-    title: 'Sản phẩm',
-    description:
-      'Danh mục sản phẩm: cáp thành phẩm cho cầu dây văng, cáp dự ứng lực, neo DƯL, gối cầu, khe co giãn và thiết bị căng kéo.',
-  })
+  const { t } = useLang()
+  useDocumentMeta({ title: t('products.metaTitle'), description: t('products.metaDesc') })
 
   const { data, loading, error } = useFetch((options) => productsApi.getProducts(options), [])
 
   return (
     <>
-      <PageBanner
-        title="Sản phẩm cung cấp"
-        subtitle="Vật tư và thiết bị chuyên dụng cho công trình cầu đường, nhập khẩu từ các nhà sản xuất Nhật Bản, Italy và Trung Quốc."
-      />
+      <PageBanner title={t('products.bannerTitle')} subtitle={t('products.bannerSubtitle')} />
 
       <section className="section">
         <div className="container">
@@ -35,10 +30,10 @@ export function ProductsPage() {
             error={error}
             isEmpty={!data?.length}
             skeletonCount={6}
-            emptyTitle="Chưa có sản phẩm"
+            emptyTitle={t('products.empty')}
           >
             <>
-              <nav className="product-toc" aria-label="Danh mục sản phẩm">
+              <nav className="product-toc" aria-label={t('products.tocAriaLabel')}>
                 {data?.map((product, index) => (
                   <a href={`#${product.slug}`} key={product.slug}>
                     <span aria-hidden="true">{groupIndex(index)}</span>
@@ -53,7 +48,7 @@ export function ProductsPage() {
                     <div className="product-row__head">
                       <span className="product-row__icon" aria-hidden="true">{product.icon || '◆'}</span>
                       <div>
-                        <span className="product-row__index">Nhóm {groupIndex(index)}</span>
+                        <span className="product-row__index">{t('products.group')(groupIndex(index))}</span>
                         <h2>{product.name}</h2>
                       </div>
                     </div>
@@ -75,14 +70,14 @@ export function ProductsPage() {
                           loading="lazy"
                           decoding="async"
                         />
-                        <span>Bấm để xem ảnh gốc</span>
+                        <span>{t('products.viewOriginal')}</span>
                       </a>
                     )}
 
                     <div className="product-row__detail">
                       {product.specs?.length > 0 && (
                         <div>
-                          <h3>Thông số / chủng loại</h3>
+                          <h3>{t('products.specsLabel')}</h3>
                           <ul className="bullet-list">
                             {product.specs.map((spec) => <li key={spec}>{spec}</li>)}
                           </ul>
@@ -90,7 +85,7 @@ export function ProductsPage() {
                       )}
                       {product.applications?.length > 0 && (
                         <div>
-                          <h3>Ứng dụng</h3>
+                          <h3>{t('products.applicationsLabel')}</h3>
                           <ul className="tag-list">
                             {product.applications.map((app) => <li key={app}>{app}</li>)}
                           </ul>
@@ -108,12 +103,12 @@ export function ProductsPage() {
       <section className="section section--soft">
         <div className="container text-center">
           <SectionHeading
-            eyebrow="Hỗ trợ"
-            title="Cần tư vấn chủng loại phù hợp?"
-            description="Gửi thông số kỹ thuật của dự án, đội ngũ kỹ thuật sẽ đề xuất sản phẩm và cung cấp hồ sơ thí nghiệm tương ứng."
+            eyebrow={t('products.supportEyebrow')}
+            title={t('products.supportTitle')}
+            description={t('products.supportDesc')}
             align="center"
           />
-          <Link to="/lien-he" className="btn btn--primary">Gửi yêu cầu báo giá</Link>
+          <Link to="/lien-he" className="btn btn--primary">{t('products.supportCta')}</Link>
         </div>
       </section>
     </>

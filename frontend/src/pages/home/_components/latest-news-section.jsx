@@ -3,22 +3,25 @@ import { Link } from 'react-router-dom'
 import { Card } from '@/components/ui/card'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { StateBlock } from '@/components/ui/state-block'
+import { useLang } from '@/lib/i18n/language-context'
 import { formatDate } from '@/lib/utils/date-format'
 
 /** Latest articles on the home page. */
 export function LatestNewsSection({ articles, loading, error }) {
+  const { t } = useLang()
+
   return (
     <section className="section">
       <div className="container">
         <div className="section-head-row">
-          <SectionHeading eyebrow="Truyền thông" title="Tin tức & sự kiện" />
-          <Link to="/tin-tuc" className="btn btn--outline">Tất cả tin tức</Link>
+          <SectionHeading eyebrow={t('home.newsEyebrow')} title={t('home.newsTitle')} />
+          <Link to="/tin-tuc" className="btn btn--outline">{t('home.newsViewAll')}</Link>
         </div>
         <StateBlock
           loading={loading}
           error={error}
           isEmpty={!articles?.length}
-          emptyTitle="Chưa có bài viết"
+          emptyTitle={t('home.newsEmpty')}
         >
           <div className="grid grid--3">
             {articles?.map((article) => (

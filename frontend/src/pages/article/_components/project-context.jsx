@@ -1,17 +1,20 @@
+import { useLang } from '@/lib/i18n/language-context'
+
 /** "Project context" box: background gathered from public sources. */
 export function ProjectContext({ context, sourceUrl }) {
+  const { t } = useLang()
   if (!context) return null
 
   return (
     <aside className="context-box">
-      <h2>Bối cảnh dự án</h2>
+      <h2>{t('article.contextTitle')}</h2>
       <p>{context}</p>
       <p className="context-box__note">
-        Thông tin tổng hợp từ nguồn tin công khai, không thuộc phạm vi công việc của Hòa Hoàng.
+        {t('article.contextNote')}
         {sourceUrl && (
           <>
             {' '}
-            <a href={sourceUrl} target="_blank" rel="noopener noreferrer">Xem nguồn ↗</a>
+            <a href={sourceUrl} target="_blank" rel="noopener noreferrer">{t('article.contextViewSource')}</a>
           </>
         )}
       </p>

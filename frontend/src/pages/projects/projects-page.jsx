@@ -4,18 +4,18 @@ import { Card } from '@/components/ui/card'
 import { PageBanner } from '@/components/ui/page-banner'
 import { StateBlock } from '@/components/ui/state-block'
 import { projectsApi } from '@/lib/api/projects-client'
-import {
-  PROJECT_STATUS_FILTERS,
-  PROJECT_STATUS_LABEL,
-  PROJECT_STATUS_TONE,
-} from '@/lib/constants/project-status'
+import { PROJECT_STATUS_TONE } from '@/lib/constants/project-status'
 import { useDocumentMeta } from '@/lib/hooks/use-document-meta'
 import { useFetch } from '@/lib/hooks/use-fetch'
+import { useLang } from '@/lib/i18n/language-context'
 
 import './projects-page.css'
 
 // The page groups every project by year client-side, so fetch them in one go.
 const PAGE_SIZE = 100
+
+// Matches PROJECT_STATUS_FILTERS' values; labels are translated at render time.
+const STATUS_FILTER_VALUES = ['', 'in_progress', 'completed']
 
 /** Strip Vietnamese diacritics and lowercase, so search ignores accents. */
 function normalize(text) {
@@ -38,11 +38,8 @@ function groupByYear(projects) {
 }
 
 export function ProjectsPage() {
-  useDocumentMeta({
-    title: 'Dự án',
-    description:
-      'Các công trình cầu đường, cao tốc và đường sắt Hòa Hoàng đã cung cấp vật tư và thi công lắp đặt.',
-  })
+  const { t } = useLang()
+  useDocumentMeta({ title: t('projects.metaTitle'), description: t('projects.metaDesc') })
 
   const [status, setStatus] = useState('')
   const [query, setQuery] = useState('')
@@ -66,24 +63,21 @@ export function ProjectsPage() {
 
   return (
     <>
-      <PageBanner
-        title="Dự án đã thực hiện"
-        subtitle="Các công trình cầu đường, cao tốc và đường sắt Hòa Hoàng đã cung cấp vật tư và thi công lắp đặt."
-      />
+      <PageBanner title={t('projects.bannerTitle')} subtitle={t('projects.metaDesc')} />
 
       <section className="section">
         <div className="container">
-          <div className="filter-bar" role="tablist" aria-label="Lọc theo trạng thái">
-            {PROJECT_STATUS_FILTERS.map((filter) => (
+          <div className="filter-bar" role="tablist" aria-label={t('projects.filterAriaLabel')}>
+            {STATUS_FILTER_VALUES.map((value) => (
               <button
-                key={filter.value || 'all'}
+                key={value || 'all'}
                 type="button"
                 role="tab"
-                aria-selected={status === filter.value}
-                className={`filter-bar__btn ${status === filter.value ? 'is-active' : ''}`}
-                onClick={() => setStatus(filter.value)}
+                aria-selected={status === value}
+                className={`filter-bar__btn ${status === value ? 'is-active' : ''}`}
+                onClick={() => setStatus(value)}
               >
-                {filter.label}
+                {t(`projectStatus.${value || 'all'}`)}
               </button>
             ))}
             <label className="filter-bar__search">
@@ -93,14 +87,14 @@ export function ProjectsPage() {
               </svg>
               <input
                 type="search"
-                placeholder="Tìm kiếm theo tên dự án, địa điểm…"
+                placeholder={t('projects.searchPlaceholder')}
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                aria-label="Tìm kiếm dự án"
+                aria-label={t('projects.searchAriaLabel')}
               />
             </label>
             {data?.total > 0 && (
-              <span className="filter-bar__count">{filteredProjects.length} dự án</span>
+              <span className="filter-bar__count">{t('projects.count')(filteredProjects.length)}</span>
             )}
           </div>
 
@@ -108,14 +102,14 @@ export function ProjectsPage() {
             loading={loading}
             error={error}
             isEmpty={!filteredProjects.length}
-            emptyTitle={query.trim() ? 'Không tìm thấy dự án phù hợp' : 'Chưa có dự án'}
+            emptyTitle={query.trim() ? t('projects.emptyNoMatch') : t('projects.emptyNone')}
           >
             <div className="year-groups">
               {yearGroups.map(([year, projects]) => (
                 <section className="year-group" key={year}>
                   <h2 className="year-group__title">
-                    {year || 'Chưa xác định'}
-                    <span>{projects.length} dự án</span>
+                    {year || t('common.undated')}
+                    <span>{t('projects.count')(projects.length)}</span>
                   </h2>
                   <div className="grid grid--3">
                     {projects.map((project) => (
@@ -123,7 +117,7 @@ export function ProjectsPage() {
                         key={project.id}
                         to={`/du-an/${project.slug}`}
                         media={project.cover}
-                        tag={PROJECT_STATUS_LABEL[project.status]}
+                        tag={t(`projectStatus.${project.status}`)}
                         tagTone={PROJECT_STATUS_TONE[project.status]}
                         title={project.name}
                         meta={project.location}

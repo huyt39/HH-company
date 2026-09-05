@@ -1,16 +1,19 @@
+import { useLang } from '@/lib/i18n/language-context'
+
 import './pagination.css'
 
 /**
  * @param {{page: number, pageSize: number, total: number, onChange: (page: number) => void}} props
  */
 export function Pagination({ page, pageSize, total, onChange }) {
+  const { t } = useLang()
   const totalPages = Math.ceil(total / pageSize)
   if (totalPages <= 1) return null
 
   const pages = Array.from({ length: totalPages }, (_, index) => index + 1)
 
   return (
-    <nav className="pagination" aria-label="Phân trang">
+    <nav className="pagination" aria-label={t('pagination.ariaLabel')}>
       <button
         type="button"
         className="pagination__btn"
