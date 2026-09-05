@@ -21,22 +21,44 @@
 }
 .filter-bar__btn:hover { border-color: var(--c-navy-600); color: var(--c-navy-600); }
 .filter-bar__btn.is-active { background: var(--c-navy-700); border-color: var(--c-navy-700); color: #fff; }
+
 .filter-bar__search {
-  padding: 9px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 100%;
+  order: 1;
+  padding: 9px 18px;
   border: 1px solid var(--c-border);
   border-radius: 100px;
   background: #fff;
+  transition: var(--transition);
+}
+.filter-bar__search:focus-within { border-color: var(--c-navy-600); }
+.filter-bar__search svg {
+  flex-shrink: 0;
+  width: 17px;
+  height: 17px;
+  stroke: var(--c-text-muted);
+}
+.filter-bar__search:focus-within svg { stroke: var(--c-navy-600); }
+.filter-bar__search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: none;
   font: inherit;
   font-size: .88rem;
   color: var(--c-text);
-  min-width: 220px;
-  transition: var(--transition);
 }
-.filter-bar__search:focus { outline: none; border-color: var(--c-navy-600); }
-.filter-bar__count { margin-left: auto; font-size: .86rem; color: var(--c-text-muted); }
-@media (max-width: 640px) {
-  .filter-bar__search { min-width: 0; width: 100%; }
-  .filter-bar__count { margin-left: 0; }
+.filter-bar__search input::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+.filter-bar__count { font-size: .86rem; color: var(--c-text-muted); order: 2; }
+
+@media (min-width: 641px) {
+  .filter-bar__search { flex: 1 1 auto; order: 0; max-width: 420px; margin-left: 8px; }
+  .filter-bar__count { margin-left: auto; }
 }
 
 /* ---------- Grouped by year ---------- */

@@ -86,14 +86,19 @@ export function ProjectsPage() {
                 {filter.label}
               </button>
             ))}
-            <input
-              type="search"
-              className="filter-bar__search"
-              placeholder="Tìm kiếm dự án…"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              aria-label="Tìm kiếm dự án"
-            />
+            <label className="filter-bar__search">
+              <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                <circle cx="9" cy="9" r="6.5" fill="none" strokeWidth="1.8" />
+                <line x1="13.6" y1="13.6" x2="18" y2="18" strokeWidth="1.8" strokeLinecap="round" />
+              </svg>
+              <input
+                type="search"
+                placeholder="Tìm kiếm theo tên dự án, địa điểm…"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                aria-label="Tìm kiếm dự án"
+              />
+            </label>
             {data?.total > 0 && (
               <span className="filter-bar__count">{filteredProjects.length} dự án</span>
             )}
