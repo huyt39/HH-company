@@ -61,9 +61,6 @@
 .gallery__frame {
   position: relative;
   height: min(64vh, 560px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: var(--c-bg-soft);
   border: 1px solid var(--c-border);
   border-radius: var(--radius);
@@ -73,23 +70,54 @@
   outline: none;
 }
 .gallery__frame:focus-visible { box-shadow: 0 0 0 2px var(--c-navy-600); }
-.gallery__frame img {
-  max-width: 100%; max-height: 100%;
-  width: auto; height: auto;
+
+/* The strip holds every photo side by side; moving it is the slide transition. */
+.gallery__track {
+  display: flex;
+  height: 100%;
+  will-change: transform;
+}
+.gallery__track.is-animating {
+  transition: transform .55s cubic-bezier(.22, .61, .36, 1);
+}
+.gallery__slide {
+  flex: 0 0 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.gallery__slide img {
+  width: 100%; height: 100%;
   object-fit: contain;
   display: block;
   user-select: none;
+  -webkit-user-drag: none;
 }
-/* Zoomed: drop the fit constraint so the photo renders at its real pixel size
-   and the frame scrolls — that's the "zoom in", no transform math needed. */
-.gallery__frame.is-zoomed {
-  align-items: flex-start;
-  justify-content: flex-start;
-  overflow: auto;
-  cursor: grab;
-  touch-action: pan-x pan-y;
+
+.gallery__frame.is-dragging { cursor: grabbing; }
+
+/* Corner badge that says the photo opens full screen. */
+.gallery__expand {
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 34px; height: 34px;
+  display: grid; place-items: center;
+  border-radius: 10px;
+  background: rgba(15, 30, 50, 0.45);
+  color: #fff;
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
 }
-.gallery__frame.is-zoomed img { max-width: none; max-height: none; }
+.gallery__frame:hover .gallery__expand,
+.gallery__frame:focus-visible .gallery__expand { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery__track.is-animating { transition: none; }
+}
 
 .gallery__nav {
   position: absolute;
@@ -106,6 +134,7 @@
   transition: var(--transition);
 }
 .gallery__nav:hover { background: rgba(15, 30, 50, 0.7); }
+.gallery__nav:active { scale: .92; }
 .gallery__nav--prev { left: 12px; }
 .gallery__nav--next { right: 12px; }
 
@@ -122,13 +151,20 @@
 }
 .gallery__dot {
   width: 7px; height: 7px;
+  transition: width .3s cubic-bezier(.22, .61, .36, 1), background .25s ease;
   padding: 0;
   border: none;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.5);
   cursor: pointer;
 }
-.gallery__dot.is-active { background: #fff; }
+.gallery__dot.is-active { background: #fff; width: 18px; border-radius: 100px; }
+
+/* Zoomed in: the chrome fades out instead of popping. */
+.gallery__nav,
+.gallery__dots { transition: opacity .25s ease, background .25s ease, scale .15s ease; }
+.gallery__nav.is-hidden,
+.gallery__dots.is-hidden { opacity: 0; pointer-events: none; }
 
 .gallery__hint {
   display: block;
@@ -136,4 +172,141 @@
   font-size: .8rem;
   color: var(--c-text-muted);
   text-align: center;
+  transition: opacity .25s ease;
+}
+.gallery__hint.is-hidden { opacity: 0; }
+
+
+/* ---------- Full-screen photo viewer ---------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  background: rgba(5, 9, 16, calc(0.97 * var(--lightbox-fade, 1)));
+  backdrop-filter: blur(10px);
+  animation: lightbox-in .22s ease both;
+}
+.lightbox.is-closing { animation: lightbox-out .18s ease both; }
+
+@keyframes lightbox-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes lightbox-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.lightbox__surface {
+  flex: 1;
+  overflow: hidden;
+  outline: none;
+  cursor: zoom-in;
+  touch-action: none;
+}
+.lightbox.is-zoomed .lightbox__surface { cursor: grab; }
+.lightbox.is-zoomed.is-dragging .lightbox__surface { cursor: grabbing; }
+
+.lightbox__track {
+  display: flex;
+  height: 100%;
+  will-change: transform;
+}
+.lightbox__track.is-animating { transition: transform .5s cubic-bezier(.22, .61, .36, 1); }
+
+.lightbox__slide {
+  flex: 0 0 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 24px 84px;
+  overflow: hidden;
+}
+.lightbox__slide img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  border-radius: 4px;
+  transform-origin: center center;
+  transition: transform .4s cubic-bezier(.22, .61, .36, 1);
+  will-change: transform;
+  animation: lightbox-photo-in .32s cubic-bezier(.22, .61, .36, 1) both;
+}
+.lightbox.is-dragging .lightbox__slide img { transition: none; animation: none; }
+
+@keyframes lightbox-photo-in {
+  from { opacity: 0; scale: .94; }
+  to { opacity: 1; scale: 1; }
+}
+
+.lightbox__close,
+.lightbox__nav {
+  position: absolute;
+  display: grid; place-items: center;
+  border: none;
+  color: #fff;
+  /* Dark, not translucent-white: these sit on top of the photo itself. */
+  background: rgba(10, 16, 26, 0.55);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  transition: background .2s ease, opacity .2s ease, scale .15s ease;
+}
+.lightbox__close:hover,
+.lightbox__nav:hover:not(:disabled) { background: rgba(10, 16, 26, 0.85); }
+.lightbox__close:active,
+.lightbox__nav:active:not(:disabled) { scale: .92; }
+.lightbox__nav:disabled { opacity: .25; cursor: default; }
+
+.lightbox__close {
+  top: 14px; right: 16px;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  font-size: 1.05rem;
+}
+.lightbox__nav {
+  top: 50%;
+  translate: 0 -50%;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  font-size: 1.9rem;
+  line-height: 1;
+}
+.lightbox__nav--prev { left: 20px; }
+.lightbox__nav--next { right: 20px; }
+.lightbox.is-zoomed .lightbox__nav,
+.lightbox.is-zoomed .lightbox__bar { opacity: 0; pointer-events: none; }
+
+.lightbox__bar {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 72px 18px;
+  color: rgba(255, 255, 255, 0.86);
+  text-align: center;
+  background: linear-gradient(to top, rgba(7, 13, 24, 0.75), transparent);
+  transition: opacity .2s ease;
+}
+.lightbox__count { font-size: .82rem; font-weight: 600; letter-spacing: .02em; }
+.lightbox__caption { font-size: .88rem; max-width: 70ch; }
+.lightbox__hint { font-size: .75rem; color: rgba(255, 255, 255, 0.55); }
+
+@media (max-width: 640px) {
+  .lightbox__slide { padding: 48px 8px 96px; }
+  .lightbox__nav { width: 44px; height: 44px; }
+  .lightbox__nav--prev { left: 8px; }
+  .lightbox__nav--next { right: 8px; }
+  .lightbox__hint { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox, .lightbox.is-closing { animation: none; }
+  .lightbox__track.is-animating { transition: none; }
+  .lightbox__slide img { transition: none; animation: none; }
 }

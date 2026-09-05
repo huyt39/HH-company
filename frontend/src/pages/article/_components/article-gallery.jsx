@@ -3,6 +3,8 @@ import { useRef, useState } from 'react'
 import { useLang } from '@/lib/i18n/language-context'
 import { fullUrl } from '@/lib/utils/media'
 
+import { ImageLightbox } from './image-lightbox'
+
 const SWIPE_THRESHOLD = 50
 const MOVE_THRESHOLD = 4
 
@@ -19,106 +21,89 @@ function buildSlides(cover, media) {
 }
 
 /**
- * Single large photo viewer for an article: swipe or use the arrows to move
- * between the cover and gallery photos, click a photo to zoom to its actual
- * size and drag (or scroll) to pan around it.
+ * Photo strip for an article: it slides between photos and follows the finger
+ * while dragging. Clicking a photo hands it to the full-screen viewer, which is
+ * where the real zooming happens.
  */
 export function ArticleGallery({ cover, media }) {
   const { t } = useLang()
   const slides = buildSlides(cover, media)
   const [index, setIndex] = useState(0)
-  const [zoomed, setZoomed] = useState(false)
+  const [drag, setDrag] = useState(0)
+  const [animating, setAnimating] = useState(true)
+  const [lightbox, setLightbox] = useState(false)
   const frameRef = useRef(null)
   const dragRef = useRef(null)
 
   if (!slides.length) return null
 
-  const current = slides[index]
   const hasMultiple = slides.length > 1
 
   const goTo = (next) => {
+    setAnimating(true)
+    setDrag(0)
     setIndex(((next % slides.length) + slides.length) % slides.length)
-    setZoomed(false)
   }
 
   const handlePointerDown = (event) => {
+    if (event.button != null && event.button !== 0) return
     dragRef.current = {
-      pointerType: event.pointerType,
+      pointerId: event.pointerId,
       startX: event.clientX,
       startY: event.clientY,
-      lastX: event.clientX,
-      lastY: event.clientY,
       moved: false,
     }
-    if (event.pointerType === 'mouse') frameRef.current?.setPointerCapture(event.pointerId)
+    setAnimating(false)
+    frameRef.current?.setPointerCapture?.(event.pointerId)
   }
 
   const handlePointerMove = (event) => {
-    const drag = dragRef.current
-    if (!drag) return
-    const dx = event.clientX - drag.startX
-    const dy = event.clientY - drag.startY
-    if (Math.abs(dx) > MOVE_THRESHOLD || Math.abs(dy) > MOVE_THRESHOLD) drag.moved = true
+    const state = dragRef.current
+    if (!state) return
+    const dx = event.clientX - state.startX
+    const dy = event.clientY - state.startY
+    if (Math.abs(dx) > MOVE_THRESHOLD || Math.abs(dy) > MOVE_THRESHOLD) state.moved = true
+    if (!hasMultiple || !state.moved) return
 
-    if (zoomed && drag.pointerType === 'mouse') {
-      const frame = frameRef.current
-      if (frame) {
-        frame.scrollLeft -= event.clientX - drag.lastX
-        frame.scrollTop -= event.clientY - drag.lastY
-      }
-    }
-    drag.lastX = event.clientX
-    drag.lastY = event.clientY
+    // Rubber-band at the two ends so the strip never drags into empty space.
+    const atEdge = (dx > 0 && index === 0) || (dx < 0 && index === slides.length - 1)
+    setDrag(atEdge ? dx * 0.35 : dx)
   }
 
   const handlePointerUp = (event) => {
-    const drag = dragRef.current
+    const state = dragRef.current
     dragRef.current = null
-    if (!drag) return
-    if (event.pointerType === 'mouse') frameRef.current?.releasePointerCapture?.(event.pointerId)
+    if (!state) return
+    frameRef.current?.releasePointerCapture?.(state.pointerId)
+    setAnimating(true)
+    setDrag(0)
 
-    if (!zoomed && hasMultiple) {
-      const dx = event.clientX - drag.startX
-      const dy = event.clientY - drag.startY
-      if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
-        goTo(index + (dx < 0 ? 1 : -1))
-        return
-      }
+    if (!state.moved) {
+      setLightbox(true)
+      return
     }
 
-    if (!drag.moved) {
-      const frame = frameRef.current
-      const rect = frame?.getBoundingClientRect()
-      const fracX = rect ? (event.clientX - rect.left) / rect.width : 0.5
-      const fracY = rect ? (event.clientY - rect.top) / rect.height : 0.5
-      setZoomed((wasZoomed) => {
-        const nowZoomed = !wasZoomed
-        if (nowZoomed) {
-          requestAnimationFrame(() => {
-            if (!frame) return
-            frame.scrollLeft = fracX * frame.scrollWidth - rect.width / 2
-            frame.scrollTop = fracY * frame.scrollHeight - rect.height / 2
-          })
-        }
-        return nowZoomed
-      })
-    }
+    if (!hasMultiple) return
+    const dx = event.clientX - state.startX
+    const dy = event.clientY - state.startY
+    const next = index + (dx < 0 ? 1 : -1)
+    // A swipe stops at the ends — only the arrows and dots wrap around.
+    if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy) && slides[next]) goTo(next)
   }
 
   const handleKeyDown = (event) => {
     if (event.key === 'ArrowLeft' && hasMultiple) goTo(index - 1)
     else if (event.key === 'ArrowRight' && hasMultiple) goTo(index + 1)
-    else if (event.key === 'Escape' && zoomed) setZoomed(false)
     else if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
-      setZoomed((z) => !z)
+      setLightbox(true)
     }
   }
 
   return (
     <div className="gallery">
       <div
-        className={`gallery__frame ${zoomed ? 'is-zoomed' : ''}`}
+        className={`gallery__frame ${animating ? '' : 'is-dragging'}`}
         ref={frameRef}
         tabIndex={0}
         role="group"
@@ -129,16 +114,28 @@ export function ArticleGallery({ cover, media }) {
         onPointerCancel={handlePointerUp}
         onKeyDown={handleKeyDown}
       >
-        <img
-          src={fullUrl(current)}
-          alt={current.alt || ''}
-          decoding="async"
-          draggable={false}
-          onDragStart={(event) => event.preventDefault()}
-        />
+        <div
+          className={`gallery__track ${animating ? 'is-animating' : ''}`}
+          style={{ transform: `translate3d(calc(${-index * 100}% + ${drag}px), 0, 0)` }}
+        >
+          {slides.map((slide, i) => (
+            <div className="gallery__slide" key={slide.url} aria-hidden={i !== index}>
+              <img
+                src={fullUrl(slide)}
+                alt={slide.alt || ''}
+                loading={Math.abs(i - index) <= 1 ? 'eager' : 'lazy'}
+                decoding="async"
+                draggable={false}
+              />
+            </div>
+          ))}
+        </div>
+        <span className="gallery__expand" aria-hidden="true">
+          ⤢
+        </span>
       </div>
 
-      {hasMultiple && !zoomed && (
+      {hasMultiple && (
         <>
           <button
             type="button"
@@ -170,7 +167,20 @@ export function ArticleGallery({ cover, media }) {
         </>
       )}
 
-      {!zoomed && <span className="gallery__hint">{t('article.galleryZoomHint')}</span>}
+      <span className="gallery__hint">{t('article.galleryZoomHint')}</span>
+
+      {lightbox && (
+        <ImageLightbox
+          slides={slides}
+          startIndex={index}
+          onClose={(lastIndex) => {
+            setLightbox(false)
+            // Come back to the photo the reader stopped on.
+            if (typeof lastIndex === 'number') goTo(lastIndex)
+            frameRef.current?.focus()
+          }}
+        />
+      )}
     </div>
   )
 }
