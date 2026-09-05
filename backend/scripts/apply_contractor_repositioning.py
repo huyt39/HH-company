@@ -9,9 +9,11 @@ repositioning across, one concern at a time, and prints what it will do first.
 
 What it touches:
 
-  profile     vision, mission, intro, core_values, capability_stats,
-              personnel and any milestone year not already present. Leaders and
-              org units are left alone — those are maintained through /admin.
+  profile     vision, mission, intro, capability_stats, personnel and any
+              milestone year not already present. The slogan (`tagline`), core
+              values, leaders and org units are left alone: the first two are the
+              company's own wording from the capability profile, the rest are
+              maintained through /admin.
   services    replaces the old "lĩnh vực hoạt động" records with the service
               catalogue, but only if the services collection still holds the
               original eleven slugs and nothing has been added by hand.
@@ -123,19 +125,6 @@ async def apply_profile(dry_run: bool) -> int:
         changed += 1
     elif stored.get("intro") != seed["intro"]:
         print("  intro: đã sửa trong /admin, giữ nguyên")
-
-    old_values = [
-        "Chất lượng sản phẩm đạt tiêu chuẩn ASTM, ISO và tiêu chuẩn dự án",
-        "Đáp ứng đúng tiến độ giao hàng và thi công",
-        "Dịch vụ kỹ thuật và hỗ trợ hiện trường xuyên suốt",
-        "Minh bạch trong hồ sơ pháp lý, xuất xứ và thí nghiệm vật liệu",
-    ]
-    if stored.get("core_values") == old_values:
-        print("  core_values: thay bằng bộ giá trị của nhà thầu")
-        stored["core_values"] = seed["core_values"]
-        changed += 1
-    elif stored.get("core_values") != seed["core_values"]:
-        print("  core_values: đã sửa trong /admin, giữ nguyên")
 
     stored_years = {m["year"] for m in stored.get("milestones", [])}
     new_milestones = [m for m in seed["milestones"] if m["year"] not in stored_years]

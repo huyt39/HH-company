@@ -79,11 +79,13 @@ COMPANY_PROFILE = CompanyProfile(
         "bị của chính công ty; bàn giao hồ sơ nghiệm thu đầy đủ và giữ đúng tiến độ đã "
         "cam kết với nhà thầu chính."
     ),
+    # Wording taken from the capability profile (HSNL) — the company's own
+    # statement of its values, left as written rather than rephrased.
     core_values=[
-        "An toàn lao động là điều kiện tiên quyết của mọi công tác trên công trường",
-        "Thi công đúng biện pháp và tiêu chuẩn nghiệm thu đã được phê duyệt",
-        "Hồ sơ minh bạch: nhật ký thi công, kết quả thí nghiệm, biên bản nghiệm thu đầy đủ",
-        "Huy động nhanh, giữ đúng tiến độ đã cam kết với nhà thầu chính",
+        "Chất lượng sản phẩm đạt tiêu chuẩn ASTM, ISO và tiêu chuẩn dự án",
+        "Đáp ứng đúng tiến độ giao hàng và thi công",
+        "Dịch vụ kỹ thuật và hỗ trợ hiện trường xuyên suốt",
+        "Minh bạch trong hồ sơ pháp lý, xuất xứ và thí nghiệm vật liệu",
     ],
     # Numbers a main contractor can check against the project list on this site.
     # 750+ is the conservative rounding of 762,68 tấn — the sum of every cable
