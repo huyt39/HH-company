@@ -63,11 +63,10 @@ export const COMPANY_PROFILE_REPEATERS = [
   {
     name: 'personnel',
     label: 'Nhân sự thi công',
-    hint: 'Hiện ở trang Năng lực nhà thầu. Bỏ trống số lượng thì web hiện "Đang cập nhật".',
+    hint: 'Các vị trí công ty bố trí tại công trường, hiện ở trang Năng lực nhà thầu.',
     columns: [
       { name: 'title', label: 'Vị trí' },
-      { name: 'count', label: 'Số lượng' },
-      { name: 'note', label: 'Ghi chú' },
+      { name: 'note', label: 'Ghi chú (không bắt buộc)' },
     ],
   },
   {

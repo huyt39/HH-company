@@ -109,9 +109,8 @@ COMPANY_PROFILE = CompanyProfile(
         OrgUnit(name="Phòng Dự án", name_en="Project Dept."),
         OrgUnit(name="Phòng Dịch vụ", name_en="Service Dept.", children=["Kho sản phẩm"]),
     ],
-    # Seeded without counts on purpose — the real headcount per role is not in
-    # any source file, so the capability page prints "Đang cập nhật" until
-    # someone fills these in from the admin.
+    # Roles only. No source document states a headcount per role, so the page
+    # lists the roles the company fields instead of showing empty count cells.
     personnel=[
         PersonnelGroup(title="Chỉ huy trưởng công trường"),
         PersonnelGroup(title="Kỹ sư cầu đường"),

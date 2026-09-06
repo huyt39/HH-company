@@ -111,25 +111,17 @@ export function CapabilityPage() {
             description={t('capability.personnelDesc')}
           />
           <div className="capability-columns">
-            <table className="capability-table">
-              <thead>
-                <tr>
-                  <th>{t('capability.personnelLabels').role}</th>
-                  <th>{t('capability.personnelLabels').count}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(profile?.personnel ?? []).map((row) => (
-                  <tr key={row.title}>
-                    <td>
-                      {row.title}
-                      {row.note && <span className="capability-table__note">{row.note}</span>}
-                    </td>
-                    <td>{row.count || t('common.updating')}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <ul className="personnel-grid">
+              {(profile?.personnel ?? []).map((row) => (
+                <li className="personnel-card" key={row.title}>
+                  <span className="personnel-card__marker" aria-hidden="true">◆</span>
+                  <div>
+                    <h3>{row.title}</h3>
+                    {row.note && <p className="text-muted mb-0">{row.note}</p>}
+                  </div>
+                </li>
+              ))}
+            </ul>
             <aside className="capability-aside">
               <h3>{t('capability.orgTitle')}</h3>
               <p className="text-muted">{t('capability.orgDesc')}</p>

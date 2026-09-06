@@ -98,6 +98,47 @@
   color: var(--c-text-muted);
 }
 
+/* ---------- Site roles ---------- */
+/* A list of roles with no headcount, so cards rather than a one-column table. */
+
+.personnel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+}
+/* An odd number of roles would leave a ragged gap; the last one fills the row. */
+.personnel-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+.personnel-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 20px 22px;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-left: 3px solid var(--c-accent);
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+.personnel-card:hover { box-shadow: var(--shadow-sm); }
+
+.personnel-card__marker {
+  flex-shrink: 0;
+  font-size: .7rem;
+  color: var(--c-accent);
+  line-height: 1.9;
+}
+
+.personnel-card h3 {
+  font-size: .97rem;
+  line-height: 1.45;
+  margin-bottom: 0;
+  color: var(--c-navy-800);
+}
+.personnel-card p { font-size: .85rem; margin-top: 6px; }
+
 .capability-aside {
   padding: 24px;
   background: var(--c-bg-soft);

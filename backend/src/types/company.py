@@ -15,10 +15,14 @@ class OrgUnit(BaseModel):
 
 
 class PersonnelGroup(BaseModel):
-    """One row of the site-team headcount table on the capability page."""
+    """One site role listed on the capability page.
+
+    Deliberately has no headcount: none of the source documents (capability
+    profile, business registration, brand report) states one, so the page lists
+    which roles the company fields rather than inventing numbers.
+    """
 
     title: str
-    count: str | None = Field(default=None, description="Số lượng, để trống nếu chưa chốt")
     note: str | None = None
 
 
