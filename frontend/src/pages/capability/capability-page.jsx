@@ -111,14 +111,11 @@ export function CapabilityPage() {
             description={t('capability.personnelDesc')}
           />
           <div className="capability-columns">
-            <ul className="personnel-grid">
+            <ul className="personnel-list">
               {(profile?.personnel ?? []).map((row) => (
-                <li className="personnel-card" key={row.title}>
-                  <span className="personnel-card__marker" aria-hidden="true">◆</span>
-                  <div>
-                    <h3>{row.title}</h3>
-                    {row.note && <p className="text-muted mb-0">{row.note}</p>}
-                  </div>
+                <li key={row.title}>
+                  <span className="personnel-list__role">{row.title}</span>
+                  {row.note && <span className="personnel-list__note">{row.note}</span>}
                 </li>
               ))}
             </ul>

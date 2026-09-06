@@ -91,53 +91,53 @@
   border-top: 1px solid var(--c-border);
   vertical-align: top;
 }
-.capability-table__note {
-  display: block;
-  margin-top: 4px;
-  font-size: .82rem;
-  color: var(--c-text-muted);
-}
-
 /* ---------- Site roles ---------- */
-/* A list of roles with no headcount, so cards rather than a one-column table. */
+/* The page is already dense with bordered cards and tables, so the roster is
+   plain type on the section ground — the same ticked marker the home intro
+   uses, two columns, hairline between rows. */
 
-.personnel-grid {
+.personnel-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  column-gap: 40px;
   list-style: none;
   margin: 0;
 }
-/* An odd number of roles would leave a ragged gap; the last one fills the row. */
-.personnel-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
 
-.personnel-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 20px 22px;
-  background: #fff;
-  border: 1px solid var(--c-border);
-  border-left: 3px solid var(--c-accent);
-  border-radius: var(--radius);
-  transition: var(--transition);
-}
-.personnel-card:hover { box-shadow: var(--shadow-sm); }
-
-.personnel-card__marker {
-  flex-shrink: 0;
-  font-size: .7rem;
-  color: var(--c-accent);
-  line-height: 1.9;
+.personnel-list li {
+  position: relative;
+  padding: 15px 0 15px 32px;
+  border-bottom: 1px solid var(--c-border);
 }
 
-.personnel-card h3 {
+.personnel-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 17px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--c-blue-100);
+  color: var(--c-navy-600);
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+.personnel-list__role {
+  display: block;
   font-size: .97rem;
-  line-height: 1.45;
-  margin-bottom: 0;
+  font-weight: 600;
   color: var(--c-navy-800);
 }
-.personnel-card p { font-size: .85rem; margin-top: 6px; }
+.personnel-list__note {
+  display: block;
+  margin-top: 3px;
+  font-size: .85rem;
+  color: var(--c-text-muted);
+}
 
 .capability-aside {
   padding: 24px;
