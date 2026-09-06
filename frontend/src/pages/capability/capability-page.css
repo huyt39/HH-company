@@ -139,6 +139,13 @@
   color: var(--c-text-muted);
 }
 
+.capability-table__note {
+  display: block;
+  margin-top: 4px;
+  font-size: .82rem;
+  color: var(--c-text-muted);
+}
+
 .capability-aside {
   padding: 24px;
   background: var(--c-bg-soft);

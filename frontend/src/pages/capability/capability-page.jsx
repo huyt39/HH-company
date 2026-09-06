@@ -144,17 +144,16 @@ export function CapabilityPage() {
                 <tr>
                   <th>{t('capability.equipmentLabels').name}</th>
                   <th>{t('capability.equipmentLabels').spec}</th>
-                  <th>{t('capability.equipmentLabels').quantity}</th>
                 </tr>
               </thead>
               <tbody>
                 {equipment.map((item) => (
                   <tr key={item.id}>
-                    <td>{item.name}</td>
-                    <td className="text-muted">{item.spec || '—'}</td>
                     <td>
-                      {item.quantity ? `${item.quantity} ${item.unit || ''}`.trim() : t('common.updating')}
+                      {item.name}
+                      {item.note && <span className="capability-table__note">{item.note}</span>}
                     </td>
+                    <td className="text-muted">{item.spec || '—'}</td>
                   </tr>
                 ))}
               </tbody>

@@ -268,15 +268,13 @@ export const ADMIN_RESOURCES = {
     columns: [
       { name: 'name', label: 'Tên thiết bị', primary: true },
       { name: 'category', label: 'Nhóm', options: EQUIPMENT_CATEGORY_OPTIONS, width: 160 },
-      { name: 'quantity', label: 'SL', width: 60 },
+      { name: 'spec', label: 'Thông số / công suất' },
     ],
     form: [
       { name: 'name', label: 'Tên thiết bị', type: 'text', required: true },
       { name: 'category', label: 'Nhóm thiết bị', type: 'select', options: EQUIPMENT_CATEGORY_OPTIONS },
       { name: 'spec', label: 'Thông số / công suất', type: 'textarea', rows: 2 },
-      { name: 'quantity', label: 'Số lượng', type: 'number', hint: 'Để trống thì trang web hiện "Đang cập nhật"' },
-      { name: 'unit', label: 'Đơn vị', type: 'text', hint: 'Bộ, chiếc, máy…' },
-      { name: 'note', label: 'Ghi chú', type: 'textarea', rows: 2 },
+      { name: 'note', label: 'Ghi chú', type: 'textarea', rows: 2, hint: 'Hiện dưới tên thiết bị' },
       { name: 'image', label: 'Ảnh thiết bị', type: 'image' },
       ...PUBLISH_FIELDS,
     ],
