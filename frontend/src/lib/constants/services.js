@@ -26,18 +26,3 @@ export const PROJECT_ROLE_TONE = {
   construction: 'done',
   supply: 'planned',
 }
-
-/**
- * Work types offered as filters on the projects page. Values match both a
- * service slug and the entries in a project's `work_types`.
- */
-export const PROJECT_WORK_TYPE_FILTERS = [
-  'cang-keo-du-ung-luc-ngoai',
-  'he-cap-cau',
-  'lap-dat-goi-cau',
-  'thay-the-he-cap',
-  'thay-the-khe-co-gian',
-  'tang-cuong-cau-cu',
-  'thay-the-goi-cau',
-  'cung-cap-vat-tu-thiet-bi',
-]
