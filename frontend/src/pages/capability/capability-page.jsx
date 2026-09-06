@@ -14,6 +14,14 @@ import './capability-page.css'
 /** Certificate blocks, in the order a bid reviewer works through them. */
 const CERTIFICATE_GROUPS = ['legal', 'iso', 'product', 'acceptance']
 
+/** One glyph per block, so a card is identifiable before the title is read. */
+const CERTIFICATE_ICONS = {
+  legal: '▤',
+  iso: '◎',
+  product: '◆',
+  acceptance: '✓',
+}
+
 export function CapabilityPage() {
   const { t, lang } = useLang()
   useDocumentMeta({ title: t('capability.metaTitle'), description: t('capability.metaDesc') })
@@ -68,31 +76,43 @@ export function CapabilityPage() {
                 <h3 className="capability-subgroup__title">
                   {t('capability.certificateCategories')[group.category]}
                 </h3>
-                <div className="grid grid--2">
+                <div className="certificate-grid">
                   {group.items.map((item) => (
                     <article className="certificate-card" key={item.id}>
-                      <h4>{item.name}</h4>
-                      <dl>
+                      <span className="certificate-card__icon" aria-hidden="true">
+                        {CERTIFICATE_ICONS[group.category] ?? '▤'}
+                      </span>
+                      <div className="certificate-card__body">
+                        <h4>{item.name}</h4>
                         {item.code && (
-                          <div>
-                            <dt>{t('capability.certificateLabels').code}</dt>
-                            <dd className="mono">{item.code}</dd>
-                          </div>
+                          <p className="certificate-card__code">
+                            <span className="visually-hidden">
+                              {t('capability.certificateLabels').code}:{' '}
+                            </span>
+                            {item.code}
+                          </p>
                         )}
+                        {/* Labels are only for assistive tech: an organisation name
+                            and a date read as themselves, and printing "Đơn vị cấp"
+                            three times per card was most of the visual noise. */}
                         {item.issuer && (
-                          <div>
-                            <dt>{t('capability.certificateLabels').issuer}</dt>
-                            <dd>{item.issuer}</dd>
-                          </div>
+                          <p className="certificate-card__meta">
+                            <span className="visually-hidden">
+                              {t('capability.certificateLabels').issuer}:{' '}
+                            </span>
+                            {item.issuer}
+                          </p>
                         )}
                         {item.issued && (
-                          <div>
-                            <dt>{t('capability.certificateLabels').issued}</dt>
-                            <dd>{item.issued}</dd>
-                          </div>
+                          <p className="certificate-card__meta">
+                            <span className="visually-hidden">
+                              {t('capability.certificateLabels').issued}:{' '}
+                            </span>
+                            {item.issued}
+                          </p>
                         )}
-                      </dl>
-                      {item.note && <p className="text-muted mb-0">{item.note}</p>}
+                        {item.note && <p className="certificate-card__note">{item.note}</p>}
+                      </div>
                     </article>
                   ))}
                 </div>

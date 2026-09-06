@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 
+import { DomainIcon } from '@/components/ui/domain-icon'
 import { PageBanner } from '@/components/ui/page-banner'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { StateBlock } from '@/components/ui/state-block'
@@ -35,9 +36,11 @@ export function ProductsPage() {
             <>
               <nav className="product-toc" aria-label={t('products.tocAriaLabel')}>
                 {data?.map((product, index) => (
-                  <a href={`#${product.slug}`} key={product.slug}>
-                    <span aria-hidden="true">{groupIndex(index)}</span>
-                    {product.name}
+                  <a href={`#${product.slug}`} key={product.slug} title={product.name}>
+                    <span className="product-toc__index" aria-hidden="true">
+                      {groupIndex(index)}
+                    </span>
+                    <span className="product-toc__name">{product.name}</span>
                   </a>
                 ))}
               </nav>
@@ -46,7 +49,9 @@ export function ProductsPage() {
                 {data?.map((product, index) => (
                   <article className="product-row" id={product.slug} key={product.id}>
                     <div className="product-row__head">
-                      <span className="product-row__icon" aria-hidden="true">{product.icon || '◆'}</span>
+                      <span className="product-row__icon">
+                        <DomainIcon slug={product.slug} kind="product" />
+                      </span>
                       <div>
                         <span className="product-row__index">{t('products.group')(groupIndex(index))}</span>
                         <h2>{product.name}</h2>

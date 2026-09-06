@@ -32,31 +32,92 @@
 
 .capability-subgroup + .capability-subgroup { margin-top: 36px; }
 .capability-subgroup__title {
-  font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--c-accent);
-  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--c-text-muted);
+  margin-bottom: 18px;
+}
+/* Rule fills the line so the label reads as a divider, not another heading. */
+.capability-subgroup__title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--c-border);
 }
 
+/* auto-fill, not auto-fit: a group holding a single card keeps it to one
+   column instead of stretching it across the full width with the text stranded
+   on the left. As more certificates are added the rows simply fill up. */
+.certificate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
+  gap: 20px;
+}
+
+/* Was a label/value grid: a fixed 132px label column wrapped "Ngày cấp / hiệu
+   lực" onto two lines in every card, and repeating three labels per card was
+   most of the text on screen. The values speak for themselves, so the labels
+   moved to screen readers only and the card became a plain hierarchy —
+   title, reference, source, note. */
 .certificate-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
   padding: 24px;
   background: #fff;
   border: 1px solid var(--c-border);
   border-radius: var(--radius);
 }
-.certificate-card h4 { font-size: 1rem; margin-bottom: 16px; }
-.certificate-card dl { margin-bottom: 12px; }
-.certificate-card dl > div {
-  display: grid;
-  grid-template-columns: 132px 1fr;
-  gap: 8px;
-  padding: 6px 0;
-  border-bottom: 1px dashed var(--c-border);
-  font-size: .88rem;
+
+.certificate-card__icon {
+  flex-shrink: 0;
+  display: grid; place-items: center;
+  width: 38px; height: 38px;
+  border-radius: var(--radius-sm);
+  background: var(--c-blue-100);
+  color: var(--c-navy-600);
+  font-size: .95rem;
 }
-.certificate-card dt { color: var(--c-text-muted); }
-.certificate-card dd { font-weight: 600; }
-.certificate-card .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-.certificate-card p { font-size: .86rem; }
+
+.certificate-card__body { min-width: 0; }
+
+.certificate-card h4 {
+  font-size: 1rem;
+  line-height: 1.45;
+  margin-bottom: 10px;
+  color: var(--c-navy-800);
+}
+
+.certificate-card__code {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--c-bg-soft);
+  border: 1px solid var(--c-border);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--c-navy-700);
+  word-break: break-word;
+}
+
+.certificate-card__meta {
+  font-size: .88rem;
+  line-height: 1.55;
+  color: var(--c-text-muted);
+  margin-bottom: 2px;
+}
+
+.certificate-card__note {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--c-border);
+  font-size: .85rem;
+  color: var(--c-text-muted);
+}
 
 /* ---------- Tables (personnel, equipment) ---------- */
 

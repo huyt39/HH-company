@@ -31,7 +31,6 @@
   border-radius: var(--radius);
   background: var(--c-blue-100);
   color: var(--c-navy-600);
-  font-size: 1.25rem;
 }
 .service-card h3 { font-size: 1.06rem; margin-bottom: 8px; }
 .service-card p { font-size: .91rem; margin-bottom: 10px; }

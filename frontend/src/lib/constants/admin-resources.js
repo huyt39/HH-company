@@ -50,7 +50,6 @@ export const ADMIN_RESOURCES = {
       { name: 'name', label: 'Tên dịch vụ', primary: true },
       { name: 'category', label: 'Nhóm', options: SERVICE_CATEGORY_OPTIONS, width: 170 },
       { name: 'slug', label: 'Slug', mono: true },
-      { name: 'icon', label: 'Icon', width: 60 },
     ],
     form: [
       { name: 'name', label: 'Tên dịch vụ', type: 'text', required: true, slugSource: true },
@@ -80,7 +79,6 @@ export const ADMIN_RESOURCES = {
         mono: true,
         hint: 'Khớp với "Loại công việc" ở Dự án để trang dịch vụ tự lấy dự án liên quan. Thường trùng slug.',
       },
-      { name: 'icon', label: 'Ký tự icon', type: 'text', hint: 'Ví dụ: ◆ ◇ ▣ ⚙' },
       { name: 'cover', label: 'Ảnh minh hoạ', type: 'image' },
       ...PUBLISH_FIELDS,
     ],
@@ -94,7 +92,6 @@ export const ADMIN_RESOURCES = {
       { name: 'image', label: '', type: 'thumb', width: 64 },
       { name: 'name', label: 'Nhóm sản phẩm', primary: true },
       { name: 'slug', label: 'Slug', mono: true },
-      { name: 'icon', label: 'Icon', width: 60 },
     ],
     form: [
       { name: 'name', label: 'Tên nhóm sản phẩm', type: 'text', required: true, slugSource: true },
@@ -108,7 +105,6 @@ export const ADMIN_RESOURCES = {
       },
       { name: 'specs', label: 'Thông số / chủng loại', type: 'list' },
       { name: 'applications', label: 'Ứng dụng', type: 'list' },
-      { name: 'icon', label: 'Ký tự icon', type: 'text' },
       ...PUBLISH_FIELDS,
     ],
   },

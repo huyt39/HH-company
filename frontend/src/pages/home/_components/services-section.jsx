@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 
+import { DomainIcon } from '@/components/ui/domain-icon'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { StateBlock } from '@/components/ui/state-block'
 import { useLang } from '@/lib/i18n/language-context'
@@ -45,7 +46,7 @@ export function ServicesSection({ services, loading, error }) {
                     {items.map((service) => (
                       <li key={service.id}>
                         <Link to={`/dich-vu/${service.slug}`}>
-                          <span aria-hidden="true">{service.icon || '◆'}</span>
+                          <DomainIcon slug={service.slug} />
                           {service.name}
                         </Link>
                       </li>

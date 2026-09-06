@@ -1,23 +1,62 @@
 /* ---------- Quick table of contents ---------- */
+/* Jump list to the product sections below.
+   Two columns, one line per entry: at four columns the longer names wrapped to
+   three lines and every row ended up a different height, which is what made the
+   block read as loose text rather than a list. Two columns leave enough width
+   that no name is clipped at desktop; the ellipsis only kicks in on narrow
+   viewports, where the full text stays reachable via the `title` attribute and
+   the section the link jumps to. */
 .product-toc {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 8px;
+  /* min() so the 420px track can still shrink on a phone — a bare
+     minmax(420px, 1fr) forces the grid wider than a 390px viewport. */
+  grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+  gap: 2px 20px;
   margin-bottom: 48px;
-  padding: 22px;
+  padding: 14px 16px;
   background: var(--c-bg-soft);
   border: 1px solid var(--c-border);
   border-radius: var(--radius);
 }
+
 .product-toc a {
-  display: flex; align-items: baseline; gap: 10px;
-  padding: 7px 10px;
-  font-size: .89rem;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  padding: 12px 14px;
+  font-size: .92rem;
+  color: var(--c-text);
   border-radius: var(--radius-sm);
+  border-left: 2px solid transparent;
   transition: var(--transition);
 }
-.product-toc a:hover { background: #fff; color: var(--c-navy-600); }
-.product-toc span { font-weight: 800; color: var(--c-accent); font-size: .8rem; }
+.product-toc a:hover {
+  background: #fff;
+  border-left-color: var(--c-accent);
+  color: var(--c-navy-700);
+  box-shadow: var(--shadow-sm);
+}
+
+.product-toc__index {
+  flex-shrink: 0;
+  font-size: .78rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-accent);
+}
+
+.product-toc__name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .product-toc { padding: 10px; }
+  .product-toc a { padding: 11px 10px; gap: 12px; }
+}
 
 /* ---------- Product groups ---------- */
 .product-list { display: grid; gap: 28px; }
@@ -54,8 +93,8 @@
   border-radius: var(--radius);
   background: var(--c-blue-100);
   color: var(--c-navy-600);
-  font-size: 1.4rem;
 }
+.product-row__icon .domain-icon { width: 28px; height: 28px; }
 .product-row__index {
   display: block;
   font-size: .74rem; font-weight: 700; letter-spacing: .12em;

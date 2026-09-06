@@ -192,13 +192,15 @@
 .service-group-card__list li:last-child { border-bottom: 0; }
 .service-group-card__list a {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 12px;
   padding: 12px 0;
   color: var(--c-text);
   font-size: .93rem;
   transition: var(--transition);
 }
+.service-group-card__list .domain-icon { width: 20px; height: 20px; color: var(--c-navy-600); }
+.service-group-card__list a:hover .domain-icon { color: var(--c-accent); }
 .service-group-card__list a:hover { color: var(--c-accent); }
 .service-group-card__list span { color: var(--c-navy-600); }
 .service-group-card__more {

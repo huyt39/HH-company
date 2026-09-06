@@ -241,7 +241,6 @@ _SERVICES: list[dict] = [
             "Tiêu chuẩn nghiệm thu theo hồ sơ thiết kế và chỉ dẫn kỹ thuật của từng dự án",
         ],
         "deliverables": _HANDOVER_DOCS + ["Nhật ký căng kéo và biểu đồ lực — độ giãn dài từng bó cáp"],
-        "icon": "◆",
     },
     {
         "slug": "he-cap-cau",
@@ -267,7 +266,6 @@ _SERVICES: list[dict] = [
             "Lực cáp và cao độ nghiệm thu theo hồ sơ thiết kế của từng dự án",
         ],
         "deliverables": _HANDOVER_DOCS + ["Bảng lực cáp và cao độ kết cấu đo sau căng chỉnh"],
-        "icon": "◇",
     },
     {
         "slug": "lap-dat-goi-cau",
@@ -293,7 +291,6 @@ _SERVICES: list[dict] = [
             "Dung sai lắp đặt theo chỉ dẫn kỹ thuật và hướng dẫn của nhà sản xuất",
         ],
         "deliverables": _HANDOVER_DOCS + ["Biên bản định vị, cao độ và trạng thái gối sau khi hạ dầm"],
-        "icon": "▣",
     },
     {
         "slug": "lap-dat-khe-co-gian",
@@ -319,7 +316,6 @@ _SERVICES: list[dict] = [
             "Cao độ và độ êm thuận nghiệm thu theo chỉ dẫn kỹ thuật của dự án",
         ],
         "deliverables": _HANDOVER_DOCS + ["Biên bản độ mở khe theo nhiệt độ thi công và kết quả kiểm tra kín nước"],
-        "icon": "▦",
     },
     {
         "slug": "neo-dat-mai-doc",
@@ -343,7 +339,6 @@ _SERVICES: list[dict] = [
             "Lực thí nghiệm và lực khóa neo theo hồ sơ thiết kế của từng dự án",
         ],
         "deliverables": _HANDOVER_DOCS + ["Kết quả thí nghiệm kéo nhổ neo và nhật ký căng neo"],
-        "icon": "▲",
     },
     # ---- Sửa chữa – tăng cường --------------------------------------------- #
     {
@@ -369,7 +364,6 @@ _SERVICES: list[dict] = [
             "Trình tự tháo — lắp và giới hạn nội lực từng bước theo biện pháp được phê duyệt",
         ],
         "deliverables": _HANDOVER_DOCS + ["Bảng so sánh lực cáp trước và sau khi thay thế"],
-        "icon": "⚒",
     },
     {
         "slug": "tang-cuong-cau-cu",
@@ -395,7 +389,6 @@ _SERVICES: list[dict] = [
             "Lực căng và trình tự căng theo hồ sơ thiết kế tăng cường được phê duyệt",
         ],
         "deliverables": _HANDOVER_DOCS + ["Nhật ký căng kéo và số liệu quan trắc biến dạng kết cấu"],
-        "icon": "◈",
     },
     {
         "slug": "thay-the-khe-co-gian",
@@ -420,7 +413,6 @@ _SERVICES: list[dict] = [
             "Độ mở khe hiệu chỉnh theo nhiệt độ thi công, nghiệm thu theo chỉ dẫn kỹ thuật dự án",
         ],
         "deliverables": _HANDOVER_DOCS + ["Phương án phân luồng và biên bản nghiệm thu thông xe"],
-        "icon": "▤",
     },
     {
         "slug": "thay-the-goi-cau",
@@ -445,7 +437,6 @@ _SERVICES: list[dict] = [
             "Hành trình kích và giới hạn chuyển vị theo biện pháp thi công được phê duyệt",
         ],
         "deliverables": _HANDOVER_DOCS + ["Nhật ký kích nâng và số liệu chuyển vị theo từng cấp"],
-        "icon": "▥",
     },
     {
         "slug": "chong-va-tru-cau",
@@ -469,7 +460,6 @@ _SERVICES: list[dict] = [
             "Năng lượng va và cấu tạo liên kết theo hồ sơ thiết kế của từng dự án",
         ],
         "deliverables": _HANDOVER_DOCS,
-        "icon": "◐",
     },
     # ---- Công nghệ và cung cấp --------------------------------------------- #
     {
@@ -499,7 +489,6 @@ _SERVICES: list[dict] = [
             "Hồ sơ kỹ thuật và biên bản nghiệm thu thiết bị tại xưởng",
             "Tài liệu quy trình vận hành và biên bản đào tạo chuyển giao",
         ],
-        "icon": "⚙",
     },
     {
         "slug": "cung-cap-vat-tu-thiet-bi",
@@ -530,7 +519,6 @@ _SERVICES: list[dict] = [
             "Kết quả thí nghiệm vật liệu của lô hàng cung cấp",
             "Hướng dẫn lắp đặt của nhà sản xuất",
         ],
-        "icon": "◉",
     },
     {
         "slug": "dich-vu-ky-thuat-hien-truong",
@@ -557,7 +545,6 @@ _SERVICES: list[dict] = [
             "Biên bản hiện trường và biên bản hướng dẫn lắp đặt",
             "Hỗ trợ hồ sơ nghiệm thu của hạng mục liên quan",
         ],
-        "icon": "◑",
     },
 ]
 
@@ -574,7 +561,6 @@ _PRODUCTS: list[dict] = [
         "description": "Bó cáp thành phẩm dùng sợi thép mạ kẽm loại song song (PWS), ép đùn HDPE hai lớp, hai đầu bó chế tạo kiểu neo hệ bắt đai ốc.",
         "specs": ["Loại PWS: 31W7, 35W7, 49W7, 55W7", "Ép đùn HDPE 2 lớp", "Neo hệ bắt đai ốc"],
         "applications": ["Cầu dây văng", "Cầu vòm ống thép", "Cầu treo dây võng"],
-        "icon": "◇",
         "image": {
             "url": "/images/san-pham/cap-thanh-pham-cau-day-vang-74a0de49.jpg",
             "thumb": "/images/san-pham/cap-thanh-pham-cau-day-vang-74a0de49-thumb.jpg",
@@ -589,7 +575,6 @@ _PRODUCTS: list[dict] = [
         "description": "Cáp thành phẩm mạ kẽm hoặc ép đùn epoxy từng tao, bọc HDPE cả bó, dùng cho hệ cáp ngoài.",
         "specs": ["Bọc epoxy từng tao + HDPE cả bó", "Bó 3T, 7T, 15T, 18T, 19T, 22T-15.2"],
         "applications": ["Cầu đúc hẫng", "Cầu vòm dây treo", "Cầu extradosed"],
-        "icon": "◆",
         "image": {
             "url": "/images/san-pham/cap-epoxy-hdpe-cc90be87.jpg",
             "thumb": "/images/san-pham/cap-epoxy-hdpe-cc90be87-thumb.jpg",
@@ -608,7 +593,6 @@ _PRODUCTS: list[dict] = [
             "Cáp phun epoxy theo ASTM A822/A822M",
         ],
         "applications": ["Dầm cầu dự ứng lực", "Kết cấu bê tông dự ứng lực"],
-        "icon": "≡",
         "image": {
             "url": "/images/san-pham/cap-du-ung-luc-92d09336.jpg",
             "thumb": "/images/san-pham/cap-du-ung-luc-92d09336-thumb.jpg",
@@ -623,7 +607,6 @@ _PRODUCTS: list[dict] = [
         "description": "Hệ neo đồng bộ cho công tác căng kéo cáp dự ứng lực.",
         "specs": ["Bộ neo chủ động", "Bộ neo cố định (đầu ép chết)", "Neo dẹt", "Neo nối", "Neo công cụ"],
         "applications": ["Dầm cầu", "Hệ cáp DƯL ngoài", "Neo đất, neo mái dốc"],
-        "icon": "◉",
         "image": {
             "url": "/images/san-pham/neo-du-ung-luc-45f46464.jpg",
             "thumb": "/images/san-pham/neo-du-ung-luc-45f46464-thumb.jpg",
@@ -644,7 +627,6 @@ _PRODUCTS: list[dict] = [
             "Gối bi cho cầu quay, gối cho đường sắt đô thị",
         ],
         "applications": ["Cầu đường bộ, cao tốc", "Cầu đường sắt", "Cầu giàn thép, cầu quay"],
-        "icon": "▣",
         "image": {
             "url": "/images/san-pham/goi-cau-6600ebc6.jpg",
             "thumb": "/images/san-pham/goi-cau-6600ebc6-thumb.jpg",
@@ -664,7 +646,6 @@ _PRODUCTS: list[dict] = [
             "Khe cho đường sắt nhẹ và đường sắt trên cao",
         ],
         "applications": ["Cầu đường bộ", "Cầu đường sắt", "Đường sắt trên cao"],
-        "icon": "▦",
         "image": {
             "url": "/images/san-pham/khe-co-gian-d407ef3d.jpg",
             "thumb": "/images/san-pham/khe-co-gian-d407ef3d-thumb.jpg",
@@ -679,7 +660,6 @@ _PRODUCTS: list[dict] = [
         "description": "Thiết bị phục vụ công tác căng kéo tại hiện trường.",
         "specs": ["Máy bơm thủy lực (hệ thống bơm thông minh)", "Kích thủy lực", "Máy bơm vữa, máy trộn vữa"],
         "applications": ["Thi công căng kéo cáp DƯL", "Bơm vữa ống ghen"],
-        "icon": "⚙",
         "image": {
             "url": "/images/san-pham/thiet-bi-cang-keo-0163a0da.jpg",
             "thumb": "/images/san-pham/thiet-bi-cang-keo-0163a0da-thumb.jpg",
@@ -694,7 +674,6 @@ _PRODUCTS: list[dict] = [
         "description": "Các cấu kiện sản phẩm cho hệ neo đất, ổn định mái dốc và kè.",
         "specs": ["Bó cáp giằng neo bờ kè", "Neo hệ bắt đai ốc"],
         "applications": ["Gia cố mái dốc", "Kè đê sông", "Công trình cảng biển"],
-        "icon": "▲",
         "image": {
             "url": "/images/san-pham/neo-dat-mai-doc-ba51b6da.jpg",
             "thumb": "/images/san-pham/neo-dat-mai-doc-ba51b6da-thumb.jpg",
@@ -709,7 +688,6 @@ _PRODUCTS: list[dict] = [
         "description": "Thiết bị chuyên dụng phục vụ thi công và bảo trì đường sắt.",
         "specs": ["Máy hàn ray", "Máy chèn đường"],
         "applications": ["Thi công đường sắt", "Bảo trì tuyến"],
-        "icon": "▬",
         "image": {
             "url": "/images/san-pham/thiet-bi-duong-sat-8580a3e8.jpg",
             "thumb": "/images/san-pham/thiet-bi-duong-sat-8580a3e8-thumb.jpg",
@@ -729,7 +707,6 @@ _PRODUCTS: list[dict] = [
             "Dụng cụ móc treo cẩu lồng cốt thép chịu tải 100 tấn",
         ],
         "applications": ["Đường sắt tốc độ cao", "Hầm đường sắt / tàu điện ngầm"],
-        "icon": "◈",
         "image": {
             "url": "/images/san-pham/thiet-bi-duong-sat-cao-toc-f63b10c5.jpg",
             "thumb": "/images/san-pham/thiet-bi-duong-sat-cao-toc-f63b10c5-thumb.jpg",

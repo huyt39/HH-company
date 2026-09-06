@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 
+import { DomainIcon } from '@/components/ui/domain-icon'
 import { PageBanner } from '@/components/ui/page-banner'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { StateBlock } from '@/components/ui/state-block'
@@ -67,8 +68,8 @@ export function ServicesPage() {
                       to={`/dich-vu/${service.slug}`}
                       key={service.id}
                     >
-                      <span className="service-card__icon" aria-hidden="true">
-                        {service.icon || '◆'}
+                      <span className="service-card__icon">
+                        <DomainIcon slug={service.slug} />
                       </span>
                       <div>
                         <h3>{service.name}</h3>
