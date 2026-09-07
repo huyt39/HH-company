@@ -116,27 +116,6 @@
 .field-card h3 { font-size: 1.05rem; }
 .field-card p { font-size: .9rem; }
 
-/* ---------- Commitments ---------- */
-.commitment {
-  position: relative;
-  padding: 26px 24px;
-  background: rgba(255, 255, 255, .05);
-  border: 1px solid rgba(255, 255, 255, .1);
-  border-radius: var(--radius);
-  transition: var(--transition);
-}
-.commitment:hover { background: rgba(255, 255, 255, .09); }
-.commitment__index {
-  display: block;
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: var(--c-accent-light);
-  opacity: .8;
-  margin-bottom: 6px;
-}
-.commitment h3 { font-size: 1.05rem; margin-bottom: 8px; }
-.commitment p { font-size: .92rem; color: #c0d1e3; }
-
 /* ---------- Heading row with button ---------- */
 .section-head-row {
   display: flex;

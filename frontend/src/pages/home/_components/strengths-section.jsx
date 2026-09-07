@@ -22,12 +22,14 @@ export function StrengthsSection() {
           align="center"
           light
         />
-        <div className="grid grid--2">
+        <div className="commitments">
           {strengths.map((item, index) => (
             <div className="commitment" key={item.title}>
               <span className="commitment__index">{String(index + 1).padStart(2, '0')}</span>
-              <h3>{item.title}</h3>
-              <p className="mb-0">{item.text}</p>
+              <div className="commitment__body">
+                <h3>{item.title}</h3>
+                <p className="mb-0">{item.text}</p>
+              </div>
             </div>
           ))}
         </div>

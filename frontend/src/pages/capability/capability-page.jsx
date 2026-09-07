@@ -215,11 +215,13 @@ export function CapabilityPage() {
             description={t('capability.hseDesc')}
             light
           />
-          <div className="grid grid--2">
+          <div className="commitments">
             {t('capability.hseItems').map((item) => (
               <div className="commitment" key={item.title}>
-                <h3>{item.title}</h3>
-                <p className="mb-0">{item.text}</p>
+                <div className="commitment__body">
+                  <h3>{item.title}</h3>
+                  <p className="mb-0">{item.text}</p>
+                </div>
               </div>
             ))}
           </div>
