@@ -1,7 +1,15 @@
 import { SectionHeading } from '@/components/ui/section-heading'
 import { useLang } from '@/lib/i18n/language-context'
 
-/** Overview: intro paragraphs on the left, legal details on the right. */
+/**
+ * Overview: the intro text, then the registration details as a flat two-column
+ * record below it.
+ *
+ * These are the fields a main contractor copies into a bid file, so they read
+ * as a register extract — label, value, hairline rule — rather than a boxed
+ * sidebar card. Running full width also halves the height: each fact takes one
+ * row instead of stacking its label above its value.
+ */
 export function CompanyFacts({ profile }) {
   const { t } = useLang()
   const labels = t('about.factLabels')
@@ -25,21 +33,25 @@ export function CompanyFacts({ profile }) {
 
   return (
     <section className="section" id="tong-quan">
-      <div className="container about-grid">
-        <div>
-          <SectionHeading eyebrow={t('about.factsEyebrow')} title={t('about.factsTitle')} />
+      <div className="container">
+        <SectionHeading eyebrow={t('about.factsEyebrow')} title={t('about.factsTitle')} />
+        <div className="about-intro">
           {profile?.intro?.map((paragraph, index) => (
             <p className="text-muted" key={index}>{paragraph}</p>
           ))}
         </div>
-        <dl className="fact-card">
-          {facts.map((fact) => (
-            <div key={fact.label}>
-              <dt>{fact.label}</dt>
-              <dd>{fact.value || t('common.updating')}</dd>
-            </div>
-          ))}
-        </dl>
+
+        <div className="company-record">
+          <h3 className="company-record__caption">{t('about.recordTitle')}</h3>
+          <dl className="company-record__list">
+            {facts.map((fact) => (
+              <div key={fact.label}>
+                <dt>{fact.label}</dt>
+                <dd>{fact.value || t('common.updating')}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
     </section>
   )

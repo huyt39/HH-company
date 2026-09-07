@@ -154,6 +154,7 @@ export const translations = {
       metaDesc: 'Tổng quan về Công ty Hòa Hoàng: lịch sử hình thành, tầm nhìn, ban lãnh đạo và cơ cấu tổ chức.',
       factsEyebrow: 'Tổng quan',
       factsTitle: 'Đôi nét về Hòa Hoàng',
+      recordTitle: 'Thông tin đăng ký doanh nghiệp',
       factLabels: {
         fullName: 'Tên đầy đủ',
         nameEn: 'Tên tiếng Anh',
@@ -598,6 +599,7 @@ export const translations = {
       metaDesc: "Overview of Hoa Hoang: our history, vision, leadership and organizational structure.",
       factsEyebrow: 'Overview',
       factsTitle: 'About Hoa Hoang',
+      recordTitle: 'Business registration details',
       factLabels: {
         fullName: 'Full name',
         nameEn: 'English name',

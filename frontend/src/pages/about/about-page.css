@@ -1,30 +1,98 @@
-.about-grid {
+/* ---------- Overview intro ---------- */
+/* Body copy stays inside a comfortable measure even though the section runs
+   the full container width. */
+.about-intro { max-width: 74ch; }
+
+/* ---------- Business registration record ---------- */
+.company-record { margin-top: 46px; }
+.company-record__caption {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--c-navy-800);
+  padding-bottom: 12px;
+  margin-bottom: 0;
+  border-bottom: 2px solid var(--c-navy-800);
+}
+.company-record__list {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: clamp(32px, 5vw, 60px);
-  align-items: start;
-}
-@media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; } }
-
-/* ---------- Legal fact table ---------- */
-.fact-card {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 56px;
   margin: 0;
-  background: var(--c-bg-soft);
-  border: 1px solid var(--c-border);
-  border-top: 3px solid var(--c-accent);
-  border-radius: var(--radius);
-  padding: 8px 24px 20px;
 }
-.fact-card > div { padding: 14px 0; border-bottom: 1px solid var(--c-border); }
-.fact-card > div:last-child { border-bottom: none; }
-.fact-card dt {
-  font-size: .76rem; text-transform: uppercase; letter-spacing: .06em;
-  color: var(--c-text-muted); margin-bottom: 4px;
+.company-record__list > div {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--c-border);
 }
-.fact-card dd { margin: 0; font-weight: 600; color: var(--c-navy-800); line-height: 1.5; }
+.company-record dt { font-size: .88rem; color: var(--c-text-muted); }
+.company-record dd {
+  margin: 0;
+  font-size: .94rem;
+  font-weight: 600;
+  color: var(--c-text);
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
 
-.value-list li { position: relative; padding-left: 18px; margin-bottom: 8px; color: var(--c-text-muted); font-size: .92rem; }
-.value-list li::before { content: '•'; position: absolute; left: 0; color: var(--c-accent); font-weight: 700; }
+@media (max-width: 860px) {
+  .company-record__list { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
+  .company-record__list > div { grid-template-columns: minmax(0, 1fr); gap: 3px; }
+}
+
+/* ---------- Vision / mission / values ---------- */
+.creed { max-width: 980px; margin-inline: auto; }
+.creed__item {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 36px;
+  padding: 26px 0;
+  border-top: 1px solid var(--c-border);
+}
+.creed__item:last-child { border-bottom: 1px solid var(--c-border); }
+.creed__label {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--c-navy-800);
+  line-height: 1.6;
+}
+.creed__text {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: var(--c-text);
+}
+.creed__values {
+  columns: 2;
+  column-gap: 36px;
+}
+.creed__values li {
+  position: relative;
+  break-inside: avoid;
+  padding-left: 18px;
+  margin-bottom: 10px;
+  font-size: .96rem;
+  line-height: 1.6;
+  color: var(--c-text);
+}
+.creed__values li:last-child { margin-bottom: 0; }
+.creed__values li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: .6em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-accent);
+}
+
+@media (max-width: 760px) {
+  .creed__item { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .creed__values { columns: 1; }
+}
 
 /* ---------- Leadership ---------- */
 .leader-grid { max-width: 860px; margin-inline: auto; }
