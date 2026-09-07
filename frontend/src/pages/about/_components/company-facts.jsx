@@ -2,7 +2,7 @@ import { SectionHeading } from '@/components/ui/section-heading'
 import { useLang } from '@/lib/i18n/language-context'
 
 /**
- * Overview: intro text with site photographs alongside, then the registration
+ * Overview: intro text with the company mark alongside, then the registration
  * details as a flat two-column record below.
  *
  * The facts are the fields a main contractor copies into a bid file, so they
@@ -13,21 +13,6 @@ import { useLang } from '@/lib/i18n/language-context'
 export function CompanyFacts({ profile }) {
   const { t } = useLang()
   const labels = t('about.factLabels')
-  const captions = t('about.overviewPhotos')
-  const photos = [
-    {
-      src: '/images/cau-can-giuoc-thay-he-cap/thay-he-cap-cau-vom-can-giuoc-36f7ce62.jpg',
-      caption: captions.canGiuoc,
-      width: 1652,
-      height: 957,
-    },
-    {
-      src: '/images/cau-song-rang-long-son-cai-mep/thi-cong-cau-song-rang-long-son-cai-mep-7738ab78.jpg',
-      caption: captions.songRang,
-      width: 1660,
-      height: 961,
-    },
-  ]
   const facts = [
     { label: labels.fullName, value: profile?.name },
     { label: labels.nameEn, value: profile?.name_en },
@@ -56,20 +41,15 @@ export function CompanyFacts({ profile }) {
               <p className="text-muted" key={index}>{paragraph}</p>
             ))}
           </div>
-          <div className="overview__media">
-            {photos.map((photo) => (
-              <figure className="overview__figure" key={photo.src}>
-                <img
-                  src={photo.src}
-                  alt={photo.caption}
-                  width={photo.width}
-                  height={photo.height}
-                  loading="lazy"
-                  decoding="async"
-                />
-                <figcaption>{photo.caption}</figcaption>
-              </figure>
-            ))}
+          <div className="overview__brand">
+            <img
+              src="/logo-full.png"
+              alt={t('about.logoAlt')}
+              width="493"
+              height="620"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
         </div>
 

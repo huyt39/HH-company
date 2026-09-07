@@ -1,30 +1,23 @@
-/* ---------- Overview: intro text + site photographs ---------- */
+/* ---------- Overview: intro text + company mark ---------- */
 .overview {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
   gap: clamp(32px, 4vw, 56px);
   align-items: start;
 }
-.overview__media { display: grid; gap: 22px; }
-.overview__figure { margin: 0; }
-.overview__figure img {
-  display: block;
+/* The mark sits centred on the text column's height so the right-hand side
+   reads as balanced rather than top-heavy. */
+.overview__brand {
+  align-self: center;
+  justify-self: center;
   width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-  border-radius: var(--radius);
+  max-width: 300px;
 }
-.overview__figure figcaption {
-  margin-top: 9px;
-  padding-left: 12px;
-  border-left: 2px solid var(--c-accent);
-  font-size: .82rem;
-  line-height: 1.5;
-  color: var(--c-text-muted);
-}
+.overview__brand img { display: block; width: 100%; height: auto; }
 
 @media (max-width: 860px) {
   .overview { grid-template-columns: minmax(0, 1fr); }
+  .overview__brand { max-width: 220px; margin-top: 8px; }
 }
 
 /* ---------- Business registration record ---------- */
