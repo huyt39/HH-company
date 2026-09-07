@@ -8,55 +8,101 @@
 /* The mark sits centred on the text column's height so the right-hand side
    reads as balanced rather than top-heavy. */
 .overview__brand {
+  position: relative;
   align-self: center;
   justify-self: center;
   width: 100%;
-  max-width: 300px;
+  max-width: 340px;
+  padding: 40px 36px;
+  overflow: hidden;
+  background: linear-gradient(155deg, #fff 0%, var(--c-bg-soft) 100%);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
 }
-.overview__brand img { display: block; width: 100%; height: auto; }
+/* A faint drafting grid — the ground a bridge contractor's mark belongs on.
+   The mask fades it out before it reaches the panel edge, so the rules never
+   collide with the border. */
+.overview__brand::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(11, 37, 69, .06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 37, 69, .06) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 45%, #000 25%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 50% 45%, #000 25%, transparent 75%);
+}
+.overview__brand img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
 @media (max-width: 860px) {
   .overview { grid-template-columns: minmax(0, 1fr); }
-  .overview__brand { max-width: 220px; margin-top: 8px; }
+  .overview__brand { max-width: 260px; margin-top: 8px; padding: 30px 26px; }
 }
 
 /* ---------- Business registration record ---------- */
-.company-record { margin-top: 46px; }
+/* A real ruled table: a navy caption bar, tinted label cells and a full grid of
+   hairlines. The earlier version was rules alone and read as unfinished. */
+.company-record {
+  margin-top: 48px;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
 .company-record__caption {
+  margin: 0;
+  padding: 14px 22px;
+  background: var(--c-navy-800);
+  color: #fff;
   font-size: .95rem;
   font-weight: 600;
-  color: var(--c-navy-800);
-  padding-bottom: 12px;
-  margin-bottom: 0;
-  border-bottom: 2px solid var(--c-navy-800);
 }
 .company-record__list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 56px;
+  grid-template-columns: 178px minmax(0, 1fr) 178px minmax(0, 1fr);
   margin: 0;
 }
-.company-record__list > div {
-  display: grid;
-  grid-template-columns: 170px minmax(0, 1fr);
-  gap: 16px;
-  align-items: baseline;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--c-border);
-}
-.company-record dt { font-size: .88rem; color: var(--c-text-muted); }
+/* Each fact keeps its <dt>/<dd> pair grouped in the markup but hands its cells
+   straight to the grid, so labels and values line up across both halves. */
+.company-record__list > div { display: contents; }
+.company-record dt,
 .company-record dd {
   margin: 0;
-  font-size: .94rem;
-  font-weight: 600;
-  color: var(--c-text);
+  padding: 13px 20px;
+  border-bottom: 1px solid var(--c-border);
+}
+.company-record dt {
+  background: var(--c-bg-soft);
+  border-right: 1px solid var(--c-border);
+  font-size: .85rem;
   line-height: 1.5;
+  color: var(--c-text-muted);
+}
+.company-record dd {
+  font-size: .93rem;
+  font-weight: 600;
+  line-height: 1.55;
+  color: var(--c-text);
   font-variant-numeric: tabular-nums;
 }
+/* The divider between the two halves of the table. */
+.company-record__list > div:nth-child(odd) dd { border-right: 1px solid var(--c-border); }
+.company-record__list > div:nth-last-child(-n+2) dt,
+.company-record__list > div:nth-last-child(-n+2) dd { border-bottom: none; }
 
 @media (max-width: 860px) {
-  .company-record__list { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
-  .company-record__list > div { grid-template-columns: minmax(0, 1fr); gap: 3px; }
+  .company-record__list { grid-template-columns: 140px minmax(0, 1fr); }
+  .company-record__list > div:nth-child(odd) dd { border-right: none; }
+  .company-record__list > div:nth-last-child(-n+2) dt,
+  .company-record__list > div:nth-last-child(-n+2) dd { border-bottom: 1px solid var(--c-border); }
+  .company-record__list > div:last-child dt,
+  .company-record__list > div:last-child dd { border-bottom: none; }
 }
 
 /* ---------- Vision / mission / values ---------- */
