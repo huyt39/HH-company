@@ -2,17 +2,32 @@ import { SectionHeading } from '@/components/ui/section-heading'
 import { useLang } from '@/lib/i18n/language-context'
 
 /**
- * Overview: the intro text, then the registration details as a flat two-column
- * record below it.
+ * Overview: intro text with site photographs alongside, then the registration
+ * details as a flat two-column record below.
  *
- * These are the fields a main contractor copies into a bid file, so they read
- * as a register extract — label, value, hairline rule — rather than a boxed
- * sidebar card. Running full width also halves the height: each fact takes one
- * row instead of stacking its label above its value.
+ * The facts are the fields a main contractor copies into a bid file, so they
+ * read as a register extract — label, value, hairline rule — rather than a
+ * boxed sidebar card. Running full width also halves the height: each fact
+ * takes one row instead of stacking its label above its value.
  */
 export function CompanyFacts({ profile }) {
   const { t } = useLang()
   const labels = t('about.factLabels')
+  const captions = t('about.overviewPhotos')
+  const photos = [
+    {
+      src: '/images/cau-can-giuoc-thay-he-cap/thay-he-cap-cau-vom-can-giuoc-36f7ce62.jpg',
+      caption: captions.canGiuoc,
+      width: 1652,
+      height: 957,
+    },
+    {
+      src: '/images/cau-song-rang-long-son-cai-mep/thi-cong-cau-song-rang-long-son-cai-mep-7738ab78.jpg',
+      caption: captions.songRang,
+      width: 1660,
+      height: 961,
+    },
+  ]
   const facts = [
     { label: labels.fullName, value: profile?.name },
     { label: labels.nameEn, value: profile?.name_en },
@@ -34,11 +49,28 @@ export function CompanyFacts({ profile }) {
   return (
     <section className="section" id="tong-quan">
       <div className="container">
-        <SectionHeading eyebrow={t('about.factsEyebrow')} title={t('about.factsTitle')} />
-        <div className="about-intro">
-          {profile?.intro?.map((paragraph, index) => (
-            <p className="text-muted" key={index}>{paragraph}</p>
-          ))}
+        <div className="overview">
+          <div className="overview__text">
+            <SectionHeading eyebrow={t('about.factsEyebrow')} title={t('about.factsTitle')} />
+            {profile?.intro?.map((paragraph, index) => (
+              <p className="text-muted" key={index}>{paragraph}</p>
+            ))}
+          </div>
+          <div className="overview__media">
+            {photos.map((photo) => (
+              <figure className="overview__figure" key={photo.src}>
+                <img
+                  src={photo.src}
+                  alt={photo.caption}
+                  width={photo.width}
+                  height={photo.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption>{photo.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
 
         <div className="company-record">

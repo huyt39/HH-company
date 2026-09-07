@@ -155,6 +155,10 @@ export const translations = {
       factsEyebrow: 'Tổng quan',
       factsTitle: 'Đôi nét về Hòa Hoàng',
       recordTitle: 'Thông tin đăng ký doanh nghiệp',
+      overviewPhotos: {
+        canGiuoc: 'Thay hệ cáp cầu vòm Cần Giuộc, Long An',
+        songRang: 'Thi công cầu Sông Rạng — tuyến Long Sơn – Cái Mép',
+      },
       factLabels: {
         fullName: 'Tên đầy đủ',
         nameEn: 'Tên tiếng Anh',
@@ -600,6 +604,10 @@ export const translations = {
       factsEyebrow: 'Overview',
       factsTitle: 'About Hoa Hoang',
       recordTitle: 'Business registration details',
+      overviewPhotos: {
+        canGiuoc: 'Cable replacement on the Can Giuoc arch bridge, Long An',
+        songRang: 'Song Rang bridge under construction — Long Son – Cai Mep route',
+      },
       factLabels: {
         fullName: 'Full name',
         nameEn: 'English name',
