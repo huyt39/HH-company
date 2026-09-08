@@ -43,7 +43,7 @@ export function CompanyFacts({ profile }) {
           </div>
           <div className="overview__brand">
             <img
-              src="/logo-full.png"
+              src="/logo-full-alpha.png"
               alt={t('about.logoAlt')}
               width="493"
               height="620"

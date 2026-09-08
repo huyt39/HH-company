@@ -13,25 +13,29 @@
   justify-self: center;
   width: 100%;
   max-width: 340px;
-  padding: 40px 36px;
+  padding: 44px 38px;
   overflow: hidden;
-  background: linear-gradient(155deg, #fff 0%, var(--c-bg-soft) 100%);
-  border: 1px solid var(--c-border);
+  border: 1px solid rgba(11, 37, 69, .12);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  /* Brand blue washing into brand green, with a soft white glow behind the
+     mark so its dark green type keeps its contrast. */
+  background:
+    radial-gradient(ellipse at 50% 44%, rgba(255, 255, 255, .92) 0%, rgba(255, 255, 255, 0) 62%),
+    linear-gradient(152deg, #d6e6f6 0%, #eaf2f9 48%, #dcede4 100%);
 }
-/* A faint drafting grid — the ground a bridge contractor's mark belongs on.
-   The mask fades it out before it reaches the panel edge, so the rules never
-   collide with the border. */
+/* A drafting grid around the mark — masked out of the centre so it frames the
+   logo instead of running through it. */
 .overview__brand::before {
   content: '';
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(11, 37, 69, .06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(11, 37, 69, .06) 1px, transparent 1px);
+    linear-gradient(rgba(11, 37, 69, .10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 37, 69, .10) 1px, transparent 1px);
   background-size: 26px 26px;
-  -webkit-mask-image: radial-gradient(ellipse at 50% 45%, #000 25%, transparent 75%);
-  mask-image: radial-gradient(ellipse at 50% 45%, #000 25%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 44%, transparent 32%, #000 88%);
+  mask-image: radial-gradient(ellipse at 50% 44%, transparent 32%, #000 88%);
 }
 .overview__brand img {
   position: relative;
@@ -80,13 +84,12 @@
 .company-record dt {
   background: var(--c-bg-soft);
   border-right: 1px solid var(--c-border);
-  font-size: .85rem;
-  line-height: 1.5;
-  color: var(--c-text-muted);
+  font-size: .88rem;
+  line-height: 1.55;
+  color: var(--c-text);
 }
 .company-record dd {
   font-size: .93rem;
-  font-weight: 600;
   line-height: 1.55;
   color: var(--c-text);
   font-variant-numeric: tabular-nums;
