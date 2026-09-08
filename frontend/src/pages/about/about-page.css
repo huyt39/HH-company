@@ -13,40 +13,45 @@
   justify-self: center;
   width: 100%;
   max-width: 340px;
-  padding: 44px 38px;
+  padding: 38px 34px 104px;
   overflow: hidden;
   border: 1px solid rgba(11, 37, 69, .12);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
-  /* Brand blue washing into brand green, with a soft white glow behind the
-     mark so its dark green type keeps its contrast. */
-  background:
-    radial-gradient(ellipse at 50% 44%, rgba(255, 255, 255, .92) 0%, rgba(255, 255, 255, 0) 62%),
-    linear-gradient(152deg, #d6e6f6 0%, #eaf2f9 48%, #dcede4 100%);
+  /* Sky washing down to water, in the brand blue. */
+  background: linear-gradient(178deg, #eaf3fb 0%, #f4f9fd 46%, #dfeaf4 100%);
 }
-/* A drafting grid around the mark — masked out of the centre so it frames the
-   logo instead of running through it. */
-.overview__brand::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(11, 37, 69, .10) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(11, 37, 69, .10) 1px, transparent 1px);
-  background-size: 26px 26px;
-  -webkit-mask-image: radial-gradient(ellipse at 50% 44%, transparent 32%, #000 88%);
-  mask-image: radial-gradient(ellipse at 50% 44%, transparent 32%, #000 88%);
-}
-.overview__brand img {
+.overview__mark {
   position: relative;
   display: block;
   width: 100%;
   height: auto;
 }
+/* The drawing sits on the floor of the panel, under the mark. */
+.overview__backdrop {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  fill: none;
+  stroke-linecap: square;
+}
+.overview__backdrop-structure {
+  stroke: var(--c-navy-800);
+  stroke-width: 1.1;
+  opacity: .3;
+}
+.overview__backdrop-water {
+  stroke: var(--c-blue-500);
+  stroke-width: 1.1;
+  opacity: .28;
+}
 
 @media (max-width: 860px) {
   .overview { grid-template-columns: minmax(0, 1fr); }
-  .overview__brand { max-width: 260px; margin-top: 8px; padding: 30px 26px; }
+  .overview__brand { max-width: 280px; margin-top: 8px; padding: 28px 24px 86px; }
 }
 
 /* ---------- Business registration record ---------- */

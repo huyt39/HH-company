@@ -10,6 +10,39 @@ import { useLang } from '@/lib/i18n/language-context'
  * boxed sidebar card. Running full width also halves the height: each fact
  * takes one row instead of stacking its label above its value.
  */
+/**
+ * Line drawing behind the logo: a box-girder deck carried on twin-column piers
+ * over water — the span type the company works on, drawn the way it appears on
+ * a general-arrangement sheet. Decorative only, so it is hidden from readers.
+ */
+function BridgeBackdrop() {
+  const piers = [56, 170, 284]
+  const railPosts = Array.from({ length: 18 }, (_, i) => 4 + i * 20)
+
+  return (
+    <svg className="overview__backdrop" viewBox="0 0 340 118" aria-hidden="true" focusable="false">
+      <g className="overview__backdrop-water">
+        <path d="M0 96q22-5 44 0t44 0 44 0 44 0 44 0 44 0 44 0" />
+        <path d="M0 106q22-5 44 0t44 0 44 0 44 0 44 0 44 0 44 0" />
+      </g>
+      <g className="overview__backdrop-structure">
+        {railPosts.map((x) => <path d={`M${x} 28V38`} key={x} />)}
+        <path d="M0 28h340" />
+        <path d="M0 38h340" />
+        <path d="M0 52h340" />
+        {piers.map((x) => (
+          <g key={x}>
+            <path d={`M${x - 17} 52h34v7h-34z`} />
+            <path d={`M${x - 10} 59V92`} />
+            <path d={`M${x + 10} 59V92`} />
+            <path d={`M${x - 15} 92h30`} />
+          </g>
+        ))}
+      </g>
+    </svg>
+  )
+}
+
 export function CompanyFacts({ profile }) {
   const { t } = useLang()
   const labels = t('about.factLabels')
@@ -43,6 +76,7 @@ export function CompanyFacts({ profile }) {
           </div>
           <div className="overview__brand">
             <img
+              className="overview__mark"
               src="/logo-full-alpha.png"
               alt={t('about.logoAlt')}
               width="493"
@@ -50,6 +84,7 @@ export function CompanyFacts({ profile }) {
               loading="lazy"
               decoding="async"
             />
+            <BridgeBackdrop />
           </div>
         </div>
 
