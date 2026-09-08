@@ -2,30 +2,31 @@ import { SectionHeading } from '@/components/ui/section-heading'
 import { useLang } from '@/lib/i18n/language-context'
 
 /**
- * Vision, mission and core values as three labelled statements stacked in rows.
+ * Vision and mission as two large statements on a dark band, with the core
+ * values spread across a row underneath.
  *
- * Three side-by-side cards forced the vision and mission paragraphs into narrow
- * columns and made the four core values pile up vertically; a label column plus
- * a wide text column gives every statement room to read as a sentence.
+ * Three equal columns made the values pile up under a short paragraph and left
+ * the other two columns half empty. Splitting the two statements from the list
+ * lets each take the width it actually needs.
  */
 export function VisionSection({ profile }) {
   const { t } = useLang()
 
   return (
-    <section className="section section--soft" id="tam-nhin">
+    <section className="section section--dark" id="tam-nhin">
       <div className="container">
-        <SectionHeading title={t('about.visionTitle')} align="center" />
+        <SectionHeading title={t('about.visionTitle')} align="center" light />
         <div className="creed">
-          <div className="creed__item">
-            <h3 className="creed__label">{t('about.visionLabel')}</h3>
+          <div className="creed__statement">
+            <span className="creed__label">{t('about.visionLabel')}</span>
             <p className="creed__text">{profile?.vision || `${t('common.updating')}.`}</p>
           </div>
-          <div className="creed__item">
-            <h3 className="creed__label">{t('about.missionLabel')}</h3>
+          <div className="creed__statement">
+            <span className="creed__label">{t('about.missionLabel')}</span>
             <p className="creed__text">{profile?.mission || `${t('common.updating')}.`}</p>
           </div>
-          <div className="creed__item">
-            <h3 className="creed__label">{t('about.coreValuesLabel')}</h3>
+          <div className="creed__values-block">
+            <span className="creed__label">{t('about.coreValuesLabel')}</span>
             <ul className="creed__values">
               {profile?.core_values?.map((value) => <li key={value}>{value}</li>)}
             </ul>

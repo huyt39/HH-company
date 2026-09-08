@@ -114,67 +114,57 @@
 }
 
 /* ---------- Vision / mission / values ---------- */
-/* Three columns divided by hairline rules instead of three boxes: the panel
-   borders and rounded corners were the generic part, and the statements read
-   better as columns of text than as cards. */
+/* A dark band carrying two wide statements, with the values ruled off beneath
+   them. Sits between two white sections, so it also breaks up the page. */
 .creed {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px clamp(40px, 6vw, 80px);
+  max-width: 1000px;
+  margin-inline: auto;
 }
-.creed__item {
-  padding: 2px 40px;
-  border-left: 1px solid var(--c-border);
-}
-.creed__item:first-child { padding-left: 0; border-left: none; }
-.creed__item:last-child { padding-right: 0; }
 .creed__label {
-  margin: 0 0 16px;
-  font-size: 1.05rem;
-  color: var(--c-navy-800);
-}
-.creed__label::after {
-  content: '';
   display: block;
-  width: 30px;
-  height: 2px;
-  margin-top: 12px;
-  background: var(--c-accent);
+  margin-bottom: 14px;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--c-accent-light);
 }
 .creed__text {
   margin: 0;
-  font-size: .96rem;
-  line-height: 1.8;
-  color: var(--c-text-muted);
+  font-size: 1.1rem;
+  line-height: 1.85;
+  color: #dbe6f2;
 }
+.creed__values-block {
+  grid-column: 1 / -1;
+  padding-top: 34px;
+  border-top: 1px solid rgba(255, 255, 255, .16);
+}
+.creed__values {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 26px;
+  margin-top: 4px;
+}
+/* An accent rule over each value instead of a bullet: it keeps the four items
+   reading as one row even when they wrap to different depths. */
 .creed__values li {
-  position: relative;
-  padding-left: 18px;
-  margin-bottom: 12px;
-  font-size: .96rem;
-  line-height: 1.6;
-  color: var(--c-text-muted);
-}
-.creed__values li:last-child { margin-bottom: 0; }
-.creed__values li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: .62em;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--c-accent);
+  padding-top: 15px;
+  border-top: 2px solid var(--c-accent-light);
+  font-size: .95rem;
+  line-height: 1.65;
+  color: #c0d1e3;
 }
 
-@media (max-width: 860px) {
-  .creed { grid-template-columns: minmax(0, 1fr); }
-  .creed__item {
-    padding: 26px 0 0;
-    border-left: none;
-    border-top: 1px solid var(--c-border);
-  }
-  .creed__item:first-child { padding-top: 0; border-top: none; }
-  .creed__item + .creed__item { margin-top: 26px; }
+@media (max-width: 900px) {
+  .creed { grid-template-columns: minmax(0, 1fr); gap: 34px; }
+  .creed__values { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .creed__values { grid-template-columns: minmax(0, 1fr); gap: 20px; }
 }
 
 /* ---------- Leadership ---------- */
