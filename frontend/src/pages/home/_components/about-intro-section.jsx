@@ -21,7 +21,6 @@ export function AboutIntroSection() {
           </ul>
           <div className="about-intro__actions">
             <Link to="/gioi-thieu" className="btn btn--outline">{t('home.aboutIntroCta')}</Link>
-            <Link to="/nang-luc" className="btn btn--outline">{t('home.aboutIntroCapabilityCta')}</Link>
           </div>
         </div>
         <div className="about-intro__media">

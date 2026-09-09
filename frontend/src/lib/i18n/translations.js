@@ -104,7 +104,7 @@ export const translations = {
         'Neo đất, ổn định mái dốc',
       ],
       aboutIntroEyebrow: 'Về chúng tôi',
-      aboutIntroTitle: 'Từ nhà cung cấp thành nhà thầu chuyên ngành',
+      aboutIntroTitle: 'Từ nhà cung cấp đến nhà thầu chuyên ngành',
       aboutIntroDesc:
         'Giai đoạn 2013 – 2018, Hòa Hoàng hoạt động chủ yếu ở mảng thương mại và phân phối vật tư cầu đường. Từ năm 2018, công ty chuyển trọng tâm sang thi công: trực tiếp lắp đặt, căng kéo và bàn giao hồ sơ nghiệm thu tại công trường.',
       aboutIntroHighlights: [
@@ -113,7 +113,6 @@ export const translations = {
         'Thay thế hệ cáp cầu vòm và khe co giãn trên cầu đang khai thác',
       ],
       aboutIntroCta: 'Xem chi tiết',
-      aboutIntroCapabilityCta: 'Năng lực nhà thầu',
       servicesEyebrow: 'Chúng tôi làm gì',
       servicesTitle: 'Dịch vụ thi công',
       servicesDesc: 'Công việc trên công trường, chia theo thi công mới và sửa chữa – tăng cường cầu đang khai thác.',
@@ -561,7 +560,6 @@ export const translations = {
         'Cable and expansion joint replacement on bridges kept open to traffic',
       ],
       aboutIntroCta: 'Learn more',
-      aboutIntroCapabilityCta: 'Our capability',
       servicesEyebrow: 'What we do',
       servicesTitle: 'Construction Services',
       servicesDesc: 'The work we perform on site, split into new build and repair of bridges already in service.',
