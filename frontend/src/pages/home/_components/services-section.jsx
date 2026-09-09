@@ -14,8 +14,12 @@ const GROUPS = [
 ]
 
 /**
- * What Hoa Hoang does on site, split into new build and repair the way the
- * trade's international peers organise the same work.
+ * What Hoa Hoang does on site, as two doorways: new build and repair.
+ *
+ * The split is how the trade's international peers organise the same work, and
+ * it matches how the two kinds of client arrive — a main contractor building a
+ * new span and a road authority maintaining one in service are after different
+ * things and should not have to read past each other's work to find it.
  */
 export function ServicesSection({ services, loading, error }) {
   const { t } = useLang()
@@ -37,11 +41,16 @@ export function ServicesSection({ services, loading, error }) {
                 .slice(0, MAX_PER_GROUP)
               if (!items.length) return null
 
+              const copy = t('services.categories')[group.category]
+
               return (
-                <div className="service-group-card" key={group.category}>
-                  <h3 className="service-group-card__title">
-                    {t('services.categories')[group.category].title}
-                  </h3>
+                <div
+                  className={`service-group-card service-group-card--${group.category}`}
+                  key={group.category}
+                >
+                  <span className="service-group-card__eyebrow">{copy.eyebrow}</span>
+                  <h3 className="service-group-card__title">{copy.title}</h3>
+                  <p className="service-group-card__desc">{copy.description}</p>
                   <ul className="service-group-card__list">
                     {items.map((service) => (
                       <li key={service.id}>

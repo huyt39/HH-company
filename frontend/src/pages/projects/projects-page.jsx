@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 
 import { Card } from '@/components/ui/card'
 import { PageBanner } from '@/components/ui/page-banner'
+import { SelectMenu } from '@/components/ui/select-menu'
 import { StateBlock } from '@/components/ui/state-block'
 import { projectsApi } from '@/lib/api/projects-client'
 import { PROJECT_STATUS_TONE } from '@/lib/constants/project-status'
@@ -39,22 +40,36 @@ export function ProjectsPage() {
 
   const [status, setStatus] = useState('')
   const [role, setRole] = useState('')
+  const [structure, setStructure] = useState('')
   const [query, setQuery] = useState('')
   const { data, loading, error } = useFetch(
     (options) => projectsApi.getProjects({ page: 1, page_size: PAGE_SIZE, status }, options),
     [status],
   )
 
+  // Structure types come from the records themselves rather than a fixed list:
+  // the catalogue of span types grows as new work is added, and a type nobody
+  // has built yet has no business appearing as a filter.
+  const structureTypes = useMemo(() => {
+    const counts = new Map()
+    for (const project of data?.items ?? []) {
+      if (!project.structure_type) continue
+      counts.set(project.structure_type, (counts.get(project.structure_type) ?? 0) + 1)
+    }
+    return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+  }, [data])
+
   const filteredProjects = useMemo(() => {
     const term = normalize(query.trim())
     return (data?.items ?? []).filter((project) => {
       if (role && project.role !== role) return false
+      if (structure && project.structure_type !== structure) return false
       if (!term) return true
       return [project.name, project.location, project.summary, project.structure_type].some(
         (field) => normalize(field).includes(term),
       )
     })
-  }, [data, query, role])
+  }, [data, query, role, structure])
 
   const yearGroups = useMemo(() => groupByYear(filteredProjects), [filteredProjects])
 
@@ -110,13 +125,34 @@ export function ProjectsPage() {
                 </button>
               ))}
             </div>
+            {structureTypes.length > 1 && (
+              <div className="filter-row__group">
+                <span className="filter-row__label">{t('projects.structureFilterLabel')}</span>
+                <SelectMenu
+                  value={structure}
+                  onChange={setStructure}
+                  label={t('projects.structureFilterLabel')}
+                  options={[
+                    { value: '', label: t('projects.structureFilterAll') },
+                    ...structureTypes.map(([type, total]) => ({
+                      value: type,
+                      label: `${type} (${total})`,
+                    })),
+                  ]}
+                />
+              </div>
+            )}
           </div>
 
           <StateBlock
             loading={loading}
             error={error}
             isEmpty={!filteredProjects.length}
-            emptyTitle={query.trim() || role ? t('projects.emptyNoMatch') : t('projects.emptyNone')}
+            emptyTitle={
+              query.trim() || role || structure
+                ? t('projects.emptyNoMatch')
+                : t('projects.emptyNone')
+            }
           >
             <div className="year-groups">
               {yearGroups.map(([year, projects]) => (
@@ -140,6 +176,7 @@ export function ProjectsPage() {
                         title={project.name}
                         meta={[project.structure_type, project.location].filter(Boolean).join(' · ')}
                         excerpt={project.summary}
+                        badge={project.context_source ? t('projects.verifiedBadge') : undefined}
                       />
                     ))}
                   </div>

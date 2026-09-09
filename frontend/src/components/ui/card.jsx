@@ -13,11 +13,12 @@ import './card.css'
  *
  * `duplicate` marks a copy of a card that is already on the page — the second
  * lap of a looping carousel — so it stays out of the accessibility tree and out
- * of the tab order.
+ * of the tab order. `badge` adds a short mark under the text, used to flag a
+ * project whose record can be checked against an outside source.
  *
- * @param {{to?: string, media?: object, tag?: string, tagTone?: string, title: string, meta?: string, excerpt?: string, duplicate?: boolean}} props
+ * @param {{to?: string, media?: object, tag?: string, tagTone?: string, title: string, meta?: string, excerpt?: string, badge?: string, duplicate?: boolean}} props
  */
-export function Card({ to, media, tag, tagTone, title, meta, excerpt, duplicate = false }) {
+export function Card({ to, media, tag, tagTone, title, meta, excerpt, badge, duplicate = false }) {
   const Wrapper = to ? Link : 'article'
   const wrapperProps = to ? { to } : {}
   if (duplicate) {
@@ -42,6 +43,15 @@ export function Card({ to, media, tag, tagTone, title, meta, excerpt, duplicate 
         {meta && <span className="card__meta">{meta}</span>}
         <h3 className="card__title">{title}</h3>
         {excerpt && <p className="card__excerpt">{excerpt}</p>}
+        {badge && (
+          <span className="card__badge">
+            <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+              <path d="M10 1.8 3 4.6v5.1c0 3.6 2.8 6.6 7 8.5 4.2-1.9 7-4.9 7-8.5V4.6L10 1.8Z" />
+              <path className="card__badge-tick" d="M6.9 9.9 9 12l4.2-4.2" />
+            </svg>
+            {badge}
+          </span>
+        )}
       </div>
     </Wrapper>
   )
