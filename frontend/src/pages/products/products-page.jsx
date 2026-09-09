@@ -152,11 +152,14 @@ export function ProductsPage() {
             title={t('products.assuranceTitle')}
             description={t('products.assuranceDesc')}
           />
-          <div className="grid grid--2">
-            {t('products.assuranceItems').map((item) => (
-              <div className="pillar" key={item.title}>
-                <h3>{item.title}</h3>
-                <p className="text-muted mb-0">{item.text}</p>
+          <div className="commitments">
+            {t('products.assuranceItems').map((item, index) => (
+              <div className="commitment" key={item.title}>
+                <span className="commitment__index">{String(index + 1).padStart(2, '0')}</span>
+                <div className="commitment__body">
+                  <h3>{item.title}</h3>
+                  <p className="mb-0">{item.text}</p>
+                </div>
               </div>
             ))}
           </div>

@@ -155,8 +155,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   align-items: flex-start;
   gap: 18px;
   padding: 26px 26px 26px 24px;
-  background: rgba(255, 255, 255, .05);
-  border: 1px solid rgba(255, 255, 255, .1);
+  background: #fff;
+  border: 1px solid var(--c-border);
   border-radius: var(--radius);
   transition: var(--transition);
 }
@@ -170,24 +170,33 @@ ul { margin: 0; padding: 0; list-style: none; }
   opacity: 0;
   transition: var(--transition);
 }
-.commitment:hover {
-  background: rgba(255, 255, 255, .09);
-  border-color: rgba(255, 255, 255, .18);
-}
+.commitment:hover { border-color: var(--c-navy-600); }
 .commitment:hover::before { opacity: 1; }
 .commitment__index {
   flex: 0 0 auto;
   font-size: 1.5rem;
   font-weight: 800;
   line-height: 1;
-  color: var(--c-accent-light);
+  color: var(--c-accent);
   opacity: .85;
   padding-top: 2px;
   font-variant-numeric: tabular-nums;
 }
 .commitment__body { flex: 1 1 auto; min-width: 0; }
 .commitment h3 { font-size: 1.05rem; margin-bottom: 8px; }
-.commitment p { font-size: .92rem; color: #c0d1e3; }
+.commitment p { font-size: .92rem; color: var(--c-text-muted); }
+
+/* On the dark grounds the same card sits on translucent white instead. */
+.section--dark .commitment {
+  background: rgba(255, 255, 255, .05);
+  border-color: rgba(255, 255, 255, .1);
+}
+.section--dark .commitment:hover {
+  background: rgba(255, 255, 255, .09);
+  border-color: rgba(255, 255, 255, .18);
+}
+.section--dark .commitment__index { color: var(--c-accent-light); }
+.section--dark .commitment p { color: #c0d1e3; }
 
 @media (max-width: 760px) {
   .commitments { grid-template-columns: minmax(0, 1fr); }
@@ -271,14 +280,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: .72rem; font-weight: 700;
 }
 
-.pillar {
-  padding: 30px 26px;
-  background: #fff;
-  border: 1px solid var(--c-border);
-  border-left: 3px solid var(--c-accent);
-  border-radius: var(--radius);
-  height: 100%;
-}
 
 /* ---------- App shell ---------- */
 .app-shell { display: flex; flex-direction: column; min-height: 100vh; }
