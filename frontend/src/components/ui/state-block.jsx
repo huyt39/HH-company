@@ -48,11 +48,19 @@ export function ErrorState({ error }) {
  * Combines the loading / error / empty states of a list.
  *
  * @param {{loading: boolean, error: any, isEmpty: boolean, skeletonCount?: number,
- *          emptyTitle?: string, children: React.ReactNode}} props
+ *          emptyTitle?: string, emptyDescription?: string, children: React.ReactNode}} props
  */
-export function StateBlock({ loading, error, isEmpty, skeletonCount = 3, emptyTitle, children }) {
+export function StateBlock({
+  loading,
+  error,
+  isEmpty,
+  skeletonCount = 3,
+  emptyTitle,
+  emptyDescription,
+  children,
+}) {
   if (loading) return <SkeletonGrid count={skeletonCount} />
   if (error) return <ErrorState error={error} />
-  if (isEmpty) return <EmptyState title={emptyTitle} />
+  if (isEmpty) return <EmptyState title={emptyTitle} description={emptyDescription} />
   return children
 }

@@ -9,6 +9,7 @@ import { PROJECT_ROLE_TONE } from '@/lib/constants/services'
 import { useDocumentMeta } from '@/lib/hooks/use-document-meta'
 import { useFetch } from '@/lib/hooks/use-fetch'
 import { useLang } from '@/lib/i18n/language-context'
+import { normalize } from '@/lib/utils/search'
 
 import './projects-page.css'
 
@@ -20,15 +21,6 @@ const STATUS_FILTER_VALUES = ['', 'in_progress', 'completed']
 
 // Role tells a main contractor whether Hoa Hoang built the job or supplied it.
 const ROLE_FILTER_VALUES = ['', 'construction', 'supply']
-
-/** Strip Vietnamese diacritics and lowercase, so search ignores accents. */
-function normalize(text) {
-  return (text ?? '')
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .replace(/đ/gi, 'd')
-    .toLowerCase()
-}
 
 /** Group projects by year, newest first. */
 function groupByYear(projects) {

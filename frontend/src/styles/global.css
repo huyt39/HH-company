@@ -50,6 +50,72 @@ ul { margin: 0; padding: 0; list-style: none; }
 .grid--3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 .grid--4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 
+/* ---------- Filter bar (projects, products) ---------- */
+/* Shared by both listing pages, so it lives here rather than in one page's
+   stylesheet — a page that imported neither would otherwise lose the styling. */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 36px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--c-border);
+}
+.filter-bar__btn {
+  padding: 9px 20px;
+  border: 1px solid var(--c-border);
+  border-radius: 100px;
+  background: #fff;
+  font: inherit;
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--c-text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.filter-bar__btn:hover { border-color: var(--c-navy-600); color: var(--c-navy-600); }
+.filter-bar__btn.is-active { background: var(--c-navy-700); border-color: var(--c-navy-700); color: #fff; }
+
+.filter-bar__search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 100%;
+  order: 1;
+  padding: 9px 18px;
+  border: 1px solid var(--c-border);
+  border-radius: 100px;
+  background: #fff;
+  transition: var(--transition);
+}
+.filter-bar__search:focus-within { border-color: var(--c-navy-600); }
+.filter-bar__search svg {
+  flex-shrink: 0;
+  width: 17px;
+  height: 17px;
+  stroke: var(--c-text-muted);
+}
+.filter-bar__search:focus-within svg { stroke: var(--c-navy-600); }
+.filter-bar__search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: none;
+  font: inherit;
+  font-size: .88rem;
+  color: var(--c-text);
+}
+.filter-bar__search input::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+.filter-bar__count { font-size: .86rem; color: var(--c-text-muted); order: 2; }
+
+@media (min-width: 641px) {
+  .filter-bar__search { flex: 1 1 auto; order: 0; max-width: 420px; margin-left: 8px; }
+  .filter-bar__count { margin-left: auto; }
+}
+
 /* ---------- Commitments ---------- */
 /* Four items: a fixed 2x2 keeps them balanced. An auto-fit grid would fit
    three across on a wide viewport and leave the fourth card orphaned. */
