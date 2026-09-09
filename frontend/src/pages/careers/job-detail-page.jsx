@@ -55,7 +55,7 @@ export function JobDetailPage() {
             </>
           )}
 
-          <Link to="/tuyen-dung" className="btn btn--outline article__back">
+          <Link to="/tuyen-dung" className="btn btn--outline btn--back article__back">
             {t('careers.backToList')}
           </Link>
         </div>

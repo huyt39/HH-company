@@ -50,7 +50,7 @@ export function ServiceDetailPage() {
         <PageBanner title={t('services.notFoundTitle')} />
         <section className="section">
           <div className="container">
-            <Link to="/dich-vu" className="btn btn--outline">{t('services.backToList')}</Link>
+            <Link to="/dich-vu" className="btn btn--outline btn--back">{t('services.backToList')}</Link>
           </div>
         </section>
       </>

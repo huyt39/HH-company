@@ -90,7 +90,7 @@ export function ArticleDetailPage({ type }) {
             </article>
           )}
 
-          <Link to={variant.listPath} className="btn btn--outline article__back">
+          <Link to={variant.listPath} className="btn btn--outline btn--back article__back">
             {t('article.backTo')(listLabel)}
           </Link>
         </div>

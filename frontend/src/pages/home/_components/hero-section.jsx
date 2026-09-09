@@ -29,6 +29,13 @@ export function HeroSection() {
           <Link to="/du-an" className="btn btn--primary">{t('home.heroCtaProjects')}</Link>
           <Link to="/nang-luc" className="btn btn--ghost-light">{t('home.heroCtaCapability')}</Link>
         </div>
+
+        {/* The specialities, stated in one line. A visitor should not have to
+            open the services page to learn what this contractor actually does
+            on site. */}
+        <ul className="hero__specialities">
+          {t('home.heroSpecialities').map((item) => <li key={item}>{item}</li>)}
+        </ul>
       </div>
     </section>
   )

@@ -1,18 +1,34 @@
+/* No panel around the card: the photograph is the object, and the text sits on
+   the page beside it. Borders, rounded corners and a drop shadow on every card
+   are what made a page of real bridges read as a template. */
 .card {
   display: flex;
   flex-direction: column;
-  background: #fff;
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius);
-  overflow: hidden;
   transition: var(--transition);
   height: 100%;
 }
-a.card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: transparent; }
 
-.card__media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--c-bg-soft); }
-.card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
-a.card:hover .card__media img { transform: scale(1.05); }
+.card__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--c-bg-soft);
+}
+.card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+a.card:hover .card__media img { transform: scale(1.04); }
+/* A wash from the foot of the image, deepening on hover — it gives the frame an
+   edge without drawing one. */
+.card__media::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 45%;
+  background: linear-gradient(to top, rgba(11, 37, 69, .28), transparent);
+  opacity: 0;
+  transition: var(--transition);
+  pointer-events: none;
+}
+a.card:hover .card__media::after { opacity: 1; }
 
 .card__placeholder {
   display: block;
@@ -23,40 +39,55 @@ a.card:hover .card__media img { transform: scale(1.05); }
 a.card:hover .card__placeholder-art { opacity: .38; transition: opacity .4s ease; }
 
 .card__tag {
-  position: absolute; top: 12px; left: 12px;
-  padding: 5px 12px;
+  position: absolute; top: 0; left: 0;
+  padding: 6px 12px;
   background: var(--c-accent);
   color: #fff;
   font-size: .72rem; font-weight: 700;
   letter-spacing: .04em; text-transform: uppercase;
-  border-radius: var(--radius-sm);
 }
 .card__tag--done { background: var(--c-status-done); }
 .card__tag--active { background: var(--c-status-active); color: var(--c-status-active-text); }
 .card__tag--planned { background: var(--c-status-planned); }
 
-.card__body { padding: 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.card__body { padding: 18px 0 0; display: flex; flex-direction: column; gap: 8px; flex: 1; }
 .card__meta { font-size: .8rem; color: var(--c-text-muted); }
 .card__title {
-  font-size: 1.03rem; margin: 0; line-height: 1.45;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  font-size: 1.06rem; margin: 0; line-height: 1.4; letter-spacing: -.008em;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
-a.card:hover .card__title { color: var(--c-navy-600); }
+/* The rule grows out from the left on hover, in place of the old card lift. */
+.card__title::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  margin-top: 8px;
+  background: var(--c-accent);
+  transition: width .28s ease;
+}
+a.card:hover .card__title::after { width: 40px; }
 .card__excerpt {
   margin: 0; font-size: .9rem; color: var(--c-text-muted);
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
 
-/* Marks a project whose record can be checked against an outside source. */
+/* Marks a project whose record can be checked against an outside source.
+   Pinned to the foot of its own photograph so it can never be read as a label
+   belonging to the card below. */
 .card__badge {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: auto;
-  padding-top: 10px;
-  font-size: .76rem;
+  padding: 6px 12px 6px 10px;
+  background: rgba(255, 255, 255, .94);
+  font-size: .72rem;
   font-weight: 600;
   color: var(--c-status-done);
 }
-.card__badge svg { width: 14px; height: 14px; fill: var(--c-status-done); flex-shrink: 0; }
+.card__badge svg { width: 13px; height: 13px; fill: var(--c-status-done); flex-shrink: 0; }
 .card__badge-tick { fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }

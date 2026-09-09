@@ -24,9 +24,20 @@ h1, h2, h3, h4 {
   color: var(--c-navy-900);
 }
 
-h1 { font-size: clamp(1.9rem, 4vw, 2.9rem); }
-h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
-h3 { font-size: 1.2rem; }
+/* Display sizes carry the page. Large type needs tighter tracking and leading
+   than body copy or it reads as a blown-up paragraph, so both are pulled in as
+   the size grows. */
+h1 {
+  font-size: clamp(2.35rem, 5vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -.022em;
+}
+h2 {
+  font-size: clamp(1.8rem, 3.4vw, 2.65rem);
+  line-height: 1.15;
+  letter-spacing: -.018em;
+}
+h3 { font-size: 1.22rem; letter-spacing: -.008em; }
 
 p { margin: 0 0 1em; }
 
@@ -44,6 +55,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 .section--soft { background: var(--c-bg-soft); }
 .section--dark { background: var(--c-bg-dark); color: #dbe6f2; }
 .section--dark h2, .section--dark h3 { color: #fff; }
+/* Card text is tuned for white; on the dark ground the greys fall below
+   legibility, so they are lifted here rather than in a second card variant. */
+.section--dark .card__meta { color: #a9bdd4; }
+.section--dark .card__excerpt { color: #c0d1e3; }
 
 .grid { display: grid; gap: 24px; }
 .grid--2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
@@ -169,26 +184,55 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 /* ---------- Buttons ---------- */
+/* Square-cut rather than pill-shaped: a rounded capsule reads as consumer
+   software, and this is a contractor's site. The arrow slides on hover, which
+   is the whole animation — nothing lifts or bounces. */
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 26px;
+  gap: 10px;
+  padding: 13px 26px;
   border: 1px solid transparent;
-  border-radius: var(--radius-sm);
+  border-radius: 2px;
   font: inherit;
   font-weight: 600;
   font-size: 0.94rem;
+  letter-spacing: .005em;
   cursor: pointer;
   transition: var(--transition);
 }
+.btn::after {
+  content: '→';
+  font-size: 1.05em;
+  line-height: 1;
+  transition: transform var(--transition);
+}
+.btn:hover::after { transform: translateX(4px); }
+/* Buttons that are not a step forward — submit, filters, anything with its own
+   icon — opt out. A back link keeps an arrow, pointing the other way. */
+.btn--plain::after { content: none; }
+.btn--back::after { content: none; }
+.btn--back::before {
+  content: '←';
+  font-size: 1.05em;
+  line-height: 1;
+  transition: transform var(--transition);
+}
+.btn--back:hover::before { transform: translateX(-4px); }
+
 .btn--primary { background: var(--c-accent); color: #fff; }
 .btn--primary:hover { background: var(--c-accent-dark); }
-.btn--outline { background: transparent; border-color: currentColor; color: var(--c-navy-700); }
-.btn--outline:hover { background: var(--c-navy-700); color: #fff; }
+.btn--outline { background: transparent; border-color: var(--c-border); color: var(--c-navy-700); }
+.btn--outline:hover { background: var(--c-navy-700); border-color: var(--c-navy-700); color: #fff; }
 .btn--ghost-light { background: transparent; border-color: rgba(255,255,255,.6); color: #fff; }
 .btn--ghost-light:hover { background: #fff; color: var(--c-navy-900); }
 .btn:disabled { opacity: .6; cursor: not-allowed; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover::after,
+  .btn--back:hover::before { transform: none; }
+}
 
 /* ---------- Utilities ---------- */
 .text-muted { color: var(--c-text-muted); }

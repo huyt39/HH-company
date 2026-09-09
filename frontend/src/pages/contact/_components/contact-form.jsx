@@ -65,7 +65,7 @@ export function ContactForm() {
           />
         </div>
 
-        <button type="submit" className="btn btn--primary" disabled={submit.pending}>
+        <button type="submit" className="btn btn--primary btn--plain" disabled={submit.pending}>
           {submit.pending ? t('contact.submitting') : t('contact.submit')}
         </button>
 

@@ -13,7 +13,7 @@ import './card.css'
  *
  * `duplicate` marks a copy of a card that is already on the page — the second
  * lap of a looping carousel — so it stays out of the accessibility tree and out
- * of the tab order. `badge` adds a short mark under the text, used to flag a
+ * of the tab order. `badge` adds a short mark on the image, used to flag a
  * project whose record can be checked against an outside source.
  *
  * @param {{to?: string, media?: object, tag?: string, tagTone?: string, title: string, meta?: string, excerpt?: string, badge?: string, duplicate?: boolean}} props
@@ -38,11 +38,8 @@ export function Card({ to, media, tag, tagTone, title, meta, excerpt, badge, dup
         {tag && (
           <span className={`card__tag ${tagTone ? `card__tag--${tagTone}` : ''}`}>{tag}</span>
         )}
-      </div>
-      <div className="card__body">
-        {meta && <span className="card__meta">{meta}</span>}
-        <h3 className="card__title">{title}</h3>
-        {excerpt && <p className="card__excerpt">{excerpt}</p>}
+        {/* Sits on the image, not under the text: at the foot of the card it
+            floated free of its own entry and read as a label on the next one. */}
         {badge && (
           <span className="card__badge">
             <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
@@ -52,6 +49,11 @@ export function Card({ to, media, tag, tagTone, title, meta, excerpt, badge, dup
             {badge}
           </span>
         )}
+      </div>
+      <div className="card__body">
+        {meta && <span className="card__meta">{meta}</span>}
+        <h3 className="card__title">{title}</h3>
+        {excerpt && <p className="card__excerpt">{excerpt}</p>}
       </div>
     </Wrapper>
   )

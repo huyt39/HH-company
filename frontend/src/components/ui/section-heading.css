@@ -1,4 +1,6 @@
 .section-heading { margin-bottom: 36px; }
+.section-heading h2 { max-width: 22ch; }
+.section-heading--center h2 { max-width: 26ch; margin-inline: auto; }
 .section-heading--center { text-align: center; }
 .section-heading--center .section-heading__desc { margin-inline: auto; }
 
@@ -17,16 +19,16 @@
 .section-heading--left h2::after {
   content: '';
   display: block;
-  width: 56px; height: 3px;
+  width: 44px; height: 2px;
   background: var(--c-accent);
-  margin-top: 14px;
+  margin-top: 16px;
 }
 .section-heading--center h2::after {
   content: '';
   display: block;
-  width: 56px; height: 3px;
+  width: 44px; height: 2px;
   background: var(--c-accent);
-  margin: 14px auto 0;
+  margin: 16px auto 0;
 }
 
 .section-heading__desc { max-width: 64ch; color: var(--c-text-muted); margin-bottom: 0; }
