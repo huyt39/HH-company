@@ -1,40 +1,35 @@
 /* ---------- Headline figures ---------- */
 
-/* The strip holds one line of figures, so the section's full 88px of padding
-   left it floating in far more space than it occupies. */
 .capability-stats-section {
-  padding-top: clamp(28px, 3.4vw, 42px);
-  padding-bottom: 0;
+  padding-top: clamp(30px, 3.6vw, 46px);
+  padding-bottom: clamp(30px, 3.6vw, 46px);
 }
 
-/* Figures laid out as indicator lines — value and caption side by side behind a
-   short accent bar — rather than the home page's centred, rule-divided strip.
-   Reading across instead of stacking also keeps the row shallow. */
+/* Set the way the services page sets the same four numbers: figure above its
+   caption, divided by hairlines. Two pages showing one set of statistics two
+   different ways was the odd part. */
 .capability-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 22px 36px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0 clamp(24px, 3vw, 48px);
+  border-top: 2px solid var(--c-navy-800);
 }
 
-.capability-stat {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 14px;
-  padding-left: 16px;
-  border-left: 3px solid var(--c-accent);
-}
+.capability-stat { padding: 20px 0 4px; }
 .capability-stat strong {
-  font-size: 1.65rem;
+  display: block;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
   font-weight: 800;
-  line-height: 1;
+  line-height: 1.05;
+  letter-spacing: -.02em;
   color: var(--c-navy-800);
   font-variant-numeric: tabular-nums;
-  white-space: nowrap;
 }
 .capability-stat span {
-  font-size: .84rem;
-  line-height: 1.45;
+  display: block;
+  margin-top: 8px;
+  font-size: .86rem;
+  line-height: 1.5;
   color: var(--c-text-muted);
 }
 
@@ -126,10 +121,11 @@
   color: var(--c-text-muted);
 }
 
+/* A note alongside the personnel list rather than a tinted tile: the grey box
+   was the last of the panel styling on this page. */
 .capability-aside {
-  padding: 24px;
-  background: var(--c-bg-soft);
-  border-radius: var(--radius);
+  padding-top: 20px;
+  border-top: 2px solid var(--c-navy-800);
 }
 .capability-aside h3 { font-size: 1rem; margin-bottom: 10px; }
 .capability-aside p { font-size: .88rem; margin-bottom: 18px; }
@@ -140,21 +136,24 @@
 .capability-steps li {
   display: flex;
   align-items: flex-start;
-  gap: 18px;
-  padding: 18px 0;
-  border-bottom: 1px dashed var(--c-border);
+  gap: 24px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--c-border);
 }
 .capability-steps li:last-child { border-bottom: 0; }
-.capability-steps h3 { font-size: 1rem; margin-bottom: 6px; }
-.capability-steps p { font-size: .9rem; }
+.capability-steps h3 { font-size: 1.04rem; margin-bottom: 7px; }
+.capability-steps p { font-size: .92rem; line-height: 1.7; margin-bottom: 0; }
+/* The step number set as a figure, not as a badge — at 34px in a pale disc it
+   disappeared next to the enlarged headings. */
 .capability-steps__index {
   flex-shrink: 0;
-  display: grid; place-items: center;
-  width: 34px; height: 34px;
-  border-radius: 50%;
-  background: var(--c-blue-100);
-  color: var(--c-navy-700);
-  font-size: .78rem; font-weight: 700;
+  width: 48px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  color: var(--c-accent);
+  font-variant-numeric: tabular-nums;
 }
 
 /* ---------- Downloads ---------- */

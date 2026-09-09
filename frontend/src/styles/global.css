@@ -54,6 +54,16 @@ ul { margin: 0; padding: 0; list-style: none; }
 .section { padding: clamp(48px, 7vw, 88px) 0; }
 .section--soft { background: var(--c-bg-soft); }
 .section--dark { background: var(--c-bg-dark); color: #dbe6f2; }
+/* A second, lighter dark ground. Where two dark sections meet, one flat colour
+   runs them into a single very long band with no edge between them. */
+.section--dark-soft { background: var(--c-navy-800); }
+
+/* Two plain sections in a row have no change of background to mark the join, so
+   88px top and bottom stack into 176px of empty page. Sections that do change
+   colour keep the full measure — there the space belongs to the band. */
+.section:not(.section--soft):not(.section--dark) + .section:not(.section--soft):not(.section--dark) {
+  padding-top: clamp(18px, 2.4vw, 32px);
+}
 .section--dark h2, .section--dark h3 { color: #fff; }
 /* Card text is tuned for white; on the dark ground the greys fall below
    legibility, so they are lifted here rather than in a second card variant. */

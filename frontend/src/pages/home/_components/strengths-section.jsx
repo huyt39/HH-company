@@ -4,6 +4,10 @@ import { useLang } from '@/lib/i18n/language-context'
 /**
  * Four commitments; static content, not from the API.
  *
+ * On the lighter of the two dark grounds: the featured projects follow
+ * immediately on the darker one, and a single shade would have run the two
+ * sections together into one unbroken band.
+ *
  * These answer what a main contractor asks of a specialist subcontractor —
  * crew, plant, safety, handover paperwork. The material-origin and test
  * certificates that used to sit here belong to the supply side and now live on
@@ -14,7 +18,7 @@ export function StrengthsSection() {
   const strengths = t('home.strengths')
 
   return (
-    <section className="section section--dark">
+    <section className="section section--dark section--dark-soft">
       <div className="container">
         <SectionHeading
           eyebrow={t('home.strengthsEyebrow')}

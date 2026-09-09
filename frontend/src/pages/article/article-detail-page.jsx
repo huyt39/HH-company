@@ -77,12 +77,22 @@ export function ArticleDetailPage({ type }) {
 
               <ArticleGallery cover={data.cover} media={data.gallery} />
 
-              <div
-                className="article__content"
-                dangerouslySetInnerHTML={{
-                  __html: data.content || `<p>${data.summary || t('article.contentFallback')}</p>`,
-                }}
-              />
+              {/* The summary is only worth repeating here when it says
+                  something the facts table has not already said: for most
+                  projects `summary` and `scale` carry the same sentence, and it
+                  was being printed twice on the same screen. */}
+              {(() => {
+                const body =
+                  data.content ||
+                  (data.summary && data.summary !== data.scale
+                    ? `<p>${data.summary}</p>`
+                    : isProject
+                      ? ''
+                      : `<p>${t('article.contentFallback')}</p>`)
+                return body ? (
+                  <div className="article__content" dangerouslySetInnerHTML={{ __html: body }} />
+                ) : null
+              })()}
 
               {isProject && (
                 <ProjectContext context={data.context} sourceUrl={data.context_source} />
