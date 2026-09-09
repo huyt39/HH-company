@@ -11,34 +11,15 @@ import { useLang } from '@/lib/i18n/language-context'
 
 import './capability-page.css'
 
-/** Certificate blocks, in the order a bid reviewer works through them. */
-const CERTIFICATE_GROUPS = ['legal', 'iso', 'product', 'acceptance']
-
-/** One glyph per block, so a card is identifiable before the title is read. */
-const CERTIFICATE_ICONS = {
-  legal: '▤',
-  iso: '◎',
-  product: '◆',
-  acceptance: '✓',
-}
-
 export function CapabilityPage() {
   const { t, lang } = useLang()
   useDocumentMeta({ title: t('capability.metaTitle'), description: t('capability.metaDesc') })
 
   const { data: profile } = useFetch((options) => companyApi.getProfile(options), [])
-  const { data: certificates } = useFetch(
-    (options) => capabilityApi.getCertificates(undefined, options),
-    [],
-  )
   const { data: equipment } = useFetch((options) => capabilityApi.getEquipment(options), [])
   const { data: documents } = useFetch((options) => capabilityApi.getDocuments(options), [])
 
   const stats = profile?.capability_stats ?? []
-  const certificateGroups = CERTIFICATE_GROUPS.map((category) => ({
-    category,
-    items: (certificates ?? []).filter((item) => item.category === category),
-  })).filter((group) => group.items.length)
 
   return (
     <>
@@ -56,71 +37,6 @@ export function CapabilityPage() {
           </div>
         </section>
       )}
-
-      {/* ---------- Legal standing and certificates ---------- */}
-      <section className="section section--soft" id="chung-chi">
-        <div className="container">
-          <SectionHeading
-            eyebrow={t('capability.certificatesEyebrow')}
-            title={t('capability.certificatesTitle')}
-            description={t('capability.certificatesDesc')}
-          />
-          {certificateGroups.length === 0 ? (
-            <EmptyState
-              title={t('capability.certificatesEmpty')}
-              description={t('capability.certificatesEmptyDesc')}
-            />
-          ) : (
-            certificateGroups.map((group) => (
-              <div className="capability-subgroup" key={group.category}>
-                <h3 className="capability-subgroup__title">
-                  {t('capability.certificateCategories')[group.category]}
-                </h3>
-                <div className="certificate-grid">
-                  {group.items.map((item) => (
-                    <article className="certificate-card" key={item.id}>
-                      <span className="certificate-card__icon" aria-hidden="true">
-                        {CERTIFICATE_ICONS[group.category] ?? '▤'}
-                      </span>
-                      <div className="certificate-card__body">
-                        <h4>{item.name}</h4>
-                        {item.code && (
-                          <p className="certificate-card__code">
-                            <span className="visually-hidden">
-                              {t('capability.certificateLabels').code}:{' '}
-                            </span>
-                            {item.code}
-                          </p>
-                        )}
-                        {/* Labels are only for assistive tech: an organisation name
-                            and a date read as themselves, and printing "Đơn vị cấp"
-                            three times per card was most of the visual noise. */}
-                        {item.issuer && (
-                          <p className="certificate-card__meta">
-                            <span className="visually-hidden">
-                              {t('capability.certificateLabels').issuer}:{' '}
-                            </span>
-                            {item.issuer}
-                          </p>
-                        )}
-                        {item.issued && (
-                          <p className="certificate-card__meta">
-                            <span className="visually-hidden">
-                              {t('capability.certificateLabels').issued}:{' '}
-                            </span>
-                            {item.issued}
-                          </p>
-                        )}
-                        {item.note && <p className="certificate-card__note">{item.note}</p>}
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      </section>
 
       {/* ---------- Site team ---------- */}
       <section className="section" id="nhan-su">
