@@ -16,7 +16,7 @@ import { ServicesSection } from './_components/services-section'
 import { StrengthsSection } from './_components/strengths-section'
 import './home-page.css'
 
-const FEATURED_PROJECTS = 6
+const FEATURED_PROJECTS = 9
 const LATEST_NEWS = 3
 
 /**

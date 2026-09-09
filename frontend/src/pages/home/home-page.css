@@ -189,3 +189,79 @@
 .service-group-card__more::after { content: ' →'; }
 
 .about-intro__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* ---------- Featured projects rail ---------- */
+/* A native scroll container with snap points: the cards keep the same shape as
+   the grid they came from, but sit on one self-advancing row. */
+.project-rail { position: relative; }
+.project-rail__track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  /* Room for the hover lift, which would otherwise be clipped by the scroller. */
+  padding: 6px 0;
+  margin: -6px 0;
+}
+.project-rail__track::-webkit-scrollbar { display: none; }
+.project-rail__track > * {
+  flex: 0 0 calc((100% - 48px) / 3);
+  scroll-snap-align: start;
+}
+
+.project-rail__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 22px;
+}
+.project-rail__dots { display: flex; align-items: center; gap: 8px; }
+.project-rail__dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #c9d5e2;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.project-rail__dot.is-active { width: 26px; border-radius: 5px; background: var(--c-accent); }
+
+.project-rail__arrows { display: flex; gap: 10px; }
+.project-rail__arrow {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--c-border);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--c-navy-800);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.project-rail__arrow:hover:not(:disabled) {
+  border-color: var(--c-navy-800);
+  background: var(--c-navy-800);
+  color: #fff;
+}
+.project-rail__arrow:disabled { opacity: .35; cursor: default; }
+
+@media (max-width: 900px) {
+  .project-rail__track > * { flex-basis: calc((100% - 24px) / 2); }
+}
+@media (max-width: 620px) {
+  .project-rail__track > * { flex-basis: 100%; }
+  .project-rail__controls { justify-content: center; }
+  .project-rail__arrows { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-rail__track { scroll-behavior: auto; }
+}
