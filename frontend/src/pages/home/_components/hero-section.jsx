@@ -3,15 +3,13 @@ import { Link } from 'react-router-dom'
 import { useLang } from '@/lib/i18n/language-context'
 
 /**
- * Home hero with the highlight stats strip.
+ * Home hero.
  *
  * The primary action goes to the project record, not the catalogue: a main
  * contractor deciding whether to invite Hoa Hoang to a bridge job wants to see
  * what has been built, then the capability behind it.
- *
- * @param {{stats: {value: string, label: string}[]}} props
  */
-export function HeroSection({ stats }) {
+export function HeroSection() {
   const { t } = useLang()
 
   return (
@@ -30,17 +28,6 @@ export function HeroSection({ stats }) {
         <div className="hero__actions">
           <Link to="/du-an" className="btn btn--primary">{t('home.heroCtaProjects')}</Link>
           <Link to="/nang-luc" className="btn btn--ghost-light">{t('home.heroCtaCapability')}</Link>
-        </div>
-      </div>
-
-      <div className="hero__stats">
-        <div className="container hero__stats-grid">
-          {stats.map((stat) => (
-            <div className="stat" key={stat.label}>
-              <strong>{stat.value}</strong>
-              <span>{stat.label}</span>
-            </div>
-          ))}
         </div>
       </div>
     </section>

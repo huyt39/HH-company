@@ -6,82 +6,86 @@ import { SectionHeading } from '@/components/ui/section-heading'
 import { StateBlock } from '@/components/ui/state-block'
 import { useLang } from '@/lib/i18n/language-context'
 
-const AUTOPLAY_MS = 5000
+const AUTOPLAY_MS = 2000
+
+const reducedMotion = () =>
+  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 /**
- * Featured projects on the home page, as one self-advancing row.
+ * Featured projects on the home page, as one continuously looping row.
  *
- * A native scroll container with snap points rather than a carousel library:
- * dragging, trackpad swipes and keyboard focus already work, and the autoplay
- * is a scroll call on a timer. It stops on hover, on focus, while the tab is
- * hidden, once the visitor scrolls the row themselves, and for anyone who asks
- * for reduced motion.
+ * A native scroll container with snap points rather than a carousel library, so
+ * dragging, trackpad swipes and keyboard focus work on their own. The row
+ * carries the projects twice: stepping past the last card lands on the copy of
+ * the first, and the scroll position is then rewound by exactly one lap without
+ * animation. The picture never runs backwards to start over.
+ *
+ * It stops on hover, on focus, while the tab is hidden, and for anyone who has
+ * asked for reduced motion.
  */
 export function FeaturedProjectsSection({ projects, loading, error }) {
   const { t } = useLang()
   const trackRef = useRef(null)
-  const [page, setPage] = useState(0)
-  const [pages, setPages] = useState(1)
+  const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
   const count = projects?.length ?? 0
 
-  /** Card width plus gap, and how many fit — both change with the breakpoint. */
+  /** Card width plus gap — the distance of exactly one step. */
   const metrics = useCallback(() => {
     const track = trackRef.current
     const card = track?.firstElementChild
-    if (!track || !card) return null
+    if (!track || !card || !count) return null
     const gap = parseFloat(getComputedStyle(track).columnGap) || 0
     const step = card.offsetWidth + gap
-    const perView = Math.max(1, Math.round((track.clientWidth + gap) / step))
-    return { track, step, perView }
-  }, [])
+    return { track, step, lap: step * count }
+  }, [count])
 
-  const goTo = useCallback(
-    (index, behavior = 'smooth') => {
+  /** Move by whole cards, rewinding a lap first so the row never runs out. */
+  const advance = useCallback(
+    (direction) => {
       const m = metrics()
       if (!m) return
-      m.track.scrollTo({ left: index * m.perView * m.step, behavior })
+      const { track, step, lap } = m
+      let left = track.scrollLeft
+
+      if (left >= lap - 1) {
+        left -= lap
+        track.scrollTo({ left, behavior: 'auto' })
+      } else if (direction < 0 && left < step / 2) {
+        left += lap
+        track.scrollTo({ left, behavior: 'auto' })
+      }
+
+      track.scrollTo({
+        left: left + direction * step,
+        behavior: reducedMotion() ? 'auto' : 'smooth',
+      })
     },
     [metrics],
   )
 
-  // Page count, recalculated when the row is resized.
-  useEffect(() => {
-    const track = trackRef.current
-    if (!track || !count) return undefined
-
-    const measure = () => {
+  const goToCard = useCallback(
+    (target) => {
       const m = metrics()
-      if (m) setPages(Math.max(1, Math.ceil(count / m.perView)))
-    }
-    measure()
+      if (!m) return
+      m.track.scrollTo({ left: target * m.step, behavior: reducedMotion() ? 'auto' : 'smooth' })
+    },
+    [metrics],
+  )
 
-    const observer = new ResizeObserver(measure)
-    observer.observe(track)
-    return () => observer.disconnect()
-  }, [count, metrics])
-
-  // Which page is on screen, driven by the scroll position itself so dragging
-  // and autoplay stay in agreement.
+  // Which card leads the row, read from the scroll position so dragging and
+  // autoplay always agree.
   const handleScroll = useCallback(() => {
     const m = metrics()
     if (!m) return
-    setPage(Math.round(m.track.scrollLeft / (m.perView * m.step)))
-  }, [metrics])
+    setIndex(Math.round(m.track.scrollLeft / m.step) % count)
+  }, [metrics, count])
 
   useEffect(() => {
-    if (paused || pages < 2) return undefined
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
-
-    const timer = setInterval(() => {
-      setPage((current) => {
-        const next = (current + 1) % pages
-        goTo(next)
-        return next
-      })
-    }, AUTOPLAY_MS)
+    if (paused || count < 2 || reducedMotion()) return undefined
+    const timer = setInterval(() => advance(1), AUTOPLAY_MS)
     return () => clearInterval(timer)
-  }, [paused, pages, goTo])
+  }, [paused, count, advance])
 
   // A hidden tab should not advance through the row unseen.
   useEffect(() => {
@@ -90,11 +94,7 @@ export function FeaturedProjectsSection({ projects, loading, error }) {
     return () => document.removeEventListener('visibilitychange', onVisibility)
   }, [])
 
-  const step = (direction) => {
-    const next = Math.min(pages - 1, Math.max(0, page + direction))
-    setPage(next)
-    goTo(next)
-  }
+  const items = projects ?? []
 
   return (
     <section className="section">
@@ -122,7 +122,10 @@ export function FeaturedProjectsSection({ projects, loading, error }) {
               onScroll={handleScroll}
               onPointerDown={() => setPaused(true)}
             >
-              {projects.map((project) => (
+              {/* StateBlock decides what to show, but these children are built
+                  first — so this must survive `projects` being undefined while
+                  the request is still in flight. */}
+              {items.map((project) => (
                 <Card
                   key={project.id}
                   to={`/du-an/${project.slug}`}
@@ -133,22 +136,32 @@ export function FeaturedProjectsSection({ projects, loading, error }) {
                   excerpt={project.summary}
                 />
               ))}
+              {/* The second lap, which makes the wrap invisible. */}
+              {items.map((project) => (
+                <Card
+                  key={`${project.id}-loop`}
+                  duplicate
+                  to={`/du-an/${project.slug}`}
+                  media={project.cover}
+                  tag={String(project.year)}
+                  title={project.name}
+                  meta={project.location}
+                  excerpt={project.summary}
+                />
+              ))}
             </div>
 
-            {pages > 1 && (
+            {count > 1 && (
               <div className="project-rail__controls">
                 <div className="project-rail__dots">
-                  {Array.from({ length: pages }, (_, index) => (
+                  {items.map((project, i) => (
                     <button
                       type="button"
-                      key={index}
-                      className={`project-rail__dot${index === page ? ' is-active' : ''}`}
-                      aria-label={t('home.featuredProjectsGoTo')(index + 1)}
-                      aria-current={index === page}
-                      onClick={() => {
-                        setPage(index)
-                        goTo(index)
-                      }}
+                      key={project.id}
+                      className={`project-rail__dot${i === index ? ' is-active' : ''}`}
+                      aria-label={t('home.featuredProjectsGoTo')(i + 1)}
+                      aria-current={i === index}
+                      onClick={() => goToCard(i)}
                     />
                   ))}
                 </div>
@@ -157,8 +170,7 @@ export function FeaturedProjectsSection({ projects, loading, error }) {
                     type="button"
                     className="project-rail__arrow"
                     aria-label={t('home.featuredProjectsPrev')}
-                    disabled={page === 0}
-                    onClick={() => step(-1)}
+                    onClick={() => advance(-1)}
                   >
                     ‹
                   </button>
@@ -166,8 +178,7 @@ export function FeaturedProjectsSection({ projects, loading, error }) {
                     type="button"
                     className="project-rail__arrow"
                     aria-label={t('home.featuredProjectsNext')}
-                    disabled={page >= pages - 1}
-                    onClick={() => step(1)}
+                    onClick={() => advance(1)}
                   >
                     ›
                   </button>

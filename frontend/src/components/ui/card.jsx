@@ -11,11 +11,19 @@ import './card.css'
  * the card picks the thumbnail itself. `tagTone` colours the badge — omit it
  * for the default accent, as news categories and project years use.
  *
- * @param {{to?: string, media?: object, tag?: string, tagTone?: string, title: string, meta?: string, excerpt?: string}} props
+ * `duplicate` marks a copy of a card that is already on the page — the second
+ * lap of a looping carousel — so it stays out of the accessibility tree and out
+ * of the tab order.
+ *
+ * @param {{to?: string, media?: object, tag?: string, tagTone?: string, title: string, meta?: string, excerpt?: string, duplicate?: boolean}} props
  */
-export function Card({ to, media, tag, tagTone, title, meta, excerpt }) {
+export function Card({ to, media, tag, tagTone, title, meta, excerpt, duplicate = false }) {
   const Wrapper = to ? Link : 'article'
   const wrapperProps = to ? { to } : {}
+  if (duplicate) {
+    wrapperProps['aria-hidden'] = true
+    wrapperProps.tabIndex = -1
+  }
   const image = thumbUrl(media)
 
   return (

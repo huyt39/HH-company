@@ -39,31 +39,6 @@
 .hero__desc { max-width: 56ch; color: #d3e0ee; font-size: 1.05rem; margin-bottom: 32px; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; }
 
-.hero__stats {
-  position: relative;
-  z-index: 1;
-  border-top: 1px solid rgba(255, 255, 255, .14);
-  background: rgba(6, 24, 45, .45);
-}
-.hero__stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  padding-block: 30px;
-}
-.stat { text-align: center; padding: 8px 12px; }
-.stat + .stat { border-left: 1px solid rgba(255, 255, 255, .12); }
-.stat strong {
-  display: block;
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
-  color: var(--c-accent-light);
-  line-height: 1.2;
-}
-.stat span { font-size: .86rem; color: #c5d6e8; }
-
-@media (max-width: 620px) {
-  .stat:nth-child(odd) { border-left: none; }
-}
-
 /* ---------- Short intro ---------- */
 .about-intro {
   display: grid;
@@ -124,7 +99,11 @@
   gap: 20px;
   flex-wrap: wrap;
 }
-.section-head-row .section-heading { margin-bottom: 36px; }
+/* The gap belongs to the row, not the heading: with it on the heading alone the
+   button — bottom-aligned against it — ended up sitting right on top of the
+   cards below. */
+.section-head-row { margin-bottom: 36px; }
+.section-head-row .section-heading { margin-bottom: 0; }
 
 /* ---------- CTA ---------- */
 .cta {
@@ -199,8 +178,11 @@
   gap: 24px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
   scrollbar-width: none;
+  /* No `scroll-behavior: smooth` here on purpose: it would also apply to the
+     scripted rewind at the end of a lap — `behavior: 'auto'` means "use the
+     element's scroll-behavior" — and the row would visibly run backwards.
+     The component asks for smooth or instant per call instead. */
   /* Room for the hover lift, which would otherwise be clipped by the scroller. */
   padding: 6px 0;
   margin: -6px 0;
@@ -261,7 +243,4 @@
   .project-rail__track > * { flex-basis: 100%; }
   .project-rail__controls { justify-content: center; }
   .project-rail__arrows { display: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .project-rail__track { scroll-behavior: auto; }
 }

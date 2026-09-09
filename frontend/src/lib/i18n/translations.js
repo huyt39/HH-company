@@ -91,8 +91,6 @@ export const translations = {
         'Công ty TNHH ĐTXD và DVTM Hòa Hoàng — nhà thầu chuyên ngành thi công căng kéo cáp dự ứng lực, lắp đặt gối cầu, khe co giãn và sửa chữa tăng cường cầu.',
     },
     home: {
-      statEstablished: 'Năm thành lập',
-      statProjectsDone: 'Dự án đã thực hiện',
       heroTitle: 'Nhà thầu chuyên ngành\ncăng kéo dự ứng lực, hệ cáp và gối cầu',
       heroDesc:
         'Hòa Hoàng đưa kỹ sư, công nhân và thiết bị của chính mình ra công trường: thi công lắp đặt, căng kéo và nghiệm thu cho các dự án cầu đường bộ, cao tốc và đường sắt trọng điểm trên cả nước.',
@@ -523,8 +521,6 @@ export const translations = {
         "Hoa Hoang Investment Construction and Trading Services Co., Ltd. — a specialist contractor for external post-tensioning, bridge cable systems, bearing and expansion joint installation, and bridge strengthening.",
     },
     home: {
-      statEstablished: 'Established',
-      statProjectsDone: 'Projects completed',
       heroTitle: 'Specialist contractor for\npost-tensioning, bridge cables and bearings',
       heroDesc:
         'Hoa Hoang brings its own engineers, crews and equipment to site: installation, stressing and handover for major road, expressway and railway bridge projects nationwide.',
