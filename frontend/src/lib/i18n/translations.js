@@ -195,8 +195,10 @@ export const translations = {
         'Dịch vụ thi công của Hòa Hoàng: căng kéo cáp dự ứng lực ngoài, lắp dựng hệ cáp cầu vòm và dây văng, lắp đặt gối cầu, khe co giãn, sửa chữa và tăng cường cầu cũ.',
       bannerTitle: 'Dịch vụ thi công',
       bannerSubtitle: 'Những công việc Hòa Hoàng trực tiếp thực hiện trên công trường, cùng quy trình và hồ sơ bàn giao đi kèm.',
+      leadTitle: 'Đội ngũ và thiết bị của chính công ty, ra thẳng công trường',
+      leadDesc: 'Hòa Hoàng nhận thầu các hạng mục kết cấu chuyên ngành trên cầu đường bộ, cao tốc và đường sắt: căng kéo dự ứng lực, hệ cáp cầu, gối cầu và khe co giãn — thi công mới cũng như sửa chữa, tăng cường cầu đang khai thác.',
+      leadCta: 'Trao đổi với kỹ sư',
       empty: 'Chưa có dịch vụ nào',
-      viewDetail: 'Quy trình thi công',
       categories: {
         build: {
           eyebrow: 'Công trình mới',
@@ -641,8 +643,10 @@ export const translations = {
         "Hoa Hoang's construction services: external post-tensioning, arch and cable-stayed bridge cable systems, bearing and expansion joint installation, bridge repair and strengthening.",
       bannerTitle: 'Construction Services',
       bannerSubtitle: 'The work Hoa Hoang performs on site, with the process and handover records that come with it.',
+      leadTitle: 'Our own crews and plant, straight to site',
+      leadDesc: 'Hoa Hoang takes on specialist structural packages on road, motorway and rail bridges: post-tensioning, bridge cable systems, bearings and expansion joints — on new works as well as repair and strengthening of bridges already in service.',
+      leadCta: 'Talk to an engineer',
       empty: 'No services yet',
-      viewDetail: 'Construction process',
       categories: {
         build: {
           eyebrow: 'New structures',

@@ -1,44 +1,87 @@
-/* ---------- Service list ---------- */
-
-.service-list {
+/* ---------- Opening block ---------- */
+/* The page used to drop straight into a list. This gives it a front door: what
+   the work is on the left, the record behind it on the right. */
+.services-lead__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 20px;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+.services-lead h2 { margin-bottom: 16px; }
+.services-lead p { max-width: 56ch; margin-bottom: 26px; font-size: 1.02rem; }
+
+.services-lead__figures { margin: 0; border-top: 2px solid var(--c-navy-800); }
+.services-lead__figures > div {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--c-border);
+}
+.services-lead__figures dt {
+  font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  color: var(--c-navy-800);
+  font-variant-numeric: tabular-nums;
+}
+.services-lead__figures dd {
+  margin: 6px 0 0;
+  font-size: .87rem;
+  line-height: 1.5;
+  color: var(--c-text-muted);
 }
 
-.service-card {
+@media (max-width: 860px) {
+  .services-lead__grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- Service list ---------- */
+/* Flex rather than grid so a group with an odd count centres its last row
+   instead of leaving a hole on the right. */
+.service-list {
   display: flex;
-  align-items: flex-start;
-  gap: 18px;
-  padding: 26px 24px;
-  background: #fff;
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius);
-  border-top: 3px solid transparent;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px 32px;
+}
+
+/* No panel: an icon, a name and a line of explanation, standing on the page. */
+.service-card {
+  flex: 0 1 calc((100% - 64px) / 3);
+  min-width: 250px;
   color: inherit;
   transition: var(--transition);
 }
-.service-card:hover {
-  border-top-color: var(--c-accent);
-  box-shadow: var(--shadow);
-  transform: translateY(-2px);
-}
 
 .service-card__icon {
-  flex-shrink: 0;
-  display: grid; place-items: center;
-  width: 48px; height: 48px;
-  border-radius: var(--radius);
-  background: var(--c-blue-100);
+  display: block;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 18px;
   color: var(--c-navy-600);
+  transition: var(--transition);
 }
-.service-card h3 { font-size: 1.06rem; margin-bottom: 8px; }
-.service-card p { font-size: .91rem; margin-bottom: 10px; }
-.service-card__more {
-  font-size: .82rem; font-weight: 700; letter-spacing: .04em;
-  color: var(--c-accent);
+.service-card__icon .domain-icon { width: 100%; height: 100%; }
+.service-card:hover .service-card__icon { color: var(--c-accent); }
+
+.service-card h3 { font-size: 1.06rem; margin-bottom: 10px; }
+/* The rule replaces the repeated "view detail" link under every card. */
+.service-card h3::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  margin-top: 10px;
+  background: var(--c-accent);
+  transition: width .28s ease;
 }
-.service-card__more::after { content: ' →'; }
+.service-card:hover h3::after { width: 40px; }
+.service-card p { font-size: .92rem; line-height: 1.7; color: var(--c-text-muted); margin-bottom: 0; }
+
+/* On the dark ground the icon and body copy need lifting. */
+.section--dark .service-card__icon { color: var(--c-accent-light); }
+.section--dark .service-card:hover .service-card__icon { color: #fff; }
+.section--dark .service-card p { color: #c0d1e3; }
+.section--dark .service-card h3::after { background: var(--c-accent-light); }
 
 .service-group { scroll-margin-top: var(--header-h); }
 
