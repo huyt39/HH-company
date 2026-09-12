@@ -198,8 +198,54 @@ ul { margin: 0; padding: 0; list-style: none; }
 .section--dark .commitment__index { color: var(--c-accent-light); }
 .section--dark .commitment p { color: #c0d1e3; }
 
+/* Headline variant: title only, so four fit across one row. A drawn mark above
+   the title instead of a bare ordinal — the numbers implied a sequence these
+   four parallel promises do not have, and left the card looking half-empty. */
+.commitments--headline { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.commitments--headline .commitment {
+  flex-direction: column;
+  gap: 18px;
+  padding: 28px 24px;
+}
+.commitments--headline .commitment h3 { line-height: 1.4; }
+
+.commitment__mark {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(95, 196, 140, .12);
+  border: 1px solid rgba(95, 196, 140, .32);
+  color: var(--c-accent-light);
+  transition: var(--transition);
+}
+.commitment__mark .domain-icon { width: 27px; height: 27px; }
+
+/* The disc fills on hover — the one bit of motion in the section, and it lands
+   on the mark rather than moving the whole card. */
+.commitment:hover .commitment__mark {
+  background: var(--c-accent-light);
+  border-color: var(--c-accent-light);
+  color: var(--c-navy-900);
+  transform: scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .commitment__mark { transition: none; }
+  .commitment:hover .commitment__mark { transform: none; }
+}
+
+@media (max-width: 1080px) {
+  .commitments--headline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 @media (max-width: 760px) {
   .commitments { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 520px) {
+  .commitments--headline { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* ---------- Buttons ---------- */

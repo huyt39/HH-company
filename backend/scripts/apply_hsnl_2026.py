@@ -56,6 +56,13 @@ _OLD_GIOI_PHIEN_SCALE = (
     "dây thép mạ kẽm cường độ cao xoắn thành bó, ép đùn HDPE 2 lớp, khối lượng 41 tấn."
 )
 
+# The `issued` strings this script wrote on its first pass, before the cards
+# gained field labels. Anything else in that field was typed by a person.
+_SUPERSEDED_CERT_ISSUED = {
+    "Cấp ngày 06/03/2024, hiệu lực đến 06/03/2034",
+    "Đăng ký lần đầu 25/10/2013, thay đổi lần thứ 8 ngày 16/12/2025",
+}
+
 _OLD_JOINT_REPLACEMENT_DESC = (
     "Sửa chữa và thay thế khe co giãn trên cầu đang khai thác, gồm cả khe ray mô "
     "đun khẩu độ lớn. Hòa Hoàng đã thực hiện tại trụ P26 cầu Long Thành trên cao "
@@ -206,6 +213,24 @@ async def apply_capability(dry_run: bool) -> int:
                 rows = await repository.find_many({})
         else:
             print(f"  {label}: đã đủ, bỏ qua")
+
+        # Wording trimmed after the cards were redesigned: "Hiệu lực" is now a
+        # field label, so the value no longer repeats it. Only refresh a record
+        # still holding the wording this script itself wrote.
+        if label == "chứng chỉ":
+            seeded = {item.code: item for item in items if item.code}
+            for row in rows:
+                item = seeded.get(row.code)
+                if item is None or (row.issued, row.note) == (item.issued, item.note):
+                    continue
+                if row.issued not in _SUPERSEDED_CERT_ISSUED:
+                    print(f"  {label}: “{row.name[:40]}” đã sửa trong /admin, giữ nguyên")
+                    continue
+                print(f"  {label}: “{row.name[:40]}” rút gọn hiệu lực / ghi chú")
+                changed += 1
+                if not dry_run:
+                    row.issued, row.note = item.issued, item.note
+                    await row.save()
 
         # The Hạng I licence and the 10-strong platform fleet are what the new
         # profile leads with, so they lead the list too rather than landing at

@@ -116,25 +116,47 @@
   color: var(--c-text-muted);
 }
 
-.capability-table__plant {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
+/* A count column, not a paragraph: the heading wraps to two lines and the
+   figures scatter without a fixed width. */
+.capability-table th:nth-child(2),
+.capability-table__qty {
+  width: 92px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
-/* A thumbnail of the plant itself where one exists — a 10-strong fleet of
-   under-bridge platforms is easier to believe once you have seen one working. */
-.capability-table__photo {
-  flex: 0 0 auto;
-  width: 108px;
-  height: 68px;
+/* Photographs of the plant sit below the table rather than inside a cell:
+   only one line of plant in six has a picture, and a thumbnail in that one
+   cell made its row tower over the others. */
+.equipment-figures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.equipment-figures figure {
+  /* Wide enough that a single photo does not look stranded in the column, and
+     narrow enough that two sit side by side once a second one is added. */
+  flex: 0 1 520px;
+  margin: 0;
+}
+
+.equipment-figures img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: var(--radius);
   border: 1px solid var(--c-border);
 }
 
-@media (max-width: 620px) {
-  .capability-table__photo { display: none; }
+.equipment-figures figcaption {
+  margin-top: 10px;
+  font-size: .86rem;
+  line-height: 1.5;
+  color: var(--c-text-muted);
 }
 
 .capability-table__note {
@@ -236,7 +258,7 @@
 
 .certificate-card {
   display: grid;
-  grid-template-columns: 150px 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 22px;
   padding: 22px;
   background: #fff;
@@ -244,7 +266,14 @@
   border-radius: var(--radius);
 }
 
+/* Second column only when the record actually carries a scan. */
+.certificate-card--framed { grid-template-columns: 150px minmax(0, 1fr); }
+
 .certificate-card__figure {
+  /* `start`, not the grid default `stretch`: an A4 scan in a 150px column is
+     about 210px tall, and stretching its frame down the full height of the
+     tallest card left a long empty box under the image. */
+  align-self: start;
   display: block;
   overflow: hidden;
   border: 1px solid var(--c-border);
@@ -261,18 +290,59 @@
 
 .certificate-card__figure:hover img { transform: scale(1.03); }
 
-.certificate-card__body h3 { font-size: 1.02rem; margin-bottom: 8px; }
-
-.certificate-card__code {
-  margin-bottom: 6px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  color: var(--c-accent);
+.certificate-card__body h3 {
+  font-size: 1.02rem;
+  margin-bottom: 10px;
+  line-height: 1.35;
 }
 
+/* The reference number as a chip, not another line of prose — it is the thing
+   a bidder copies down, and it was competing with the issuer line for weight. */
+.certificate-card__code {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 3px 9px;
+  border-radius: 3px;
+  background: var(--c-blue-100);
+  color: var(--c-navy-700);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.certificate-card__meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2px;
+  margin: 0;
+}
+
+.certificate-card__meta dt {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+}
+
+.certificate-card__meta dd {
+  margin: 0 0 12px;
+  font-size: .9rem;
+  line-height: 1.5;
+  color: var(--c-navy-800);
+}
+
+.certificate-card__meta dd:last-child { margin-bottom: 0; }
+
+/* The scope note is background detail, so it sits under a rule at the smallest
+   size on the card rather than running on from the data above it. */
 .certificate-card__note {
-  margin: 10px 0 0;
-  font-size: .88rem;
+  margin: 14px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--c-border);
+  font-size: .85rem;
+  line-height: 1.6;
   color: var(--c-text-muted);
 }
 
@@ -283,6 +353,6 @@
 }
 
 @media (max-width: 560px) {
-  .certificate-card { grid-template-columns: minmax(0, 1fr); }
+  .certificate-card--framed { grid-template-columns: minmax(0, 1fr); }
   .certificate-card__figure { max-width: 220px; }
 }

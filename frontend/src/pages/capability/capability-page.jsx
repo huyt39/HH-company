@@ -21,6 +21,7 @@ export function CapabilityPage() {
   const { data: documents } = useFetch((options) => capabilityApi.getDocuments(options), [])
 
   const stats = profile?.capability_stats ?? []
+  const equipmentPhotos = (equipment ?? []).filter((item) => item.image?.url)
 
   return (
     <>
@@ -91,25 +92,10 @@ export function CapabilityPage() {
                 {equipment.map((item) => (
                   <tr key={item.id}>
                     <td>
-                      <div className="capability-table__plant">
-                        {item.image?.url && (
-                          <img
-                            className="capability-table__photo"
-                            src={item.image.thumb || item.image.url}
-                            alt={item.image.alt || item.name}
-                            width={item.image.width}
-                            height={item.image.height}
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        )}
-                        <span>
-                          {item.name}
-                          {item.note && <span className="capability-table__note">{item.note}</span>}
-                        </span>
-                      </div>
+                      {item.name}
+                      {item.note && <span className="capability-table__note">{item.note}</span>}
                     </td>
-                    <td className="text-muted">{item.quantity ?? '—'}</td>
+                    <td className="capability-table__qty text-muted">{item.quantity ?? '—'}</td>
                     <td className="text-muted">{item.spec || '—'}</td>
                   </tr>
                 ))}
@@ -117,6 +103,24 @@ export function CapabilityPage() {
             </table>
           ) : (
             <EmptyState title={t('capability.equipmentEmpty')} />
+          )}
+
+          {equipmentPhotos.length > 0 && (
+            <div className="equipment-figures">
+              {equipmentPhotos.map((item) => (
+                <figure key={item.id}>
+                  <img
+                    src={item.image.url}
+                    alt={item.image.alt || item.name}
+                    width={item.image.width}
+                    height={item.image.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <figcaption>{item.image.alt || item.name}</figcaption>
+                </figure>
+              ))}
+            </div>
           )}
         </div>
       </section>
@@ -134,7 +138,10 @@ export function CapabilityPage() {
             />
             <div className="certificate-grid">
               {certificates.map((item) => (
-                <article className="certificate-card" key={item.id}>
+                <article
+                  className={`certificate-card${item.image?.url ? ' certificate-card--framed' : ''}`}
+                  key={item.id}
+                >
                   {item.image?.url && (
                     <a
                       className="certificate-card__figure"
@@ -156,8 +163,31 @@ export function CapabilityPage() {
                   <div className="certificate-card__body">
                     <h3>{item.name}</h3>
                     {item.code && <p className="certificate-card__code">{item.code}</p>}
-                    {item.issuer && <p className="text-muted mb-0">{item.issuer}</p>}
-                    {item.issued && <p className="text-muted mb-0">{item.issued}</p>}
+                    {/* Labelled rows rather than four unlabelled paragraphs: who
+                        issued it and how long it runs are different questions,
+                        and stacked bare they read as one block of text. */}
+                    {(item.issuer || item.issued) && (
+                      <dl className="certificate-card__meta">
+                        {item.issuer && (
+                          <>
+                            <dt>{t('capability.certificateLabels').issuer}</dt>
+                            <dd>{item.issuer}</dd>
+                          </>
+                        )}
+                        {item.issued && (
+                          <>
+                            {/* A licence runs until a date; a letter of
+                                acceptance just has a date it was given. */}
+                            <dt>
+                              {item.category === 'capability'
+                                ? t('capability.certificateLabels').validity
+                                : t('capability.certificateLabels').issued}
+                            </dt>
+                            <dd>{item.issued}</dd>
+                          </>
+                        )}
+                      </dl>
+                    )}
                     {item.note && <p className="certificate-card__note">{item.note}</p>}
                   </div>
                 </article>

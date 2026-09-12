@@ -1977,11 +1977,11 @@ CERTIFICATES = [
         category="capability",
         issuer="Cục Quản lý hoạt động xây dựng — Bộ Xây dựng",
         code="BXD-00011096",
-        issued="Cấp ngày 06/03/2024, hiệu lực đến 06/03/2034",
+        issued="06/03/2024 – 06/03/2034",
         note=(
-            "Phạm vi: thi công công tác xây dựng công trình giao thông (cầu đường bộ) — "
-            "Hạng I, hạng cao nhất theo quy định. Ban hành kèm Quyết định số "
-            "22/QĐ-HĐXD-DN ngày 26/02/2024, ký bởi Phó Cục trưởng Phạm Như Huy."
+            "Phạm vi: thi công xây dựng công trình giao thông (cầu đường bộ) — Hạng I, "
+            "hạng cao nhất theo quy định. Ban hành kèm Quyết định số 22/QĐ-HĐXD-DN "
+            "ngày 26/02/2024."
         ),
         image={
             "url": "/images/chung-chi/chung-chi-nang-luc-hoat-dong-xay-dung-hang-i-7f434c62.jpg",
@@ -1999,7 +1999,7 @@ CERTIFICATES = [
         category="legal",
         issuer="Phòng Đăng ký kinh doanh và Tài chính doanh nghiệp — Sở Tài chính thành phố Hà Nội",
         code="0106346833",
-        issued="Đăng ký lần đầu 25/10/2013, thay đổi lần thứ 8 ngày 16/12/2025",
+        issued="Cấp lần đầu 25/10/2013, thay đổi lần thứ 8 ngày 16/12/2025",
         note="Ngành nghề chính: 4212 — Xây dựng công trình đường bộ. Tổng 41 ngành nghề đăng ký.",
     ),
     CertificateCreate(

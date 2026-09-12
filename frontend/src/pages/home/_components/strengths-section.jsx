@@ -1,3 +1,4 @@
+import { DomainIcon } from '@/components/ui/domain-icon'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { useLang } from '@/lib/i18n/language-context'
 
@@ -13,6 +14,10 @@ import { useLang } from '@/lib/i18n/language-context'
  * certificates that used to sit here belong to the supply side and now live on
  * the products page.
  */
+// Keyed by position: `home.strengths` is a fixed list of four in every
+// language, and the icon belongs to the promise, not to the translated string.
+const STRENGTH_ICONS = ['doi-thi-cong', 'thiet-bi-so-huu', 'an-toan-hse', 'ho-so-nghiem-thu']
+
 export function StrengthsSection() {
   const { t } = useLang()
   const strengths = t('home.strengths')
@@ -26,13 +31,18 @@ export function StrengthsSection() {
           align="center"
           light
         />
-        <div className="commitments">
+        {/* Headlines only, four across. The explanatory sentence under each
+            one said what the rest of the site already proves — the equipment
+            schedule, the HSE section, the handover documents — and turned a
+            glanceable row into four paragraphs. */}
+        <div className="commitments commitments--headline">
           {strengths.map((item, index) => (
             <div className="commitment" key={item.title}>
-              <span className="commitment__index">{String(index + 1).padStart(2, '0')}</span>
+              <span className="commitment__mark" aria-hidden="true">
+                <DomainIcon slug={STRENGTH_ICONS[index]} kind="commitment" />
+              </span>
               <div className="commitment__body">
-                <h3>{item.title}</h3>
-                <p className="mb-0">{item.text}</p>
+                <h3 className="mb-0">{item.title}</h3>
               </div>
             </div>
           ))}

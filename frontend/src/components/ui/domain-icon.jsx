@@ -242,6 +242,50 @@ const PRODUCT_ICONS = {
   ),
 }
 
+/**
+ * Cam kết trên trang chủ. Tách map riêng vì đây là bốn lời hứa với nhà thầu
+ * chính, không phải một dịch vụ hay sản phẩm có slug trong cơ sở dữ liệu.
+ */
+const COMMITMENT_ICONS = {
+  // Mũ bảo hộ — đội thi công của chính công ty. Vành mũ một nét và vòm cao hơn
+  // bản ở nhóm dịch vụ: hai đường vành sát nhau bị dính vào nhau ở cỡ 27px.
+  'doi-thi-cong': (
+    <>
+      <path d="M2.5 24.5h27" />
+      <path d="M6.5 24.5v-6.5a9.5 9.5 0 0 1 19 0v6.5" />
+      <path d="M12.4 24.5c0-8.6 1.4-13 3.6-13s3.6 4.4 3.6 13" />
+    </>
+  ),
+  // Kích thuỷ lực đẩy pít-tông, có ống dẫn về bơm — thiết bị công ty sở hữu.
+  // Vẽ riêng thay vì mượn hình kích ở nhóm sản phẩm: hình kia nhiều chi tiết,
+  // thu xuống 27px trong đĩa tròn thì nhoè thành một khối.
+  'thiet-bi-so-huu': (
+    <>
+      <path d="M6 28.5h20" />
+      <rect x="9.5" y="14" width="13" height="14.5" rx="1.5" />
+      <rect x="13" y="5.5" width="6" height="8.5" rx="1" />
+      <path d="M11 4h10" />
+      <path d="M9.5 21H6a2.5 2.5 0 0 1-2.5-2.5V15" />
+    </>
+  ),
+  // Móc treo dây an toàn — kỷ luật HSE trên cao, trên mặt nước.
+  'an-toan-hse': (
+    <>
+      <path d="M16 2.5 27 6.5v9.2c0 6.6-4.4 11.5-11 13.8-6.6-2.3-11-7.2-11-13.8V6.5z" />
+      <path d="m10.8 15.8 3.6 3.7 6.8-7.2" />
+    </>
+  ),
+  // Tờ hồ sơ nghiệm thu đã tích duyệt.
+  'ho-so-nghiem-thu': (
+    <>
+      <path d="M7.5 3h11L25 9.5V29h-17.5z" />
+      <path d="M18 3v6.5h6.5" />
+      <path d="M11.5 14.5h10M11.5 18.5h10" />
+      <path d="m12.5 24 2.6 2.6 5.4-5.6" />
+    </>
+  ),
+}
+
 /** Nhịp cầu vòm — dấu chung khi chưa có hình riêng cho hạng mục. */
 const FALLBACK = (
   <>
@@ -250,6 +294,12 @@ const FALLBACK = (
     <path d="M16 14.5V25M10 18.5V25M22 18.5V25" />
   </>
 )
+
+const ICON_SETS = {
+  service: SERVICE_ICONS,
+  product: PRODUCT_ICONS,
+  commitment: COMMITMENT_ICONS,
+}
 
 export function DomainIcon({ slug, kind = 'service', className = '' }) {
   return (
@@ -264,7 +314,7 @@ export function DomainIcon({ slug, kind = 'service', className = '' }) {
       aria-hidden="true"
       focusable="false"
     >
-      {(kind === 'product' ? PRODUCT_ICONS : SERVICE_ICONS)[slug] ?? FALLBACK}
+      {ICON_SETS[kind]?.[slug] ?? FALLBACK}
     </svg>
   )
 }
