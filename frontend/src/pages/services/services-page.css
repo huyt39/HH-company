@@ -87,8 +87,32 @@
 
 /* ---------- Service detail ---------- */
 
-.service-detail { max-width: 860px; }
+.container.service-detail { max-width: 860px; }
 .service-detail__intro p { font-size: 1.02rem; }
+
+/* One photograph of the trade, between the description and the method steps —
+   the reader should see the work before reading the sequence of it. */
+.service-detail__figure {
+  margin: 30px 0 0;
+}
+.service-detail__figure img {
+  display: block;
+  width: 100%;
+  /* `height: auto` is load-bearing: the <img> carries width/height attributes,
+     and that presentational hint would otherwise beat `aspect-ratio` and let a
+     portrait site photo run 1600px tall. */
+  height: auto;
+  /* Site photos come in whatever aspect the phone was held at; a fixed frame
+     keeps one from pushing the method steps off the screen. */
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+.service-detail__figure figcaption {
+  margin-top: 10px;
+  font-size: .86rem;
+  color: var(--c-text-muted);
+}
 
 .service-block { margin-top: 40px; }
 .service-block h2 {

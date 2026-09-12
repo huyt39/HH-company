@@ -4,6 +4,7 @@ import { useDocumentMeta } from '@/lib/hooks/use-document-meta'
 import { useFetch } from '@/lib/hooks/use-fetch'
 import { useLang } from '@/lib/i18n/language-context'
 
+import { AdvisorsSection } from './_components/advisors-section'
 import { CompanyFacts } from './_components/company-facts'
 import { LeadersSection } from './_components/leaders-section'
 import { ManufacturersSection } from './_components/manufacturers-section'
@@ -32,6 +33,7 @@ export function AboutPage() {
       <CompanyFacts profile={profile} />
       <VisionSection profile={profile} />
       <LeadersSection leaders={profile?.leaders} />
+      <AdvisorsSection advisors={profile?.advisors} />
       <OrgChartSection orgUnits={profile?.org_units} />
       <MilestonesSection milestones={profile?.milestones} />
       <ManufacturersSection partners={partners} />

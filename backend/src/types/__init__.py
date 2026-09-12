@@ -38,6 +38,7 @@ from src.types.common import (
     make_optional,
 )
 from src.types.company import (
+    Advisor,
     CapabilityStat,
     CompanyMilestone,
     CompanyProfile,
@@ -104,6 +105,7 @@ __all__ = [
     "CompanyProfile",
     "ContactInfo",
     "Leader",
+    "Advisor",
     "OrgUnit",
     "CompanyMilestone",
     "PersonnelGroup",

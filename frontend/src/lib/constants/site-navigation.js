@@ -36,6 +36,7 @@ export const SITE_NAVIGATION = [
     children: [
       { labelKey: 'capabilityPersonnel', to: '/nang-luc#nhan-su' },
       { labelKey: 'capabilityEquipment', to: '/nang-luc#thiet-bi' },
+      { labelKey: 'capabilityCertificates', to: '/nang-luc#chung-chi' },
       { labelKey: 'capabilityQuality', to: '/nang-luc#quy-trinh' },
       { labelKey: 'capabilityHse', to: '/nang-luc#an-toan' },
       { labelKey: 'capabilityDocuments', to: '/nang-luc#tai-lieu' },

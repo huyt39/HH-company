@@ -187,6 +187,53 @@
 .leader-card h3 { font-size: 1.05rem; }
 .leader-card p { font-size: .88rem; }
 
+/* ---------- Advisory board ----------
+   No avatar here: what identifies an advisor is the list of bridges behind the
+   name, so the card gives that list the room the initial disc would take. */
+.advisor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+.advisor-card {
+  padding: 26px 26px 24px;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-top: 3px solid var(--c-accent);
+  border-radius: var(--radius);
+}
+.advisor-card h3 { font-size: 1.05rem; margin-bottom: 4px; }
+.advisor-card__title {
+  margin-bottom: 14px;
+  font-size: .84rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+.advisor-card__list {
+  margin: 0;
+  padding-left: 18px;
+  list-style: none;
+}
+.advisor-card__list li {
+  position: relative;
+  margin-bottom: 9px;
+  font-size: .9rem;
+  color: var(--c-text-muted);
+}
+.advisor-card__list li:last-child { margin-bottom: 0; }
+.advisor-card__list li::before {
+  content: '';
+  position: absolute;
+  left: -18px;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-blue-500);
+}
+
 /* ---------- Org chart ---------- */
 .org-chart { display: flex; flex-direction: column; align-items: center; }
 .org-node {

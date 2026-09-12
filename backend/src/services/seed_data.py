@@ -3,6 +3,9 @@
 Sources:
   - Business registration no. 0106346833, 8th amendment, 2025-12-16.
   - Capability profile HSNL-HH 2026.06.23 R5 (Hanoi, 2026).
+  - Capability profile "HỒ SƠ NĂNG LỰC HÒA HOÀNG" 2026–2027 (docx), which
+    supersedes the R5 profile for leadership, org structure, headcount,
+    equipment and the Giới Phiên / Phước Khánh contract scopes.
 
 Loaded once into an empty database (see `src/services/seed_service.py`); after
 that the admin UI is the source of truth, not this file.
@@ -12,6 +15,7 @@ no id yet — MongoDB assigns it on insert.
 """
 
 from src.types import (
+    Advisor,
     BusinessFieldCreate,
     CapabilityStat,
     CertificateCreate,
@@ -43,7 +47,7 @@ COMPANY_PROFILE = CompanyProfile(
     established="Tháng 10 năm 2013",
     charter_capital="6.000.000.000 VNĐ (Sáu tỷ đồng)",
     status="Đang hoạt động",
-    employees="25 – 99 nhân sự",
+    employees="53 kỹ sư và chuyên gia kỹ thuật (chưa gồm công nhân thi công)",
     main_business_line="4212 — Xây dựng công trình đường bộ",
     business_lines_count=41,
     intro=[
@@ -51,6 +55,9 @@ COMPANY_PROFILE = CompanyProfile(
         "Co., Ltd) là nhà thầu chuyên ngành trong lĩnh vực kết cấu cầu: thi công lắp đặt "
         "và căng kéo hệ cáp dự ứng lực ngoài, hệ cáp cho cầu dây võng, dây văng và cầu "
         "vòm, lắp đặt gối cầu và khe co giãn cho các dự án hạ tầng giao thông tại Việt Nam.",
+        "Công ty được Cục Quản lý hoạt động xây dựng — Bộ Xây dựng cấp Chứng chỉ năng lực "
+        "hoạt động xây dựng Hạng I số BXD-00011096 cho phạm vi thi công công trình giao "
+        "thông (cầu đường bộ), hiệu lực đến ngày 06/03/2034.",
         "Công ty thành lập năm 2013 (trước đây mang tên TCC). Giai đoạn 2013 – 2018, Hòa "
         "Hoàng hoạt động chủ yếu ở mảng thương mại, nhập khẩu và phân phối vật tư chuyên "
         "ngành cầu đường. Từ năm 2018, công ty chuyển trọng tâm sang thi công: đưa kỹ sư, "
@@ -91,30 +98,79 @@ COMPANY_PROFILE = CompanyProfile(
     # 750+ is the conservative rounding of 762,68 tấn — the sum of every cable
     # tonnage stated in `_PROJECTS` below.
     capability_stats=[
-        CapabilityStat(value="34", label="Dự án cầu đường đã thực hiện", label_en="Bridge projects delivered"),
+        CapabilityStat(value="36", label="Dự án cầu đường đã thực hiện", label_en="Bridge projects delivered"),
         CapabilityStat(value="750+", label="Tấn cáp đã cung cấp và thi công", label_en="Tonnes of cable supplied and installed"),
         CapabilityStat(value="2018", label="Bắt đầu trực tiếp thi công", label_en="Started self-performing site works"),
-        CapabilityStat(value="25 – 99", label="Cán bộ, kỹ sư và công nhân", label_en="Staff, engineers and workers"),
+        CapabilityStat(value="53", label="Kỹ sư và chuyên gia kỹ thuật", label_en="Engineers and technical specialists"),
+        CapabilityStat(value="10", label="Xe giàn thao tác treo đặc chủng", label_en="Specialist under-bridge access platforms"),
     ],
     leaders=[
         Leader(name="Bà Vũ Bảo Ngọc", title="Chủ tịch Hội đồng thành viên, người đại diện pháp luật"),
         Leader(name="Ông Nguyễn Xuân Thắng", title="Tổng giám đốc điều hành"),
+        Leader(name="Ông Ngô Tuấn Sửu", title="Phó Tổng giám đốc phụ trách Thi công"),
+        Leader(name="Ông Nguyễn Hữu Khang", title="Phó Tổng giám đốc phụ trách Thi công"),
+        Leader(name="Ông Nguyễn Thanh Bình", title="Phó Tổng giám đốc phụ trách Kỹ thuật"),
+        Leader(name="Ông Nguyễn Văn Kiên", title="Phó Tổng giám đốc phụ trách Kế hoạch – Đấu thầu"),
+        Leader(name="Ông Hồ Tuấn Nhân", title="Phó Tổng giám đốc phụ trách Nội chính"),
     ],
+    # Ban Cố vấn kiêm sáng lập — the technical bench behind the "ca khó" work.
+    # Source: capability profile 2026–2027, mục VI.
+    advisors=[
+        Advisor(
+            name="Ông Hoàng Khắc Khưu",
+            title="Trưởng Ban Cố vấn kiêm sáng lập",
+            highlights=[
+                "Hơn 30 năm kinh nghiệm ngành cầu, tu nghiệp tại Nhật Bản",
+                "Chuyên gia cầu dây văng và cầu vòm",
+                "Gắn với cầu Rồng, cầu Trần Thị Lý, cầu Sông Hàn (Đà Nẵng), cầu Rạch Miễu "
+                "và cầu Đông Trù — cầu vòm ống thép nhồi bê tông đầu tiên tại Việt Nam",
+            ],
+        ),
+        Advisor(
+            name="Ông Trần Phong",
+            title="Thành viên Ban Cố vấn",
+            highlights=[
+                "Chuyên gia Trung Quốc, nguyên Kỹ sư trưởng ngành đường sắt cao tốc",
+                "Từng chỉ đạo thi công nhiều dự án hạ tầng quy mô lớn tại Trung Quốc",
+            ],
+        ),
+        Advisor(
+            name="Ông Hồ Tuấn Sỹ",
+            title="Thành viên Ban Cố vấn",
+            highlights=[
+                "Tiến sĩ kỹ thuật, gần 30 năm kinh nghiệm xây dựng cầu đường",
+                "Nguyên Phó/Tổng giám đốc tại CIENCO1, CIENCO8",
+                "Nguyên Giám đốc Ban QLDA cao tốc Cầu Giẽ – Ninh Bình, QL1, QL10, QL38",
+            ],
+        ),
+    ],
+    # Restructured in the 2026–2027 capability profile: the old departmental
+    # chart (kế toán / hành chính / kinh doanh / kỹ thuật / dự án / dịch vụ) was
+    # replaced by a deputy-GM structure split by trade, with the founding
+    # advisory board advising the GM directly.
     org_units=[
-        OrgUnit(name="Tổng giám đốc", name_en="General Manager"),
-        OrgUnit(name="Phòng Kế toán", name_en="Accounting Dept."),
-        OrgUnit(name="Phòng Hành chính", name_en="Administration Dept."),
-        OrgUnit(name="Phòng Kinh doanh", name_en="Marketing Dept."),
-        OrgUnit(name="Phòng Kỹ thuật", name_en="Technical Dept."),
-        OrgUnit(name="Phòng Dự án", name_en="Project Dept."),
-        OrgUnit(name="Phòng Dịch vụ", name_en="Service Dept.", children=["Kho sản phẩm"]),
+        OrgUnit(name="Hội đồng thành viên", name_en="Members' Council", spine=True),
+        OrgUnit(name="Tổng giám đốc điều hành", name_en="Chief Executive Officer", spine=True),
+        OrgUnit(name="Phó TGĐ Thi công", name_en="Deputy GM — Construction"),
+        OrgUnit(name="Phó TGĐ Kỹ thuật", name_en="Deputy GM — Engineering"),
+        OrgUnit(name="Phó TGĐ Kế hoạch – Đấu thầu", name_en="Deputy GM — Planning & Tendering"),
+        OrgUnit(name="Phó TGĐ Nội chính", name_en="Deputy GM — Internal Affairs"),
+        OrgUnit(name="Ban Cố vấn kiêm sáng lập", name_en="Founding Advisory Board"),
     ],
-    # Roles only. No source document states a headcount per role, so the page
-    # lists the roles the company fields instead of showing empty count cells.
+    # Headcounts come from the 2026–2027 capability profile (mục 6.3), which is
+    # the first source document to state them: 53 engineers and specialists.
+    # Site trades below that table have no stated number and keep it empty.
     personnel=[
+        PersonnelGroup(title="Kỹ sư cầu", count=20),
+        PersonnelGroup(title="Kỹ sư đường", count=5),
+        PersonnelGroup(title="Kỹ sư cơ khí", count=5, note="Vận hành thiết bị căng kéo và giàn thao tác"),
+        PersonnelGroup(title="Kỹ sư kinh tế xây dựng", count=3),
+        PersonnelGroup(
+            title="Chuyên gia Trung Quốc cao cấp",
+            count=20,
+            note="Thiết kế và chỉ đạo thi công cầu đặc biệt, đường sắt tốc độ cao",
+        ),
         PersonnelGroup(title="Chỉ huy trưởng công trường"),
-        PersonnelGroup(title="Kỹ sư cầu đường"),
-        PersonnelGroup(title="Kỹ sư cơ khí — thiết bị căng kéo"),
         PersonnelGroup(title="Công nhân kỹ thuật căng kéo, lắp đặt"),
         PersonnelGroup(title="Cán bộ an toàn (HSE)"),
     ],
@@ -316,6 +372,13 @@ _SERVICES: list[dict] = [
             "Cao độ và độ êm thuận nghiệm thu theo chỉ dẫn kỹ thuật của dự án",
         ],
         "deliverables": _HANDOVER_DOCS + ["Biên bản độ mở khe theo nhiệt độ thi công và kết quả kiểm tra kín nước"],
+        "cover": {
+            "url": "/images/thi-cong-khe-co-gian/lap-dat-khe-co-gian-rang-luoc-22d899ec.jpg",
+            "thumb": "/images/thi-cong-khe-co-gian/lap-dat-khe-co-gian-rang-luoc-22d899ec-thumb.jpg",
+            "alt": "Đội thi công Hòa Hoàng lắp module khe co giãn dạng răng lược vào hốc khe trên mặt cầu",
+            "width": 1200,
+            "height": 1600,
+        },
     },
     {
         "slug": "neo-dat-mai-doc",
@@ -399,7 +462,9 @@ _SERVICES: list[dict] = [
         "description": (
             "Sửa chữa và thay thế khe co giãn trên cầu đang khai thác, gồm cả khe ray mô "
             "đun khẩu độ lớn. Hòa Hoàng đã thực hiện tại trụ P26 cầu Long Thành trên cao "
-            "tốc TP. Hồ Chí Minh – Long Thành – Dầu Giây."
+            "tốc TP. Hồ Chí Minh – Long Thành – Dầu Giây. Với hệ platform thi công riêng, "
+            "công tác thay khe thực hiện được ngay khi mặt cầu vẫn thông xe, không phải "
+            "cấm đường hay phân luồng toàn tuyến."
         ),
         "process_steps": [
             "Khảo sát hiện trạng khe cũ, xác định chủng loại và độ chuyển vị cần thay thế",
@@ -413,6 +478,13 @@ _SERVICES: list[dict] = [
             "Độ mở khe hiệu chỉnh theo nhiệt độ thi công, nghiệm thu theo chỉ dẫn kỹ thuật dự án",
         ],
         "deliverables": _HANDOVER_DOCS + ["Phương án phân luồng và biên bản nghiệm thu thông xe"],
+        "cover": {
+            "url": "/images/thi-cong-khe-co-gian/khe-co-gian-modul-sau-lap-dat-6a54403c.jpg",
+            "thumb": "/images/thi-cong-khe-co-gian/khe-co-gian-modul-sau-lap-dat-6a54403c-thumb.jpg",
+            "alt": "Khe co giãn ray thép mô đun sau khi lắp đặt vào hốc khe, chờ đổ bê tông hoàn thiện mặt cầu",
+            "width": 1200,
+            "height": 1600,
+        },
     },
     {
         "slug": "thay-the-goi-cau",
@@ -519,6 +591,13 @@ _SERVICES: list[dict] = [
             "Kết quả thí nghiệm vật liệu của lô hàng cung cấp",
             "Hướng dẫn lắp đặt của nhà sản xuất",
         ],
+        "cover": {
+            "url": "/images/cong-truong/bo-cap-du-ung-luc-vo-boc-hdpe-tap-ket-cong-truong-e419198c.jpg",
+            "thumb": "/images/cong-truong/bo-cap-du-ung-luc-vo-boc-hdpe-tap-ket-cong-truong-e419198c-thumb.jpg",
+            "alt": "Bó cáp dự ứng lực thành phẩm vỏ bọc HDPE tập kết tại công trường, chờ lắp đặt",
+            "width": 868,
+            "height": 705,
+        },
     },
     {
         "slug": "dich-vu-ky-thuat-hien-truong",
@@ -736,6 +815,24 @@ _PROJECTS: list[tuple[str, str, int, str, str, str, str]] = [
         "in_progress",
     ),
     (
+        "cau-phuoc-khanh-gia-cuong-xa-mu-tru",
+        "Gia cường xà mũ 113 trụ cầu Phước Khánh, cao tốc Bến Lức – Long Thành (Gói thầu J2)",
+        2026,
+        "CTCP Xây dựng Hạ tầng Bắc Trung Nam (liên danh với Freyssinet Việt Nam) — Chủ đầu tư: VEC",
+        "Đồng Nai – TP. Hồ Chí Minh",
+        "Nhà thầu phụ trực tiếp thi công gia cường xà mũ 113 trụ cầu trên tuyến cao tốc đang khai thác, tiếp cận bằng giàn thao tác treo đặc chủng thay cho giàn giáo truyền thống. Hợp đồng số HDKT0726-020, giá trị 43,74 tỷ đồng, tiến độ 90 ngày.",
+        "in_progress",
+    ),
+    (
+        "cau-lo-dong-hai-phong",
+        "Chống va xô trụ cầu Lô Đông",
+        2025,
+        "Thành phố Hải Phòng",
+        "TP. Hải Phòng",
+        "Cung cấp và trực tiếp lắp đặt hệ phao nổi chống va xô bảo vệ trụ cầu tại hiện trường.",
+        "completed",
+    ),
+    (
         "cau-giai-phong-9-rach-gia",
         "Cầu Giải Phóng 9, thành phố Rạch Giá",
         2026,
@@ -854,11 +951,11 @@ _PROJECTS: list[tuple[str, str, int, str, str, str, str]] = [
     ),
     (
         "cau-gioi-phien-yen-bai",
-        "Đầu tư xây dựng công trình cầu Giới Phiên",
+        "Đầu tư xây dựng công trình cầu Giới Phiên — Gói thầu số 14",
         2023,
-        "Công ty TNHH Xây dựng và Thương mại Trung Chính",
+        "Liên danh Công ty TNHH Thương mại và Xây dựng Trung Chính – CTCP ĐTXD và Thương mại Nam Phong",
         "TP. Yên Bái, tỉnh Yên Bái",
-        "Cung cấp và hướng dẫn thi công hệ neo cáp dùng bó cáp thành phẩm loại PWS 55 sợi f7, dây thép mạ kẽm cường độ cao xoắn thành bó, ép đùn HDPE 2 lớp, khối lượng 41 tấn.",
+        "Thi công hệ vòm thép cho cả 3 nhịp vòm ống thép (60+110+60 m); cung cấp, lắp đặt và căng kéo hoàn thiện 160 bó cáp treo — mỗi bó 55 sợi thép D7 mạ kẽm ép đùn HDPE 2 lớp, đầu neo dạng chốt đúc liền khối, khối lượng 41 tấn. Hợp đồng khoán thi công số 02/2022/HDTC/TC-HH ngày 30/3/2022, có bảo lãnh thực hiện hợp đồng và biên bản xác nhận khối lượng do Trung Chính ký ngày 25/12/2023.",
         "completed",
     ),
     (
@@ -1266,6 +1363,66 @@ _PROJECT_MEDIA: dict[str, list[dict]] = {
             "width": 773,
             "height": 1021,
         },
+        {
+            "url": "/images/cau-gioi-phien-yen-bai/lap-dung-vom-thep-cau-gioi-phien-e1d1dbae.jpg",
+            "thumb": "/images/cau-gioi-phien-yen-bai/lap-dung-vom-thep-cau-gioi-phien-e1d1dbae-thumb.jpg",
+            "alt": "Lắp dựng đốt vòm thép cầu Giới Phiên trên sông Hồng bằng cần cẩu tháp và cẩu nổi",
+            "width": 1600,
+            "height": 1200,
+        },
+        {
+            "url": "/images/cau-gioi-phien-yen-bai/nhip-vom-thep-cau-gioi-phien-sau-hop-long-b0e808a0.jpg",
+            "thumb": "/images/cau-gioi-phien-yen-bai/nhip-vom-thep-cau-gioi-phien-sau-hop-long-b0e808a0-thumb.jpg",
+            "alt": "Nhịp vòm thép cầu Giới Phiên sau khi hợp long, nhìn từ chân vòm",
+            "width": 1600,
+            "height": 1200,
+        },
+        {
+            "url": "/images/cau-gioi-phien-yen-bai/he-cap-treo-vom-cau-gioi-phien-7a497461.jpg",
+            "thumb": "/images/cau-gioi-phien-yen-bai/he-cap-treo-vom-cau-gioi-phien-7a497461-thumb.jpg",
+            "alt": "Hệ cáp treo xiên liên kết vòm thép với bản mặt cầu Giới Phiên trong quá trình căng kéo",
+            "width": 1280,
+            "height": 960,
+        },
+        {
+            "url": "/images/cau-gioi-phien-yen-bai/cau-gioi-phien-yen-bai-hoan-thanh-6808e5aa.jpg",
+            "thumb": None,
+            "alt": "Toàn cảnh cầu Giới Phiên với 3 nhịp vòm thép nhìn từ trên cao",
+            "width": 1200,
+            "height": 741,
+        },
+    ],
+    "cau-lo-dong-hai-phong": [
+        {
+            "url": "/images/cau-lo-dong-hai-phong/doi-ky-thuat-hoa-hoang-cau-lo-dong-4093bdbf.jpg",
+            "thumb": "/images/cau-lo-dong-hai-phong/doi-ky-thuat-hoa-hoang-cau-lo-dong-4093bdbf-thumb.jpg",
+            "alt": "Đội kỹ thuật Hòa Hoàng tại chân trụ cầu Lô Đông sau khi lắp phao nổi chống va xô",
+            "width": 981,
+            "height": 736,
+        },
+    ],
+    "cau-phuoc-khanh-gia-cuong-xa-mu-tru": [
+        {
+            "url": "/images/xu-ly-vet-nut-du-an-j2/gian-thao-tac-treo-gia-cuong-xa-mu-tru-cau-phuoc-khanh-c647448b.jpg",
+            "thumb": "/images/xu-ly-vet-nut-du-an-j2/gian-thao-tac-treo-gia-cuong-xa-mu-tru-cau-phuoc-khanh-c647448b-thumb.jpg",
+            "alt": "Giàn thao tác treo Hòa Hoàng gia cường xà mũ trụ cầu Phước Khánh trên cao tốc đang khai thác",
+            "width": 1280,
+            "height": 720,
+        },
+        {
+            "url": "/images/xu-ly-vet-nut-du-an-j2/xu-ly-vet-nut-ket-cau-du-an-j2-0e9daff7.jpg",
+            "thumb": None,
+            "alt": "Xử lý vết nứt kết cấu xà mũ trụ tại Gói thầu J2",
+            "width": 1600,
+            "height": 1200,
+        },
+        {
+            "url": "/images/xu-ly-vet-nut-du-an-j2/xu-ly-vet-nut-ket-cau-du-an-j2-31e9003a.jpg",
+            "thumb": None,
+            "alt": "Thi công bơm keo xử lý vết nứt kết cấu tại Gói thầu J2",
+            "width": 1200,
+            "height": 1600,
+        },
     ],
     "cau-phong-chau-moi-ql32c": [
         {
@@ -1517,6 +1674,13 @@ _PROJECT_MEDIA: dict[str, list[dict]] = {
             "width": 1536,
             "height": 1024,
         },
+        {
+            "url": "/images/cau-phu-thinh-lao-cai/cau-phu-thinh-lao-cai-ve-dem-cd4de891.jpg",
+            "thumb": "/images/cau-phu-thinh-lao-cai/cau-phu-thinh-lao-cai-ve-dem-cd4de891-thumb.jpg",
+            "alt": "Chuỗi vòm thép cầu Phú Thịnh chiếu sáng mỹ thuật về đêm",
+            "width": 1400,
+            "height": 932,
+        },
     ],
     "cau-rach-vong-long-an": [
         {
@@ -1738,6 +1902,8 @@ _PROJECT_MEDIA: dict[str, list[dict]] = {
 # Shape: slug -> (role, work_types, structure_type)
 _PROJECT_CLASSIFICATION: dict[str, tuple[str, list[str], str | None]] = {
     "duong-sat-toc-do-cao-ha-noi-quang-ninh": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Đường sắt tốc độ cao"),
+    "cau-phuoc-khanh-gia-cuong-xa-mu-tru": ("construction", ["tang-cuong-cau-cu"], "Cầu trên cao tốc"),
+    "cau-lo-dong-hai-phong": ("construction", ["chong-va-tru-cau"], "Cầu đường bộ"),
     "cau-giai-phong-9-rach-gia": ("supply", ["cung-cap-vat-tu-thiet-bi"], "Cầu đường bộ"),
     "cau-long-thanh-khe-co-gian-p26": ("construction", ["thay-the-khe-co-gian"], "Cầu trên cao tốc"),
     "cau-song-rang-long-son-cai-mep": ("construction", ["he-cap-cau"], "Cầu vòm thép"),
@@ -1751,7 +1917,7 @@ _PROJECT_CLASSIFICATION: dict[str, tuple[str, list[str], str | None]] = {
     "cau-non-nuoc-ql10": ("supply", ["cung-cap-vat-tu-thiet-bi", "thay-the-goi-cau"], "Cầu đường bộ"),
     "cau-xom-cui-thay-he-cap": ("construction", ["thay-the-he-cap"], "Cầu vòm"),
     "cau-phu-thinh-lao-cai": ("construction", ["he-cap-cau"], "Cầu vòm"),
-    "cau-gioi-phien-yen-bai": ("supply", ["cung-cap-vat-tu-thiet-bi", "dich-vu-ky-thuat-hien-truong"], "Cầu vòm thép"),
+    "cau-gioi-phien-yen-bai": ("construction", ["he-cap-cau", "cung-cap-vat-tu-thiet-bi"], "Cầu vòm thép"),
     "cau-nguyen-huu-canh": ("construction", ["he-cap-cau"], "Cầu vòm"),
     "sua-chua-cau-tan-de-ql10": ("construction", ["cang-keo-du-ung-luc-ngoai", "tang-cuong-cau-cu"], "Cầu đường bộ"),
     "ke-bo-song-cai-nha-trang": ("supply", ["cung-cap-vat-tu-thiet-bi", "neo-dat-mai-doc"], "Kè bờ sông"),
@@ -1799,16 +1965,39 @@ PROJECTS = [
 # Contractor capability records
 #
 # Seeded only with what the source documents actually prove. The registration
-# certificate is on file; the construction capability licence (chứng chỉ năng
-# lực hoạt động xây dựng) and the company's own ISO certificates are not in any
-# source here, so they are left for the admin to add rather than invented.
+# certificate and the Bộ Xây dựng capability licence are both on file (the
+# licence arrived with the 2026–2027 capability profile). The company's own ISO
+# certificates are still not in any source here, so they are left for the admin
+# to add rather than invented.
 # --------------------------------------------------------------------------- #
 
 CERTIFICATES = [
     CertificateCreate(
+        name="Chứng chỉ năng lực hoạt động xây dựng — Hạng I",
+        category="capability",
+        issuer="Cục Quản lý hoạt động xây dựng — Bộ Xây dựng",
+        code="BXD-00011096",
+        issued="Cấp ngày 06/03/2024, hiệu lực đến 06/03/2034",
+        note=(
+            "Phạm vi: thi công công tác xây dựng công trình giao thông (cầu đường bộ) — "
+            "Hạng I, hạng cao nhất theo quy định. Ban hành kèm Quyết định số "
+            "22/QĐ-HĐXD-DN ngày 26/02/2024, ký bởi Phó Cục trưởng Phạm Như Huy."
+        ),
+        image={
+            "url": "/images/chung-chi/chung-chi-nang-luc-hoat-dong-xay-dung-hang-i-7f434c62.jpg",
+            "thumb": "/images/chung-chi/chung-chi-nang-luc-hoat-dong-xay-dung-hang-i-7f434c62-thumb.jpg",
+            "alt": (
+                "Chứng chỉ năng lực hoạt động xây dựng Hạng I số BXD-00011096 "
+                "do Bộ Xây dựng cấp cho Hòa Hoàng"
+            ),
+            "width": 1241,
+            "height": 1754,
+        },
+    ),
+    CertificateCreate(
         name="Giấy chứng nhận đăng ký doanh nghiệp",
         category="legal",
-        issuer="Phòng Đăng ký kinh doanh — Sở Kế hoạch và Đầu tư thành phố Hà Nội",
+        issuer="Phòng Đăng ký kinh doanh và Tài chính doanh nghiệp — Sở Tài chính thành phố Hà Nội",
         code="0106346833",
         issued="Đăng ký lần đầu 25/10/2013, thay đổi lần thứ 8 ngày 16/12/2025",
         note="Ngành nghề chính: 4212 — Xây dựng công trình đường bộ. Tổng 41 ngành nghề đăng ký.",
@@ -1831,9 +2020,38 @@ CERTIFICATES = [
 ]
 
 # Equipment types evidenced by the company's own site photographs and by the
-# prestressing work it self-performs. Quantities are left empty on purpose —
-# no source states them, and the page prints "Đang cập nhật" until filled in.
+# prestressing work it self-performs. Quantities stay empty unless a source
+# states one — the 2026–2027 capability profile gives the access-platform fleet
+# size, the rest print "Đang cập nhật" until filled in.
 EQUIPMENT = [
+    EquipmentCreate(
+        name="Giàn thao tác treo đặc chủng",
+        category="nang-ha",
+        quantity=10,
+        spec=(
+            "Lắp trực tiếp trên thành cầu, đưa kỹ thuật viên tiếp cận xà mũ trụ, đáy dầm "
+            "và vị trí neo cáp — nơi giàn giáo thông thường không dựng được. 10 xe cho "
+            "phép triển khai đồng thời nhiều mũi thi công trên nhiều tỉnh."
+        ),
+        image={
+            "url": "/images/xu-ly-vet-nut-du-an-j2/gian-thao-tac-treo-gia-cuong-xa-mu-tru-cau-phuoc-khanh-c647448b.jpg",
+            "thumb": (
+                "/images/xu-ly-vet-nut-du-an-j2/"
+                "gian-thao-tac-treo-gia-cuong-xa-mu-tru-cau-phuoc-khanh-c647448b-thumb.jpg"
+            ),
+            "alt": "Giàn thao tác treo Hòa Hoàng thi công gia cường xà mũ trụ cầu Phước Khánh",
+            "width": 1280,
+            "height": 720,
+        },
+    ),
+    EquipmentCreate(
+        name="Hệ platform thi công khe co giãn không gián đoạn giao thông",
+        category="nang-ha",
+        spec=(
+            "Thay thế khe co giãn trong khi mặt cầu vẫn thông xe, không cần cấm đường "
+            "hay phân luồng. Đã triển khai trên các tuyến cao tốc do VEC quản lý."
+        ),
+    ),
     EquipmentCreate(
         name="Kích thủy lực căng kéo cáp dự ứng lực",
         category="cang-keo",

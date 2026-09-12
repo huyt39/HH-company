@@ -82,6 +82,20 @@ export function ServiceDetailPage() {
             <p className="text-muted">{service.description}</p>
           </div>
 
+          {service.cover?.url && (
+            <figure className="service-detail__figure">
+              <img
+                src={service.cover.url}
+                alt={service.cover.alt || service.name}
+                width={service.cover.width}
+                height={service.cover.height}
+                loading="lazy"
+                decoding="async"
+              />
+              {service.cover.alt && <figcaption>{service.cover.alt}</figcaption>}
+            </figure>
+          )}
+
           {blocks.map((block) => (
             <div className="service-block" key={block.key}>
               <h2>{block.title}</h2>

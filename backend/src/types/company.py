@@ -8,21 +8,43 @@ class Leader(BaseModel):
     title: str
 
 
+class Advisor(BaseModel):
+    """A member of the founding advisory board (Ban Cố vấn kiêm sáng lập).
+
+    Kept apart from `leaders`: advisors are not company officers, and a bidder
+    reading the profile needs to see which is which.
+    """
+
+    name: str
+    title: str
+    highlights: list[str] = Field(default_factory=list)
+
+
 class OrgUnit(BaseModel):
+    """One box on the org chart.
+
+    `spine` marks a unit that the whole company reports through — the members'
+    council and the CEO — drawn stacked one above the other. Everything else is
+    a branch drawn side by side on the row below the spine.
+    """
+
     name: str
     name_en: str | None = None
+    spine: bool = False
     children: list[str] = Field(default_factory=list)
 
 
 class PersonnelGroup(BaseModel):
     """One site role listed on the capability page.
 
-    Deliberately has no headcount: none of the source documents (capability
-    profile, business registration, brand report) states one, so the page lists
-    which roles the company fields rather than inventing numbers.
+    `count` is filled in only where a source document states it — the 2026–2027
+    capability profile gives a headcount per engineering discipline, the older
+    documents give none. Roles without a stated number keep `count` empty and
+    the page lists the role on its own.
     """
 
     title: str
+    count: int | None = None
     note: str | None = None
 
 
@@ -57,6 +79,7 @@ class CompanyProfile(BaseModel):
     mission: str | None = None
     core_values: list[str] = Field(default_factory=list)
     leaders: list[Leader] = Field(default_factory=list)
+    advisors: list[Advisor] = Field(default_factory=list)
     org_units: list[OrgUnit] = Field(default_factory=list)
     milestones: list[CompanyMilestone] = Field(default_factory=list)
     personnel: list[PersonnelGroup] = Field(default_factory=list)

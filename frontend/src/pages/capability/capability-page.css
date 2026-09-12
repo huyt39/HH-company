@@ -5,12 +5,14 @@
   padding-bottom: clamp(30px, 3.6vw, 46px);
 }
 
-/* Set the way the services page sets the same four numbers: figure above its
+/* Set the way the services page sets the same numbers: figure above its
    caption, divided by hairlines. Two pages showing one set of statistics two
-   different ways was the odd part. */
+   different ways was the odd part. The track is narrow enough that all five
+   sit on one row at desktop — four across with a lone fifth underneath read
+   as a mistake. */
 .capability-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
   gap: 0 clamp(24px, 3vw, 48px);
   border-top: 2px solid var(--c-navy-800);
 }
@@ -114,6 +116,27 @@
   color: var(--c-text-muted);
 }
 
+.capability-table__plant {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+/* A thumbnail of the plant itself where one exists — a 10-strong fleet of
+   under-bridge platforms is easier to believe once you have seen one working. */
+.capability-table__photo {
+  flex: 0 0 auto;
+  width: 108px;
+  height: 68px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--c-border);
+}
+
+@media (max-width: 620px) {
+  .capability-table__photo { display: none; }
+}
+
 .capability-table__note {
   display: block;
   margin-top: 4px;
@@ -194,3 +217,72 @@
   border-radius: 0 var(--radius) var(--radius) 0;
 }
 .capability-request p { margin-bottom: 0; max-width: 62ch; }
+
+/* Certificates: the scan carries the weight, so the card is a framed image with
+   the reference data beside it. One column on narrow screens. */
+
+/* Two per row, not an auto-fit that would leave a fourth card orphaned on a
+   wide screen. Each card already carries a scan, so two is as dense as it
+   should get. */
+.certificate-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 860px) {
+  .certificate-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+.certificate-card {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 22px;
+  padding: 22px;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+}
+
+.certificate-card__figure {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--c-border);
+  border-radius: 4px;
+  background: var(--c-bg-soft);
+}
+
+.certificate-card__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: var(--transition);
+}
+
+.certificate-card__figure:hover img { transform: scale(1.03); }
+
+.certificate-card__body h3 { font-size: 1.02rem; margin-bottom: 8px; }
+
+.certificate-card__code {
+  margin-bottom: 6px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-accent);
+}
+
+.certificate-card__note {
+  margin: 10px 0 0;
+  font-size: .88rem;
+  color: var(--c-text-muted);
+}
+
+.personnel-list__count {
+  float: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-navy-600);
+}
+
+@media (max-width: 560px) {
+  .certificate-card { grid-template-columns: minmax(0, 1fr); }
+  .certificate-card__figure { max-width: 220px; }
+}

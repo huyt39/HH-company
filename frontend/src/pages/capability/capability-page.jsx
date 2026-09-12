@@ -17,6 +17,7 @@ export function CapabilityPage() {
 
   const { data: profile } = useFetch((options) => companyApi.getProfile(options), [])
   const { data: equipment } = useFetch((options) => capabilityApi.getEquipment(options), [])
+  const { data: certificates } = useFetch((options) => capabilityApi.getCertificates(undefined, options), [])
   const { data: documents } = useFetch((options) => capabilityApi.getDocuments(options), [])
 
   const stats = profile?.capability_stats ?? []
@@ -50,7 +51,10 @@ export function CapabilityPage() {
             <ul className="personnel-list">
               {(profile?.personnel ?? []).map((row) => (
                 <li key={row.title}>
-                  <span className="personnel-list__role">{row.title}</span>
+                  <span className="personnel-list__role">
+                    {row.title}
+                    {row.count != null && <b className="personnel-list__count">{row.count}</b>}
+                  </span>
                   {row.note && <span className="personnel-list__note">{row.note}</span>}
                 </li>
               ))}
@@ -79,6 +83,7 @@ export function CapabilityPage() {
               <thead>
                 <tr>
                   <th>{t('capability.equipmentLabels').name}</th>
+                  <th>{t('capability.equipmentLabels').quantity}</th>
                   <th>{t('capability.equipmentLabels').spec}</th>
                 </tr>
               </thead>
@@ -86,9 +91,25 @@ export function CapabilityPage() {
                 {equipment.map((item) => (
                   <tr key={item.id}>
                     <td>
-                      {item.name}
-                      {item.note && <span className="capability-table__note">{item.note}</span>}
+                      <div className="capability-table__plant">
+                        {item.image?.url && (
+                          <img
+                            className="capability-table__photo"
+                            src={item.image.thumb || item.image.url}
+                            alt={item.image.alt || item.name}
+                            width={item.image.width}
+                            height={item.image.height}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        )}
+                        <span>
+                          {item.name}
+                          {item.note && <span className="capability-table__note">{item.note}</span>}
+                        </span>
+                      </div>
                     </td>
+                    <td className="text-muted">{item.quantity ?? '—'}</td>
                     <td className="text-muted">{item.spec || '—'}</td>
                   </tr>
                 ))}
@@ -99,6 +120,52 @@ export function CapabilityPage() {
           )}
         </div>
       </section>
+
+      {/* ---------- Certificates ----------
+          The Hạng I capability licence is the strongest single credential in
+          the profile, and until now it lived only in the admin area. */}
+      {certificates?.length > 0 && (
+        <section className="section" id="chung-chi">
+          <div className="container">
+            <SectionHeading
+              eyebrow={t('capability.certificatesEyebrow')}
+              title={t('capability.certificatesTitle')}
+              description={t('capability.certificatesDesc')}
+            />
+            <div className="certificate-grid">
+              {certificates.map((item) => (
+                <article className="certificate-card" key={item.id}>
+                  {item.image?.url && (
+                    <a
+                      className="certificate-card__figure"
+                      href={item.image.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      title={t('capability.certificateViewOriginal')}
+                    >
+                      <img
+                        src={item.image.thumb || item.image.url}
+                        alt={item.image.alt || item.name}
+                        width={item.image.width}
+                        height={item.image.height}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </a>
+                  )}
+                  <div className="certificate-card__body">
+                    <h3>{item.name}</h3>
+                    {item.code && <p className="certificate-card__code">{item.code}</p>}
+                    {item.issuer && <p className="text-muted mb-0">{item.issuer}</p>}
+                    {item.issued && <p className="text-muted mb-0">{item.issued}</p>}
+                    {item.note && <p className="certificate-card__note">{item.note}</p>}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ---------- Quality process ---------- */}
       <section className="section" id="quy-trinh">

@@ -52,6 +52,7 @@ class EquipmentResponse(BaseModel):
     id: str
     name: str
     category: str | None = Field(default=None, description="cang-keo | nang-ha | do-kiem | khac")
+    quantity: int | None = None
     spec: str | None = None
     note: str | None = None
     image: Media | None = None
@@ -60,6 +61,7 @@ class EquipmentResponse(BaseModel):
 class EquipmentBase(PublishFields):
     name: str = Field(min_length=1, max_length=300)
     category: str | None = Field(default=None, description="cang-keo | nang-ha | do-kiem | khac")
+    quantity: int | None = Field(default=None, ge=1)
     spec: str | None = None
     note: str | None = None
     image: dict | None = None
