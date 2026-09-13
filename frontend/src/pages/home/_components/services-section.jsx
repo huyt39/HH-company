@@ -32,6 +32,7 @@ export function ServicesSection({ services, loading, error }) {
           title={t('home.servicesTitle')}
           description={t('home.servicesDesc')}
           align="center"
+          largeEyebrow
         />
         <StateBlock loading={loading} error={error} isEmpty={!services?.length} skeletonCount={4}>
           <div className="service-groups">
@@ -44,10 +45,9 @@ export function ServicesSection({ services, loading, error }) {
               const copy = t('services.categories')[group.category]
 
               return (
-                <div
-                  className={`service-group-card service-group-card--${group.category}`}
-                  key={group.category}
-                >
+                // No per-category modifier any more: both groups share one
+                // white card, and the navy treatment is the hover state.
+                <div className="service-group-card" key={group.category}>
                   <span className="service-group-card__eyebrow">{copy.eyebrow}</span>
                   <h3 className="service-group-card__title">{copy.title}</h3>
                   <p className="service-group-card__desc">{copy.description}</p>

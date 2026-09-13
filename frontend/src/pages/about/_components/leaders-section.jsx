@@ -1,8 +1,6 @@
 import { SectionHeading } from '@/components/ui/section-heading'
 import { useLang } from '@/lib/i18n/language-context'
-
-/** First letter of the given name, used as a text avatar. */
-const initialOf = (fullName) => fullName.trim().split(' ').pop().charAt(0)
+import { initialOf } from '@/lib/utils/initials'
 
 export function LeadersSection({ leaders }) {
   const { t } = useLang()

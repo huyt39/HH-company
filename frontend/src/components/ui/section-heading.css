@@ -16,6 +16,7 @@
 
 .section-heading h2 { position: relative; margin-bottom: 14px; }
 
+
 .section-heading--left h2::after {
   content: '';
   display: block;
@@ -35,3 +36,53 @@
 
 .section-heading.is-light h2 { color: #fff; }
 .section-heading.is-light .section-heading__desc { color: #c3d3e5; }
+
+/* On a navy ground the brand green (#146334) drops to about 2:1 against the
+   background — the eyebrow and the rule under the title were sinking into it.
+   `--c-accent-light` is the same green mixed for dark grounds (~7:1) and is
+   already what the footer rule and the commitment marks use there.
+   Scoped to `.section--dark` as well so a heading that forgets the `light`
+   prop cannot reintroduce the low-contrast pair. */
+.section-heading.is-light .section-heading__eyebrow,
+.section--dark .section-heading__eyebrow { color: var(--c-accent-light); }
+
+.section-heading.is-light h2::after,
+.section--dark .section-heading h2::after { background: var(--c-accent-light); }
+
+/* ---------- Label under the title ----------
+   The eyebrow swaps places with the title and takes over the closing rule, so
+   the block reads title → label → rule instead of ending on a bare divider
+   between the two. Set larger here than the standard eyebrow: sitting under a
+   headline it is read as a second line, not as a tag above one. */
+
+.section-heading.is-eyebrow-below h2::after { content: none; }
+
+.section-heading.is-eyebrow-below h2 { margin-bottom: 18px; }
+.section-heading.is-eyebrow-below .section-heading__eyebrow { margin: 0; }
+
+/* Larger label. Tracking comes down from .14em as the size goes up — letters
+   this big set that wide read as separate marks rather than a word. */
+.section-heading.is-eyebrow-lg .section-heading__eyebrow {
+  font-size: clamp(1.02rem, 1.4vw, 1.15rem);
+  letter-spacing: .1em;
+}
+
+.section-heading.is-eyebrow-below .section-heading__eyebrow::after {
+  content: '';
+  display: block;
+  width: 44px;
+  height: 2px;
+  background: var(--c-accent);
+  margin-top: 16px;
+}
+
+.section-heading--center.is-eyebrow-below .section-heading__eyebrow::after {
+  margin-inline: auto;
+}
+
+.section-heading.is-eyebrow-below .section-heading__desc { margin-top: 18px; }
+
+.section-heading.is-light.is-eyebrow-below .section-heading__eyebrow::after,
+.section--dark .section-heading.is-eyebrow-below .section-heading__eyebrow::after {
+  background: var(--c-accent-light);
+}

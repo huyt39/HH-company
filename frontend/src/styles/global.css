@@ -39,6 +39,21 @@ h2 {
 }
 h3 { font-size: 1.22rem; letter-spacing: -.008em; }
 
+/* Display headings — the hero, the page banners and every section title — are
+   set in capitals. Two things have to move with the case: the tight tracking on
+   h1/h2 is tuned for lowercase and closes caps up too far, and Vietnamese caps
+   stack their marks above the cap height (Ầ, Ế, Ộ), so the line needs more room
+   than lowercase does even though caps have no descenders.
+   Done here rather than by writing the copy in capitals: the strings stay
+   readable in `translations.js` and keep their diacritics. */
+.hero__title,
+.page-banner h1,
+.section-heading h2 {
+  text-transform: uppercase;
+  letter-spacing: .01em;
+  line-height: 1.2;
+}
+
 p { margin: 0 0 1em; }
 
 ul { margin: 0; padding: 0; list-style: none; }
@@ -196,20 +211,58 @@ ul { margin: 0; padding: 0; list-style: none; }
   border-color: rgba(255, 255, 255, .18);
 }
 .section--dark .commitment__index { color: var(--c-accent-light); }
+.section--dark .commitment::before { background: var(--c-accent-light); }
 .section--dark .commitment p { color: #c0d1e3; }
 
 /* Headline variant: title only, so four fit across one row. A drawn mark above
    the title instead of a bare ordinal — the numbers implied a sequence these
    four parallel promises do not have, and left the card looking half-empty. */
-.commitments--headline { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.commitments--headline .commitment {
-  flex-direction: column;
-  gap: 18px;
-  padding: 28px 24px;
+.commitments--headline {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
 }
-.commitments--headline .commitment h3 { line-height: 1.4; }
+
+/* No card box in this variant. With only a mark and a line of text inside, the
+   box was mostly empty — and since the row sizes to the tallest item, the
+   one-line promise sat in a tall box of nothing. Bare items on a hairline
+   divider take exactly the height of their content. */
+.commitments--headline .commitment {
+  align-items: center;
+  gap: 16px;
+  padding: 4px 24px;
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+.commitments--headline .commitment::before { content: none; }
+.commitments--headline .commitment:hover { background: none; }
+
+/* The divider belongs between columns, so it keys off the column count rather
+   than off "every item but the first" — at two columns that rule would draw a
+   line down the outside edge of the second row. */
+.commitments--headline .commitment:not(:nth-child(4n + 1)) {
+  border-left: 1px solid rgba(255, 255, 255, .14);
+}
+.commitments--headline .commitment:nth-child(4n + 1) { padding-left: 0; }
+.commitments--headline .commitment:nth-child(4n) { padding-right: 0; }
+.commitments--headline .commitment h3 { font-size: 1rem; line-height: 1.45; }
+.commitments--headline .commitment__mark { width: 48px; height: 48px; }
+.commitments--headline .commitment__mark .domain-icon { width: 24px; height: 24px; }
+
+@media (max-width: 1080px) {
+  .commitments--headline { gap: 26px 32px; }
+  .commitments--headline .commitment:not(:nth-child(4n + 1)) { border-left: 0; }
+  .commitments--headline .commitment:not(:nth-child(2n + 1)) {
+    border-left: 1px solid rgba(255, 255, 255, .14);
+  }
+  .commitments--headline .commitment:nth-child(2n + 1) { padding-left: 0; }
+  .commitments--headline .commitment:nth-child(2n) { padding-right: 0; }
+}
 
 .commitment__mark {
+  /* `flex-shrink: 0` is load-bearing: beside a two-line title in a narrow
+     column the disc otherwise squashes into an oval. */
+  flex: 0 0 auto;
   display: grid;
   place-items: center;
   width: 56px;
@@ -245,7 +298,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 @media (max-width: 520px) {
-  .commitments--headline { grid-template-columns: minmax(0, 1fr); }
+  .commitments--headline { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .commitments--headline .commitment { padding: 18px 0; }
+  .commitments--headline .commitment:not(:nth-child(2n + 1)) { border-left: 0; }
+  .commitments--headline .commitment + .commitment {
+    border-top: 1px solid rgba(255, 255, 255, .14);
+  }
 }
 
 /* ---------- Buttons ---------- */

@@ -30,11 +30,12 @@ export function StrengthsSection() {
           title={t('home.strengthsTitle')}
           align="center"
           light
+          eyebrowBelow
         />
-        {/* Headlines only, four across. The explanatory sentence under each
-            one said what the rest of the site already proves — the equipment
-            schedule, the HSE section, the handover documents — and turned a
-            glanceable row into four paragraphs. */}
+        {/* Headlines only, four across, mark beside the words. The explanatory
+            sentence under each one said what the rest of the site already
+            proves — the equipment schedule, the HSE section, the handover
+            documents — and turned a glanceable row into four paragraphs. */}
         <div className="commitments commitments--headline">
           {strengths.map((item, index) => (
             <div className="commitment" key={item.title}>
