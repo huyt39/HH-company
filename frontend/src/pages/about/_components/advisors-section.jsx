@@ -1,15 +1,20 @@
+import { PersonAvatar } from '@/components/ui/person-avatar'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { useLang } from '@/lib/i18n/language-context'
-import { initialOf } from '@/lib/utils/initials'
 
 /**
  * Ban Cố vấn kiêm sáng lập — the technical bench, kept apart from the executive
  * leadership above it.
  *
- * Built as the leadership card above plus a record of the work: same initial
- * disc, same name-over-role header, then the bridges behind the name as
- * hairline-separated rows. Bulleted paragraphs under a green-capped job title
- * made three cards of very different length look like three different things.
+ * The chair leads on a card of his own across the row, the members follow
+ * beneath him. Three equal columns could not work: his record is a list of
+ * named bridges and theirs is two lines, so the row sized itself to him and
+ * left the other two cards standing in a void. The split is also the truth of
+ * the board — he founded it.
+ *
+ * Inside the card the record is a ticked list. Hairline rules between the
+ * lines chopped each person into table rows, which is what made the section
+ * read as a spec sheet rather than a bench of engineers.
  */
 export function AdvisorsSection({ advisors }) {
   const { t } = useLang()
@@ -26,12 +31,15 @@ export function AdvisorsSection({ advisors }) {
           align="center"
         />
         <div className="advisor-grid">
-          {advisors.map((advisor) => (
-            <article className="advisor-card" key={advisor.name}>
+          {/* Position, not a flag on the record: the chair heads the list in the
+              company profile and in the org chart, so he heads it here too. */}
+          {advisors.map((advisor, index) => (
+            <article
+              className={`advisor-card ${index === 0 ? 'advisor-card--lead' : ''}`.trim()}
+              key={advisor.name}
+            >
               <header className="advisor-card__head">
-                <span className="advisor-card__avatar" aria-hidden="true">
-                  {initialOf(advisor.name)}
-                </span>
+                <PersonAvatar name={advisor.name} photo={advisor.photo} />
                 <div>
                   <h3 className="mb-0">{advisor.name}</h3>
                   <p className="advisor-card__title mb-0">{advisor.title}</p>

@@ -50,31 +50,40 @@ COMPANY_PROFILE = CompanyProfile(
     employees="53 kỹ sư và chuyên gia kỹ thuật (chưa gồm công nhân thi công)",
     main_business_line="4212 — Xây dựng công trình đường bộ",
     business_lines_count=41,
+    # Mỗi đoạn mở bằng câu chủ đề mang từ khoá người tìm thật sự gõ — "nhà thầu
+    # thi công căng kéo cáp dự ứng lực", "lắp đặt gối cầu", "khe co giãn" — rồi
+    # mới đến chi tiết, vì công cụ tìm kiếm và người đọc lướt đều đọc câu đầu.
+    # Câu ngắn, mỗi đoạn một ý: định vị, pháp lý, lịch sử, dự án, vật tư, định
+    # hướng. Không thêm một dữ kiện nào ngoài hồ sơ năng lực và giấy ĐKKD.
     intro=[
         "Công ty TNHH Đầu tư xây dựng và dịch vụ thương mại Hòa Hoàng (Hoa Hoang Intra "
-        "Co., Ltd) là nhà thầu chuyên ngành trong lĩnh vực kết cấu cầu: thi công lắp đặt "
-        "và căng kéo hệ cáp dự ứng lực ngoài, hệ cáp cho cầu dây võng, dây văng và cầu "
-        "vòm, lắp đặt gối cầu và khe co giãn cho các dự án hạ tầng giao thông tại Việt Nam.",
-        "Công ty được Cục Quản lý hoạt động xây dựng — Bộ Xây dựng cấp Chứng chỉ năng lực "
-        "hoạt động xây dựng Hạng I số BXD-00011096 cho phạm vi thi công công trình giao "
-        "thông (cầu đường bộ), hiệu lực đến ngày 06/03/2034.",
-        "Công ty thành lập năm 2013 (trước đây mang tên TCC). Giai đoạn 2013 – 2018, Hòa "
-        "Hoàng hoạt động chủ yếu ở mảng thương mại, nhập khẩu và phân phối vật tư chuyên "
-        "ngành cầu đường. Từ năm 2018, công ty chuyển trọng tâm sang thi công: đưa kỹ sư, "
-        "công nhân và thiết bị của chính mình ra công trường, trực tiếp đảm nhận công tác "
-        "lắp đặt, căng kéo và nghiệm thu thay vì dừng lại ở khâu cung cấp.",
-        "Các công trình Hòa Hoàng đã tham gia gồm cao tốc Sài Gòn – Long Thành – Dầu Giây, "
-        "Bến Lức – Long Thành, Hà Nội – Lào Cai, cầu Móng Sến – Sa Pa, cầu Tân Đệ, cầu "
-        "Nguyễn Hữu Cảnh, cầu Trà Khúc 2, cầu Xóm Củi, cầu Nhơn Trạch, cầu Đại Ngãi 2, "
-        "cầu Phong Châu mới và nhiều dự án khác.",
-        "Đi cùng năng lực thi công là hệ công nghệ công ty làm chủ và được ủy quyền tại "
-        "Việt Nam: cáp hãng SHINKO (Nhật Bản), cáp và gối hãng Hirun (Italy) cùng các "
-        "thương hiệu hàng đầu Trung Quốc — nhờ đó vật tư, thiết bị căng kéo và đội thi "
-        "công là một khối thống nhất, không phụ thuộc vào bên thứ ba khi có sự cố hiện trường.",
-        "Hòa Hoàng đang hợp tác với các Viện thiết kế đường sắt Trung Quốc và các nhà "
-        "máy cung cấp thiết bị thi công đường sắt cao tốc, phối hợp cùng chuyên gia để "
-        "cung cấp thiết bị và tư vấn chuyển giao công nghệ thi công kết cấu hạ tầng "
-        "đường sắt tốc độ cao cũng như tàu điện ngầm.",
+        "Co., Ltd) là nhà thầu chuyên ngành kết cấu cầu, trụ sở tại Hà Nội. Hòa Hoàng "
+        "thi công căng kéo cáp dự ứng lực ngoài, lắp dựng hệ cáp cho cầu dây võng, cầu "
+        "dây văng và cầu vòm, lắp đặt gối cầu và khe co giãn cho các công trình cầu "
+        "đường bộ và đường cao tốc trên cả nước.",
+        "Về năng lực pháp lý, công ty được Cục Quản lý hoạt động xây dựng — Bộ Xây dựng "
+        "cấp Chứng chỉ năng lực hoạt động xây dựng Hạng I số BXD-00011096, phạm vi thi "
+        "công công trình giao thông (cầu đường bộ), hiệu lực đến ngày 06/03/2034. Lực "
+        "lượng kỹ thuật gồm 53 kỹ sư và chuyên gia, chưa kể công nhân thi công.",
+        "Hòa Hoàng thành lập tháng 10 năm 2013, tiền thân mang tên TCC. Giai đoạn "
+        "2013 – 2018, công ty hoạt động chủ yếu ở mảng thương mại: nhập khẩu và phân "
+        "phối vật tư chuyên ngành cầu đường. Từ năm 2018, công ty chuyển trọng tâm sang "
+        "thi công — đưa kỹ sư, công nhân và thiết bị của chính mình ra công trường, "
+        "trực tiếp đảm nhận lắp đặt, căng kéo và nghiệm thu thay vì dừng ở khâu cung cấp.",
+        "Kinh nghiệm thi công của Hòa Hoàng trải dài từ Lào Cai đến Kiên Giang, trên "
+        "nhiều dự án hạ tầng giao thông trọng điểm: cao tốc Sài Gòn – Long Thành – Dầu "
+        "Giây, cao tốc Bến Lức – Long Thành, cao tốc Hà Nội – Lào Cai, cầu Móng Sến "
+        "(Sa Pa), cầu Tân Đệ, cầu Nguyễn Hữu Cảnh, cầu Trà Khúc 2, cầu Xóm Củi, cầu "
+        "Nhơn Trạch, cầu Đại Ngãi 2, cầu Phong Châu mới cùng nhiều dự án khác.",
+        "Đi cùng năng lực thi công là hệ vật tư và công nghệ công ty làm chủ, được ủy "
+        "quyền tại Việt Nam: cáp hãng SHINKO (Nhật Bản), cáp và gối cầu hãng Hirun "
+        "(Italy) cùng các thương hiệu hàng đầu Trung Quốc. Nhờ đó vật tư, thiết bị căng "
+        "kéo và đội thi công là một khối thống nhất — hiện trường phát sinh là xử lý "
+        "được ngay, không phải chờ bên thứ ba.",
+        "Về định hướng công nghệ, Hòa Hoàng đang hợp tác với các Viện thiết kế đường "
+        "sắt Trung Quốc và các nhà máy cung cấp thiết bị thi công đường sắt cao tốc, "
+        "phối hợp cùng chuyên gia để cung cấp thiết bị và tư vấn chuyển giao công nghệ "
+        "thi công kết cấu hạ tầng đường sắt tốc độ cao cũng như tàu điện ngầm.",
     ],
     vision=(
         "Trở thành nhà thầu chuyên ngành hàng đầu Việt Nam về thi công hệ cáp dự ứng lực, "

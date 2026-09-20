@@ -1,0 +1,19 @@
+.person-avatar {
+  /* `flex-shrink: 0` is load-bearing beside a two-line job title: the circle
+     otherwise squashes into an oval. */
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  /* Pale, not the solid navy disc these avatars used to be. At portrait size a
+     filled disc shouts louder than the photographs beside it, and a board
+     photographed one person at a time is a mixed row for a while. */
+  background: var(--c-blue-100);
+  box-shadow: inset 0 0 0 1px rgba(29, 84, 155, .16);
+  color: var(--c-navy-600);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: .01em;
+}
+.person-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }

@@ -123,6 +123,32 @@
   max-width: 1000px;
   margin-inline: auto;
 }
+/* The photograph that opens each statement. A fixed ratio keeps the two columns
+   level whatever shape the source is, and the wash along the foot ties the
+   picture back into the navy band instead of leaving it as a bright rectangle
+   pasted on top. */
+.creed__media {
+  position: relative;
+  margin-bottom: 22px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, .06);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, .3);
+}
+.creed__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* The crew shot is a portrait crop: hold it low so the joint being laid stays
+   in frame instead of the empty deck above it. */
+.creed__photo--low { object-position: center 62%; }
+.creed__media::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(11, 37, 69, .55), transparent);
+  pointer-events: none;
+}
+
 .creed__label {
   display: block;
   margin-bottom: 14px;
@@ -143,86 +169,190 @@
   padding-top: 34px;
   border-top: 1px solid rgba(255, 255, 255, .16);
 }
+/* Four short lines in four columns under hairlines read as a footer — same
+   width, same muted type, same thin rules. Two rows of tiles with a drawn mark
+   give each value a shape of its own and enough weight to belong to the band. */
 .creed__values {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 26px;
-  margin-top: 4px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 18px;
 }
-/* An accent rule over each value instead of a bullet: it keeps the four items
-   reading as one row even when they wrap to different depths. */
 .creed__values li {
-  padding-top: 15px;
-  border-top: 2px solid var(--c-accent-light);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 24px;
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: var(--radius);
   font-size: .95rem;
-  line-height: 1.65;
-  color: #c0d1e3;
+  line-height: 1.6;
+  color: #dbe6f2;
+  transition: var(--transition);
+}
+.creed__values li:hover {
+  background: rgba(255, 255, 255, .09);
+  border-color: rgba(255, 255, 255, .18);
+}
+/* The same green disc the home commitments use, one size down: here it sits
+   beside a line of body text, not a heading. */
+.creed__value-mark {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(95, 196, 140, .12);
+  border: 1px solid rgba(95, 196, 140, .32);
+  color: var(--c-accent-light);
+  transition: var(--transition);
+}
+.creed__value-mark .domain-icon { width: 24px; height: 24px; }
+.creed__values li:hover .creed__value-mark {
+  background: var(--c-accent-light);
+  border-color: var(--c-accent-light);
+  color: var(--c-navy-900);
 }
 
 @media (max-width: 900px) {
   .creed { grid-template-columns: minmax(0, 1fr); gap: 34px; }
+  .creed__media { aspect-ratio: 16 / 9; margin-bottom: 18px; }
   .creed__values { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .creed__values li { padding: 18px 20px; gap: 14px; }
 }
 @media (max-width: 560px) {
-  .creed__values { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .creed__values { grid-template-columns: minmax(0, 1fr); gap: 12px; }
 }
 
-/* ---------- Leadership ---------- */
-.leader-grid { max-width: 860px; margin-inline: auto; }
+/* ---------- Leadership ----------
+   Portrait cards, centred, four to a row. The last row of seven carries three,
+   so the row is centred rather than left-aligned against an empty quarter.
+   Sized around a photograph from the start: a face needs about 110px before it
+   is a face, and the 48px disc these rows used to carry was never going to
+   hold one. */
+.leader-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 22px;
+}
 .leader-card {
-  display: flex; align-items: center; gap: 18px;
-  padding: 22px 24px;
+  flex: 0 1 calc(25% - 17px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 28px 20px 26px;
+  text-align: center;
   background: #fff;
   border: 1px solid var(--c-border);
   border-radius: var(--radius);
+  transition: var(--transition);
 }
-.leader-card__avatar,
-.advisor-card__avatar {
-  flex-shrink: 0;
-  display: grid; place-items: center;
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--c-navy-700), var(--c-blue-500));
-  color: #fff; font-size: 1.4rem; font-weight: 700;
+.leader-card:hover { border-color: var(--c-navy-600); box-shadow: var(--shadow-sm); }
+.leader-card .person-avatar { width: 112px; height: 112px; font-size: 2.35rem; }
+.leader-card h3 { font-size: 1.02rem; line-height: 1.4; }
+.leader-card p { font-size: .86rem; line-height: 1.5; }
+
+@media (max-width: 960px) {
+  .leader-card { flex-basis: calc(33.333% - 15px); }
 }
-.leader-card h3 { font-size: 1.05rem; }
-.leader-card p { font-size: .88rem; }
+@media (max-width: 680px) {
+  .leader-card { flex-basis: calc(50% - 11px); padding: 24px 16px 22px; }
+  .leader-card .person-avatar { width: 96px; height: 96px; font-size: 2rem; }
+}
 
 /* ---------- Advisory board ----------
-   The leadership card plus the record behind the name: same disc, same header,
-   then the work as hairline-separated rows. The old card led with the job title
-   set in green capitals, which fought the name for attention and made three
-   cards of different length look like three different components. */
+   The chair spans the row, the members share the one below. Equal columns sized
+   every card to his list of named bridges and left the short records floating
+   in white space. */
 .advisor-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
 }
 .advisor-card {
   display: flex;
   flex-direction: column;
-  padding: 24px 26px 8px;
+  padding: 26px 28px 28px;
   background: #fff;
   border: 1px solid var(--c-border);
   border-radius: var(--radius);
+  transition: var(--transition);
 }
+.advisor-card:hover { border-color: var(--c-navy-600); box-shadow: var(--shadow-sm); }
+.advisor-card--lead { grid-column: 1 / -1; }
+
 .advisor-card__head {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding-bottom: 18px;
+  margin-bottom: 20px;
 }
-.advisor-card__avatar { width: 48px; height: 48px; font-size: 1.2rem; }
+.advisor-card .person-avatar { width: 92px; height: 92px; font-size: 1.95rem; }
 .advisor-card h3 { font-size: 1.05rem; }
 .advisor-card__title { font-size: .86rem; color: var(--c-text-muted); }
 
-.advisor-card__list { list-style: none; margin: 0; }
-.advisor-card__list li {
-  padding: 14px 0;
-  border-top: 1px solid var(--c-border);
+/* The chair's card turns on its side: who he is in a column of its own, the
+   record beside it. Across the full width his three lines would otherwise run
+   to a reading measure no one follows, and split into two columns the long
+   entry about the arch bridges landed in a half-width well of its own. */
+.advisor-card--lead {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+  gap: 24px 44px;
+  align-items: start;
+  padding: 30px 32px;
+}
+.advisor-card--lead .advisor-card__head {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 0;
+}
+.advisor-card--lead .person-avatar { width: 148px; height: 148px; font-size: 3rem; }
+.advisor-card--lead h3 { font-size: 1.24rem; }
+.advisor-card--lead .advisor-card__title {
   font-size: .9rem;
-  line-height: 1.6;
+  color: var(--c-accent);
+  font-weight: 600;
+}
+.advisor-card--lead .advisor-card__list { gap: 14px; }
+
+/* A ticked record instead of ruled rows: the green mark reads as a credential,
+   and with nothing drawn between the lines the card holds together as one
+   person's history. */
+.advisor-card__list { list-style: none; margin: 0; display: grid; gap: 12px; }
+.advisor-card__list li {
+  position: relative;
+  padding-left: 28px;
+  font-size: .92rem;
+  line-height: 1.65;
   color: var(--c-navy-800);
+}
+.advisor-card__list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 2px;
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: rgba(20, 99, 52, .1);
+  color: var(--c-accent);
+  font-size: .68rem;
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .advisor-grid { grid-template-columns: minmax(0, 1fr); }
+  .advisor-card--lead { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 26px 28px; }
+  .advisor-card--lead .advisor-card__head { flex-direction: row; align-items: center; }
 }
 
 /* ---------- Org chart ---------- */

@@ -286,6 +286,50 @@ const COMMITMENT_ICONS = {
   ),
 }
 
+/**
+ * Giá trị cốt lõi trên trang giới thiệu. Bốn giá trị là lời hứa trừu tượng nên
+ * hình ở đây vẽ theo vật mang giá trị đó — con dấu chứng nhận, đồng hồ, tai
+ * nghe trực hỗ trợ, kính lúp soi hồ sơ — và không mượn lại hình của nhóm cam
+ * kết: mũ bảo hộ, khiên HSE và tờ nghiệm thu đã đứng ở trang chủ.
+ */
+const VALUE_ICONS = {
+  // Con dấu chứng nhận có dải ruy-băng — đạt chuẩn ASTM, ISO.
+  'chuan-chat-luong': (
+    <>
+      <circle cx="16" cy="12" r="8.5" />
+      <path d="m12.3 12.1 2.7 2.7 4.9-5.1" />
+      <path d="M10.6 19.4 8.5 29l7.5-3.4 7.5 3.4-2.1-9.6" />
+    </>
+  ),
+  // Mặt đồng hồ — đúng tiến độ giao hàng và thi công.
+  'dung-tien-do': (
+    <>
+      <circle cx="16" cy="16" r="12.5" />
+      <path d="M16 8.5V16l5.5 3.5" />
+    </>
+  ),
+  // Tai nghe trực kỹ thuật — hỗ trợ hiện trường xuyên suốt.
+  'ho-tro-hien-truong': (
+    <>
+      <path d="M6.5 19.5V16a9.5 9.5 0 0 1 19 0v3.5" />
+      <rect x="3" y="17" width="6.5" height="9" rx="2.2" />
+      <rect x="22.5" y="17" width="6.5" height="9" rx="2.2" />
+      <path d="M25.8 26v.4a3.4 3.4 0 0 1-3.4 3.4h-3.9" />
+    </>
+  ),
+  // Kính lúp soi tờ hồ sơ — minh bạch pháp lý, xuất xứ, thí nghiệm.
+  'minh-bach-ho-so': (
+    <>
+      <path d="M6.5 3.5h11L24 10v6" />
+      <path d="M6.5 3.5v25h8" />
+      <path d="M17.5 3.5V10H24" />
+      <path d="M11 13.5h8M11 17.5h5" />
+      <circle cx="21" cy="21" r="5.5" />
+      <path d="m25.2 25 3.8 3.8" />
+    </>
+  ),
+}
+
 /** Nhịp cầu vòm — dấu chung khi chưa có hình riêng cho hạng mục. */
 const FALLBACK = (
   <>
@@ -299,6 +343,7 @@ const ICON_SETS = {
   service: SERVICE_ICONS,
   product: PRODUCT_ICONS,
   commitment: COMMITMENT_ICONS,
+  value: VALUE_ICONS,
 }
 
 export function DomainIcon({ slug, kind = 'service', className = '' }) {

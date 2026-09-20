@@ -9,7 +9,7 @@ export const translations = {
       home: 'Trang chủ',
       about: 'Giới thiệu',
       aboutOverview: 'Tổng quan',
-      aboutMission: 'Tầm nhìn - Sứ mệnh',
+      aboutMission: 'Tầm nhìn – Sứ mệnh',
       aboutLeadership: 'Ban lãnh đạo',
       aboutStructure: 'Cơ cấu tổ chức',
       aboutHistory: 'Lịch sử phát triển',
@@ -94,7 +94,7 @@ export const translations = {
     home: {
       heroTitle: 'Nhà thầu chuyên ngành\ncăng kéo dự ứng lực, hệ cáp và gối cầu',
       heroDesc:
-        'Hòa Hoàng đưa kỹ sư, công nhân và thiết bị của chính mình ra công trường: thi công lắp đặt, căng kéo và nghiệm thu cho các dự án cầu đường bộ, cao tốc và đường sắt trọng điểm trên cả nước.',
+        'Hòa Hoàng đưa kỹ sư, công nhân và thiết bị của chính mình ra công trường: thi công lắp đặt, căng kéo và nghiệm thu cho các dự án cầu đường bộ và cao tốc trọng điểm trên cả nước.',
       heroCtaCapability: 'Năng lực nhà thầu',
       heroCtaProjects: 'Dự án đã thi công',
       heroSpecialities: [
@@ -157,10 +157,11 @@ export const translations = {
       ctaButton: 'Liên hệ ngay',
     },
     about: {
-      metaTitle: 'Giới thiệu',
-      metaDesc: 'Tổng quan về Công ty Hòa Hoàng: lịch sử hình thành, tầm nhìn, ban lãnh đạo và cơ cấu tổ chức.',
+      metaTitle: 'Giới thiệu: nhà thầu chuyên ngành kết cấu cầu',
+      metaDesc:
+        'Hòa Hoàng là nhà thầu chuyên ngành thi công căng kéo cáp dự ứng lực ngoài, hệ cáp cầu, gối cầu và khe co giãn. Chứng chỉ năng lực xây dựng Hạng I, 53 kỹ sư.',
       factsEyebrow: 'Tổng quan',
-      factsTitle: 'Đôi nét về Hòa Hoàng',
+      factsTitle: 'Nhà thầu chuyên ngành kết cấu cầu tại Việt Nam',
       recordTitle: 'Thông tin đăng ký doanh nghiệp',
       logoAlt: 'Logo Công ty Hòa Hoàng',
       factLabels: {
@@ -193,13 +194,13 @@ export const translations = {
       manufacturersTitle: 'Nhà sản xuất hợp tác',
     },
     services: {
-      metaTitle: 'Dịch vụ thi công',
+      metaTitle: 'Thi công cáp dự ứng lực, gối cầu, khe co giãn',
       metaDesc:
         'Dịch vụ thi công của Hòa Hoàng: căng kéo cáp dự ứng lực ngoài, lắp dựng hệ cáp cầu vòm và dây văng, lắp đặt gối cầu, khe co giãn, sửa chữa và tăng cường cầu cũ.',
       bannerTitle: 'Dịch vụ thi công',
       bannerSubtitle: 'Những công việc Hòa Hoàng trực tiếp thực hiện trên công trường, cùng quy trình và hồ sơ bàn giao đi kèm.',
       leadTitle: 'Đội ngũ và thiết bị của chính công ty, ra thẳng công trường',
-      leadDesc: 'Hòa Hoàng nhận thầu các hạng mục kết cấu chuyên ngành trên cầu đường bộ, cao tốc và đường sắt: căng kéo dự ứng lực, hệ cáp cầu, gối cầu và khe co giãn — thi công mới cũng như sửa chữa, tăng cường cầu đang khai thác.',
+      leadDesc: 'Hòa Hoàng nhận thầu các hạng mục kết cấu chuyên ngành trên cầu đường bộ và cao tốc: căng kéo dự ứng lực, hệ cáp cầu, gối cầu và khe co giãn — thi công mới cũng như sửa chữa, tăng cường cầu đang khai thác.',
       leadCta: 'Trao đổi với kỹ sư',
       empty: 'Chưa có dịch vụ nào',
       categories: {
@@ -234,9 +235,9 @@ export const translations = {
       ctaButton: 'Gửi yêu cầu',
     },
     capability: {
-      metaTitle: 'Năng lực nhà thầu',
+      metaTitle: 'Năng lực nhà thầu: nhân sự, thiết bị, chứng chỉ',
       metaDesc:
-        'Năng lực nhà thầu Hòa Hoàng: nhân sự thi công, thiết bị căng kéo, quy trình nghiệm thu và an toàn lao động.',
+        'Năng lực nhà thầu Hòa Hoàng: 53 kỹ sư, thiết bị căng kéo sở hữu, chứng chỉ năng lực xây dựng Hạng I, quy trình nghiệm thu và an toàn lao động.',
       bannerTitle: 'Năng lực nhà thầu',
       bannerSubtitle: 'Con người, thiết bị và quy trình đứng sau mỗi hạng mục Hòa Hoàng nhận thi công.',
       personnelEyebrow: 'Con người',
@@ -313,8 +314,9 @@ export const translations = {
       documentsRequestCta: 'Yêu cầu hồ sơ năng lực',
     },
     products: {
-      metaTitle: 'Sản phẩm',
-      metaDesc: 'Danh mục sản phẩm: cáp thành phẩm cho cầu dây văng, cáp dự ứng lực, neo DƯL, gối cầu, khe co giãn và thiết bị căng kéo.',
+      metaTitle: 'Sản phẩm: cáp dự ứng lực, gối cầu, khe co giãn',
+      metaDesc:
+        'Cáp thành phẩm cho cầu dây văng, cáp và neo dự ứng lực, gối cầu, khe co giãn, thiết bị căng kéo — nhập khẩu từ nhà sản xuất Nhật Bản, Italy, Trung Quốc.',
       bannerTitle: 'Sản phẩm & công nghệ',
       bannerSubtitle: 'Vật tư và thiết bị chuyên dụng Hòa Hoàng làm chủ và cung cấp cho công trình cầu đường — nhập khẩu từ các nhà sản xuất Nhật Bản, Italy và Trung Quốc.',
       empty: 'Chưa có sản phẩm',
@@ -356,8 +358,9 @@ export const translations = {
       supportCta: 'Gửi yêu cầu báo giá',
     },
     projects: {
-      metaTitle: 'Dự án',
-      metaDesc: 'Các công trình cầu đường, cao tốc và đường sắt Hòa Hoàng đã thi công lắp đặt và cung cấp vật tư.',
+      metaTitle: 'Dự án cầu đường đã thi công',
+      metaDesc:
+        '36 dự án cầu đường bộ, cao tốc và đường sắt tốc độ cao Hòa Hoàng đã thi công hoặc cung cấp vật tư, lọc theo vai trò, loại kết cấu và năm thực hiện.',
       bannerTitle: 'Dự án đã thực hiện',
       filterAriaLabel: 'Lọc theo trạng thái',
       roleFilterLabel: 'Vai trò',
@@ -372,16 +375,18 @@ export const translations = {
       emptyNone: 'Chưa có dự án',
     },
     news: {
-      metaTitle: 'Tin tức',
-      metaDesc: 'Tin tức và sự kiện của Công ty Hòa Hoàng.',
+      metaTitle: 'Tin tức & sự kiện',
+      metaDesc:
+        'Tin tức, sự kiện và cập nhật công trường của Hòa Hoàng: các hạng mục cáp dự ứng lực, hệ cáp cầu, gối cầu và khe co giãn trên dự án cầu đường.',
       bannerTitle: 'Tin tức & sự kiện',
-      bannerSubtitle: 'Cập nhật hoạt động, dự án và thông tin truyền thông của tập đoàn.',
+      bannerSubtitle: 'Cập nhật hoạt động thi công, dự án và thông tin truyền thông của công ty.',
       empty: 'Chưa có bài viết',
     },
     careers: {
-      metaTitle: 'Tuyển dụng',
-      metaDesc: 'Cơ hội nghề nghiệp tại Công ty Hòa Hoàng.',
-      bannerSubtitle: 'Cơ hội nghề nghiệp và môi trường phát triển tại tập đoàn.',
+      metaTitle: 'Tuyển dụng kỹ sư và công nhân thi công cầu',
+      metaDesc:
+        'Việc làm tại Hòa Hoàng: kỹ sư cầu, kỹ sư cơ khí, chỉ huy trưởng công trường và công nhân kỹ thuật căng kéo, lắp đặt gối cầu, khe co giãn.',
+      bannerSubtitle: 'Cơ hội nghề nghiệp và môi trường phát triển tại Hòa Hoàng.',
       eyebrow: 'Cơ hội',
       title: 'Vị trí đang tuyển',
       empty: 'Chưa có vị trí tuyển dụng',
@@ -402,8 +407,9 @@ export const translations = {
       backToList: 'Quay lại danh sách',
     },
     contact: {
-      metaTitle: 'Liên hệ',
-      metaDesc: 'Liên hệ Công ty Hòa Hoàng để nhận báo giá cáp dự ứng lực, gối cầu và khe co giãn.',
+      metaTitle: 'Liên hệ nhà thầu thi công cầu',
+      metaDesc:
+        'Liên hệ Hòa Hoàng để trao đổi biện pháp thi công hoặc nhận báo giá cáp dự ứng lực, gối cầu, khe co giãn. Trụ sở tại MD Complex Tower, Hà Nội.',
       bannerSubtitle: 'Gửi yêu cầu báo giá hoặc thông tin dự án, chúng tôi sẽ phản hồi trong thời gian sớm nhất.',
       detailsEyebrow: 'Thông tin',
       detailsTitle: 'Trụ sở chính',
@@ -550,7 +556,7 @@ export const translations = {
     home: {
       heroTitle: 'Specialist contractor for\npost-tensioning, bridge cables and bearings',
       heroDesc:
-        'Hoa Hoang brings its own engineers, crews and equipment to site: installation, stressing and handover for major road, expressway and railway bridge projects nationwide.',
+        'Hoa Hoang brings its own engineers, crews and equipment to site: installation, stressing and handover for major road and expressway bridge projects nationwide.',
       heroCtaCapability: 'Our capability',
       heroCtaProjects: 'Projects delivered',
       heroSpecialities: [
@@ -613,10 +619,11 @@ export const translations = {
       ctaButton: 'Contact us now',
     },
     about: {
-      metaTitle: 'About',
-      metaDesc: "Overview of Hoa Hoang: our history, vision, leadership and organizational structure.",
+      metaTitle: 'About: specialist bridge structures contractor',
+      metaDesc:
+        'Hoa Hoang is a specialist contractor for external post-tensioning, bridge cable systems, bearings and expansion joints. Class I certificate, 53 engineers.',
       factsEyebrow: 'Overview',
-      factsTitle: 'About Hoa Hoang',
+      factsTitle: 'A specialist bridge structures contractor in Vietnam',
       recordTitle: 'Business registration details',
       logoAlt: 'Hoa Hoang company logo',
       factLabels: {
@@ -649,13 +656,13 @@ export const translations = {
       manufacturersTitle: 'Partner manufacturers',
     },
     services: {
-      metaTitle: 'Construction Services',
+      metaTitle: 'Services: post-tensioning, bearings, joints',
       metaDesc:
-        "Hoa Hoang's construction services: external post-tensioning, arch and cable-stayed bridge cable systems, bearing and expansion joint installation, bridge repair and strengthening.",
+        'External post-tensioning, arch and cable-stayed bridge cable systems, bearing and expansion joint installation, and strengthening of bridges in service.',
       bannerTitle: 'Construction Services',
       bannerSubtitle: 'The work Hoa Hoang performs on site, with the process and handover records that come with it.',
       leadTitle: 'Our own crews and plant, straight to site',
-      leadDesc: 'Hoa Hoang takes on specialist structural packages on road, motorway and rail bridges: post-tensioning, bridge cable systems, bearings and expansion joints — on new works as well as repair and strengthening of bridges already in service.',
+      leadDesc: 'Hoa Hoang takes on specialist structural packages on road and expressway bridges: post-tensioning, bridge cable systems, bearings and expansion joints — on new works as well as repair and strengthening of bridges already in service.',
       leadCta: 'Talk to an engineer',
       empty: 'No services yet',
       categories: {
@@ -690,9 +697,9 @@ export const translations = {
       ctaButton: 'Send a request',
     },
     capability: {
-      metaTitle: 'Contractor Capability',
+      metaTitle: 'Capability: crews, plant and certification',
       metaDesc:
-        "Hoa Hoang's contractor capability: site team, stressing equipment, quality process and health and safety.",
+        "Hoa Hoang's capability: 53 engineers, company-owned stressing equipment, Class I construction capability certificate, quality process and site safety.",
       bannerTitle: 'Contractor Capability',
       bannerSubtitle: 'The people, plant and process behind every package Hoa Hoang takes on.',
       personnelEyebrow: 'People',
@@ -812,8 +819,9 @@ export const translations = {
       supportCta: 'Request a quote',
     },
     projects: {
-      metaTitle: 'Projects',
-      metaDesc: 'Bridge, expressway and railway projects Hoa Hoang has built on site and supplied materials for.',
+      metaTitle: 'Bridge projects delivered',
+      metaDesc:
+        '36 road bridge, expressway and high-speed rail projects Hoa Hoang has built on site or supplied materials for — filter by role, structure type and year.',
       bannerTitle: 'Completed Projects',
       filterAriaLabel: 'Filter by status',
       roleFilterLabel: 'Role',
@@ -828,16 +836,18 @@ export const translations = {
       emptyNone: 'No projects yet',
     },
     news: {
-      metaTitle: 'News',
-      metaDesc: "News and events from Hoa Hoang.",
+      metaTitle: 'News & events',
+      metaDesc:
+        'News, events and site updates from Hoa Hoang: post-tensioning, bridge cable, bearing and expansion joint packages on road and expressway projects.',
       bannerTitle: 'News & Events',
-      bannerSubtitle: "Updates on the group's activities, projects and media coverage.",
+      bannerSubtitle: 'Updates on our site works, projects and media coverage.',
       empty: 'No articles yet',
     },
     careers: {
-      metaTitle: 'Careers',
-      metaDesc: 'Career opportunities at Hoa Hoang.',
-      bannerSubtitle: "Career opportunities and growth environment at the group.",
+      metaTitle: 'Careers: bridge engineers and site crews',
+      metaDesc:
+        'Jobs at Hoa Hoang: bridge and mechanical engineers, site managers, and skilled crews for post-tensioning, bearing and expansion joint installation.',
+      bannerSubtitle: 'Career opportunities and a place to grow at Hoa Hoang.',
       eyebrow: 'Opportunities',
       title: 'Open Positions',
       empty: 'No open positions yet',
@@ -858,8 +868,9 @@ export const translations = {
       backToList: 'Back to list',
     },
     contact: {
-      metaTitle: 'Contact',
-      metaDesc: 'Contact Hoa Hoang for quotes on prestressing cables, bridge bearings and expansion joints.',
+      metaTitle: 'Contact a specialist bridge contractor',
+      metaDesc:
+        'Contact Hoa Hoang to discuss a method statement or request a quote for prestressing cables, bridge bearings and expansion joints. Head office in Hanoi.',
       bannerSubtitle: "Send us a quote request or project details and we'll respond as soon as possible.",
       detailsEyebrow: 'Information',
       detailsTitle: 'Head Office',

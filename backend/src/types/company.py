@@ -2,10 +2,20 @@
 
 from pydantic import BaseModel, Field
 
+from src.types.common import Media
+
 
 class Leader(BaseModel):
+    """An officer of the company.
+
+    `photo` is the portrait the about page draws the card around; without one
+    the card falls back to the initial of the given name, so the board can be
+    photographed a person at a time.
+    """
+
     name: str
     title: str
+    photo: Media | None = None
 
 
 class Advisor(BaseModel):
@@ -18,6 +28,7 @@ class Advisor(BaseModel):
     name: str
     title: str
     highlights: list[str] = Field(default_factory=list)
+    photo: Media | None = None
 
 
 class OrgUnit(BaseModel):
