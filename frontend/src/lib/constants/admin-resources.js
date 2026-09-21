@@ -291,10 +291,9 @@ export const ADMIN_RESOURCES = {
       { name: 'description', label: 'Mô tả ngắn', type: 'textarea', rows: 2 },
       {
         name: 'file_url',
-        label: 'Đường dẫn file',
-        type: 'text',
-        mono: true,
-        hint: 'Dán link file PDF đã tải lên, hoặc link Google Drive chia sẻ công khai',
+        label: 'File tài liệu đính kèm',
+        type: 'file',
+        hint: 'Tải file PDF/Word/Excel/ZIP từ máy, hoặc dán đường dẫn công khai',
       },
       { name: 'language', label: 'Ngôn ngữ', type: 'text', hint: 'VI, EN hoặc VI–EN' },
       { name: 'size_label', label: 'Dung lượng', type: 'text', hint: 'Ví dụ: PDF · 12 MB' },

@@ -52,6 +52,38 @@ async def upload_image(file: UploadFile = File(...)):
     return BaseApiResponse(detail="Đã tải ảnh lên", data=result)
 
 
+ALLOWED_DOC_EXTENSIONS = {".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".zip", ".rar", ".7z", ".txt"}
+MAX_DOC_BYTES = 50 * 1024 * 1024  # 50 MB
+
+
+@router.post("/file", response_model=BaseApiResponse[UploadResponse], status_code=201)
+async def upload_document(file: UploadFile = File(...)):
+    """Upload one document file (PDF, Word, Excel, ZIP, etc.)."""
+    data = await file.read()
+
+    if not data:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="File rỗng")
+    if len(data) > MAX_DOC_BYTES:
+        raise HTTPException(
+            status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+            detail="File vượt quá 50 MB",
+        )
+
+    filename = file.filename or "tai-lieu.pdf"
+    ext = filename.lower()[filename.rfind("."):] if "." in filename else ""
+    if ext not in ALLOWED_DOC_EXTENSIONS:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Định dạng file không được hỗ trợ (chấp nhận: {', '.join(sorted(ALLOWED_DOC_EXTENSIONS))})",
+        )
+
+    content_type = file.content_type or "application/octet-stream"
+    result = await StorageService().save_file(filename, data, content_type)
+    logger.info(f"Uploaded document {result.filename} ({result.size} bytes)")
+    return BaseApiResponse(detail="Đã tải tài liệu lên", data=result)
+
+
+
 @router.get("", response_model=BaseApiResponse[list[StoredFile]])
 async def list_images(limit: int = Query(200, ge=1, le=1000)):
     """List uploaded images, newest first."""

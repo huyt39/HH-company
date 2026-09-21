@@ -1,3 +1,4 @@
+import { FilePicker } from './file-picker'
 import { GalleryPicker } from './gallery-picker'
 import { ImagePicker } from './image-picker'
 
@@ -18,9 +19,14 @@ export function FormField({ field, value, onChange, disabled }) {
   const id = `f-${field.name}`
   const common = { id, disabled, className: field.mono ? 'is-mono' : undefined }
 
+  if (field.type === 'file') {
+    return <FilePicker label={field.label} hint={field.hint} value={value} onChange={onChange} />
+  }
+
   if (field.type === 'image') {
     return <ImagePicker label={field.label} hint={field.hint} value={value} onChange={onChange} />
   }
+
 
   if (field.type === 'gallery') {
     return <GalleryPicker label={field.label} value={value} onChange={onChange} />

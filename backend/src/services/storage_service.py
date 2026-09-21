@@ -238,6 +238,23 @@ class StorageService:
             if THUMB_SUFFIX not in Path(f.filename).stem
         ][:limit]
 
+    async def save_file(
+        self, original_name: str, data: bytes, content_type: str = "application/octet-stream"
+    ) -> UploadResponse:
+        ext = Path(original_name).suffix or ".file"
+        filename = build_filename(original_name, data, ext)
+        url = await self.backend.put(filename, data, content_type)
+        return UploadResponse(
+            url=url,
+            thumb=None,
+            filename=filename,
+            size=len(data),
+            width=0,
+            height=0,
+            original_size=len(data),
+            saved_percent=0,
+        )
+
     async def delete_image(self, filename: str) -> None:
         """Delete an image along with its thumbnail."""
         if not await self.backend.remove(filename):
@@ -245,3 +262,4 @@ class StorageService:
                 status_code=status.HTTP_404_NOT_FOUND, detail="Không tìm thấy ảnh"
             )
         await self.backend.remove(thumb_name_of(filename))
+

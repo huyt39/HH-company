@@ -1,10 +1,11 @@
+import { ImagePicker } from './image-picker'
 import { splitLines } from './form-field'
 
 /**
  * Sub-table for nested record lists (leaders, org units, milestones).
  *
  * @param {{label: string, hint?: string, items: object[],
- *          columns: {name: string, label: string, type?: 'text'|'number'|'textarea'|'list'}[],
+ *          columns: {name: string, label: string, type?: 'text'|'number'|'textarea'|'list'|'image'}[],
  *          onChange: (items: object[]) => void}} props
  */
 export function RepeaterTable({ label, hint, items = [], columns, onChange }) {
@@ -58,6 +59,10 @@ export function RepeaterTable({ label, hint, items = [], columns, onChange }) {
 }
 
 function RepeaterCell({ column, value, onChange }) {
+  if (column.type === 'image') {
+    return <ImagePicker label="" value={value} onChange={onChange} />
+  }
+
   if (column.type === 'textarea') {
     return <textarea rows={2} value={value ?? ''} onChange={(e) => onChange(e.target.value)} />
   }
@@ -81,3 +86,4 @@ function RepeaterCell({ column, value, onChange }) {
     />
   )
 }
+

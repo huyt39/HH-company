@@ -13,6 +13,14 @@ class UploadsApiClient extends BaseApiClient {
     return this.postFormData('/admin/uploads', formData)
   }
 
+  /** @param {File} file @returns uploaded file info: { url, filename, size } */
+  uploadFile(file) {
+    const formData = new FormData()
+    formData.append('file', file)
+    return this.postFormData('/admin/uploads/file', formData)
+  }
+
+
   listImages() {
     return this.get('/admin/uploads')
   }

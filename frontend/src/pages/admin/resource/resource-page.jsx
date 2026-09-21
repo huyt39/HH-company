@@ -131,6 +131,22 @@ export function ResourcePage() {
     }
   }
 
+  const handleReorder = async (index, delta) => {
+    const target = index + delta
+    if (target < 0 || target >= rows.length) return
+    const nextRows = [...rows]
+    ;[nextRows[index], nextRows[target]] = [nextRows[target], nextRows[index]]
+    const ids = nextRows.map((row) => row[pk])
+    try {
+      await resourcesApi.reorder(resource, ids)
+      await reload()
+    } catch (err) {
+      setError(err.message)
+    }
+  }
+
+  const isSortable = config.sortable !== false
+
   return (
     <>
       <AdminPageHead title={config.label} meta={`${total} bản ghi`}>
@@ -157,10 +173,13 @@ export function ResourcePage() {
         rows={rows}
         pk={pk}
         loading={loading}
+        sortable={isSortable}
         onEdit={openEdit}
         onDelete={handleDelete}
         onTogglePublish={handleTogglePublish}
+        onReorder={isSortable ? handleReorder : undefined}
       />
+
 
       {total > pageSize && (
         <p className="admin-hint">

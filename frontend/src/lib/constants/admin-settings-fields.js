@@ -38,8 +38,20 @@ export const COMPANY_PROFILE_REPEATERS = [
     columns: [
       { name: 'name', label: 'Họ tên' },
       { name: 'title', label: 'Chức danh' },
+      { name: 'photo', label: 'Chân dung', type: 'image' },
     ],
   },
+  {
+    name: 'advisors',
+    label: 'Ban cố vấn & sáng lập',
+    columns: [
+      { name: 'name', label: 'Họ tên' },
+      { name: 'title', label: 'Chức danh / Học vị' },
+      { name: 'highlights', label: 'Thành tựu nổi bật', type: 'list' },
+      { name: 'photo', label: 'Chân dung', type: 'image' },
+    ],
+  },
+
   {
     name: 'org_units',
     label: 'Cơ cấu tổ chức',

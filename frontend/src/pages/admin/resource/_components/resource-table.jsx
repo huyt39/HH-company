@@ -26,19 +26,20 @@ function renderCell(column, row) {
 /**
  * List table for the shared CRUD page.
  *
- * @param {{columns: object[], rows: object[], pk: string, loading: boolean,
+ * @param {{columns: object[], rows: object[], pk: string, loading: boolean, sortable?: boolean,
  *          onEdit: (row: object) => void, onDelete: (row: object) => void,
- *          onTogglePublish: (row: object) => void}} props
+ *          onTogglePublish: (row: object) => void, onReorder?: (index: number, delta: number) => void}} props
  */
-export function ResourceTable({ columns, rows, pk, loading, onEdit, onDelete, onTogglePublish }) {
-  // Two extra columns: visibility toggle and row actions.
-  const columnCount = columns.length + 2
+export function ResourceTable({ columns, rows, pk, loading, sortable = true, onEdit, onDelete, onTogglePublish, onReorder }) {
+  // Extra columns: visibility toggle, row actions, plus reorder if sortable.
+  const columnCount = columns.length + 2 + (sortable && onReorder ? 1 : 0)
 
   return (
     <div className="admin-table-wrap">
       <table className="admin-table">
         <thead>
           <tr>
+            {sortable && onReorder && <th style={{ width: 64 }}>Thứ tự</th>}
             {columns.map((column) => (
               <th key={column.name} style={column.width ? { width: column.width } : undefined}>
                 {column.label}
@@ -62,8 +63,28 @@ export function ResourceTable({ columns, rows, pk, loading, onEdit, onDelete, on
           )}
 
           {!loading &&
-            rows.map((row) => (
+            rows.map((row, index) => (
               <tr key={row[pk]}>
+                {sortable && onReorder && (
+                  <td className="admin-table__actions" style={{ whiteSpace: 'nowrap' }}>
+                    <button
+                      type="button"
+                      disabled={index === 0}
+                      onClick={() => onReorder(index, -1)}
+                      title="Di chuyển lên"
+                    >
+                      ↑
+                    </button>
+                    <button
+                      type="button"
+                      disabled={index === rows.length - 1}
+                      onClick={() => onReorder(index, 1)}
+                      title="Di chuyển xuống"
+                    >
+                      ↓
+                    </button>
+                  </td>
+                )}
                 {columns.map((column) => (
                   <td
                     key={column.name}
@@ -93,3 +114,4 @@ export function ResourceTable({ columns, rows, pk, loading, onEdit, onDelete, on
     </div>
   )
 }
+

@@ -40,6 +40,18 @@ export function ImagePicker({ value, onChange, label, hint }) {
     }
   }
 
+  const handleDeleteImage = async (event, filename) => {
+    event.stopPropagation()
+    if (!window.confirm(`Xoá vĩnh viễn ảnh "${filename}" khỏi server storage?`)) return
+    try {
+      await uploadsApi.deleteImage(filename)
+      setLibrary((prev) => prev.filter((item) => item.filename !== filename))
+      if (value?.url?.includes(filename)) onChange(null)
+    } catch (err) {
+      setError(err.message)
+    }
+  }
+
   return (
     <div className="image-picker">
       <span className="image-picker__label">{label}</span>
@@ -114,18 +126,39 @@ export function ImagePicker({ value, onChange, label, hint }) {
               ) : (
                 <div className="image-grid">
                   {library.map((item) => (
-                    <button
-                      type="button"
+                    <div
                       className={`image-grid__item ${value?.url === item.url ? 'is-active' : ''}`}
                       key={item.url}
+                      style={{ position: 'relative' }}
                       onClick={() => {
                         onChange({ url: item.url, thumb: item.thumb, alt: value?.alt || '' })
                         setOpen(false)
                       }}
                     >
+                      <button
+                        type="button"
+                        className="is-danger"
+                        title="Xoá vĩnh viễn khỏi server"
+                        style={{
+                          position: 'absolute',
+                          top: '4px',
+                          right: '4px',
+                          zIndex: 2,
+                          padding: '2px 6px',
+                          fontSize: '12px',
+                          borderRadius: '4px',
+                          background: 'rgba(220, 38, 38, 0.9)',
+                          color: '#fff',
+                          border: 'none',
+                          cursor: 'pointer',
+                        }}
+                        onClick={(e) => handleDeleteImage(e, item.filename)}
+                      >
+                        ✕
+                      </button>
                       <img src={item.thumb || item.url} alt="" loading="lazy" />
                       <span>{item.filename}</span>
-                    </button>
+                    </div>
                   ))}
                 </div>
               )}
@@ -136,3 +169,4 @@ export function ImagePicker({ value, onChange, label, hint }) {
     </div>
   )
 }
+
