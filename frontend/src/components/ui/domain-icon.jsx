@@ -330,6 +330,45 @@ const VALUE_ICONS = {
   ),
 }
 
+/**
+ * Nhóm thiết bị thi công trên trang năng lực. Khoá theo `category` của bản ghi
+ * thiết bị, nên hình vẽ đúng thứ nhóm đó dùng ngoài công trường — kích và bơm
+ * thuỷ lực, giàn thao tác treo dưới mặt cầu, đồng hồ đo kiểm định.
+ */
+const EQUIPMENT_ICONS = {
+  // Kích thuỷ lực rỗng tâm và bộ nguồn bơm.
+  'cang-keo': (
+    <>
+      <rect x="2.5" y="7" width="14" height="12" rx="1.5" />
+      <path d="M7 7v12M12 7v12" />
+      <path d="M16.5 13h6.5" />
+      <path d="M23 9.5v7" />
+      <path d="M9.5 19v5h7" />
+      <rect x="16.5" y="21.5" width="12" height="7.5" rx="1.2" />
+    </>
+  ),
+  // Giàn thao tác treo dưới bản mặt cầu, có sàn và lan can.
+  'nang-ha': (
+    <>
+      <path d="M2 5h28" />
+      <path d="M9.5 5v16.5M22.5 5v16.5" />
+      <path d="M4 21.5h24" />
+      <path d="M4 21.5V15M28 21.5V15" />
+      <path d="M4 15h24" />
+    </>
+  ),
+  // Đồng hồ đo đặt trên chân đế — đo lực căng, kiểm định thiết bị.
+  'do-kiem': (
+    <>
+      <circle cx="16" cy="12" r="8.5" />
+      <path d="M16 12l4.6-3.4" />
+      <path d="M16 20.5v3.5" />
+      <path d="M11.5 24h9v4h-9z" />
+      <path d="M6 28h20" />
+    </>
+  ),
+}
+
 /** Nhịp cầu vòm — dấu chung khi chưa có hình riêng cho hạng mục. */
 const FALLBACK = (
   <>
@@ -344,6 +383,7 @@ const ICON_SETS = {
   product: PRODUCT_ICONS,
   commitment: COMMITMENT_ICONS,
   value: VALUE_ICONS,
+  equipment: EQUIPMENT_ICONS,
 }
 
 export function DomainIcon({ slug, kind = 'service', className = '' }) {

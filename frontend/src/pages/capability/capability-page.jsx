@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 
+import { DomainIcon } from '@/components/ui/domain-icon'
 import { PageBanner } from '@/components/ui/page-banner'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { EmptyState } from '@/components/ui/state-block'
@@ -11,6 +12,29 @@ import { useLang } from '@/lib/i18n/language-context'
 
 import './capability-page.css'
 
+/* The plant list is read by group — a bidder asks "what stressing gear do they
+   own", not "what is on row four" — so the records are bucketed by category.
+   Groups come out in the order the categories first appear in the list, which
+   keeps the running order the admin gives the records; anything with no
+   category, or one no longer in the admin list, falls into `khac` rather than
+   disappearing off the page. */
+const EQUIPMENT_CATEGORIES = ['cang-keo', 'nang-ha', 'do-kiem', 'khac']
+
+function groupEquipment(items) {
+  const buckets = new Map()
+  for (const item of items) {
+    const key = EQUIPMENT_CATEGORIES.includes(item.category) ? item.category : 'khac'
+    if (!buckets.has(key)) buckets.set(key, [])
+    buckets.get(key).push(item)
+  }
+  return [...buckets].map(([key, rows]) => ({
+    key,
+    // A photographed item leads its group: the picture is what makes the plant
+    // credible, and it has to sit with the line it belongs to.
+    items: [...rows].sort((a, b) => Number(Boolean(b.image?.url)) - Number(Boolean(a.image?.url))),
+  }))
+}
+
 export function CapabilityPage() {
   const { t, lang } = useLang()
   useDocumentMeta({ title: t('capability.metaTitle'), description: t('capability.metaDesc') })
@@ -21,7 +45,7 @@ export function CapabilityPage() {
   const { data: documents } = useFetch((options) => capabilityApi.getDocuments(options), [])
 
   const stats = profile?.capability_stats ?? []
-  const equipmentPhotos = (equipment ?? []).filter((item) => item.image?.url)
+  const equipmentGroups = groupEquipment(equipment ?? [])
 
   return (
     <>
@@ -79,48 +103,56 @@ export function CapabilityPage() {
             title={t('capability.equipmentTitle')}
             description={t('capability.equipmentDesc')}
           />
-          {equipment?.length ? (
-            <table className="capability-table">
-              <thead>
-                <tr>
-                  <th>{t('capability.equipmentLabels').name}</th>
-                  <th>{t('capability.equipmentLabels').quantity}</th>
-                  <th>{t('capability.equipmentLabels').spec}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {equipment.map((item) => (
-                  <tr key={item.id}>
-                    <td>
-                      {item.name}
-                      {item.note && <span className="capability-table__note">{item.note}</span>}
-                    </td>
-                    <td className="capability-table__qty text-muted">{item.quantity ?? '—'}</td>
-                    <td className="text-muted">{item.spec || '—'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <EmptyState title={t('capability.equipmentEmpty')} />
-          )}
-
-          {equipmentPhotos.length > 0 && (
-            <div className="equipment-figures">
-              {equipmentPhotos.map((item) => (
-                <figure key={item.id}>
-                  <img
-                    src={item.image.url}
-                    alt={item.image.alt || item.name}
-                    width={item.image.width}
-                    height={item.image.height}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <figcaption>{item.image.alt || item.name}</figcaption>
-                </figure>
+          {equipmentGroups.length ? (
+            <div className="equipment-groups">
+              {equipmentGroups.map((group) => (
+                <section className="equipment-group" key={group.key}>
+                  {/* The group heading only earns its line when there is more
+                      than one group to tell apart. */}
+                  {equipmentGroups.length > 1 && (
+                    <h3 className="equipment-group__title">
+                      <DomainIcon slug={group.key} kind="equipment" />
+                      {t('capability.equipmentCategories')[group.key]}
+                      <b>{String(group.items.length).padStart(2, '0')}</b>
+                    </h3>
+                  )}
+                  <div className="equipment-list">
+                    {group.items.map((item) => (
+                      <article
+                        className={`equipment-row${item.image?.url ? ' equipment-row--photo' : ''}`}
+                        key={item.id}
+                      >
+                        {item.image?.url && (
+                          <figure className="equipment-row__photo">
+                            <img
+                              src={item.image.url}
+                              alt={item.image.alt || item.name}
+                              width={item.image.width}
+                              height={item.image.height}
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </figure>
+                        )}
+                        <h4 className="equipment-row__name">{item.name}</h4>
+                        {item.quantity != null && (
+                          <p className="equipment-row__qty">
+                            <b>{item.quantity}</b>
+                            {t('capability.equipmentQuantityLabel')}
+                          </p>
+                        )}
+                        <div className="equipment-row__detail">
+                          {item.spec && <p>{item.spec}</p>}
+                          {item.note && <p className="equipment-row__note">{item.note}</p>}
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </section>
               ))}
             </div>
+          ) : (
+            <EmptyState title={t('capability.equipmentEmpty')} />
           )}
         </div>
       </section>

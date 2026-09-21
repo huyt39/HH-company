@@ -35,7 +35,7 @@
   color: var(--c-text-muted);
 }
 
-/* ---------- Tables (personnel, equipment) ---------- */
+/* ---------- Site team ---------- */
 
 .capability-columns {
   display: grid;
@@ -47,29 +47,7 @@
   .capability-columns { grid-template-columns: 1fr; }
 }
 
-.capability-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  font-size: .92rem;
-}
-.capability-table th {
-  text-align: left;
-  padding: 14px 18px;
-  background: var(--c-navy-900);
-  color: #fff;
-  font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-}
-.capability-table td {
-  padding: 14px 18px;
-  border-top: 1px solid var(--c-border);
-  vertical-align: top;
-}
-/* ---------- Site roles ---------- */
-/* The page is already dense with bordered cards and tables, so the roster is
+/* The page is already dense with bordered cards, so the roster is
    plain type on the section ground — the same ticked marker the home intro
    uses, two columns, hairline between rows. */
 
@@ -116,56 +94,6 @@
   color: var(--c-text-muted);
 }
 
-/* A count column, not a paragraph: the heading wraps to two lines and the
-   figures scatter without a fixed width. */
-.capability-table th:nth-child(2),
-.capability-table__qty {
-  width: 92px;
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
-
-/* Photographs of the plant sit below the table rather than inside a cell:
-   only one line of plant in six has a picture, and a thumbnail in that one
-   cell made its row tower over the others. */
-.equipment-figures {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  margin-top: 28px;
-}
-
-.equipment-figures figure {
-  /* Wide enough that a single photo does not look stranded in the column, and
-     narrow enough that two sit side by side once a second one is added. */
-  flex: 0 1 520px;
-  margin: 0;
-}
-
-.equipment-figures img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: var(--radius);
-  border: 1px solid var(--c-border);
-}
-
-.equipment-figures figcaption {
-  margin-top: 10px;
-  font-size: .86rem;
-  line-height: 1.5;
-  color: var(--c-text-muted);
-}
-
-.capability-table__note {
-  display: block;
-  margin-top: 4px;
-  font-size: .82rem;
-  color: var(--c-text-muted);
-}
-
 /* A note alongside the personnel list rather than a tinted tile: the grey box
    was the last of the panel styling on this page. */
 .capability-aside {
@@ -174,6 +102,160 @@
 }
 .capability-aside h3 { font-size: 1rem; margin-bottom: 10px; }
 .capability-aside p { font-size: .88rem; margin-bottom: 18px; }
+
+/* ---------- Construction plant ---------- */
+/* Was a three-column schedule with the one photograph parked underneath it, so
+   the picture belonged to nothing and the specification column carried whole
+   paragraphs of prose in a table cell. The plant now reads as a schedule
+   without the table chrome: grouped the way it is asked about — stressing
+   gear, access platforms, gauges — one hairline-separated row per machine, and
+   the photograph sitting in the row of the machine it shows. */
+
+.equipment-groups {
+  display: grid;
+  gap: clamp(34px, 3.6vw, 52px);
+}
+
+/* The group label reads as a rule across the column with a caption on it, the
+   same small-caps voice the rest of the page uses. */
+.equipment-group__title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--c-navy-800);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--c-navy-800);
+}
+
+.equipment-group__title .domain-icon {
+  width: 22px;
+  height: 22px;
+  color: var(--c-accent);
+}
+
+/* The count sits at the far end of the rule, set as the figures are set
+   elsewhere on the page. */
+.equipment-group__title b {
+  margin-left: auto;
+  color: var(--c-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Name on the left, what it does in the middle, how many on the right — the
+   three things the schedule answered, without ruling a box around them. */
+.equipment-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr) 88px;
+  grid-template-areas: 'name detail qty';
+  gap: 6px 32px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.equipment-row:last-child { border-bottom: 0; }
+
+.equipment-row__name {
+  grid-area: name;
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.45;
+  letter-spacing: -.008em;
+  color: var(--c-navy-800);
+}
+
+.equipment-row__detail { grid-area: detail; }
+.equipment-row__detail p {
+  margin: 0;
+  font-size: .92rem;
+  line-height: 1.7;
+  color: var(--c-text-muted);
+}
+
+/* The scope note is background detail, so it drops a size below the
+   specification rather than running on from it. */
+.equipment-row__detail .equipment-row__note {
+  margin-top: 8px;
+  font-size: .85rem;
+}
+
+/* The count as a figure with its caption under it, the way the headline
+   statistics at the top of the page are set. */
+.equipment-row__qty {
+  grid-area: qty;
+  margin: 0;
+  text-align: right;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  color: var(--c-text-muted);
+}
+
+.equipment-row__qty b {
+  display: block;
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  line-height: 1.1;
+  color: var(--c-navy-800);
+  font-variant-numeric: tabular-nums;
+}
+
+/* A photographed machine keeps the same three columns; the picture opens a
+   fourth on the left and spans both lines of the row, so the image stays with
+   its own specification instead of being parked at the foot of the section. */
+.equipment-row--photo {
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr) 88px;
+  grid-template-areas:
+    'photo name   qty'
+    'photo detail detail';
+  /* The picture is the tallest thing in the row, and a spanning item hands its
+     surplus height to every track it crosses — which pushed the specification
+     into the middle of the photograph. The heading track is held to its own
+     content so the surplus lands under the text instead. */
+  grid-template-rows: max-content minmax(0, 1fr);
+  align-content: start;
+  gap: 10px 32px;
+  padding: 26px 0 30px;
+}
+
+.equipment-row__photo {
+  grid-area: photo;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+/* A site photograph in landscape, cropped no deeper than the text beside it
+   needs — a 4:3 frame left the right-hand column empty below the caption. */
+.equipment-row__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.equipment-row--photo .equipment-row__name { font-size: 1.16rem; }
+
+@media (max-width: 860px) {
+  .equipment-row,
+  .equipment-row--photo {
+    grid-template-columns: minmax(0, 1fr) 88px;
+    grid-template-areas:
+      'photo  photo'
+      'name   qty'
+      'detail detail';
+    gap: 8px 24px;
+  }
+  .equipment-row__photo { margin-bottom: 6px; }
+}
 
 /* ---------- Quality process ---------- */
 
