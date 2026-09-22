@@ -98,8 +98,7 @@
   transform: translateY(8px);
   transition: var(--transition);
 }
-.has-children:hover .site-nav__submenu,
-.has-children:focus-within .site-nav__submenu {
+.has-children:hover .site-nav__submenu {
   opacity: 1; visibility: visible; transform: translateY(0);
 }
 .site-nav__submenu a {

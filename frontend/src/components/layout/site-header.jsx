@@ -45,8 +45,13 @@ export function SiteHeader() {
     }
   }, [])
 
-  // Close the mobile menu on every navigation.
-  useEffect(() => setMenuOpen(false), [location.pathname, location.hash, location.key])
+  // Close the mobile menu and blur focused links on every navigation.
+  useEffect(() => {
+    setMenuOpen(false)
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur()
+    }
+  }, [location.pathname, location.hash, location.key])
 
   return (
     <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
