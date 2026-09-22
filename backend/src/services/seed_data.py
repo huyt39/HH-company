@@ -114,13 +114,28 @@ COMPANY_PROFILE = CompanyProfile(
         CapabilityStat(value="10", label="Xe giàn thao tác treo đặc chủng", label_en="Specialist under-bridge access platforms"),
     ],
     leaders=[
-        Leader(name="Bà Vũ Bảo Ngọc", title="Chủ tịch Hội đồng thành viên, người đại diện pháp luật"),
-        Leader(name="Ông Nguyễn Xuân Thắng", title="Tổng giám đốc điều hành"),
+        Leader(
+            name="Bà Vũ Bảo Ngọc",
+            title="Chủ tịch Hội đồng thành viên kiêm Tổng giám đốc, người đại diện pháp luật",
+            photo=Media(
+                url="/uploads/vubaongoc-a5e07841.jpg",
+                thumb="/uploads/vubaongoc-a5e07841-thumb.jpg",
+                alt="Bà Vũ Bảo Ngọc",
+            ),
+        ),
         Leader(name="Ông Ngô Tuấn Sửu", title="Phó Tổng giám đốc phụ trách Thi công"),
         Leader(name="Ông Nguyễn Hữu Khang", title="Phó Tổng giám đốc phụ trách Thi công"),
         Leader(name="Ông Nguyễn Thanh Bình", title="Phó Tổng giám đốc phụ trách Kỹ thuật"),
         Leader(name="Ông Nguyễn Văn Kiên", title="Phó Tổng giám đốc phụ trách Kế hoạch – Đấu thầu"),
-        Leader(name="Ông Hồ Tuấn Nhân", title="Phó Tổng giám đốc phụ trách Nội chính"),
+        Leader(
+            name="Ông Hồ Tuấn Nhân",
+            title="Phó Tổng giám đốc phụ trách Nội chính",
+            photo=Media(
+                url="/uploads/hotuannhan-eebd6196.jpg",
+                thumb="/uploads/hotuannhan-eebd6196.jpg",
+                alt="Ông Hồ Tuấn Nhân",
+            ),
+        ),
     ],
     # Ban Cố vấn kiêm sáng lập — the technical bench behind the "ca khó" work.
     # Source: capability profile 2026–2027, mục VI.
@@ -151,6 +166,11 @@ COMPANY_PROFILE = CompanyProfile(
                 "Nguyên Phó/Tổng giám đốc tại CIENCO1, CIENCO8",
                 "Nguyên Giám đốc Ban QLDA cao tốc Cầu Giẽ – Ninh Bình, QL1, QL10, QL38",
             ],
+            photo=Media(
+                url="/uploads/hotuansy-ea497e39.jpg",
+                thumb="/uploads/hotuansy-ea497e39.jpg",
+                alt="Ông Hồ Tuấn Sỹ",
+            ),
         ),
     ],
     # Restructured in the 2026–2027 capability profile: the old departmental
