@@ -220,16 +220,16 @@ ul { margin: 0; padding: 0; list-style: none; }
 .commitments--headline {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
+  border-top: 1px solid rgba(255, 255, 255, .14);
+  border-bottom: 1px solid rgba(255, 255, 255, .14);
 }
 
-/* No card box in this variant. With only a mark and a line of text inside, the
-   box was mostly empty — and since the row sizes to the tallest item, the
-   one-line promise sat in a tall box of nothing. Bare items on a hairline
-   divider take exactly the height of their content. */
 .commitments--headline .commitment {
-  align-items: center;
-  gap: 16px;
-  padding: 4px 24px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 14px;
+  padding: 22px 26px;
   background: none;
   border: 0;
   border-radius: 0;
@@ -245,9 +245,16 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .commitments--headline .commitment:nth-child(4n + 1) { padding-left: 0; }
 .commitments--headline .commitment:nth-child(4n) { padding-right: 0; }
-.commitments--headline .commitment h3 { font-size: 1rem; line-height: 1.45; }
-.commitments--headline .commitment__mark { width: 48px; height: 48px; }
-.commitments--headline .commitment__mark .domain-icon { width: 24px; height: 24px; }
+.commitments--headline .commitment h3 { font-size: .98rem; line-height: 1.45; }
+.commitments--headline .commitment__mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  color: var(--c-accent-light);
+}
+.commitments--headline .commitment__mark .domain-icon { width: 28px; height: 28px; }
 
 @media (max-width: 1080px) {
   .commitments--headline { gap: 26px 32px; }
@@ -282,6 +289,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   border-color: var(--c-accent-light);
   color: var(--c-navy-900);
   transform: scale(1.06);
+}
+.commitments--headline .commitment:hover .commitment__mark {
+  background: transparent;
+  border-color: transparent;
+  color: #fff;
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

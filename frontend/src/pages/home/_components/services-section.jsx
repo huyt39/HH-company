@@ -9,8 +9,16 @@ import { useLang } from '@/lib/i18n/language-context'
 const MAX_PER_GROUP = 4
 
 const GROUPS = [
-  { category: 'build', anchor: 'thi-cong-moi' },
-  { category: 'repair', anchor: 'sua-chua-tang-cuong' },
+  {
+    category: 'build',
+    anchor: 'thi-cong-moi',
+    image: '/images/cong-truong/thiet-bi-cang-keo-du-ung-luc-tai-cong-truong-e86fd45e.jpg',
+  },
+  {
+    category: 'repair',
+    anchor: 'sua-chua-tang-cuong',
+    image: '/images/cau-long-thanh-khe-co-gian-p26/sua-chua-khe-co-gian-cau-long-thanh-cc6ca3fb.jpg',
+  },
 ]
 
 /**
@@ -45,9 +53,10 @@ export function ServicesSection({ services, loading, error }) {
               const copy = t('services.categories')[group.category]
 
               return (
-                // No per-category modifier any more: both groups share one
-                // white card, and the navy treatment is the hover state.
                 <div className="service-group-card" key={group.category}>
+                  <div className="service-group-card__media" aria-hidden="true">
+                    <img src={group.image} alt="" loading="lazy" decoding="async" />
+                  </div>
                   <span className="service-group-card__eyebrow">{copy.eyebrow}</span>
                   <h3 className="service-group-card__title">{copy.title}</h3>
                   <p className="service-group-card__desc">{copy.description}</p>
