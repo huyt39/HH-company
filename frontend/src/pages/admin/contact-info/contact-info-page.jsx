@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { AdminAlert } from '@/components/admin/admin-alert'
 import { AdminPageHead } from '@/components/admin/admin-page-head'
+import { useAdminToast } from '@/components/admin/admin-toast'
 import { FormField } from '@/components/admin/form-field'
 import { settingsApi } from '@/lib/api/settings-client'
 import { CONTACT_INFO_FIELDS } from '@/lib/constants/admin-settings-fields'
@@ -10,17 +11,18 @@ import { useAsyncAction } from '@/lib/hooks/use-async-action'
 export function ContactInfoPage() {
   const [info, setInfo] = useState(null)
   const [loadError, setLoadError] = useState('')
-  const save = useAsyncAction((body) => settingsApi.saveContactInfo(body), {
-    successMessage: 'Đã lưu thông tin liên hệ.',
-  })
+  const save = useAsyncAction((body) => settingsApi.saveContactInfo(body))
+  const toast = useAdminToast()
 
   useEffect(() => {
     settingsApi.getContactInfo().then(setInfo).catch((err) => setLoadError(err.message))
   }, [])
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    save.run(info)
+    const { ok, error } = await save.run(info)
+    if (ok) toast.ok('Đã lưu thông tin liên hệ.')
+    else toast.error(error.message)
   }
 
   if (loadError) return <AdminAlert tone="error">{loadError}</AdminAlert>
@@ -33,9 +35,6 @@ export function ContactInfoPage() {
           {save.pending ? 'Đang lưu…' : 'Lưu thay đổi'}
         </button>
       </AdminPageHead>
-
-      {save.succeeded && <AdminAlert tone="ok">{save.message}</AdminAlert>}
-      {save.failed && <AdminAlert tone="error">{save.message}</AdminAlert>}
 
       <div className="admin-card">
         <div className="admin-grid-2">

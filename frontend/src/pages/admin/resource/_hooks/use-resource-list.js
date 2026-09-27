@@ -42,5 +42,5 @@ export function useResourceList(resource, query, enabled = true) {
     reload()
   }, [reload])
 
-  return { rows, total, loading, error, setError, reload, pageSize: PAGE_SIZE }
+  return { rows, total, loading, error, reload, pageSize: PAGE_SIZE }
 }

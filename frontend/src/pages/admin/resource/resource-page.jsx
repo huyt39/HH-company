@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import { AdminAlert } from '@/components/admin/admin-alert'
 import { AdminPageHead } from '@/components/admin/admin-page-head'
+import { useAdminToast } from '@/components/admin/admin-toast'
 import { resourcesApi } from '@/lib/api/resources-client'
 import { ADMIN_RESOURCES } from '@/lib/constants/admin-resources'
 import { slugify } from '@/lib/utils/slugify'
@@ -12,7 +13,6 @@ import { ResourceTable } from './_components/resource-table'
 import { useResourceList } from './_hooks/use-resource-list'
 
 const NEW = 'new'
-const NOTICE_TIMEOUT = 4000
 
 /** Initial values for the create form, per field type. */
 function blankValues(formFields) {
@@ -36,24 +36,17 @@ export function ResourcePage() {
   const pk = config?.pk ?? 'id'
 
   const [query, setQuery] = useState('')
-  const { rows, total, loading, error, setError, reload, pageSize } = useResourceList(
+  const { rows, total, loading, error, reload, pageSize } = useResourceList(
     resource,
     query,
     Boolean(config),
   )
 
-  const [notice, setNotice] = useState('')
+  const toast = useAdminToast()
   const [editing, setEditing] = useState(null) // null = closed, 'new', or a primary key
   const [values, setValues] = useState({})
   const [formError, setFormError] = useState('')
   const [saving, setSaving] = useState(false)
-
-  // Auto-hide the success notice.
-  useEffect(() => {
-    if (!notice) return undefined
-    const timer = setTimeout(() => setNotice(''), NOTICE_TIMEOUT)
-    return () => clearTimeout(timer)
-  }, [notice])
 
   // Switching resource closes the form and clears the old filter.
   useEffect(() => {
@@ -96,10 +89,10 @@ export function ResourcePage() {
     try {
       if (editing === NEW) {
         await resourcesApi.create(resource, values)
-        setNotice(`Đã thêm ${config.singular}.`)
+        toast.ok(`Đã thêm ${config.singular}.`)
       } else {
         await resourcesApi.update(resource, editing, values)
-        setNotice('Đã lưu thay đổi.')
+        toast.ok('Đã lưu thay đổi.')
       }
       setEditing(null)
       await reload()
@@ -115,19 +108,20 @@ export function ResourcePage() {
     if (!window.confirm(`Xoá "${label}"? Thao tác này không hoàn tác được.`)) return
     try {
       await resourcesApi.remove(resource, row[pk])
-      setNotice(`Đã xoá ${config.singular}.`)
+      toast.ok(`Đã xoá ${config.singular}.`)
       await reload()
     } catch (err) {
-      setError(err.message)
+      toast.error(err.message)
     }
   }
 
   const handleTogglePublish = async (row) => {
     try {
       await resourcesApi.update(resource, row[pk], { is_published: !row.is_published })
+      toast.ok(row.is_published ? 'Đã ẩn khỏi website.' : 'Đã hiện trên website.')
       await reload()
     } catch (err) {
-      setError(err.message)
+      toast.error(err.message)
     }
   }
 
@@ -139,9 +133,10 @@ export function ResourcePage() {
     const ids = nextRows.map((row) => row[pk])
     try {
       await resourcesApi.reorder(resource, ids)
+      toast.ok('Đã cập nhật thứ tự.')
       await reload()
     } catch (err) {
-      setError(err.message)
+      toast.error(err.message)
     }
   }
 
@@ -165,7 +160,6 @@ export function ResourcePage() {
       </AdminPageHead>
 
       {config.note && <AdminAlert tone="info">{config.note}</AdminAlert>}
-      {notice && <AdminAlert tone="ok">{notice}</AdminAlert>}
       <AdminAlert tone="error">{error}</AdminAlert>
 
       <ResourceTable

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 
+import { PasswordInput } from '@/components/admin/password-input'
 import { useAuth } from '@/lib/auth/auth-context'
 
 export function LoginPage() {
@@ -51,8 +52,7 @@ export function LoginPage() {
 
         <label className="admin-field">
           <span>Mật khẩu</span>
-          <input
-            type="password"
+          <PasswordInput
             autoComplete="current-password"
             required
             value={form.password}

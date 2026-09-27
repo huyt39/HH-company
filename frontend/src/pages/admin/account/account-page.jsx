@@ -2,6 +2,8 @@ import { useState } from 'react'
 
 import { AdminAlert } from '@/components/admin/admin-alert'
 import { AdminPageHead } from '@/components/admin/admin-page-head'
+import { useAdminToast } from '@/components/admin/admin-toast'
+import { PasswordInput } from '@/components/admin/password-input'
 import { authApi } from '@/lib/api/auth-client'
 import { useAuth } from '@/lib/auth/auth-context'
 import { useAsyncAction } from '@/lib/hooks/use-async-action'
@@ -23,6 +25,7 @@ export function AccountPage() {
   const [form, setForm] = useState(EMPTY_FORM)
   const [localError, setLocalError] = useState('')
   const changePassword = useAsyncAction((current, next) => authApi.changePassword(current, next))
+  const toast = useAdminToast()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -35,8 +38,11 @@ export function AccountPage() {
       return
     }
 
-    const { ok } = await changePassword.run(form.current, form.next)
-    if (ok) setForm(EMPTY_FORM)
+    const { ok, data } = await changePassword.run(form.current, form.next)
+    if (ok) {
+      setForm(EMPTY_FORM)
+      toast.ok(data?.message || 'Đã đổi mật khẩu.')
+    }
   }
 
   const setField = (name) => (event) => setForm({ ...form, [name]: event.target.value })
@@ -50,30 +56,28 @@ export function AccountPage() {
         <form onSubmit={handleSubmit}>
           <label className="admin-field">
             <span>Mật khẩu hiện tại</span>
-            <input
-              type="password" autoComplete="current-password" required
+            <PasswordInput
+              autoComplete="current-password" required
               value={form.current} onChange={setField('current')}
             />
           </label>
           <label className="admin-field">
             <span>Mật khẩu mới</span>
-            <input
-              type="password" autoComplete="new-password" required minLength={MIN_PASSWORD_LENGTH}
+            <PasswordInput
+              autoComplete="new-password" required minLength={MIN_PASSWORD_LENGTH}
               value={form.next} onChange={setField('next')}
             />
             <small className="admin-field__hint">Tối thiểu {MIN_PASSWORD_LENGTH} ký tự</small>
           </label>
           <label className="admin-field">
             <span>Nhập lại mật khẩu mới</span>
-            <input
-              type="password" autoComplete="new-password" required
+            <PasswordInput
+              autoComplete="new-password" required
               value={form.confirm} onChange={setField('confirm')}
             />
           </label>
 
-          {changePassword.succeeded && (
-            <AdminAlert tone="ok">{changePassword.message || 'Đã đổi mật khẩu.'}</AdminAlert>
-          )}
+          {/* Success goes to a toast; errors stay here, next to the fields to fix. */}
           <AdminAlert tone="error">{localError || (changePassword.failed && changePassword.message)}</AdminAlert>
 
           <button type="submit" className="btn btn--primary" disabled={changePassword.pending}>

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { useAdminToast } from '@/components/admin/admin-toast'
 import { uploadsApi } from '@/lib/api/uploads-client'
 
 /**
@@ -16,6 +17,7 @@ export function ImagePicker({ value, onChange, label, hint }) {
   const [error, setError] = useState('')
   const [result, setResult] = useState(null)
   const inputRef = useRef(null)
+  const toast = useAdminToast()
 
   useEffect(() => {
     if (!open) return
@@ -32,6 +34,7 @@ export function ImagePicker({ value, onChange, label, hint }) {
       onChange({ url: uploaded.url, thumb: uploaded.thumb, alt: value?.alt || '' })
       setResult(uploaded)
       setOpen(false)
+      toast.ok('Đã tải ảnh lên. Bấm Lưu để áp dụng thay đổi.')
     } catch (err) {
       setError(err.message)
     } finally {
@@ -47,6 +50,7 @@ export function ImagePicker({ value, onChange, label, hint }) {
       await uploadsApi.deleteImage(filename)
       setLibrary((prev) => prev.filter((item) => item.filename !== filename))
       if (value?.url?.includes(filename)) onChange(null)
+      toast.ok('Đã xoá ảnh khỏi thư viện.')
     } catch (err) {
       setError(err.message)
     }

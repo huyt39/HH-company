@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { AdminAlert } from '@/components/admin/admin-alert'
 import { AdminPageHead } from '@/components/admin/admin-page-head'
+import { useAdminToast } from '@/components/admin/admin-toast'
 import { FormField } from '@/components/admin/form-field'
 import { RepeaterTable } from '@/components/admin/repeater-table'
 import { settingsApi } from '@/lib/api/settings-client'
@@ -24,9 +25,8 @@ const CORE_VALUES_FIELD = { name: 'core_values', label: 'Giá trị cốt lõi',
 export function CompanyProfilePage() {
   const [profile, setProfile] = useState(null)
   const [loadError, setLoadError] = useState('')
-  const save = useAsyncAction((body) => settingsApi.saveProfile(body), {
-    successMessage: 'Đã lưu hồ sơ công ty.',
-  })
+  const save = useAsyncAction((body) => settingsApi.saveProfile(body))
+  const toast = useAdminToast()
 
   useEffect(() => {
     settingsApi.getProfile().then(setProfile).catch((err) => setLoadError(err.message))
@@ -34,9 +34,11 @@ export function CompanyProfilePage() {
 
   const setField = (name, value) => setProfile((prev) => ({ ...prev, [name]: value }))
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    save.run(profile)
+    const { ok, error } = await save.run(profile)
+    if (ok) toast.ok('Đã lưu hồ sơ công ty.')
+    else toast.error(error.message)
   }
 
   if (loadError) return <AdminAlert tone="error">{loadError}</AdminAlert>
@@ -53,9 +55,6 @@ export function CompanyProfilePage() {
       <AdminPageHead title="Hồ sơ công ty" meta="Hiển thị ở trang Giới thiệu và trang chủ">
         {saveButton}
       </AdminPageHead>
-
-      {save.succeeded && <AdminAlert tone="ok">{save.message}</AdminAlert>}
-      {save.failed && <AdminAlert tone="error">{save.message}</AdminAlert>}
 
       <div className="admin-card">
         <h2>Thông tin chung</h2>

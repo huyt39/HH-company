@@ -416,3 +416,53 @@
   font-size: .72rem; color: var(--c-text-muted);
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
+
+/* ---------- Password show/hide ---------- */
+.password-input { position: relative; display: block; }
+.admin-field .password-input input { padding-right: 44px; }
+.password-input__toggle {
+  position: absolute; top: 50%; right: 4px; transform: translateY(-50%);
+  display: grid; place-items: center;
+  width: 36px; height: 32px;
+  border: 0; border-radius: var(--radius-sm); background: transparent;
+  color: var(--c-text-muted); cursor: pointer;
+}
+.password-input__toggle:hover { color: var(--c-navy-700); background: var(--c-bg-soft); }
+.password-input__toggle:focus-visible { outline: 2px solid var(--c-blue-500); outline-offset: 1px; }
+
+/* ---------- Toasts ---------- */
+.admin-toasts {
+  position: fixed; right: 20px; bottom: 20px; z-index: 1000;
+  display: grid; gap: 10px;
+  width: min(380px, calc(100vw - 32px));
+  pointer-events: none;
+}
+.admin-toast {
+  display: grid; grid-template-columns: 24px 1fr 28px; align-items: start; gap: 10px;
+  padding: 12px 12px 12px 14px;
+  border-radius: var(--radius); border-left: 4px solid;
+  background: #fff; box-shadow: var(--shadow-lg);
+  font-size: .9rem; line-height: 1.5; color: var(--c-text);
+  pointer-events: auto;
+  animation: admin-toast-in .18s ease-out;
+}
+.admin-toast p { margin: 2px 0 0; }
+.admin-toast__icon {
+  display: grid; place-items: center;
+  width: 24px; height: 24px; border-radius: 50%;
+  color: #fff; font-size: .8rem; font-weight: 700;
+}
+.admin-toast button {
+  width: 28px; height: 28px; border: 0; border-radius: var(--radius-sm);
+  background: transparent; color: var(--c-text-muted); cursor: pointer;
+}
+.admin-toast button:hover { background: var(--c-bg-soft); color: var(--c-text); }
+.admin-toast--ok { border-color: #1e7a42; }
+.admin-toast--ok .admin-toast__icon { background: #1e7a42; }
+.admin-toast--error { border-color: #c0392b; }
+.admin-toast--error .admin-toast__icon { background: #c0392b; }
+.admin-toast--info { border-color: var(--c-navy-700); }
+.admin-toast--info .admin-toast__icon { background: var(--c-navy-700); }
+@keyframes admin-toast-in { from { opacity: 0; transform: translateY(8px); } }
+@media (max-width: 600px) { .admin-toasts { right: 16px; bottom: 16px; } }
+@media (prefers-reduced-motion: reduce) { .admin-toast { animation: none; } }

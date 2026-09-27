@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { AdminLayout } from '@/components/admin/admin-layout'
+import { AdminToastProvider } from '@/components/admin/admin-toast'
 import { SiteLayout } from '@/components/layout/site-layout'
 import { AuthProvider } from '@/lib/auth/auth-context'
 import { AboutPage } from '@/pages/about/about-page'
@@ -28,19 +29,21 @@ import { ServicesPage } from '@/pages/services/services-page'
 function AdminRoutes() {
   return (
     <AuthProvider>
-      <Routes>
-        <Route path="login" element={<LoginPage />} />
-        <Route element={<AdminLayout />}>
-          <Route index element={<DashboardPage />} />
-          <Route path="profile" element={<CompanyProfilePage />} />
-          <Route path="contact-info" element={<ContactInfoPage />} />
-          <Route path="messages" element={<MessagesPage />} />
-          <Route path="account" element={<AccountPage />} />
-          {/* Seven resources share one CRUD page */}
-          <Route path=":resource" element={<ResourcePage />} />
-          <Route path="*" element={<Navigate to="/admin" replace />} />
-        </Route>
-      </Routes>
+      <AdminToastProvider>
+        <Routes>
+          <Route path="login" element={<LoginPage />} />
+          <Route element={<AdminLayout />}>
+            <Route index element={<DashboardPage />} />
+            <Route path="profile" element={<CompanyProfilePage />} />
+            <Route path="contact-info" element={<ContactInfoPage />} />
+            <Route path="messages" element={<MessagesPage />} />
+            <Route path="account" element={<AccountPage />} />
+            {/* Seven resources share one CRUD page */}
+            <Route path=":resource" element={<ResourcePage />} />
+            <Route path="*" element={<Navigate to="/admin" replace />} />
+          </Route>
+        </Routes>
+      </AdminToastProvider>
     </AuthProvider>
   )
 }

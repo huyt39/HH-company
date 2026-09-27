@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 
+import { useAdminToast } from '@/components/admin/admin-toast'
 import { uploadsApi } from '@/lib/api/uploads-client'
 
 /**
@@ -12,6 +13,7 @@ export function FilePicker({ value, onChange, label, hint }) {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const inputRef = useRef(null)
+  const toast = useAdminToast()
 
   const handleFileChange = async (event) => {
     const file = event.target.files?.[0]
@@ -22,6 +24,7 @@ export function FilePicker({ value, onChange, label, hint }) {
       const res = await uploadsApi.uploadFile(file)
       // Pass the uploaded URL and metadata to parent
       onChange(res.url, res)
+      toast.ok('Đã tải file lên. Bấm Lưu để áp dụng thay đổi.')
     } catch (err) {
       setError(err.message)
     } finally {

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { AdminAlert } from '@/components/admin/admin-alert'
 import { AdminPageHead } from '@/components/admin/admin-page-head'
+import { useAdminToast } from '@/components/admin/admin-toast'
 import { messagesApi } from '@/lib/api/messages-client'
 
 import { MessageRow } from './_components/message-row'
@@ -13,6 +14,7 @@ export function MessagesPage() {
   const [openId, setOpenId] = useState(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
+  const toast = useAdminToast()
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -42,13 +44,23 @@ export function MessagesPage() {
   }
 
   const markUnread = async (message) => {
-    await messagesApi.markRead(message.id, false).catch((err) => setError(err.message))
+    try {
+      await messagesApi.markRead(message.id, false)
+      toast.ok('Đã đánh dấu là chưa đọc.')
+    } catch (err) {
+      toast.error(err.message)
+    }
     load()
   }
 
   const remove = async (message) => {
     if (!window.confirm(`Xoá tin nhắn của ${message.full_name}?`)) return
-    await messagesApi.deleteMessage(message.id).catch((err) => setError(err.message))
+    try {
+      await messagesApi.deleteMessage(message.id)
+      toast.ok('Đã xoá tin nhắn.')
+    } catch (err) {
+      toast.error(err.message)
+    }
     load()
   }
 
