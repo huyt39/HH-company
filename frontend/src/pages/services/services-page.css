@@ -35,53 +35,113 @@
 }
 
 /* ---------- Service list ---------- */
-/* Flex rather than grid so a group with an odd count centres its last row
-   instead of leaving a hole on the right. */
+/* A ruled schedule, not a grid of cards: each service is one numbered row
+   between hairlines, like the item list of a tender document. Free-floating
+   icon + text blocks ran into each other, and an odd count left the last row
+   centred and adrift. Rows keep every count tidy. */
 .service-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 2px solid var(--c-navy-800);
 }
+.service-list > li { border-bottom: 1px solid var(--c-border); }
 
-/* No panel: an icon, a name and a line of explanation, standing on the page. */
-.service-card {
-  flex: 0 1 calc((100% - 64px) / 3);
-  min-width: 250px;
+.service-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px 40px minmax(0, 1fr) minmax(0, 1.35fr) 28px;
+  align-items: center;
+  column-gap: 24px;
+  padding: 24px 20px 24px 16px;
   color: inherit;
-  transition: var(--transition);
+  transition: background-color .2s ease;
 }
-
-.service-card__icon {
-  display: block;
-  width: 44px;
-  height: 44px;
-  margin-bottom: 18px;
-  color: var(--c-navy-600);
-  transition: var(--transition);
-}
-.service-card__icon .domain-icon { width: 100%; height: 100%; }
-.service-card:hover .service-card__icon { color: var(--c-accent); }
-
-.service-card h3 { font-size: 1.06rem; margin-bottom: 10px; }
-/* The rule replaces the repeated "view detail" link under every card. */
-.service-card h3::after {
+/* Accent bar grows in from the left edge on hover/focus. */
+.service-row::before {
   content: '';
-  display: block;
-  width: 0;
-  height: 2px;
-  margin-top: 10px;
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
   background: var(--c-accent);
-  transition: width .28s ease;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform .25s ease;
 }
-.service-card:hover h3::after { width: 40px; }
-.service-card p { font-size: .92rem; line-height: 1.7; color: var(--c-text-muted); margin-bottom: 0; }
+.service-row:hover,
+.service-row:focus-visible { background: var(--c-bg-soft); }
+.service-row:hover::before,
+.service-row:focus-visible::before { transform: scaleY(1); }
 
-/* On the dark ground the icon and body copy need lifting. */
-.section--dark .service-card__icon { color: var(--c-accent-light); }
-.section--dark .service-card:hover .service-card__icon { color: #fff; }
-.section--dark .service-card p { color: #c0d1e3; }
-.section--dark .service-card h3::after { background: var(--c-accent-light); }
+.service-row__index {
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--c-accent);
+  font-variant-numeric: tabular-nums;
+}
+.service-row__icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  color: var(--c-navy-600);
+}
+.service-row__icon .domain-icon { width: 100%; height: 100%; }
+.service-row h3 { margin: 0; font-size: 1.04rem; line-height: 1.4; }
+.service-row p { margin: 0; font-size: .92rem; line-height: 1.65; color: var(--c-text-muted); }
+.service-row__arrow {
+  justify-self: end;
+  font-size: 1.15rem;
+  color: var(--c-text-muted);
+  transition: transform .2s ease, color .2s ease;
+}
+.service-row:hover .service-row__arrow,
+.service-row:focus-visible .service-row__arrow { transform: translateX(4px); color: var(--c-accent); }
+
+/* The soft ground is already --c-bg-soft, so the hover lifts to white there. */
+.section--soft .service-row:hover,
+.section--soft .service-row:focus-visible { background: #fff; }
+
+/* Dark ground: lighter rules, lifted copy. */
+.section--dark .service-list { border-top-color: var(--c-accent-light); }
+.section--dark .service-list > li { border-bottom-color: rgba(255, 255, 255, .14); }
+.section--dark .service-row::before { background: var(--c-accent-light); }
+.section--dark .service-row:hover,
+.section--dark .service-row:focus-visible { background: rgba(255, 255, 255, .05); }
+.section--dark .service-row__index { color: var(--c-accent-light); }
+.section--dark .service-row__icon { color: var(--c-accent-light); }
+.section--dark .service-row p { color: #c0d1e3; }
+.section--dark .service-row__arrow { color: #8ea6c2; }
+.section--dark .service-row:hover .service-row__arrow { color: #fff; }
+
+/* Tablet: summary drops under the title, arrow stays on the right. */
+@media (max-width: 900px) {
+  .service-row {
+    grid-template-columns: 36px 36px minmax(0, 1fr) 24px;
+    grid-template-areas: 'index icon title arrow' '. . text .';
+    row-gap: 8px;
+    column-gap: 16px;
+    align-items: start;
+    padding: 20px 12px 20px 12px;
+  }
+  .service-row__index { grid-area: index; padding-top: 3px; }
+  .service-row__icon { grid-area: icon; width: 32px; height: 32px; }
+  .service-row h3 { grid-area: title; }
+  .service-row p { grid-area: text; }
+  .service-row__arrow { grid-area: arrow; }
+}
+/* Phone: the icon gives way so titles keep their width. */
+@media (max-width: 520px) {
+  .service-row {
+    grid-template-columns: 30px minmax(0, 1fr) 20px;
+    grid-template-areas: 'index title arrow' '. text .';
+    column-gap: 12px;
+    padding: 18px 8px 18px 10px;
+  }
+  .service-row__icon { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .service-row::before, .service-row__arrow { transition: none; }
+}
 
 .service-group { scroll-margin-top: var(--header-h); }
 

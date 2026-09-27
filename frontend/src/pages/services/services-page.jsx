@@ -98,21 +98,23 @@ export function ServicesPage() {
                   description={copy.description}
                   light={category === 'build'}
                 />
-                <div className="service-list">
-                  {services.map((service) => (
-                    <Link
-                      className="service-card"
-                      to={`/dich-vu/${service.slug}`}
-                      key={service.id}
-                    >
-                      <span className="service-card__icon">
-                        <DomainIcon slug={service.slug} />
-                      </span>
-                      <h3>{service.name}</h3>
-                      <p>{service.summary || service.description}</p>
-                    </Link>
+                <ol className="service-list">
+                  {services.map((service, index) => (
+                    <li key={service.id}>
+                      <Link className="service-row" to={`/dich-vu/${service.slug}`}>
+                        <span className="service-row__index" aria-hidden="true">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <span className="service-row__icon" aria-hidden="true">
+                          <DomainIcon slug={service.slug} />
+                        </span>
+                        <h3>{service.name}</h3>
+                        <p>{service.summary || service.description}</p>
+                        <span className="service-row__arrow" aria-hidden="true">→</span>
+                      </Link>
+                    </li>
                   ))}
-                </div>
+                </ol>
               </div>
             </section>
           )
