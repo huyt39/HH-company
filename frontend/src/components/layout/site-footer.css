@@ -3,6 +3,9 @@
   color: #a9bdd4;
   font-size: .9rem;
   margin-top: auto;
+  /* A page that ends on a dark section (Năng lực) shares this navy exactly;
+     the rule keeps the footer from reading as more of that section. */
+  border-top: 1px solid rgba(255, 255, 255, .12);
 }
 
 .site-footer__grid {

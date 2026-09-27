@@ -23,7 +23,6 @@ export const translations = {
       capabilityCertificates: 'Chứng chỉ & pháp lý',
       capabilityQuality: 'Quy trình & nghiệm thu',
       capabilityHse: 'An toàn lao động',
-      capabilityDocuments: 'Tài liệu tải về',
       products: 'Sản phẩm',
       projects: 'Dự án',
       projectsFeatured: 'Dự án tiêu biểu',
@@ -316,9 +315,6 @@ export const translations = {
       documentsEyebrow: 'Tài liệu',
       documentsTitle: 'Hồ sơ và tài liệu tải về',
       documentsDesc: 'Hồ sơ năng lực, catalogue sản phẩm và biện pháp thi công mẫu.',
-      documentsEmptyDesc:
-        'Hồ sơ năng lực bản đầy đủ (song ngữ Việt – Anh) được gửi trực tiếp theo yêu cầu. Vui lòng liên hệ để nhận bản mới nhất.',
-      documentsRequestCta: 'Yêu cầu hồ sơ năng lực',
     },
     products: {
       metaTitle: 'Sản phẩm: cáp dự ứng lực, gối cầu, khe co giãn',
@@ -492,7 +488,6 @@ export const translations = {
       capabilityCertificates: 'Licences & legal',
       capabilityQuality: 'Process & handover',
       capabilityHse: 'Health & safety',
-      capabilityDocuments: 'Downloads',
       products: 'Products',
       projects: 'Projects',
       projectsFeatured: 'Featured Projects',
@@ -785,9 +780,6 @@ export const translations = {
       documentsEyebrow: 'Documents',
       documentsTitle: 'Documents and downloads',
       documentsDesc: 'Capability profile, product catalogues and sample method statements.',
-      documentsEmptyDesc:
-        'The full capability profile (Vietnamese and English) is sent directly on request. Please get in touch for the latest version.',
-      documentsRequestCta: 'Request the capability profile',
     },
     products: {
       metaTitle: 'Products',

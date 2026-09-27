@@ -39,7 +39,6 @@ export const SITE_NAVIGATION = [
       { labelKey: 'capabilityCertificates', to: '/nang-luc#chung-chi' },
       { labelKey: 'capabilityQuality', to: '/nang-luc#quy-trinh' },
       { labelKey: 'capabilityHse', to: '/nang-luc#an-toan' },
-      { labelKey: 'capabilityDocuments', to: '/nang-luc#tai-lieu' },
     ],
   },
   { labelKey: 'projects', to: '/du-an' },

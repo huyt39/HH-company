@@ -274,14 +274,17 @@ export function CapabilityPage() {
       </section>
 
       {/* ---------- Downloads ---------- */}
-      <section className="section" id="tai-lieu">
-        <div className="container">
-          <SectionHeading
-            eyebrow={t('capability.documentsEyebrow')}
-            title={t('capability.documentsTitle')}
-            description={t('capability.documentsDesc')}
-          />
-          {documents?.length ? (
+      {/* Only when /admin has published a file: an empty section with a
+          "request the profile" box read as a placeholder, and the contact CTA
+          elsewhere on the site already covers that ask. */}
+      {documents?.length > 0 && (
+        <section className="section" id="tai-lieu">
+          <div className="container">
+            <SectionHeading
+              eyebrow={t('capability.documentsEyebrow')}
+              title={t('capability.documentsTitle')}
+              description={t('capability.documentsDesc')}
+            />
             <div className="grid grid--3">
               {documents.map((doc) => (
                 <a
@@ -302,16 +305,9 @@ export function CapabilityPage() {
                 </a>
               ))}
             </div>
-          ) : (
-            <div className="capability-request">
-              <p>{t('capability.documentsEmptyDesc')}</p>
-              <Link to="/lien-he" className="btn btn--primary">
-                {t('capability.documentsRequestCta')}
-              </Link>
-            </div>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
     </>
   )
 }

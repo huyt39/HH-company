@@ -309,18 +309,6 @@
 .document-card p { font-size: .86rem; margin-bottom: 6px; }
 .document-card__meta { font-size: .8rem; color: var(--c-text-muted); }
 
-.capability-request {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 28px;
-  background: var(--c-bg-soft);
-  border-left: 3px solid var(--c-accent);
-  border-radius: 0 var(--radius) var(--radius) 0;
-}
-.capability-request p { margin-bottom: 0; max-width: 62ch; }
 
 /* Certificates: the scan carries the weight, so the card is a framed image with
    the reference data beside it. One column on narrow screens. */
