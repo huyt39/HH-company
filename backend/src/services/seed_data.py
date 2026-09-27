@@ -118,27 +118,75 @@ COMPANY_PROFILE = CompanyProfile(
             name="Bà Vũ Bảo Ngọc",
             title="Chủ tịch Hội đồng thành viên kiêm Tổng giám đốc",
             photo=Media(
-                url="/uploads/vubaongoc-a5e07841.jpg",
-                thumb="/uploads/vubaongoc-a5e07841-thumb.jpg",
+                url="/images/lanh-dao/vu-bao-ngoc-241990be.jpg",
+                thumb="/images/lanh-dao/vu-bao-ngoc-241990be-thumb.jpg",
                 alt="Bà Vũ Bảo Ngọc",
             ),
         ),
-        Leader(name="Ông Hoàng Khắc Khưu", title="CEO"),
+        Leader(
+            name="Ông Hoàng Khắc Khưu",
+            title="Tổng giám đốc điều hành (CEO)",
+            photo=Media(
+                url="/images/lanh-dao/hoang-khac-khuu-63ce1ee9.jpg",
+                thumb="/images/lanh-dao/hoang-khac-khuu-63ce1ee9-thumb.jpg",
+                alt="Ông Hoàng Khắc Khưu",
+            ),
+        ),
         Leader(
             name="Ông Hồ Tuấn Nhân",
             title="CGO (Chief Government Officer)",
             photo=Media(
-                url="/uploads/hotuannhan-eebd6196.jpg",
-                thumb="/uploads/hotuannhan-eebd6196.jpg",
+                url="/images/lanh-dao/ho-tuan-nhan-bf737545.jpg",
+                thumb="/images/lanh-dao/ho-tuan-nhan-bf737545.jpg",
                 alt="Ông Hồ Tuấn Nhân",
             ),
         ),
         Leader(name="Ông Nguyễn Hải Đăng", title="Trưởng phòng Quản lý chất lượng (CQO)"),
-        Leader(name="Ông Hoàng Trung Kiên", title="Phó Tổng giám đốc phụ trách Kỹ thuật"),
-        Leader(name="Bà Nguyễn Thị Khánh Ly", title="Phó Tổng giám đốc Nội chính"),
-        Leader(name="Ông Nguyễn Thanh Bình", title="Phó Tổng giám đốc phụ trách Đấu thầu và Dịch vụ công trình"),
-        Leader(name="Ông Ngô Tuấn Sửu", title="Phó Tổng giám đốc phụ trách Thi công"),
-        Leader(name="Ông Nguyễn Hữu Khang", title="Trợ lý Tổng giám đốc"),
+        Leader(
+            name="Ông Hoàng Trung Kiên",
+            title="Phó Tổng giám đốc phụ trách Kỹ thuật",
+            photo=Media(
+                url="/images/lanh-dao/hoang-trung-kien-43b7b589.jpg",
+                thumb="/images/lanh-dao/hoang-trung-kien-43b7b589.jpg",
+                alt="Ông Hoàng Trung Kiên",
+            ),
+        ),
+        Leader(
+            name="Bà Nguyễn Thị Khánh Ly",
+            title="Phó Tổng giám đốc Nội chính",
+            photo=Media(
+                url="/images/lanh-dao/nguyen-thi-khanh-ly-c11bcbfb.jpg",
+                thumb="/images/lanh-dao/nguyen-thi-khanh-ly-c11bcbfb.jpg",
+                alt="Bà Nguyễn Thị Khánh Ly",
+            ),
+        ),
+        Leader(
+            name="Ông Nguyễn Thanh Bình",
+            title="Phó Tổng giám đốc phụ trách Đấu thầu và Dịch vụ công trình",
+            photo=Media(
+                url="/images/lanh-dao/nguyen-thanh-binh-2a8c9838.jpg",
+                thumb="/images/lanh-dao/nguyen-thanh-binh-2a8c9838-thumb.jpg",
+                alt="Ông Nguyễn Thanh Bình",
+            ),
+        ),
+        Leader(
+            name="Ông Ngô Tuấn Sửu",
+            title="Phó Tổng giám đốc phụ trách Thi công",
+            photo=Media(
+                url="/images/lanh-dao/ngo-tuan-suu-7748ed89.jpg",
+                thumb="/images/lanh-dao/ngo-tuan-suu-7748ed89-thumb.jpg",
+                alt="Ông Ngô Tuấn Sửu",
+            ),
+        ),
+        Leader(
+            name="Ông Nguyễn Hữu Khang",
+            title="Trợ lý Tổng giám đốc",
+            photo=Media(
+                url="/images/lanh-dao/nguyen-huu-khang-da912604.jpg",
+                thumb="/images/lanh-dao/nguyen-huu-khang-da912604-thumb.jpg",
+                alt="Ông Nguyễn Hữu Khang",
+            ),
+        ),
     ],
     # Ban Chuyên gia - Cố vấn — the technical bench behind the "ca khó" work.
     advisors=[
@@ -151,8 +199,8 @@ COMPANY_PROFILE = CompanyProfile(
                 "Nguyên Giám đốc Ban QLDA cao tốc Cầu Giẽ – Ninh Bình, QL1, QL10, QL38",
             ],
             photo=Media(
-                url="/uploads/hotuansy-ea497e39.jpg",
-                thumb="/uploads/hotuansy-ea497e39.jpg",
+                url="/images/lanh-dao/ho-tuan-sy-ea497e39.jpg",
+                thumb="/images/lanh-dao/ho-tuan-sy-ea497e39.jpg",
                 alt="Ông Hồ Tuấn Sỹ",
             ),
         ),
@@ -164,6 +212,11 @@ COMPANY_PROFILE = CompanyProfile(
                 "Chuyên gia Trung Quốc, nguyên Kỹ sư trưởng ngành đường sắt cao tốc",
                 "Từng chỉ đạo thi công nhiều dự án hạ tầng quy mô lớn tại Trung Quốc",
             ],
+            photo=Media(
+                url="/images/lanh-dao/van-khoa-phong-329c2a7d.jpg",
+                thumb="/images/lanh-dao/van-khoa-phong-329c2a7d-thumb.jpg",
+                alt="Ông Vạn Khoa Phong",
+            ),
         ),
         Advisor(
             name="Mr. Ingo",
@@ -187,9 +240,12 @@ COMPANY_PROFILE = CompanyProfile(
     ],
     # Restructured again in September 2026: quality is placed directly under the
     # executive spine, alongside the deputy-GM branches and advisory board.
+    # The chairwoman also holds the TGĐ title; the CEO sits one level below her
+    # and runs the branches, so the spine has three boxes rather than a shared one.
     org_units=[
         OrgUnit(name="Hội đồng thành viên", name_en="Chủ tịch HĐTV: Bà Vũ Bảo Ngọc", spine=True),
-        OrgUnit(name="Tổng giám đốc / CEO", name_en="TGĐ: Bà Vũ Bảo Ngọc · CEO: Ông Hoàng Khắc Khưu", spine=True),
+        OrgUnit(name="Tổng giám đốc", name_en="Bà Vũ Bảo Ngọc (kiêm Chủ tịch HĐTV)", spine=True),
+        OrgUnit(name="Tổng giám đốc điều hành (CEO)", name_en="Ông Hoàng Khắc Khưu", spine=True),
         OrgUnit(name="Phòng Quản lý chất lượng (CQO)", name_en="Chief Quality Officer — đặt ưu tiên chất lượng lên hàng đầu"),
         OrgUnit(name="CGO", name_en="Chief Government Officer"),
         OrgUnit(name="Phó TGĐ Thi công", name_en="Deputy GM — Construction"),
