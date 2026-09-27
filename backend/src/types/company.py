@@ -19,7 +19,7 @@ class Leader(BaseModel):
 
 
 class Advisor(BaseModel):
-    """A member of the founding advisory board (Ban Cố vấn kiêm sáng lập).
+    """A member of the expert and advisory board (Ban Chuyên gia - Cố vấn).
 
     Kept apart from `leaders`: advisors are not company officers, and a bidder
     reading the profile needs to see which is which.

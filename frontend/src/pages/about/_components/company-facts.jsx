@@ -79,8 +79,8 @@ export function CompanyFacts({ profile }) {
               className="overview__mark"
               src="/logo-full-alpha.png"
               alt={t('about.logoAlt')}
-              width="493"
-              height="620"
+              width="560"
+              height="656"
               loading="lazy"
               decoding="async"
             />

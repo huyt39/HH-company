@@ -12,7 +12,7 @@ deploy trên Vercel.
 
 Slogan: **Công nghệ vươn tầm, hợp tác thành công** — hiện ở footer và lưu trong trường
 `tagline` của hồ sơ công ty (sửa được ở `/admin`). Logo và favicon ở `frontend/public/`,
-cắt từ file gốc trong `docs/brand/`; `logo-full.png` là bản kèm slogan cho ấn phẩm in.
+cắt từ file gốc trong `docs/brand/` bằng `docs/brand/make_logo.py`; `logo-full.png` là bản kèm slogan cho ấn phẩm in.
 
 Dữ liệu ban đầu nạp qua `backend/src/services/seed_data.py`: hồ sơ công ty, 11 lĩnh vực
 hoạt động, 10 nhóm sản phẩm, 34 dự án (2015–2026), số liệu tài chính 3 năm,

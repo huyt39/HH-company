@@ -116,51 +116,35 @@ COMPANY_PROFILE = CompanyProfile(
     leaders=[
         Leader(
             name="Bà Vũ Bảo Ngọc",
-            title="Chủ tịch Hội đồng thành viên kiêm Tổng giám đốc, người đại diện pháp luật",
+            title="Chủ tịch Hội đồng thành viên kiêm Tổng giám đốc",
             photo=Media(
                 url="/uploads/vubaongoc-a5e07841.jpg",
                 thumb="/uploads/vubaongoc-a5e07841-thumb.jpg",
                 alt="Bà Vũ Bảo Ngọc",
             ),
         ),
-        Leader(name="Ông Ngô Tuấn Sửu", title="Phó Tổng giám đốc phụ trách Thi công"),
-        Leader(name="Ông Nguyễn Hữu Khang", title="Phó Tổng giám đốc phụ trách Thi công"),
-        Leader(name="Ông Nguyễn Thanh Bình", title="Phó Tổng giám đốc phụ trách Kỹ thuật"),
-        Leader(name="Ông Nguyễn Văn Kiên", title="Phó Tổng giám đốc phụ trách Kế hoạch – Đấu thầu"),
+        Leader(name="Ông Hoàng Khắc Khưu", title="CEO"),
         Leader(
             name="Ông Hồ Tuấn Nhân",
-            title="Phó Tổng giám đốc phụ trách Nội chính",
+            title="CGO (Chief Government Officer)",
             photo=Media(
                 url="/uploads/hotuannhan-eebd6196.jpg",
                 thumb="/uploads/hotuannhan-eebd6196.jpg",
                 alt="Ông Hồ Tuấn Nhân",
             ),
         ),
+        Leader(name="Ông Nguyễn Hải Đăng", title="Trưởng phòng Quản lý chất lượng (CQO)"),
+        Leader(name="Ông Hoàng Trung Kiên", title="Phó Tổng giám đốc phụ trách Kỹ thuật"),
+        Leader(name="Bà Nguyễn Thị Khánh Ly", title="Phó Tổng giám đốc Nội chính"),
+        Leader(name="Ông Nguyễn Thanh Bình", title="Phó Tổng giám đốc phụ trách Đấu thầu và Dịch vụ công trình"),
+        Leader(name="Ông Ngô Tuấn Sửu", title="Phó Tổng giám đốc phụ trách Thi công"),
+        Leader(name="Ông Nguyễn Hữu Khang", title="Trợ lý Tổng giám đốc"),
     ],
-    # Ban Cố vấn kiêm sáng lập — the technical bench behind the "ca khó" work.
-    # Source: capability profile 2026–2027, mục VI.
+    # Ban Chuyên gia - Cố vấn — the technical bench behind the "ca khó" work.
     advisors=[
         Advisor(
-            name="Ông Hoàng Khắc Khưu",
-            title="Trưởng Ban Cố vấn kiêm sáng lập",
-            highlights=[
-                "Hơn 30 năm kinh nghiệm ngành cầu, tu nghiệp tại Nhật Bản",
-                "Chuyên gia cầu dây văng và cầu vòm",
-                "Gắn với cầu Rồng, cầu Trần Thị Lý, cầu Sông Hàn (Đà Nẵng), cầu Rạch Miễu "
-                "và cầu Đông Trù — cầu vòm ống thép nhồi bê tông đầu tiên tại Việt Nam",
-            ],
-        ),
-        Advisor(
-            name="Ông Trần Phong",
-            title="Thành viên Ban Cố vấn",
-            highlights=[
-                "Chuyên gia Trung Quốc, nguyên Kỹ sư trưởng ngành đường sắt cao tốc",
-                "Từng chỉ đạo thi công nhiều dự án hạ tầng quy mô lớn tại Trung Quốc",
-            ],
-        ),
-        Advisor(
             name="Ông Hồ Tuấn Sỹ",
-            title="Thành viên Ban Cố vấn",
+            title="Trưởng Ban Chuyên gia - Cố vấn",
             highlights=[
                 "Tiến sĩ kỹ thuật, gần 30 năm kinh nghiệm xây dựng cầu đường",
                 "Nguyên Phó/Tổng giám đốc tại CIENCO1, CIENCO8",
@@ -172,19 +156,48 @@ COMPANY_PROFILE = CompanyProfile(
                 alt="Ông Hồ Tuấn Sỹ",
             ),
         ),
+        Advisor(
+            name="Ông Vạn Khoa Phong (Mr. Wan Kefeng)",
+            title="Thành viên Ban Chuyên gia - Cố vấn",
+            highlights=[
+                "Chuyên gia cao cấp",
+                "Chuyên gia Trung Quốc, nguyên Kỹ sư trưởng ngành đường sắt cao tốc",
+                "Từng chỉ đạo thi công nhiều dự án hạ tầng quy mô lớn tại Trung Quốc",
+            ],
+        ),
+        Advisor(
+            name="Mr. Ingo",
+            title="Thành viên Ban Chuyên gia - Cố vấn",
+            highlights=[
+                "Quốc tịch: Đức",
+                "Chuyên gia dự ứng lực",
+                "Từng thực hiện dự án đường sắt cao tốc tại Thái Lan",
+            ],
+        ),
+        Advisor(
+            name="Mr. Tony",
+            title="Thành viên Ban Chuyên gia - Cố vấn",
+            highlights=[
+                "Quốc tịch: Vương Quốc Anh",
+                "Chuyên gia thi công lao lắp dầm bằng công nghệ tiên tiến đứng đầu thế giới",
+                "Từng thực hiện lao lắp dầm đường sắt cao tốc tại Hàn Quốc và Ấn Độ",
+                "Từng tham gia dự án vượt biển dài 36km tại Kuwait, dùng dầm hộp đúc sẵn dài 60m, nặng 1.800 tấn/phiến dầm",
+            ],
+        ),
     ],
-    # Restructured in the 2026–2027 capability profile: the old departmental
-    # chart (kế toán / hành chính / kinh doanh / kỹ thuật / dự án / dịch vụ) was
-    # replaced by a deputy-GM structure split by trade, with the founding
-    # advisory board advising the GM directly.
+    # Restructured again in September 2026: quality is placed directly under the
+    # executive spine, alongside the deputy-GM branches and advisory board.
     org_units=[
-        OrgUnit(name="Hội đồng thành viên", name_en="Members' Council", spine=True),
-        OrgUnit(name="Tổng giám đốc điều hành", name_en="Chief Executive Officer", spine=True),
+        OrgUnit(name="Hội đồng thành viên", name_en="Chủ tịch HĐTV: Bà Vũ Bảo Ngọc", spine=True),
+        OrgUnit(name="Tổng giám đốc / CEO", name_en="TGĐ: Bà Vũ Bảo Ngọc · CEO: Ông Hoàng Khắc Khưu", spine=True),
+        OrgUnit(name="Phòng Quản lý chất lượng (CQO)", name_en="Chief Quality Officer — đặt ưu tiên chất lượng lên hàng đầu"),
+        OrgUnit(name="CGO", name_en="Chief Government Officer"),
         OrgUnit(name="Phó TGĐ Thi công", name_en="Deputy GM — Construction"),
         OrgUnit(name="Phó TGĐ Kỹ thuật", name_en="Deputy GM — Engineering"),
-        OrgUnit(name="Phó TGĐ Kế hoạch – Đấu thầu", name_en="Deputy GM — Planning & Tendering"),
+        OrgUnit(name="Phó TGĐ Đấu thầu và Dịch vụ công trình", name_en="Deputy GM — Tendering & Construction Services"),
         OrgUnit(name="Phó TGĐ Nội chính", name_en="Deputy GM — Internal Affairs"),
-        OrgUnit(name="Ban Cố vấn kiêm sáng lập", name_en="Founding Advisory Board"),
+        OrgUnit(name="Trợ lý Tổng giám đốc", name_en="Assistant to General Director"),
+        OrgUnit(name="Ban Chuyên gia - Cố vấn", name_en="Expert & Advisory Board"),
     ],
     # Headcounts come from the 2026–2027 capability profile (mục 6.3), which is
     # the first source document to state them: 53 engineers and specialists.

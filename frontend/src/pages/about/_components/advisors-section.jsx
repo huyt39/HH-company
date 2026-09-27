@@ -3,7 +3,7 @@ import { SectionHeading } from '@/components/ui/section-heading'
 import { useLang } from '@/lib/i18n/language-context'
 
 /**
- * Ban Cố vấn kiêm sáng lập — the technical bench, kept apart from the executive
+ * Ban Chuyên gia - Cố vấn — the technical bench, kept apart from the executive
  * leadership above it.
  *
  * The chair leads on a card of his own across the row, the members follow

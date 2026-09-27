@@ -31,8 +31,8 @@
 .site-footer__col ul li + li { margin-top: 10px; }
 .site-footer__col a:hover { color: #fff; }
 
-/* The logo has a white background, so it needs a light frame on the dark footer. */
-.brand--footer .brand__logo { background: #fff; border-radius: var(--radius-sm); padding: 3px; }
+/* The dark green ring of the logo sinks into the navy footer, so it sits on a white disc. */
+.brand--footer .brand__logo { background: #fff; border-radius: 50%; padding: 2px; }
 .brand--footer .brand__text strong { color: #fff; }
 .brand--footer .brand__text small { color: #8ea6c2; }
 
