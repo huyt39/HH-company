@@ -3,18 +3,28 @@ import { splitLines } from './form-field'
 
 /**
  * Sub-table for nested record lists (leaders, org units, milestones).
+ * Row order is the order the public site shows, so rows can be moved.
  *
  * @param {{label: string, hint?: string, items: object[],
- *          columns: {name: string, label: string, type?: 'text'|'number'|'textarea'|'list'|'image'}[],
+ *          columns: {name: string, label: string,
+ *                    type?: 'text'|'number'|'textarea'|'list'|'image'|'checkbox'}[],
  *          onChange: (items: object[]) => void}} props
  */
 export function RepeaterTable({ label, hint, items = [], columns, onChange }) {
   const blankRow = Object.fromEntries(
-    columns.map((column) => [column.name, column.type === 'number' ? null : '']),
+    columns.map((column) => [column.name, BLANK_BY_TYPE[column.type] ?? '']),
   )
 
   const update = (index, name, value) =>
     onChange(items.map((row, i) => (i === index ? { ...row, [name]: value } : row)))
+
+  const move = (index, delta) => {
+    const target = index + delta
+    if (target < 0 || target >= items.length) return
+    const next = [...items]
+    ;[next[index], next[target]] = [next[target], next[index]]
+    onChange(next)
+  }
 
   return (
     <section className="repeater">
@@ -44,21 +54,53 @@ export function RepeaterTable({ label, hint, items = [], columns, onChange }) {
               />
             </label>
           ))}
-          <button
-            type="button"
-            className="repeater__remove"
-            aria-label="Xoá dòng"
-            onClick={() => onChange(items.filter((_, i) => i !== index))}
-          >
-            ✕
-          </button>
+          <div className="repeater__actions">
+            <button
+              type="button"
+              aria-label="Chuyển dòng lên"
+              title="Chuyển lên"
+              disabled={index === 0}
+              onClick={() => move(index, -1)}
+            >
+              ↑
+            </button>
+            <button
+              type="button"
+              aria-label="Chuyển dòng xuống"
+              title="Chuyển xuống"
+              disabled={index === items.length - 1}
+              onClick={() => move(index, 1)}
+            >
+              ↓
+            </button>
+            <button
+              type="button"
+              className="repeater__remove"
+              aria-label="Xoá dòng"
+              title="Xoá dòng"
+              onClick={() => onChange(items.filter((_, i) => i !== index))}
+            >
+              ✕
+            </button>
+          </div>
         </div>
       ))}
     </section>
   )
 }
 
+const BLANK_BY_TYPE = { number: null, list: [], image: null, checkbox: false }
+
 function RepeaterCell({ column, value, onChange }) {
+  if (column.type === 'checkbox') {
+    return (
+      <span className="repeater__check">
+        <input type="checkbox" checked={Boolean(value)} onChange={(e) => onChange(e.target.checked)} />
+        {column.hint && <small className="admin-field__hint">{column.hint}</small>}
+      </span>
+    )
+  }
+
   if (column.type === 'image') {
     return <ImagePicker label="" value={value} onChange={onChange} />
   }

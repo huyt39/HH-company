@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 
 import { SITE_NAVIGATION } from '@/lib/constants/site-navigation'
 import { useLang } from '@/lib/i18n/language-context'
+import { telHref } from '@/lib/utils/tel-href'
 
 import './site-header.css'
 
@@ -17,7 +18,8 @@ import './site-header.css'
 const COLLAPSE_TOPBAR_AT = 72
 const RESTORE_TOPBAR_AT = 8
 
-export function SiteHeader() {
+/** @param {{contact?: {phone?: string, email?: string}}} props */
+export function SiteHeader({ contact }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
@@ -57,10 +59,20 @@ export function SiteHeader() {
     <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="site-header__topbar">
         <div className="container site-header__topbar-inner">
-          <span>{t('common.hotline')} 024 2200 8708</span>
+          <span>
+            {contact?.phone && (
+              <>
+                {t('common.hotline')} <a href={telHref(contact.phone)}>{contact.phone}</a>
+              </>
+            )}
+          </span>
           <div className="site-header__topbar-links">
-            <a href="mailto:vnhoahoang@gmail.com">vnhoahoang@gmail.com</a>
-            <span aria-hidden="true">|</span>
+            {contact?.email && (
+              <>
+                <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                <span aria-hidden="true">|</span>
+              </>
+            )}
             <div className="lang-switch" role="group" aria-label={t('nav.ariaLanguage')}>
               <button
                 type="button"

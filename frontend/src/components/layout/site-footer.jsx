@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
 
 import { FOOTER_LINK_GROUPS } from '@/lib/constants/site-navigation'
+import { telHref } from '@/lib/utils/tel-href'
 import { useLang } from '@/lib/i18n/language-context'
 
 import './site-footer.css'
 
-export function SiteFooter() {
+/** @param {{contact?: {address?: string, phone?: string, email?: string, tax_code?: string}}} props */
+export function SiteFooter({ contact }) {
   const { t } = useLang()
 
   return (
@@ -37,10 +39,18 @@ export function SiteFooter() {
         <div className="site-footer__col">
           <h4>{t('footer.contactInfoCol')}</h4>
           <ul className="site-footer__contact">
-            <li><span>{t('footer.address')}</span> Tầng 23, Tòa nhà MD Complex Tower, KĐT Mỹ Đình 1, Phường Từ Liêm, Hà Nội</li>
-            <li><span>{t('footer.phone')}</span> 024 2200 8708</li>
-            <li><span>{t('footer.email')}</span> vnhoahoang@gmail.com</li>
-            <li><span>{t('footer.taxCode')}</span> 0106346833</li>
+            {contact?.address && <li><span>{t('footer.address')}</span> {contact.address}</li>}
+            {contact?.phone && (
+              <li>
+                <span>{t('footer.phone')}</span> <a href={telHref(contact.phone)}>{contact.phone}</a>
+              </li>
+            )}
+            {contact?.email && (
+              <li>
+                <span>{t('footer.email')}</span> <a href={`mailto:${contact.email}`}>{contact.email}</a>
+              </li>
+            )}
+            {contact?.tax_code && <li><span>{t('footer.taxCode')}</span> {contact.tax_code}</li>}
           </ul>
         </div>
       </div>
@@ -48,7 +58,7 @@ export function SiteFooter() {
       <div className="site-footer__bottom">
         <div className="container site-footer__bottom-inner">
           <span>{t('footer.copyright')(new Date().getFullYear())}</span>
-          <span>{t('footer.taxCode')} 0106346833</span>
+          {contact?.tax_code && <span>{t('footer.taxCode')} {contact.tax_code}</span>}
         </div>
       </div>
     </footer>

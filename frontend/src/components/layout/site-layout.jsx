@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 
+import { companyApi } from '@/lib/api/company-client'
+import { useFetch } from '@/lib/hooks/use-fetch'
 import { LanguageProvider } from '@/lib/i18n/language-context'
 
 import { SiteFooter } from './site-footer'
@@ -32,6 +34,9 @@ function scrollToHash(hash) {
 /** Public site shell: header + child route + footer. */
 export function SiteLayout() {
   const { hash, key } = useLocation()
+  // Fetched once here so header and footer show what /admin → Thông tin liên hệ
+  // holds, instead of each carrying its own hard-coded copy.
+  const { data: contact } = useFetch((options) => companyApi.getContactInfo(options), [])
 
   // Jump to the anchor when there is one, otherwise start the page at the top.
   useEffect(() => {
@@ -45,11 +50,11 @@ export function SiteLayout() {
   return (
     <LanguageProvider>
       <div className="app-shell">
-        <SiteHeader />
+        <SiteHeader contact={contact} />
         <main className="app-main">
           <Outlet />
         </main>
-        <SiteFooter />
+        <SiteFooter contact={contact} />
       </div>
     </LanguageProvider>
   )

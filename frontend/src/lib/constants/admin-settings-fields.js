@@ -43,7 +43,7 @@ export const COMPANY_PROFILE_REPEATERS = [
   },
   {
     name: 'advisors',
-    label: 'Ban cố vấn & sáng lập',
+    label: 'Ban Chuyên gia - Cố vấn',
     columns: [
       { name: 'name', label: 'Họ tên' },
       { name: 'title', label: 'Chức danh / Học vị' },
@@ -55,17 +55,20 @@ export const COMPANY_PROFILE_REPEATERS = [
   {
     name: 'org_units',
     label: 'Cơ cấu tổ chức',
-    hint: 'Dòng đầu tiên là cấp cao nhất, các dòng sau là phòng ban trực thuộc.',
+    hint:
+      'Các dòng tick "Trục chính" (HĐTV, Tổng giám đốc…) xếp chồng từ trên xuống theo thứ tự; ' +
+      'các dòng còn lại là khối trực thuộc, xếp hàng ngang bên dưới.',
     columns: [
       { name: 'name', label: 'Tên đơn vị' },
-      { name: 'name_en', label: 'Tên tiếng Anh' },
-      { name: 'children', label: 'Đơn vị con', type: 'list' },
+      { name: 'name_en', label: 'Dòng phụ (người phụ trách / tên tiếng Anh)' },
+      { name: 'spine', label: 'Trục chính', type: 'checkbox' },
+      { name: 'children', label: 'Đơn vị con (mỗi dòng một đơn vị)', type: 'list' },
     ],
   },
   {
     name: 'capability_stats',
     label: 'Số liệu năng lực',
-    hint: 'Bốn con số hiện ở đầu trang chủ và trang Năng lực nhà thầu.',
+    hint: 'Hiện ở trang Năng lực nhà thầu; ba dòng đầu còn hiện ở đầu trang Dịch vụ.',
     columns: [
       { name: 'value', label: 'Con số' },
       { name: 'label', label: 'Nhãn (tiếng Việt)' },
@@ -78,6 +81,7 @@ export const COMPANY_PROFILE_REPEATERS = [
     hint: 'Các vị trí công ty bố trí tại công trường, hiện ở trang Năng lực nhà thầu.',
     columns: [
       { name: 'title', label: 'Vị trí' },
+      { name: 'count', label: 'Số lượng (bỏ trống nếu không công bố)', type: 'number' },
       { name: 'note', label: 'Ghi chú (không bắt buộc)' },
     ],
   },

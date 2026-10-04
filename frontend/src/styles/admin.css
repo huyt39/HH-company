@@ -277,14 +277,19 @@
   border-radius: var(--radius-sm);
 }
 .repeater__row .admin-field { margin-bottom: 0; }
-.repeater__remove {
-  align-self: center;
+/* Move up / move down / delete, stacked in the row's last column. */
+.repeater__actions { display: grid; gap: 6px; align-self: center; }
+.repeater__actions button {
   width: 32px; height: 32px;
   border: 1px solid var(--c-border); border-radius: var(--radius-sm);
   background: #fff; cursor: pointer; color: var(--c-text-muted);
   transition: var(--transition);
 }
-.repeater__remove:hover { border-color: #c0392b; color: #c0392b; }
+.repeater__actions button:hover:not(:disabled) { border-color: var(--c-navy-600); color: var(--c-navy-600); }
+.repeater__actions button:disabled { opacity: .35; cursor: default; }
+.repeater__actions .repeater__remove:hover { border-color: #c0392b; color: #c0392b; }
+.repeater__check { display: flex; align-items: center; gap: 10px; min-height: 40px; }
+.admin-field .repeater__check input { width: 18px; height: 18px; padding: 0; flex-shrink: 0; }
 
 /* ---------- Inbox ---------- */
 .message-list { display: grid; gap: 10px; }
