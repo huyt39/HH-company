@@ -14,6 +14,8 @@ import { useResourceList } from './_hooks/use-resource-list'
 
 const NEW = 'new'
 
+const isBlank = (value) => value === null || value === undefined || String(value).trim() === ''
+
 // Field types whose "empty" is null: the backend rejects '' for numbers, dates,
 // enums and image objects.
 const NULLABLE_TYPES = new Set(['number', 'date', 'select', 'image'])
@@ -89,14 +91,30 @@ export function ResourcePage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+
+    // An emptied slug comes back from its source rather than failing the save.
+    const slugSource = config.form.find((field) => field.slugSource)
+    const payload =
+      slugSource && 'slug' in values && isBlank(values.slug) && !isBlank(values[slugSource.name])
+        ? { ...values, slug: slugify(values[slugSource.name]) }
+        : values
+
+    // Catch empty required fields here, in words, before the API answers in its own.
+    const missing = config.form.filter((field) => field.required && isBlank(payload[field.name]))
+    if (missing.length) {
+      setFormError(`Vui lòng điền: ${missing.map((field) => `“${field.label}”`).join(', ')}.`)
+      return
+    }
+
+    setValues(payload)
     setSaving(true)
     setFormError('')
     try {
       if (editing === NEW) {
-        await resourcesApi.create(resource, values)
+        await resourcesApi.create(resource, payload)
         toast.ok(`Đã thêm ${config.singular}.`)
       } else {
-        await resourcesApi.update(resource, editing, values)
+        await resourcesApi.update(resource, editing, payload)
         toast.ok('Đã lưu thay đổi.')
       }
       setEditing(null)

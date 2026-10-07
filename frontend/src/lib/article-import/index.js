@@ -25,12 +25,33 @@ function isBoldLine(node) {
   return boldText.replace(/\s+/g, '') === text.replace(/\s+/g, '')
 }
 
-/** Pull the title off the top: the page prints it already. */
+// How many blocks from the top to search for a title.
+const TITLE_SEARCH_BLOCKS = 8
+
+const isHeading = (node) => /^H[1-3]$/.test(node.tagName) && node.textContent.trim()
+const isImageOnly = (node) => node.querySelector('img') && !node.textContent.trim()
+
+/**
+ * Find the title near the top. Letters and job ads often open with a letterhead
+ * (a table with the logo and address) or a photo, so those are stepped over.
+ * The title is lifted out of the body only when it opens the document — the
+ * page prints it there already; further down it stays where the author put it.
+ */
 function takeTitle(root) {
-  const first = root.firstElementChild
-  if (!first || !(first.tagName === 'H1' || isBoldLine(first))) return ''
-  first.remove()
-  return first.textContent.replace(/\s+/g, ' ').trim()
+  const blocks = [...root.children].slice(0, TITLE_SEARCH_BLOCKS)
+  for (const [index, block] of blocks.entries()) {
+    if (block.tagName === 'TABLE' || isImageOnly(block) || !block.textContent.trim()) continue
+    if (!isHeading(block) && !isBoldLine(block)) continue
+    const title = block.textContent.replace(/\s+/g, ' ').trim()
+    if (index === 0) block.remove()
+    return title
+  }
+  return ''
+}
+
+/** "thu-ngo_tuyen dung 2026.docx" -> "thu ngo tuyen dung 2026" */
+function titleFromFileName(name) {
+  return name.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim()
 }
 
 function fileKind(file) {
@@ -70,7 +91,8 @@ export async function importArticleFile(file, { onProgress = () => {}, takeCover
     if (!node.textContent.trim() && !node.querySelector('img')) node.remove()
   })
 
-  const title = takeTitle(root)
+  // A form cannot save without a title, so fall back to the file name.
+  const title = takeTitle(root) || titleFromFileName(file.name)
   // Remaining <h1>s would compete with the page title.
   root.querySelectorAll('h1').forEach((node) => {
     const h2 = document.createElement('h2')
