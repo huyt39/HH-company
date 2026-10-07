@@ -34,7 +34,7 @@ export function NewsPage() {
             isEmpty={!data?.items?.length}
             emptyTitle={t('news.empty')}
           >
-            <div className="grid grid--3">
+            <div className="grid grid--3" data-reveal-stagger>
               {data?.items?.map((article) => (
                 <Card
                   key={article.id}

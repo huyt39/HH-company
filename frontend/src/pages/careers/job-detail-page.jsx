@@ -38,7 +38,7 @@ export function JobDetailPage() {
 
           {!loading && !error && data && (
             <>
-              <dl className="article__facts">
+              <dl className="article__facts" data-reveal>
                 <div><dt>{labels.department}</dt><dd>{data.department || '—'}</dd></div>
                 <div><dt>{labels.location}</dt><dd>{data.location || '—'}</dd></div>
                 <div><dt>{labels.employmentType}</dt><dd>{data.employment_type || '—'}</dd></div>
@@ -47,6 +47,7 @@ export function JobDetailPage() {
               </dl>
 
               <div
+                data-reveal
                 className="article__content"
                 dangerouslySetInnerHTML={{
                   __html: data.description || t('careers.descFallback'),

@@ -100,7 +100,7 @@ export function ServiceDetailPage() {
             <div className="service-block" key={block.key}>
               <h2>{block.title}</h2>
               {block.ordered ? (
-                <ol className="service-steps">
+                <ol className="service-steps" data-reveal-stagger>
                   {block.items.map((item, index) => (
                     <li key={item}>
                       <span className="service-steps__index">{String(index + 1).padStart(2, '0')}</span>
@@ -109,7 +109,7 @@ export function ServiceDetailPage() {
                   ))}
                 </ol>
               ) : (
-                <ul className="check-list">
+                <ul className="check-list" data-reveal-stagger>
                   {block.items.map((item) => <li key={item}>{item}</li>)}
                 </ul>
               )}
@@ -127,7 +127,7 @@ export function ServiceDetailPage() {
               eyebrow={t('services.relatedEyebrow')}
               title={t('services.relatedTitle')}
             />
-            <div className="grid grid--3">
+            <div className="grid grid--3" data-reveal-stagger>
               {relatedProjects.map((project) => (
                 <Card
                   key={project.id}

@@ -15,7 +15,9 @@ export function ManufacturersSection({ partners }) {
           title={t('about.manufacturersTitle')}
           align="center"
         />
-        <PartnerGrid partners={partners} showCountry />
+        <div data-reveal>
+          <PartnerGrid partners={partners} showCountry />
+        </div>
       </div>
     </section>
   )

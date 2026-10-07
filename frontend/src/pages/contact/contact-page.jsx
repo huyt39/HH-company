@@ -19,7 +19,7 @@ export function ContactPage() {
       <PageBanner title={t('nav.contact')} subtitle={t('contact.bannerSubtitle')} />
 
       <section className="section">
-        <div className="container contact-grid">
+        <div className="container contact-grid" data-reveal-stagger>
           <ContactDetails info={info} />
           <ContactForm />
         </div>

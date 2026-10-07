@@ -72,7 +72,7 @@ export function ArticleDetailPage({ type }) {
           {error && <ErrorState error={error} />}
 
           {!loading && !error && data && (
-            <article>
+            <article data-reveal>
               {isProject && <ProjectFacts project={data} />}
 
               {/* Articles imported from Word/PDF already show their first photo,

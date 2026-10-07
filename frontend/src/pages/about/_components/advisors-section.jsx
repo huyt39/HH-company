@@ -30,7 +30,7 @@ export function AdvisorsSection({ advisors }) {
           description={t('about.advisorsDesc')}
           align="center"
         />
-        <div className="advisor-grid">
+        <div className="advisor-grid" data-reveal-stagger>
           {/* Position, not a flag on the record: the chair heads the list in the
               company profile and in the org chart, so he heads it here too. */}
           {advisors.map((advisor, index) => (

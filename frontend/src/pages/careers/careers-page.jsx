@@ -38,7 +38,7 @@ export function CareersPage() {
           )}
 
           {jobs.length > 0 && (
-            <ul className="job-list">
+            <ul className="job-list" data-reveal-stagger>
               {jobs.map((job) => (
                 <li className="job-row" key={job.id}>
                   <div>

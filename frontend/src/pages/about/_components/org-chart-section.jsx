@@ -35,7 +35,7 @@ export function OrgChartSection({ orgUnits }) {
             </Fragment>
           ))}
           <div className="org-connector" aria-hidden="true" />
-          <div className="org-row">
+          <div className="org-row" data-reveal-stagger>
             {branches.map((unit) => (
               <div className="org-branch" key={unit.name}>
                 <div className="org-node">

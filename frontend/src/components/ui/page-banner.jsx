@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 
+import { SplitText } from './split-text'
 import './page-banner.css'
 
 /**
@@ -10,8 +11,8 @@ import './page-banner.css'
 export function PageBanner({ title, subtitle, breadcrumb = [] }) {
   return (
     <section className="page-banner">
-      <div className="container">
-        <h1>{title}</h1>
+      <div className="container" data-reveal-stagger>
+        <h1 data-reveal-text>{typeof title === 'string' ? <SplitText text={title} /> : title}</h1>
         {subtitle && <p className="page-banner__subtitle">{subtitle}</p>}
 
         {breadcrumb.length > 0 && (

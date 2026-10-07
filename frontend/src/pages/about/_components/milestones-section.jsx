@@ -8,7 +8,7 @@ export function MilestonesSection({ milestones }) {
     <section className="section" id="lich-su">
       <div className="container">
         <SectionHeading eyebrow={t('about.milestonesEyebrow')} title={t('about.milestonesTitle')} align="center" />
-        <ol className="timeline">
+        <ol className="timeline" data-reveal-stagger>
           {milestones?.map((item) => (
             <li className="timeline__item" key={item.year}>
               <span className="timeline__year">{item.year}</span>

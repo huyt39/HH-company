@@ -90,7 +90,7 @@ export function CompanyFacts({ profile }) {
 
         <div className="company-record">
           <h3 className="company-record__caption">{t('about.recordTitle')}</h3>
-          <dl className="company-record__list">
+          <dl className="company-record__list" data-reveal>
             {facts.map((fact) => (
               <div key={fact.label}>
                 <dt>{fact.label}</dt>

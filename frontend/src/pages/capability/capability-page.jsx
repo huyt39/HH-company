@@ -72,7 +72,7 @@ export function CapabilityPage() {
             title={t('capability.personnelTitle')}
             description={t('capability.personnelDesc')}
           />
-          <div className="capability-columns">
+          <div className="capability-columns" data-reveal-stagger>
             <ul className="personnel-list">
               {(profile?.personnel ?? []).map((row) => (
                 <li key={row.title}>
@@ -116,7 +116,7 @@ export function CapabilityPage() {
                       <b>{String(group.items.length).padStart(2, '0')}</b>
                     </h3>
                   )}
-                  <div className="equipment-list">
+                  <div className="equipment-list" data-reveal-stagger>
                     {group.items.map((item) => (
                       <article
                         className={`equipment-row${item.image?.url ? ' equipment-row--photo' : ''}`}
@@ -168,7 +168,7 @@ export function CapabilityPage() {
               title={t('capability.certificatesTitle')}
               description={t('capability.certificatesDesc')}
             />
-            <div className="certificate-grid">
+            <div className="certificate-grid" data-reveal-stagger>
               {certificates.map((item) => (
                 <article
                   className={`certificate-card${item.image?.url ? ' certificate-card--framed' : ''}`}
@@ -237,7 +237,7 @@ export function CapabilityPage() {
             title={t('capability.qualityTitle')}
             description={t('capability.qualityDesc')}
           />
-          <ol className="capability-steps">
+          <ol className="capability-steps" data-reveal-stagger>
             {t('capability.qualitySteps').map((step, index) => (
               <li key={step.title}>
                 <span className="capability-steps__index">{String(index + 1).padStart(2, '0')}</span>

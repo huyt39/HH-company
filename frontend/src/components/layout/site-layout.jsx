@@ -1,8 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 
 import { companyApi } from '@/lib/api/company-client'
 import { useFetch } from '@/lib/hooks/use-fetch'
+import { useScrollReveal } from '@/lib/hooks/use-scroll-reveal'
 import { LanguageProvider } from '@/lib/i18n/language-context'
 
 import { SiteFooter } from './site-footer'
@@ -37,6 +38,9 @@ export function SiteLayout() {
   // Fetched once here so header and footer show what /admin → Thông tin liên hệ
   // holds, instead of each carrying its own hard-coded copy.
   const { data: contact } = useFetch((options) => companyApi.getContactInfo(options), [])
+  // Every public page reveals its content on scroll; pages only mark what moves.
+  const mainRef = useRef(null)
+  useScrollReveal(mainRef)
 
   // Jump to the anchor when there is one, otherwise start the page at the top.
   useEffect(() => {
@@ -51,7 +55,7 @@ export function SiteLayout() {
     <LanguageProvider>
       <div className="app-shell">
         <SiteHeader contact={contact} />
-        <main className="app-main">
+        <main className="app-main" ref={mainRef}>
           <Outlet />
         </main>
         <SiteFooter contact={contact} />

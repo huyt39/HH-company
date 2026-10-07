@@ -110,7 +110,7 @@ export function ProjectsPage() {
             )}
           </div>
 
-          <div className="filter-row">
+          <div className="filter-row" data-reveal>
             <div className="filter-row__group" role="group" aria-label={t('projects.roleFilterAriaLabel')}>
               <span className="filter-row__label">{t('projects.roleFilterLabel')}</span>
               {ROLE_FILTER_VALUES.map((value) => (
@@ -161,7 +161,7 @@ export function ProjectsPage() {
                     {year || t('common.undated')}
                     <span>{t('projects.count')(projects.length)}</span>
                   </h2>
-                  <div className="grid grid--3">
+                  <div className="grid grid--3" data-reveal-stagger>
                     {projects.map((project) => (
                       <Card
                         key={project.id}

@@ -16,7 +16,7 @@ export function LeadersSection({ leaders }) {
     <section className="section" id="lanh-dao">
       <div className="container">
         <SectionHeading eyebrow={t('about.leadersEyebrow')} title={t('about.leadersTitle')} align="center" />
-        <div className="leader-grid">
+        <div className="leader-grid" data-reveal-stagger>
           {leaders?.map((leader) => (
             <div className="leader-card" key={leader.name}>
               <PersonAvatar name={leader.name} photo={leader.photo} />

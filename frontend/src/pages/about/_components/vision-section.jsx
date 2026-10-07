@@ -26,7 +26,7 @@ export function VisionSection({ profile }) {
     <section className="section section--dark" id="tam-nhin">
       <div className="container">
         <SectionHeading title={t('about.visionTitle')} align="center" light />
-        <div className="creed">
+        <div className="creed" data-reveal-stagger>
           <div className="creed__statement">
             <div className="creed__media">
               <img

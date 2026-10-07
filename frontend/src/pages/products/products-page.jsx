@@ -84,7 +84,7 @@ export function ProductsPage() {
             emptyTitle={groups.length ? t('products.noMatch') : t('products.empty')}
             emptyDescription={groups.length ? t('products.noMatchDesc') : undefined}
           >
-            <div className="product-list">
+            <div className="product-list" data-reveal-stagger>
               {visible.map((product) => (
                 <article className="product-row" id={product.slug} key={product.id}>
                   <div className="product-row__head">

@@ -54,7 +54,7 @@ export function ServicesPage() {
       {/* A front door for the page: what the work is, and the record behind it,
           before the list of packages starts. */}
       <section className="section services-lead">
-        <div className="container services-lead__grid">
+        <div className="container services-lead__grid" data-reveal-stagger>
           <div>
             <h2>{t('services.leadTitle')}</h2>
             <p className="text-muted">{t('services.leadDesc')}</p>
@@ -98,7 +98,7 @@ export function ServicesPage() {
                   description={copy.description}
                   light={category === 'build'}
                 />
-                <ol className="service-list">
+                <ol className="service-list" data-reveal-stagger>
                   {services.map((service, index) => (
                     <li key={service.id}>
                       <Link className="service-row" to={`/dich-vu/${service.slug}`}>
