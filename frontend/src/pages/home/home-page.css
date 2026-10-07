@@ -234,7 +234,8 @@
 
 .service-group-card:hover {
   border-color: #cbd7e5;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
 }
 .service-group-card:hover::before { transform: scaleY(1); }
 
@@ -345,6 +346,14 @@
   aspect-ratio: 21 / 9;
   overflow: hidden;
   background: rgba(255, 255, 255, .05);
+  transition: box-shadow .4s ease, transform .4s ease;
+}
+.project-feature:hover .project-feature__media {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, .45), 0 4px 10px rgba(0, 0, 0, .25);
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-feature:hover .project-feature__media { transform: none; }
 }
 .project-feature__media img {
   width: 100%;
@@ -388,8 +397,10 @@
      scripted rewind at the end of a lap — `behavior: 'auto'` means "use the
      element's scroll-behavior" — and the row would visibly run backwards.
      The component asks for smooth or instant per call instead. */
-  padding: 6px 0;
-  margin: -6px 0;
+  /* Overflow clips both axes here, so leave room for a card's hover lift and
+     shadow above; the negative margin keeps the layout where it was. */
+  padding: 24px 0 6px;
+  margin: -24px 0 -6px;
 }
 .project-rail__track::-webkit-scrollbar { display: none; }
 /* Four to a view, against the feature's full width — the contrast in scale is
