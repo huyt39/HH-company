@@ -18,8 +18,10 @@ export function HeroSection() {
         <span className="hero__eyebrow">Hoa Hoang Intra Co., Ltd</span>
         <h1 className="hero__title">
           {t('home.heroTitle').split('\n').map((line, index) => (
-            <span key={index}>
-              {index > 0 && <br />}
+            <span
+              className={index === 1 ? 'hero__title-line hero__title-line--accent' : 'hero__title-line'}
+              key={line}
+            >
               {line}
             </span>
           ))}

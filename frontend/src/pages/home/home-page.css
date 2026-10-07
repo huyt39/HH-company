@@ -35,17 +35,28 @@
   margin-bottom: 22px;
 }
 
-/* Held a step below the h1 display size: the second line of this headline is
-   long, and at the full size it broke into a third line ending on one word. */
 .hero__title {
   color: #fff;
-  /* Capped lower than the old 3.5rem: in capitals the second line of the
-     headline ran past the 1000px measure and dropped a single word onto a
-     third line. */
-  font-size: clamp(1.95rem, 3.85vw, 2.9rem);
-  margin-bottom: 22px;
+  display: grid;
+  gap: clamp(6px, 1vw, 12px);
+  max-width: 920px;
+  font-size: clamp(2rem, 4.25vw, 3.35rem);
+  line-height: 1.26;
+  margin-bottom: 26px;
 }
-.hero__desc { max-width: 56ch; color: #d3e0ee; font-size: 1.05rem; margin-bottom: 32px; }
+.hero__title-line { display: block; }
+.hero__title-line--accent {
+  color: #8fc8ff;
+  font-size: .82em;
+  letter-spacing: .025em;
+}
+.hero__desc {
+  max-width: 70ch;
+  color: #dbe8f5;
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  line-height: 1.8;
+  margin-bottom: 34px;
+}
 .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; }
 
 /* Reads as one line of capability, not as buttons — no hover, nothing to

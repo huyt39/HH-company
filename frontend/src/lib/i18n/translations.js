@@ -91,9 +91,9 @@ export const translations = {
         'Công ty TNHH ĐTXD và DVTM Hòa Hoàng — nhà thầu chuyên ngành thi công căng kéo cáp dự ứng lực, lắp đặt gối cầu, khe co giãn và sửa chữa tăng cường cầu.',
     },
     home: {
-      heroTitle: 'Nhà thầu chuyên ngành thi công kết cấu cầu đặc biệt:\ncầu vòm, dây văng, extradosed, dây võng, cáp DƯL ngoài trong dầm hộp...',
+      heroTitle: 'Nhà thầu chuyên ngành\nthi công kết cấu cầu đặc biệt',
       heroDesc:
-        'Hòa Hoàng đưa kỹ sư, công nhân và thiết bị của chính mình ra công trường: thi công lắp đặt, căng kéo và nghiệm thu cho các dự án cầu đường bộ và cao tốc trọng điểm trên cả nước.',
+        'Thi công trọn gói cầu vòm, cầu dây văng, cầu extradosed, cầu dây võng và hệ cáp dự ứng lực ngoài trong dầm hộp.',
       heroCtaCapability: 'Năng lực nhà thầu',
       heroCtaProjects: 'Dự án đã thi công',
       heroSpecialities: [
