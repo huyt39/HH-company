@@ -164,8 +164,9 @@ export const ADMIN_RESOURCES = {
     label: 'Tin tức',
     singular: 'bài viết',
     searchable: true,
-    // Shows the "load from Word / PDF file" button at the top of the form.
-    importArticle: true,
+    // "Load from Word / PDF file" button at the top of the form, and which
+    // form fields the imported parts land in.
+    importArticle: { content: 'content', title: 'title', excerpt: 'excerpt', cover: 'cover' },
     columns: [
       { name: 'cover', label: '', type: 'thumb', width: 64 },
       { name: 'title', label: 'Tiêu đề', primary: true },
@@ -194,6 +195,8 @@ export const ADMIN_RESOURCES = {
     label: 'Tuyển dụng',
     singular: 'vị trí',
     searchable: true,
+    // Job ads usually arrive as a Word/PDF file rather than typed in.
+    importArticle: { content: 'description', title: 'title' },
     columns: [
       { name: 'title', label: 'Vị trí', primary: true },
       { name: 'department', label: 'Bộ phận' },
@@ -208,7 +211,13 @@ export const ADMIN_RESOURCES = {
       { name: 'employment_type', label: 'Hình thức', type: 'text', hint: 'Toàn thời gian, bán thời gian…' },
       { name: 'quantity', label: 'Số lượng', type: 'number', default: 1 },
       { name: 'deadline', label: 'Hạn nộp hồ sơ', type: 'date' },
-      { name: 'description', label: 'Mô tả công việc (HTML)', type: 'html', rows: 12 },
+      {
+        name: 'description',
+        label: 'Mô tả công việc (HTML)',
+        type: 'html',
+        rows: 12,
+        hint: 'Nên dùng nút “Tải bài viết từ file Word / PDF” ở đầu form thay vì gõ tay',
+      },
       ...PUBLISH_FIELDS,
     ],
   },

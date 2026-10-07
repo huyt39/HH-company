@@ -33,7 +33,12 @@ export function ResourceFormDrawer({
 
         <div className="admin-drawer__body">
           {config.importArticle && (
-            <ArticleImportButton values={values} onChange={onChange} disabled={saving} />
+            <ArticleImportButton
+              fields={config.importArticle}
+              values={values}
+              onChange={onChange}
+              disabled={saving}
+            />
           )}
 
           {config.form.map((field) => (

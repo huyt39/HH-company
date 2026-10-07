@@ -6,13 +6,14 @@ import { ACCEPTED_EXTENSIONS, importArticleFile } from '@/lib/article-import'
 const isBlank = (value) => !value || (typeof value === 'string' && !value.trim())
 
 /**
- * Fill an article form from a Word or PDF file: body with all its images, plus
- * the title, excerpt and cover when those are still empty.
+ * Fill a form from a Word or PDF file: body with all its images, plus the
+ * title, excerpt and cover when the form has those fields and they are empty.
  *
- * @param {{values: object, onChange: (name: string, value: any) => void,
- *          disabled?: boolean}} props
+ * @param {{fields: {content: string, title?: string, excerpt?: string, cover?: string},
+ *          values: object, onChange: (name: string, value: any) => void,
+ *          disabled?: boolean}} props `fields` maps each imported part to a form field.
  */
-export function ArticleImportButton({ values, onChange, disabled }) {
+export function ArticleImportButton({ fields, values, onChange, disabled }) {
   const [progress, setProgress] = useState('')
   const [error, setError] = useState('')
   const [warnings, setWarnings] = useState([])
@@ -26,7 +27,7 @@ export function ArticleImportButton({ values, onChange, disabled }) {
     if (!file) return
 
     if (
-      !isBlank(values.content) &&
+      !isBlank(values[fields.content]) &&
       !window.confirm('Bài viết đã có nội dung. Thay toàn bộ nội dung bằng nội dung trong file?')
     ) {
       return
@@ -38,14 +39,19 @@ export function ArticleImportButton({ values, onChange, disabled }) {
     try {
       const result = await importArticleFile(file, {
         onProgress: setProgress,
-        takeCover: isBlank(values.cover?.url),
+        takeCover: Boolean(fields.cover) && isBlank(values[fields.cover]?.url),
       })
       if (!result.content.trim()) throw new Error('Không tìm thấy nội dung nào trong file.')
 
-      onChange('content', result.content)
-      if (result.title && isBlank(values.title)) onChange('title', result.title)
-      if (result.excerpt && isBlank(values.excerpt)) onChange('excerpt', result.excerpt)
-      if (result.cover) onChange('cover', result.cover)
+      // Only fill what is still empty: never overwrite what was typed by hand.
+      const fillIfEmpty = (part, value) => {
+        const name = fields[part]
+        if (name && value && isBlank(values[name])) onChange(name, value)
+      }
+      onChange(fields.content, result.content)
+      fillIfEmpty('title', result.title)
+      fillIfEmpty('excerpt', result.excerpt)
+      if (result.cover) onChange(fields.cover, result.cover)
 
       setWarnings(result.warnings)
       toast.ok(`Đã nhập nội dung và ${result.imageCount} ảnh từ file. Kiểm tra lại rồi bấm Lưu.`)
@@ -67,9 +73,12 @@ export function ArticleImportButton({ values, onChange, disabled }) {
         {busy ? progress : '📄 Tải bài viết từ file Word / PDF'}
       </button>
       <small className="admin-field__hint">
-        Chọn file .docx hoặc .pdf: toàn bộ chữ, ảnh và chú thích ảnh sẽ được điền vào ô “Nội dung”.
-        Tiêu đề, tóm tắt và ảnh bìa được tự điền nếu các ô đó còn trống. File Word cho kết quả
-        chính xác nhất; PDF được dựng lại theo bố cục nên nên xem trước trước khi lưu.
+        Chọn file .docx hoặc .pdf: toàn bộ chữ, ảnh, bảng và chú thích sẽ được điền vào ô nội dung.
+        {fields.excerpt || fields.cover
+          ? ' Tiêu đề, tóm tắt và ảnh bìa được tự điền nếu các ô đó còn trống.'
+          : ' Tiêu đề được tự điền nếu ô đó còn trống.'}{' '}
+        File Word cho kết quả chính xác nhất; PDF được dựng lại theo bố cục nên nên xem trước
+        trước khi lưu.
       </small>
       {warnings.map((warning) => (
         <p key={warning} className="admin-alert admin-alert--info">{warning}</p>
