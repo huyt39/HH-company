@@ -105,7 +105,7 @@
 
 @media (max-width: 860px) {
   .about-intro { grid-template-columns: 1fr; }
-  .about-intro__media { order: -1; }
+  .about-intro__trail { order: -1; }
 }
 
 /* ---------- Business fields ---------- */

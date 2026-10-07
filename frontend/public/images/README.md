@@ -18,3 +18,8 @@ khung 16:9, khai báo ở trường `image` của `_PRODUCTS` và đẩy lên da
 
 Ảnh dùng chung, không thuộc dự án nào cụ thể (`cong-truong/`,
 `cao-toc-ben-luc-long-thanh-j2/`…) được tham chiếu trực tiếp từ CSS hoặc JSX.
+
+`trail/` là bản thu nhỏ (cạnh dài 520px, JPEG q78) của một số ảnh công trường và
+cầu, dùng cho hiệu ứng ảnh chạy theo chuột ở khối "Về chúng tôi" trang chủ. Danh
+sách khai báo ở `TRAIL_IMAGES` trong `pages/home/_components/about-intro-section.jsx`;
+thêm ảnh thì tạo bản thu nhỏ cùng cỡ rồi thêm tên file vào đó.
