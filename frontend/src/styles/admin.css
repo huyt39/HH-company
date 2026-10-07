@@ -472,8 +472,8 @@
 @media (max-width: 600px) { .admin-toasts { right: 16px; bottom: 16px; } }
 @media (prefers-reduced-motion: reduce) { .admin-toast { animation: none; } }
 
-/* ===== Import a Word article / HTML preview ===== */
-.docx-import {
+/* ===== Import a Word / PDF article, HTML preview ===== */
+.article-import {
   display: grid;
   gap: 6px;
   padding: 14px;
@@ -481,7 +481,7 @@
   border: 1px dashed var(--c-border);
   border-radius: var(--radius);
 }
-.docx-import .btn { justify-self: start; }
+.article-import .btn { justify-self: start; }
 
 .html-preview { margin: -6px 0 16px; font-size: .87rem; }
 .html-preview summary { cursor: pointer; color: var(--c-navy-700); font-weight: 500; }

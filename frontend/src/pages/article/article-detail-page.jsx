@@ -75,7 +75,12 @@ export function ArticleDetailPage({ type }) {
             <article>
               {isProject && <ProjectFacts project={data} />}
 
-              <ArticleGallery cover={data.cover} media={data.gallery} />
+              {/* Articles imported from Word/PDF already show their first photo,
+                  with its caption, inside the body; don't print it twice. */}
+              <ArticleGallery
+                cover={data.cover?.url && data.content?.includes(data.cover.url) ? null : data.cover}
+                media={data.gallery}
+              />
 
               {/* The summary is only worth repeating here when it says
                   something the facts table has not already said: for most

@@ -119,7 +119,7 @@ export const translations = {
       servicesGroupMore: 'Xem cả nhóm',
       servicesViewAll: 'Tất cả dịch vụ',
       strengthsEyebrow: 'Cam kết',
-      strengthsTitle: 'VÌ SAO CHỦ ĐẦU TƯ CHỌN HÒA HOÀNG',
+      strengthsTitle: 'VÌ SAO CHỦ ĐẦU TƯ CHỌN HÒA\u00a0HOÀNG',
       strengths: [
         {
           title: 'Đội thi công của chính công ty',
@@ -584,7 +584,7 @@ export const translations = {
       servicesGroupMore: 'See the whole group',
       servicesViewAll: 'All services',
       strengthsEyebrow: 'Commitment',
-      strengthsTitle: 'Why main contractors choose Hoa Hoang',
+      strengthsTitle: 'Why main contractors choose Hoa\u00a0Hoang',
       strengths: [
         {
           title: 'Our own site crews',
