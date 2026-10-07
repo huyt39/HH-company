@@ -23,7 +23,7 @@ export function LatestNewsSection({ articles, loading, error }) {
           isEmpty={!articles?.length}
           emptyTitle={t('home.newsEmpty')}
         >
-          <div className="grid grid--3">
+          <div className="grid grid--3" data-reveal-stagger>
             {articles?.map((article) => (
               <Card
                 key={article.id}

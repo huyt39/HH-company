@@ -123,7 +123,7 @@ export function FeaturedProjectsSection({ projects, loading, error }) {
           emptyTitle={t('home.featuredProjectsEmpty')}
         >
           {feature && (
-            <Link className="project-feature" to={`/du-an/${feature.slug}`}>
+            <Link className="project-feature" data-reveal to={`/du-an/${feature.slug}`}>
               <div className="project-feature__media">
                 {fullUrl(feature.cover) && (
                   <img
@@ -147,6 +147,7 @@ export function FeaturedProjectsSection({ projects, loading, error }) {
 
           <div
             className="project-rail"
+            data-reveal
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             onFocusCapture={() => setPaused(true)}

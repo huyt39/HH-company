@@ -9,7 +9,7 @@ export function QuoteCtaSection() {
   return (
     <section className="cta">
       <div className="container">
-        <div className="cta__inner">
+        <div className="cta__inner" data-reveal-stagger>
           <div className="cta__media" aria-hidden="true">
             <img
               src="/images/cong-truong/ky-su-hoa-hoang-tai-cong-truong-6e4c117f.jpg"

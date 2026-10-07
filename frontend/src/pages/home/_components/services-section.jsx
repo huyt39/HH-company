@@ -43,7 +43,7 @@ export function ServicesSection({ services, loading, error }) {
           largeEyebrow
         />
         <StateBlock loading={loading} error={error} isEmpty={!services?.length} skeletonCount={4}>
-          <div className="service-groups">
+          <div className="service-groups" data-reveal-stagger>
             {GROUPS.map((group) => {
               const items = (services ?? [])
                 .filter((service) => service.category === group.category)
@@ -78,7 +78,7 @@ export function ServicesSection({ services, loading, error }) {
             })}
           </div>
         </StateBlock>
-        <div className="text-center home-section__more">
+        <div className="text-center home-section__more" data-reveal>
           <Link to="/dich-vu" className="btn btn--outline">{t('home.servicesViewAll')}</Link>
         </div>
       </div>

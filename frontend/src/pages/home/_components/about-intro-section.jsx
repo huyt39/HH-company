@@ -16,14 +16,14 @@ export function AboutIntroSection() {
             title={t('home.aboutIntroTitle')}
             description={t('home.aboutIntroDesc')}
           />
-          <ul className="check-list">
+          <ul className="check-list" data-reveal-stagger>
             {t('home.aboutIntroHighlights').map((item) => <li key={item}>{item}</li>)}
           </ul>
-          <div className="about-intro__actions">
+          <div className="about-intro__actions" data-reveal>
             <Link to="/gioi-thieu" className="btn btn--outline">{t('home.aboutIntroCta')}</Link>
           </div>
         </div>
-        <div className="about-intro__media">
+        <div className="about-intro__media" data-reveal-stagger>
           <img
             className="about-intro__photo about-intro__photo--tall"
             src="/images/cong-truong/ky-su-hoa-hoang-tai-cong-truong-6e4c117f.jpg"

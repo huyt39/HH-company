@@ -30,7 +30,7 @@ export function SectionHeading({
   const label = eyebrow ? <span className="section-heading__eyebrow">{eyebrow}</span> : null
 
   return (
-    <div className={classes}>
+    <div className={classes} data-reveal>
       {!eyebrowBelow && label}
       <h2>{title}</h2>
       {eyebrowBelow && label}

@@ -14,7 +14,7 @@ export function HeroSection() {
 
   return (
     <section className="hero">
-      <div className="container hero__inner">
+      <div className="container hero__inner" data-reveal-stagger>
         <span className="hero__eyebrow">Hoa Hoang Intra Co., Ltd</span>
         <h1 className="hero__title">
           {t('home.heroTitle').split('\n').map((line, index) => (

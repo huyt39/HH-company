@@ -1,9 +1,12 @@
+import { useRef } from 'react'
+
 import { companyApi } from '@/lib/api/company-client'
 import { fieldsApi } from '@/lib/api/fields-client'
 import { newsApi } from '@/lib/api/news-client'
 import { projectsApi } from '@/lib/api/projects-client'
 import { useDocumentMeta } from '@/lib/hooks/use-document-meta'
 import { useFetch } from '@/lib/hooks/use-fetch'
+import { useScrollReveal } from '@/lib/hooks/use-scroll-reveal'
 
 import { AboutIntroSection } from './_components/about-intro-section'
 import { FeaturedProjectsSection } from './_components/featured-projects-section'
@@ -20,6 +23,8 @@ const LATEST_NEWS = 3
 
 export function HomePage() {
   useDocumentMeta()
+  const pageRef = useRef(null)
+  useScrollReveal(pageRef)
 
   const services = useFetch((options) => fieldsApi.getFields(options), [])
   const projects = useFetch(
@@ -36,7 +41,7 @@ export function HomePage() {
   )
 
   return (
-    <>
+    <div ref={pageRef}>
       <HeroSection />
       <AboutIntroSection />
       <ServicesSection
@@ -53,6 +58,6 @@ export function HomePage() {
       <PartnersSection partners={partners} />
       <LatestNewsSection articles={news.data?.items} loading={news.loading} error={news.error} />
       <QuoteCtaSection />
-    </>
+    </div>
   )
 }

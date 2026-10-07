@@ -401,3 +401,27 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------- App shell ---------- */
 .app-shell { display: flex; flex-direction: column; min-height: 100vh; }
 .app-main { flex: 1; }
+
+/* ===== Scroll reveal (see lib/hooks/use-scroll-reveal.js) =====
+   Fade up out of a slight blur, like the reference site. Only containers the
+   hook marks with `.js-reveal` hide anything. */
+.js-reveal {
+  --reveal-duration: 850ms;
+  --reveal-ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.js-reveal [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  filter: blur(8px);
+  transition:
+    opacity var(--reveal-duration) var(--reveal-ease),
+    transform var(--reveal-duration) var(--reveal-ease),
+    filter var(--reveal-duration) var(--reveal-ease);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+.js-reveal [data-reveal][data-revealed] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}

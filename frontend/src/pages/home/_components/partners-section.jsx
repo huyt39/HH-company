@@ -11,7 +11,9 @@ export function PartnersSection({ partners }) {
     <section className="section section--soft">
       <div className="container">
         <SectionHeading eyebrow={t('home.partnersEyebrow')} title={t('home.partnersTitle')} align="center" />
-        <PartnerGrid partners={partners} />
+        <div data-reveal>
+          <PartnerGrid partners={partners} />
+        </div>
       </div>
     </section>
   )

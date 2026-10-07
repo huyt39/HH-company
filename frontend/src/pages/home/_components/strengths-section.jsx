@@ -36,7 +36,7 @@ export function StrengthsSection() {
             sentence under each one said what the rest of the site already
             proves — the equipment schedule, the HSE section, the handover
             documents — and turned a glanceable row into four paragraphs. */}
-        <div className="commitments commitments--headline">
+        <div className="commitments commitments--headline" data-reveal-stagger>
           {strengths.map((item, index) => (
             <div className="commitment" key={item.title}>
               <span className="commitment__mark" aria-hidden="true">
