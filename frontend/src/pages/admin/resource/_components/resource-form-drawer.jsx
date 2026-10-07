@@ -1,4 +1,5 @@
 import { AdminAlert } from '@/components/admin/admin-alert'
+import { DocxImportButton } from '@/components/admin/docx-import-button'
 import { FormField } from '@/components/admin/form-field'
 
 /**
@@ -31,6 +32,10 @@ export function ResourceFormDrawer({
         </header>
 
         <div className="admin-drawer__body">
+          {config.importDocx && (
+            <DocxImportButton values={values} onChange={onChange} disabled={saving} />
+          )}
+
           {config.form.map((field) => (
             <FormField
               key={field.name}

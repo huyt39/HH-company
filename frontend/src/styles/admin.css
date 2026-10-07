@@ -471,3 +471,33 @@
 @keyframes admin-toast-in { from { opacity: 0; transform: translateY(8px); } }
 @media (max-width: 600px) { .admin-toasts { right: 16px; bottom: 16px; } }
 @media (prefers-reduced-motion: reduce) { .admin-toast { animation: none; } }
+
+/* ===== Import a Word article / HTML preview ===== */
+.docx-import {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  margin-bottom: 16px;
+  border: 1px dashed var(--c-border);
+  border-radius: var(--radius);
+}
+.docx-import .btn { justify-self: start; }
+
+.html-preview { margin: -6px 0 16px; font-size: .87rem; }
+.html-preview summary { cursor: pointer; color: var(--c-navy-700); font-weight: 500; }
+.html-preview__body {
+  max-height: 480px;
+  overflow: auto;
+  margin-top: 8px;
+  padding: 14px 16px;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  line-height: 1.7;
+}
+.html-preview__body img { max-width: 100%; height: auto; margin-block: 12px; }
+.html-preview__body ul, .html-preview__body ol { padding-left: 22px; margin-bottom: 1em; }
+.html-preview__body ul { list-style: disc; }
+.html-preview__body ol { list-style: decimal; }
+.html-preview__body p { margin-bottom: .8em; }
+.html-preview__body table { border-collapse: collapse; margin-bottom: 1em; }
+.html-preview__body td, .html-preview__body th { border: 1px solid var(--c-border); padding: 6px 10px; vertical-align: top; }

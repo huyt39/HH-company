@@ -164,6 +164,8 @@ export const ADMIN_RESOURCES = {
     label: 'Tin tức',
     singular: 'bài viết',
     searchable: true,
+    // Shows the "load from Word file" button at the top of the form.
+    importDocx: true,
     columns: [
       { name: 'cover', label: '', type: 'thumb', width: 64 },
       { name: 'title', label: 'Tiêu đề', primary: true },
@@ -176,7 +178,13 @@ export const ADMIN_RESOURCES = {
       { name: 'category', label: 'Chuyên mục', type: 'text' },
       { name: 'published_at', label: 'Ngày đăng', type: 'date' },
       { name: 'excerpt', label: 'Tóm tắt', type: 'textarea', rows: 3 },
-      { name: 'content', label: 'Nội dung (HTML)', type: 'html', rows: 12 },
+      {
+        name: 'content',
+        label: 'Nội dung (HTML)',
+        type: 'html',
+        rows: 12,
+        hint: 'Nên dùng nút “Tải bài viết từ file Word” ở đầu form thay vì gõ tay',
+      },
       { name: 'cover', label: 'Ảnh bìa', type: 'image' },
       ...PUBLISH_FIELDS,
     ],

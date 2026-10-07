@@ -23,6 +23,11 @@
 .article__content img { border-radius: var(--radius); margin-block: 20px; }
 .article__content h2, .article__content h3 { margin-top: 1.6em; }
 .article__content ul { list-style: disc; padding-left: 22px; margin-bottom: 1em; }
+.article__content ol { list-style: decimal; padding-left: 22px; margin-bottom: 1em; }
+/* Tables come in from Word imports; scroll sideways rather than overflow on phones. */
+.article__content table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin-bottom: 1em; }
+.article__content td, .article__content th { border: 1px solid var(--c-border); padding: 8px 12px; vertical-align: top; }
+.article__content td p:last-child, .article__content th p:last-child { margin-bottom: 0; }
 
 .article__back { margin-top: 40px; }
 

@@ -124,14 +124,22 @@ export function FormField({ field, value, onChange, disabled }) {
   const hint = field.hint ?? DEFAULT_HINTS[field.type] ?? null
 
   return (
-    <label className="admin-field">
-      <span>
-        {field.label}
-        {field.required && <em className="admin-field__req"> *</em>}
-      </span>
-      {control}
-      {hint && <small className="admin-field__hint">{hint}</small>}
-    </label>
+    <>
+      <label className="admin-field">
+        <span>
+          {field.label}
+          {field.required && <em className="admin-field__req"> *</em>}
+        </span>
+        {control}
+        {hint && <small className="admin-field__hint">{hint}</small>}
+      </label>
+      {field.type === 'html' && value && (
+        <details className="html-preview">
+          <summary>Xem trước nội dung như trên web</summary>
+          <div className="html-preview__body" dangerouslySetInnerHTML={{ __html: value }} />
+        </details>
+      )}
+    </>
   )
 }
 
