@@ -18,13 +18,11 @@
 /* Hover lifts the photograph, not the whole card: the card has no panel, so a
    shadow round it would float loose around the text. */
 a.card:hover .card__media {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 32px rgba(11, 37, 69, .18), 0 3px 8px rgba(11, 37, 69, .08);
+  transform: var(--lift-hover);
+  box-shadow: var(--shadow-hover);
 }
 /* Navy shadow vanishes on the dark sections; use a deeper black there. */
-.section--dark a.card:hover .card__media {
-  box-shadow: 0 16px 36px rgba(0, 0, 0, .45), 0 3px 8px rgba(0, 0, 0, .25);
-}
+.section--dark a.card:hover .card__media { box-shadow: var(--shadow-hover-dark); }
 @media (prefers-reduced-motion: reduce) {
   a.card:hover .card__media { transform: none; }
 }

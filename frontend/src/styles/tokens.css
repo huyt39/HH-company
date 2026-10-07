@@ -40,7 +40,16 @@
   --shadow-sm: 0 1px 3px rgba(11, 37, 69, 0.08);
   --shadow: 0 6px 20px rgba(11, 37, 69, 0.10);
   --shadow-lg: 0 16px 44px rgba(11, 37, 69, 0.16);
+  /* Every card's hover, so they all answer the pointer the same way. */
+  --shadow-hover: 0 20px 44px rgba(11, 37, 69, 0.20), 0 4px 12px rgba(11, 37, 69, 0.10);
+  --shadow-hover-dark: 0 22px 48px rgba(0, 0, 0, 0.50), 0 4px 12px rgba(0, 0, 0, 0.30);
+  --lift-hover: translateY(-6px);
 
   --header-h: 76px;
   --transition: 0.25s ease;
+}
+
+/* Reduced motion: cards still cast the hover shadow, they just do not move. */
+@media (prefers-reduced-motion: reduce) {
+  :root { --lift-hover: none; }
 }

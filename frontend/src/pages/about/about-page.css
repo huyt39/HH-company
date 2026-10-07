@@ -251,7 +251,7 @@
   border-radius: var(--radius);
   transition: var(--transition);
 }
-.leader-card:hover { border-color: var(--c-navy-600); box-shadow: var(--shadow-sm); }
+.leader-card:hover { border-color: var(--c-navy-600); box-shadow: var(--shadow-hover); transform: var(--lift-hover); }
 .leader-card .person-avatar { width: 112px; height: 112px; font-size: 2.35rem; }
 .leader-card h3 { font-size: 1.02rem; line-height: 1.4; }
 .leader-card p { font-size: .86rem; line-height: 1.5; }
@@ -282,7 +282,7 @@
   border-radius: var(--radius);
   transition: var(--transition);
 }
-.advisor-card:hover { border-color: var(--c-navy-600); box-shadow: var(--shadow-sm); }
+.advisor-card:hover { border-color: var(--c-navy-600); box-shadow: var(--shadow-hover); transform: var(--lift-hover); }
 .advisor-card--lead { grid-column: 1 / -1; }
 
 .advisor-card__head {
