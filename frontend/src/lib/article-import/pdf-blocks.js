@@ -306,15 +306,13 @@ export async function extractPdfBlocks(pdfjs, data, { onPage } = {}) {
       out.push(block)
       continue
     }
-    const isHeading =
-      block.text.length <= HEADING_MAX_CHARS &&
-      (block.size >= bodySize * HEADING_RATIO ||
-        (block.bold && block.text.length <= 120 && !/[.,;]$/.test(block.text)))
+    // Only larger type is a heading; bold text stays bold text, as written.
+    const isHeading = block.text.length <= HEADING_MAX_CHARS && block.size >= bodySize * HEADING_RATIO
 
     if (isHeading) {
       const isTitle = !titleTaken && out.length <= 1 && block.size >= largest - 0.5 && block.size > bodySize
       titleTaken ||= isTitle
-      const level = isTitle ? 1 : block.size >= bodySize * HEADING_RATIO ? 2 : 3
+      const level = isTitle ? 1 : 2
       // Headings carry their own weight; drop the <strong> wrapping.
       out.push({ type: 'heading', level, text: block.text, html: escapeHtml(block.text) })
       continue

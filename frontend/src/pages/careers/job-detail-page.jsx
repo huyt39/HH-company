@@ -17,6 +17,19 @@ export function JobDetailPage() {
 
   const labels = t('careers.labels')
 
+  // Only what was filled in: a job posted as a file has none of these, and a
+  // table of dashes above the letter just looks broken. The head count defaults
+  // to 1, so it only counts as information next to other details.
+  const facts = data
+    ? [
+        [labels.department, data.department],
+        [labels.location, data.location],
+        [labels.employmentType, data.employment_type],
+        [labels.deadline, data.deadline && formatDate(data.deadline)],
+      ].filter(([, value]) => value)
+    : []
+  if (facts.length && data.quantity) facts.splice(3, 0, [labels.quantity, data.quantity])
+
   return (
     <>
       <PageBanner
@@ -38,13 +51,13 @@ export function JobDetailPage() {
 
           {!loading && !error && data && (
             <>
-              <dl className="article__facts" data-reveal>
-                <div><dt>{labels.department}</dt><dd>{data.department || '—'}</dd></div>
-                <div><dt>{labels.location}</dt><dd>{data.location || '—'}</dd></div>
-                <div><dt>{labels.employmentType}</dt><dd>{data.employment_type || '—'}</dd></div>
-                <div><dt>{labels.quantity}</dt><dd>{data.quantity}</dd></div>
-                <div><dt>{labels.deadline}</dt><dd>{formatDate(data.deadline)}</dd></div>
-              </dl>
+              {facts.length > 0 && (
+                <dl className="article__facts" data-reveal>
+                  {facts.map(([label, value]) => (
+                    <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
+                  ))}
+                </dl>
+              )}
 
               <div
                 data-reveal
