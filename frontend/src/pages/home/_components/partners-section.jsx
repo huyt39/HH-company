@@ -1,4 +1,4 @@
-import { PartnerGrid } from '@/components/ui/partner-grid'
+import { PartnerMarquee } from '@/components/ui/partner-marquee'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { useLang } from '@/lib/i18n/language-context'
 
@@ -11,9 +11,10 @@ export function PartnersSection({ partners }) {
     <section className="section section--soft">
       <div className="container">
         <SectionHeading eyebrow={t('home.partnersEyebrow')} title={t('home.partnersTitle')} align="center" />
-        <div data-reveal>
-          <PartnerGrid partners={partners} />
-        </div>
+      </div>
+      {/* Edge to edge, like a ticker: the strip runs past the content width. */}
+      <div data-reveal>
+        <PartnerMarquee partners={partners} />
       </div>
     </section>
   )

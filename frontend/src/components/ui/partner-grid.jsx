@@ -17,37 +17,41 @@ function PartnerPlaceholder() {
 }
 
 /**
- * Logo above, full company name below — the card the customers use on the home
- * page and the manufacturers on the about page. `showCountry` adds the country
- * line the manufacturer list carries.
+ * Logo above, full company name below. `showCountry` adds the country line the
+ * manufacturer list carries.
  */
+export function PartnerCard({ partner, showCountry = false }) {
+  const logo = thumbUrl(partner.logo)
+  return (
+    <li className="partner-card">
+      <div className="partner-card__logo-wrap">
+        {logo ? (
+          <img
+            className="partner-card__logo"
+            src={logo}
+            alt={partner.logo.alt || partner.name}
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <PartnerPlaceholder />
+        )}
+      </div>
+      <span className="partner-card__name">{partner.name}</span>
+      {showCountry && partner.country && (
+        <span className="partner-card__country">{partner.country}</span>
+      )}
+    </li>
+  )
+}
+
+/** Partner cards in a grid — the manufacturers on the about page. */
 export function PartnerGrid({ partners, showCountry = false }) {
   return (
     <ul className="partner-grid">
-      {partners.map((partner) => {
-        const logo = thumbUrl(partner.logo)
-        return (
-          <li className="partner-card" key={partner.name}>
-            <div className="partner-card__logo-wrap">
-              {logo ? (
-                <img
-                  className="partner-card__logo"
-                  src={logo}
-                  alt={partner.logo.alt || partner.name}
-                  loading="lazy"
-                  decoding="async"
-                />
-              ) : (
-                <PartnerPlaceholder />
-              )}
-            </div>
-            <span className="partner-card__name">{partner.name}</span>
-            {showCountry && partner.country && (
-              <span className="partner-card__country">{partner.country}</span>
-            )}
-          </li>
-        )
-      })}
+      {partners.map((partner) => (
+        <PartnerCard key={partner.name} partner={partner} showCountry={showCountry} />
+      ))}
     </ul>
   )
 }
