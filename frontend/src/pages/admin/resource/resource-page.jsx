@@ -14,13 +14,18 @@ import { useResourceList } from './_hooks/use-resource-list'
 
 const NEW = 'new'
 
+// Field types whose "empty" is null: the backend rejects '' for numbers, dates,
+// enums and image objects.
+const NULLABLE_TYPES = new Set(['number', 'date', 'select', 'image'])
+
 /** Initial values for the create form, per field type. */
 function blankValues(formFields) {
   return Object.fromEntries(
     formFields.map((field) => {
       if (field.default !== undefined) return [field.name, field.default]
-      if (field.type === 'list') return [field.name, []]
+      if (field.type === 'list' || field.type === 'gallery') return [field.name, []]
       if (field.type === 'switch') return [field.name, false]
+      if (NULLABLE_TYPES.has(field.type)) return [field.name, null]
       return [field.name, '']
     }),
   )

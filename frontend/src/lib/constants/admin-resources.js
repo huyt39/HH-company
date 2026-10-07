@@ -11,7 +11,7 @@ import { PROJECT_ROLE_OPTIONS, SERVICE_CATEGORY_OPTIONS } from './services'
  */
 
 const PUBLISH_FIELDS = [
-  { name: 'sort_order', label: 'Thứ tự hiển thị', type: 'number', hint: 'Số nhỏ hiện trước' },
+  { name: 'sort_order', label: 'Thứ tự hiển thị', type: 'number', default: 0, hint: 'Số nhỏ hiện trước' },
   { name: 'is_published', label: 'Hiển thị trên web', type: 'switch', default: true },
 ]
 
