@@ -1,34 +1,48 @@
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 
-// Gap between items of one `data-reveal-stagger` group.
-const STAGGER_MS = 90
-// The CSS transition length; must match `--reveal-duration` in global.css.
-const DURATION_MS = 850
+// Timings; must match the custom properties on `.js-reveal` in global.css.
+const STAGGER_MS = 90 // between items of one `data-reveal-stagger` group
+const BLOCK_MS = 750 // one block's fade-up
+const CHAR_STEP_MS = 18 // between letters of a `data-reveal-text` heading
+const CHAR_MS = 600 // one letter's rise
 
 /**
- * Fade blocks in as they scroll into view.
+ * Reveal content as it scrolls into view, the way the reference site does:
+ * blocks fade up a little; headings rise in letter by letter.
  *
- * Inside `ref`, an element with `data-reveal` animates on its own; the direct
- * children of a `data-reveal-stagger` element animate one after another. Content
- * that arrives later (cards after a fetch) is picked up too.
+ * Inside `ref`:
+ * - `data-reveal` — the element fades up on its own;
+ * - `data-reveal-stagger` — its direct children fade up one after another;
+ * - `data-reveal-text` — a heading whose letters are `SplitText` spans.
+ * Content that arrives later (cards after a fetch) is picked up too.
  *
  * Only the container with `js-reveal` hides anything, and that class is added
  * here — so without JS, or with reduced motion, the page simply shows as is.
- * Once an element has played, its reveal attributes are removed so its own
- * transforms and transitions (card hover lifts, carousels) work normally.
+ * Once an element has played, its attributes are removed so its own transforms
+ * and transitions (card hover lifts, carousels) work normally.
  *
  * @param {import('react').RefObject<HTMLElement>} ref
  */
 export function useScrollReveal(ref) {
-  useEffect(() => {
+  // Layout effect: hide before the first paint, or the hero shows, vanishes
+  // and comes back instead of animating in.
+  useLayoutEffect(() => {
     const root = ref.current
     if (!root || typeof IntersectionObserver === 'undefined') return undefined
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
 
     const timers = new Set()
 
+    const playTime = (el) => {
+      const delay = parseInt(el.style.getPropertyValue('--reveal-delay'), 10) || 0
+      if (!el.hasAttribute('data-reveal-text')) return delay + BLOCK_MS
+      const letters = el.querySelectorAll('.split-char').length
+      return delay + letters * CHAR_STEP_MS + CHAR_MS
+    }
+
     const finish = (el) => {
       el.removeAttribute('data-reveal')
+      el.removeAttribute('data-reveal-text')
       el.removeAttribute('data-revealed')
       el.style.removeProperty('--reveal-delay')
     }
@@ -40,16 +54,14 @@ export function useScrollReveal(ref) {
           const el = entry.target
           observer.unobserve(el)
           el.setAttribute('data-revealed', '')
-          const delay = parseInt(el.style.getPropertyValue('--reveal-delay'), 10) || 0
           const timer = setTimeout(() => {
             timers.delete(timer)
             finish(el)
-          }, delay + DURATION_MS + 50)
+          }, playTime(el) + 100)
           timers.add(timer)
         })
       },
-      // Start a little before the element is fully in, as the reference does.
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.1 },
     )
 
     const seen = new WeakSet()
@@ -57,11 +69,12 @@ export function useScrollReveal(ref) {
       root.querySelectorAll('[data-reveal-stagger]').forEach((group) => {
         ;[...group.children].forEach((child, index) => {
           if (seen.has(child)) return
-          child.setAttribute('data-reveal', '')
+          // A split heading keeps its letter animation; it only takes the delay.
+          if (!child.hasAttribute('data-reveal-text')) child.setAttribute('data-reveal', '')
           child.style.setProperty('--reveal-delay', `${index * STAGGER_MS}ms`)
         })
       })
-      root.querySelectorAll('[data-reveal]').forEach((el) => {
+      root.querySelectorAll('[data-reveal], [data-reveal-text]').forEach((el) => {
         if (seen.has(el)) return
         seen.add(el)
         observer.observe(el)

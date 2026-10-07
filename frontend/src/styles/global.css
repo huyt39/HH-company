@@ -403,25 +403,35 @@ ul { margin: 0; padding: 0; list-style: none; }
 .app-main { flex: 1; }
 
 /* ===== Scroll reveal (see lib/hooks/use-scroll-reveal.js) =====
-   Fade up out of a slight blur, like the reference site. Only containers the
-   hook marks with `.js-reveal` hide anything. */
+   Modelled on the reference site: blocks fade up 16px, headings rise in letter
+   by letter. No blur — it tires the eye. Only containers the hook marks with
+   `.js-reveal` hide anything. */
+.split-word { display: inline-block; white-space: nowrap; }
+.split-char { display: inline-block; }
+
 .js-reveal {
-  --reveal-duration: 850ms;
-  --reveal-ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --reveal-ease: cubic-bezier(0.215, 0.61, 0.355, 1); /* easeOutCubic */
+  --reveal-block-ms: 750ms;
+  --reveal-char-ms: 600ms;
+  --reveal-char-step: 18ms;
 }
+
 .js-reveal [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, 28px, 0);
-  filter: blur(8px);
+  transform: translate3d(0, 16px, 0);
   transition:
-    opacity var(--reveal-duration) var(--reveal-ease),
-    transform var(--reveal-duration) var(--reveal-ease),
-    filter var(--reveal-duration) var(--reveal-ease);
+    opacity var(--reveal-block-ms) var(--reveal-ease),
+    transform var(--reveal-block-ms) var(--reveal-ease);
   transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform, filter;
 }
-.js-reveal [data-reveal][data-revealed] {
-  opacity: 1;
-  transform: none;
-  filter: none;
+.js-reveal [data-reveal][data-revealed] { opacity: 1; transform: none; }
+
+.js-reveal [data-reveal-text] .split-char {
+  opacity: 0;
+  transform: translate3d(0, 0.45em, 0);
+  transition:
+    opacity var(--reveal-char-ms) var(--reveal-ease),
+    transform var(--reveal-char-ms) var(--reveal-ease);
+  transition-delay: calc(var(--reveal-delay, 0ms) + var(--i, 0) * var(--reveal-char-step));
 }
+.js-reveal [data-reveal-text][data-revealed] .split-char { opacity: 1; transform: none; }

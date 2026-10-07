@@ -1,3 +1,4 @@
+import { SplitText } from './split-text'
 import './section-heading.css'
 
 /**
@@ -30,9 +31,9 @@ export function SectionHeading({
   const label = eyebrow ? <span className="section-heading__eyebrow">{eyebrow}</span> : null
 
   return (
-    <div className={classes} data-reveal>
+    <div className={classes} data-reveal-stagger>
       {!eyebrowBelow && label}
-      <h2>{title}</h2>
+      <h2 data-reveal-text>{typeof title === 'string' ? <SplitText text={title} /> : title}</h2>
       {eyebrowBelow && label}
       {description && <p className="section-heading__desc">{description}</p>}
     </div>

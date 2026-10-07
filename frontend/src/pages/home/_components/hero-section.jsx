@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 
+import { SplitText } from '@/components/ui/split-text'
 import { useLang } from '@/lib/i18n/language-context'
 
 /**
@@ -11,18 +12,19 @@ import { useLang } from '@/lib/i18n/language-context'
  */
 export function HeroSection() {
   const { t } = useLang()
+  const lines = t('home.heroTitle').split('\n')
 
   return (
     <section className="hero">
       <div className="container hero__inner" data-reveal-stagger>
         <span className="hero__eyebrow">Hoa Hoang Intra Co., Ltd</span>
-        <h1 className="hero__title">
-          {t('home.heroTitle').split('\n').map((line, index) => (
+        <h1 className="hero__title" data-reveal-text>
+          {lines.map((line, index) => (
             <span
               className={index === 1 ? 'hero__title-line hero__title-line--accent' : 'hero__title-line'}
               key={line}
             >
-              {line}
+              <SplitText text={line} offset={lines.slice(0, index).join('').length} />
             </span>
           ))}
         </h1>
