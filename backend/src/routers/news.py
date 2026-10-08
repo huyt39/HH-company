@@ -13,9 +13,10 @@ async def list_news(
     page: int = Query(1, ge=1),
     page_size: int = Query(10, ge=1, le=50),
     category: str | None = Query(None),
+    q: str | None = Query(None, min_length=1),
 ):
-    """List articles, paginated and filterable by category."""
-    data = await ContentService().list_news(page=page, page_size=page_size, category=category)
+    """List articles, paginated and filterable by category or keyword."""
+    data = await ContentService().list_news(page=page, page_size=page_size, category=category, q=q)
     return BaseApiResponse(detail="Danh sách tin tức", data=data)
 
 

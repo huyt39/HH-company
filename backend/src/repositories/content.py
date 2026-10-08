@@ -36,13 +36,13 @@ class ProjectRepository(PublishableRepository[Project]):
 class NewsRepository(PublishableRepository[NewsItem]):
     model = NewsItem
     default_sort = (("published_at", -1), ("_id", -1))
-    searchable = ("title", "slug")
+    searchable = ("title", "slug", "excerpt", "category")
 
 
 class JobPostingRepository(PublishableRepository[JobPosting]):
     model = JobPosting
     default_sort = (("sort_order", 1), ("_id", -1))
-    searchable = ("title", "slug", "department")
+    searchable = ("title", "slug", "department", "location", "employment_type")
 
 
 class FinancialYearRepository(BaseRepository[FinancialYear]):

@@ -17,9 +17,10 @@ export function NewsPage() {
   useDocumentMeta({ title: t('news.metaTitle'), description: t('news.metaDesc') })
 
   const [page, setPage] = useState(1)
+  const [query, setQuery] = useState('')
   const { data, loading, error } = useFetch(
-    (options) => newsApi.getArticles({ page, page_size: PAGE_SIZE }, options),
-    [page],
+    (options) => newsApi.getArticles({ page, page_size: PAGE_SIZE, q: query.trim() }, options),
+    [page, query],
   )
 
   return (
@@ -28,11 +29,31 @@ export function NewsPage() {
 
       <section className="section">
         <div className="container">
+          <div className="filter-bar news-filter-bar">
+            <label className="filter-bar__search">
+              <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                <circle cx="9" cy="9" r="6.5" fill="none" strokeWidth="1.8" />
+                <line x1="13.6" y1="13.6" x2="18" y2="18" strokeWidth="1.8" strokeLinecap="round" />
+              </svg>
+              <input
+                type="search"
+                placeholder={t('news.searchPlaceholder')}
+                value={query}
+                onChange={(event) => {
+                  setQuery(event.target.value)
+                  setPage(1)
+                }}
+                aria-label={t('news.searchAriaLabel')}
+              />
+            </label>
+          </div>
+
           <StateBlock
             loading={loading}
             error={error}
             isEmpty={!data?.items?.length}
-            emptyTitle={t('news.empty')}
+            emptyTitle={query.trim() ? t('news.noMatch') : t('news.empty')}
+            emptyDescription={query.trim() ? t('news.noMatchDesc') : undefined}
           >
             <div className="grid grid--3" data-reveal-stagger>
               {data?.items?.map((article) => (

@@ -12,9 +12,10 @@ router = APIRouter(prefix="/careers", tags=["Tuyển dụng"])
 async def list_jobs(
     page: int = Query(1, ge=1),
     page_size: int = Query(10, ge=1, le=50),
+    q: str | None = Query(None, min_length=1),
 ):
-    """List open positions."""
-    data = await ContentService().list_jobs(page=page, page_size=page_size)
+    """List open positions, optionally filtered by keyword."""
+    data = await ContentService().list_jobs(page=page, page_size=page_size, q=q)
     return BaseApiResponse(detail="Danh sách tuyển dụng", data=data)
 
 

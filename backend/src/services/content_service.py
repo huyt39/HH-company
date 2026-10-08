@@ -105,10 +105,12 @@ class ContentService:
         return NewsResponse.model_validate(data)
 
     async def list_news(
-        self, *, page: int, page_size: int, category: str | None = None
+        self, *, page: int, page_size: int, category: str | None = None, q: str | None = None
     ) -> Page[NewsResponse]:
+        filters = {"category": category} if category else {}
+        filters.update(self.news.search_filter(q))
         rows, total = await self.news.paginate_published(
-            {"category": category} if category else None, page=page, page_size=page_size
+            filters, page=page, page_size=page_size
         )
         return _page([self._to_news(r) for r in rows], total, page, page_size)
 
@@ -118,8 +120,10 @@ class ContentService:
 
     # ---- Careers ----------------------------------------------------------- #
 
-    async def list_jobs(self, *, page: int, page_size: int) -> Page[JobResponse]:
-        rows, total = await self.jobs.paginate_published(page=page, page_size=page_size)
+    async def list_jobs(self, *, page: int, page_size: int, q: str | None = None) -> Page[JobResponse]:
+        rows, total = await self.jobs.paginate_published(
+            self.jobs.search_filter(q), page=page, page_size=page_size
+        )
         items = [JobResponse.model_validate(_as_dict(r)) for r in rows]
         return _page(items, total, page, page_size)
 

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { PageBanner } from '@/components/ui/page-banner'
@@ -15,11 +16,12 @@ const PAGE_SIZE = 20
 
 export function CareersPage() {
   const { t } = useLang()
+  const [query, setQuery] = useState('')
   useDocumentMeta({ title: t('careers.metaTitle'), description: t('careers.metaDesc') })
 
   const { data, loading, error } = useFetch(
-    (options) => careersApi.getJobs({ page: 1, page_size: PAGE_SIZE }, options),
-    [],
+    (options) => careersApi.getJobs({ page: 1, page_size: PAGE_SIZE, q: query.trim() }, options),
+    [query],
   )
   const jobs = data?.items ?? []
 
@@ -31,10 +33,29 @@ export function CareersPage() {
         <div className="container">
           <SectionHeading eyebrow={t('careers.eyebrow')} title={t('careers.title')} />
 
+          <div className="filter-bar careers-filter-bar">
+            <label className="filter-bar__search">
+              <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                <circle cx="9" cy="9" r="6.5" fill="none" strokeWidth="1.8" />
+                <line x1="13.6" y1="13.6" x2="18" y2="18" strokeWidth="1.8" strokeLinecap="round" />
+              </svg>
+              <input
+                type="search"
+                placeholder={t('careers.searchPlaceholder')}
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                aria-label={t('careers.searchAriaLabel')}
+              />
+            </label>
+          </div>
+
           {loading && <SkeletonGrid count={3} />}
           {error && <ErrorState error={error} />}
           {!loading && !error && jobs.length === 0 && (
-            <EmptyState title={t('careers.empty')} description={t('careers.emptyDesc')} />
+            <EmptyState
+              title={query.trim() ? t('careers.noMatch') : t('careers.empty')}
+              description={query.trim() ? t('careers.noMatchDesc') : t('careers.emptyDesc')}
+            />
           )}
 
           {jobs.length > 0 && (
