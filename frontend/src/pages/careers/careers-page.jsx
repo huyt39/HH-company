@@ -41,32 +41,38 @@ export function CareersPage() {
             <ul className="job-list" data-reveal-stagger>
               {jobs.map((job, index) => (
                 <li className="job-card" key={job.id}>
-                  <div className="job-card__topline">
+                  <div className="job-card__rail" aria-hidden="true">
                     <span className="job-card__index">{String(index + 1).padStart(2, '0')}</span>
-                    {job.deadline && (
-                      <span className="job-card__deadline">{t('careers.deadline')(formatDate(job.deadline))}</span>
-                    )}
+                    <span className="job-card__rail-label">OPEN ROLE</span>
                   </div>
-                  <h3 className="job-card__title">
-                    <Link to={`/tuyen-dung/${job.slug}`}>{job.title}</Link>
-                  </h3>
-                  <div className="job-card__meta">
-                    {[
-                      [t('careers.labels.department'), job.department],
-                      [t('careers.labels.location'), job.location],
-                      [t('careers.labels.employmentType'), job.employment_type],
-                    ].filter(([, meta]) => meta).map(([label, meta]) => (
-                      <span className="job-card__meta-item" key={meta}>
-                        <span className="job-card__meta-label">{label}</span>
-                        {meta}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="job-card__footer">
-                    <Link to={`/tuyen-dung/${job.slug}`} className="job-card__detail">
-                      {t('careers.detailCrumb')} <span aria-hidden="true">↗</span>
-                    </Link>
-                    <Link to={`/tuyen-dung/${job.slug}`} className="btn btn--primary">{t('careers.apply')}</Link>
+                  <div className="job-card__body">
+                    <div className="job-card__topline">
+                      <span className="job-card__kicker">{t('careers.eyebrow')}</span>
+                      {job.deadline && (
+                        <span className="job-card__deadline">{t('careers.deadline')(formatDate(job.deadline))}</span>
+                      )}
+                    </div>
+                    <h3 className="job-card__title">
+                      <Link to={`/tuyen-dung/${job.slug}`}>{job.title}</Link>
+                    </h3>
+                    <div className="job-card__meta">
+                      {[
+                        [t('careers.labels.department'), job.department],
+                        [t('careers.labels.location'), job.location],
+                        [t('careers.labels.employmentType'), job.employment_type],
+                      ].filter(([, meta]) => meta).map(([label, meta]) => (
+                        <span className="job-card__meta-item" key={meta}>
+                          <span className="job-card__meta-label">{label}</span>
+                          <span className="job-card__meta-value">{meta}</span>
+                        </span>
+                      ))}
+                    </div>
+                    <div className="job-card__footer">
+                      <Link to={`/tuyen-dung/${job.slug}`} className="job-card__detail">
+                        {t('careers.detailCrumb')} <span aria-hidden="true">↗</span>
+                      </Link>
+                      <Link to={`/tuyen-dung/${job.slug}`} className="btn btn--primary">{t('careers.apply')}</Link>
+                    </div>
                   </div>
                 </li>
               ))}
