@@ -14,7 +14,7 @@ const SECONDS_PER_CARD = 6.5
  *
  * @param {{partners: object[]}} props
  */
-export function PartnerMarquee({ partners }) {
+export function PartnerMarquee({ partners, showCountry = false }) {
   return (
     <div
       className="partner-marquee"
@@ -22,11 +22,15 @@ export function PartnerMarquee({ partners }) {
     >
       <div className="partner-marquee__track">
         <ul className="partner-marquee__list">
-          {partners.map((partner) => <PartnerCard key={partner.name} partner={partner} />)}
+          {partners.map((partner) => (
+            <PartnerCard key={partner.name} partner={partner} showCountry={showCountry} />
+          ))}
         </ul>
         {/* The second lap, for the seamless wrap; screen readers hear the list once. */}
         <ul className="partner-marquee__list" aria-hidden="true">
-          {partners.map((partner) => <PartnerCard key={partner.name} partner={partner} />)}
+          {partners.map((partner) => (
+            <PartnerCard key={partner.name} partner={partner} showCountry={showCountry} />
+          ))}
         </ul>
       </div>
     </div>

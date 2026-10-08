@@ -1,4 +1,4 @@
-import { PartnerGrid } from '@/components/ui/partner-grid'
+import { PartnerMarquee } from '@/components/ui/partner-marquee'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { useLang } from '@/lib/i18n/language-context'
 
@@ -15,9 +15,9 @@ export function ManufacturersSection({ partners }) {
           title={t('about.manufacturersTitle')}
           align="center"
         />
-        <div data-reveal>
-          <PartnerGrid partners={partners} showCountry />
-        </div>
+      </div>
+      <div data-reveal>
+        <PartnerMarquee partners={partners} showCountry />
       </div>
     </section>
   )
