@@ -86,26 +86,49 @@
   gap: clamp(32px, 5vw, 64px);
   align-items: center;
 }
-.about-intro__media { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
-/* The right column stacks two photos so it stops running short of the tall one. */
-.about-intro__stack { display: grid; gap: 16px; }
 
-/* The first two sources are portrait, so they are cropped to their boxes. */
-.about-intro__photo {
+/* ---------- Photo pile beside the intro ----------
+   Printed photos dropped on a table: white frames, slight angles, overlapping.
+   Positions are shares of the box, so the pile keeps its shape at any width;
+   the mouse movement (use-mouse-parallax) works on the frames inside. */
+.about-collage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 0.9;
+}
+.about-collage__item { position: absolute; }
+.about-collage__frame {
+  padding: 6px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(11, 37, 69, 0.18), 0 3px 10px rgba(11, 37, 69, 0.10);
+  /* Resting angle; the mouse hook writes its own transform on top while moving. */
+  transform: rotate(var(--tilt, 0deg));
+  will-change: transform;
+}
+.about-collage__frame img {
+  display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 4 / 3;
   object-fit: cover;
-  border-radius: var(--radius);
-  border: 1px solid var(--c-border);
+  border-radius: 11px;
 }
-.about-intro__photo--tall { aspect-ratio: 3 / 4; margin-top: 28px; }
-/* 3:2 rather than 4:3 so the stack lands level with the tall photo beside it. */
-.about-intro__photo--wide { aspect-ratio: 3 / 2; }
+
+/* Back to front, matching the COLLAGE list. */
+.about-collage__item--1 { left: 0;   top: 6%;  width: 40%; z-index: 1; }
+.about-collage__item--2 { right: 1%; top: 0;   width: 31%; z-index: 2; }
+.about-collage__item--3 { left: 25%; top: 14%; width: 41%; z-index: 3; }
+.about-collage__item--4 { left: 2%;  top: 62%; width: 39%; z-index: 4; }
+.about-collage__item--5 { right: 0;  top: 60%; width: 52%; z-index: 5; }
+.about-collage__item--1 img,
+.about-collage__item--4 img { aspect-ratio: 4 / 3; }
+.about-collage__item--2 img { aspect-ratio: 3 / 4; }
+.about-collage__item--3 img { aspect-ratio: 4 / 5; }
+.about-collage__item--5 img { aspect-ratio: 16 / 9; }
 
 @media (max-width: 860px) {
   .about-intro { grid-template-columns: 1fr; }
-  .about-intro__trail { order: -1; }
+  .about-collage { order: -1; max-width: 560px; margin-inline: auto; }
 }
 
 /* ---------- Business fields ---------- */
