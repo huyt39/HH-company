@@ -39,23 +39,34 @@ export function CareersPage() {
 
           {jobs.length > 0 && (
             <ul className="job-list" data-reveal-stagger>
-              {jobs.map((job) => (
-                <li className="job-row" key={job.id}>
-                  <div>
-                    <h3 className="job-row__title">
-                      <Link to={`/tuyen-dung/${job.slug}`}>{job.title}</Link>
-                    </h3>
-                    <div className="job-row__meta">
-                      {[job.department, job.location, job.employment_type]
-                        .filter(Boolean)
-                        .map((meta) => <span key={meta}>{meta}</span>)}
-                    </div>
-                  </div>
-                  <div className="job-row__side">
+              {jobs.map((job, index) => (
+                <li className="job-card" key={job.id}>
+                  <div className="job-card__topline">
+                    <span className="job-card__index">{String(index + 1).padStart(2, '0')}</span>
                     {job.deadline && (
-                      <span className="job-row__deadline">{t('careers.deadline')(formatDate(job.deadline))}</span>
+                      <span className="job-card__deadline">{t('careers.deadline')(formatDate(job.deadline))}</span>
                     )}
-                    <Link to={`/tuyen-dung/${job.slug}`} className="btn btn--outline">{t('careers.apply')}</Link>
+                  </div>
+                  <h3 className="job-card__title">
+                    <Link to={`/tuyen-dung/${job.slug}`}>{job.title}</Link>
+                  </h3>
+                  <div className="job-card__meta">
+                    {[
+                      [t('careers.labels.department'), job.department],
+                      [t('careers.labels.location'), job.location],
+                      [t('careers.labels.employmentType'), job.employment_type],
+                    ].filter(([, meta]) => meta).map(([label, meta]) => (
+                      <span className="job-card__meta-item" key={meta}>
+                        <span className="job-card__meta-label">{label}</span>
+                        {meta}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="job-card__footer">
+                    <Link to={`/tuyen-dung/${job.slug}`} className="job-card__detail">
+                      {t('careers.detailCrumb')} <span aria-hidden="true">↗</span>
+                    </Link>
+                    <Link to={`/tuyen-dung/${job.slug}`} className="btn btn--primary">{t('careers.apply')}</Link>
                   </div>
                 </li>
               ))}
