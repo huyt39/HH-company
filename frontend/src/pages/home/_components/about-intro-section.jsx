@@ -80,6 +80,14 @@ export function AboutIntroSection() {
             the scroll reveal, the frame inside it the mouse movement, so the
             two transforms never fight. */}
         <div className="about-collage" ref={collageRef} data-reveal-stagger>
+          {/* Backdrop: the hero's diagonal hatching and an offset drawing frame,
+              far behind the photos, so they move least of all. */}
+          <div className="about-collage__deco" aria-hidden="true">
+            <div className="about-collage__hatch" data-depth="0.12" />
+          </div>
+          <div className="about-collage__deco" aria-hidden="true">
+            <div className="about-collage__outline" data-depth="0.22" />
+          </div>
           {COLLAGE.map((photo, index) => (
             <div className={`about-collage__item about-collage__item--${index + 1}`} key={photo.src}>
               <div

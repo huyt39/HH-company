@@ -114,6 +114,31 @@
   border-radius: 11px;
 }
 
+/* Backdrop behind the pile. The wrapper takes the scroll reveal, the layer
+   inside it the mouse movement, as with the photos. */
+.about-collage__deco { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+/* The hero's hatching (same 115° angle, same 1px rule), redrawn in navy for a
+   white page, on a faint blue wash; a radial mask fades it out towards the
+   edges so it reads as a ground, not a box. */
+.about-collage__hatch {
+  position: absolute;
+  inset: -6% -8% -4% -4%;
+  border-radius: 28px;
+  background:
+    repeating-linear-gradient(115deg, rgba(11, 37, 69, .09) 0 1px, transparent 1px 22px),
+    linear-gradient(135deg, rgba(43, 123, 212, .08), rgba(43, 123, 212, .02));
+  -webkit-mask-image: radial-gradient(ellipse 70% 65% at 55% 50%, #000 45%, transparent 100%);
+          mask-image: radial-gradient(ellipse 70% 65% at 55% 50%, #000 45%, transparent 100%);
+}
+/* A drawing frame set off the pile, in the brand green. */
+.about-collage__outline {
+  position: absolute;
+  left: 14%; top: 4%; right: 6%; bottom: 10%;
+  border: 1.5px solid var(--c-accent);
+  border-radius: 22px;
+  opacity: .35;
+}
+
 /* Back to front, matching the COLLAGE list. */
 .about-collage__item--1 { left: 0;   top: 6%;  width: 40%; z-index: 1; }
 .about-collage__item--2 { right: 1%; top: 0;   width: 31%; z-index: 2; }
