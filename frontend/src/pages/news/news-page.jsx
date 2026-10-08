@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Card } from '@/components/ui/card'
 import { PageBanner } from '@/components/ui/page-banner'
@@ -18,9 +18,18 @@ export function NewsPage() {
 
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setSearchQuery(query.trim())
+      setPage(1)
+    }, 250)
+    return () => window.clearTimeout(timer)
+  }, [query])
+
   const { data, loading, error } = useFetch(
-    (options) => newsApi.getArticles({ page, page_size: PAGE_SIZE, q: query.trim() }, options),
-    [page, query],
+    (options) => newsApi.getArticles({ page, page_size: PAGE_SIZE, q: searchQuery }, options),
+    [page, searchQuery],
   )
 
   return (
@@ -39,10 +48,7 @@ export function NewsPage() {
                 type="search"
                 placeholder={t('news.searchPlaceholder')}
                 value={query}
-                onChange={(event) => {
-                  setQuery(event.target.value)
-                  setPage(1)
-                }}
+                onChange={(event) => setQuery(event.target.value)}
                 aria-label={t('news.searchAriaLabel')}
               />
             </label>
@@ -52,8 +58,8 @@ export function NewsPage() {
             loading={loading}
             error={error}
             isEmpty={!data?.items?.length}
-            emptyTitle={query.trim() ? t('news.noMatch') : t('news.empty')}
-            emptyDescription={query.trim() ? t('news.noMatchDesc') : undefined}
+            emptyTitle={searchQuery ? t('news.noMatch') : t('news.empty')}
+            emptyDescription={searchQuery ? t('news.noMatchDesc') : undefined}
           >
             <div className="grid grid--3" data-reveal-stagger>
               {data?.items?.map((article) => (

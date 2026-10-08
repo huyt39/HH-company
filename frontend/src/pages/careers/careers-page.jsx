@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { PageBanner } from '@/components/ui/page-banner'
@@ -17,11 +17,17 @@ const PAGE_SIZE = 20
 export function CareersPage() {
   const { t } = useLang()
   const [query, setQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
   useDocumentMeta({ title: t('careers.metaTitle'), description: t('careers.metaDesc') })
 
+  useEffect(() => {
+    const timer = window.setTimeout(() => setSearchQuery(query.trim()), 250)
+    return () => window.clearTimeout(timer)
+  }, [query])
+
   const { data, loading, error } = useFetch(
-    (options) => careersApi.getJobs({ page: 1, page_size: PAGE_SIZE, q: query.trim() }, options),
-    [query],
+    (options) => careersApi.getJobs({ page: 1, page_size: PAGE_SIZE, q: searchQuery }, options),
+    [searchQuery],
   )
   const jobs = data?.items ?? []
 
@@ -53,8 +59,8 @@ export function CareersPage() {
           {error && <ErrorState error={error} />}
           {!loading && !error && jobs.length === 0 && (
             <EmptyState
-              title={query.trim() ? t('careers.noMatch') : t('careers.empty')}
-              description={query.trim() ? t('careers.noMatchDesc') : t('careers.emptyDesc')}
+              title={searchQuery ? t('careers.noMatch') : t('careers.empty')}
+              description={searchQuery ? t('careers.noMatchDesc') : t('careers.emptyDesc')}
             />
           )}
 
