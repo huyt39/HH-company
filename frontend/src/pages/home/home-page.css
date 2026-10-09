@@ -91,69 +91,98 @@
    Printed photos dropped on a table: white frames, slight angles, overlapping.
    Positions are shares of the box, so the pile keeps its shape at any width;
    the mouse movement (use-mouse-parallax) works on the frames inside. */
-.about-collage {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 0.9;
-}
-.about-collage__item { position: absolute; }
-.about-collage__frame {
-  padding: 6px;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 18px 40px rgba(11, 37, 69, 0.18), 0 3px 10px rgba(11, 37, 69, 0.10);
-  /* Resting angle; the mouse hook writes its own transform on top while moving. */
-  transform: rotate(var(--tilt, 0deg));
-  will-change: transform;
-}
-.about-collage__frame img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 11px;
-}
-
-/* Backdrop behind the pile. The wrapper takes the scroll reveal, the layer
-   inside it the mouse movement, as with the photos. */
-.about-collage__deco { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 /* The hero's hatching (same 115° angle, same 1px rule), redrawn in navy for a
-   white page, on a faint blue wash; a radial mask fades it out towards the
-   edges so it reads as a ground, not a box. */
-.about-collage__hatch {
+   white page and laid across the whole section. */
+.about-intro-section { position: relative; }
+.about-intro-section::before {
+  content: '';
   position: absolute;
-  inset: -6% -8% -4% -4%;
-  border-radius: 28px;
-  background:
-    repeating-linear-gradient(115deg, rgba(11, 37, 69, .09) 0 1px, transparent 1px 22px),
-    linear-gradient(135deg, rgba(43, 123, 212, .08), rgba(43, 123, 212, .02));
-  -webkit-mask-image: radial-gradient(ellipse 70% 65% at 55% 50%, #000 45%, transparent 100%);
-          mask-image: radial-gradient(ellipse 70% 65% at 55% 50%, #000 45%, transparent 100%);
+  inset: 0;
+  background: repeating-linear-gradient(115deg, rgba(11, 37, 69, .05) 0 1px, transparent 1px 26px);
+  pointer-events: none;
 }
-/* A drawing frame set off the pile, in the brand green. */
-.about-collage__outline {
+.about-intro-section > .container { position: relative; }
+
+/* ---------- Photo grid beside the intro ----------
+   Straight panels on a grid rather than a scattered photo album. */
+.about-bento { position: relative; }
+.about-bento__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr 1fr;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  grid-template-areas:
+    'eng  cable cable'
+    'eng  plant joint'
+    'deck deck  joint';
+  gap: 12px;
+  aspect-ratio: 1 / 1;
+}
+.about-bento__cell { position: relative; margin: 0; }
+.about-bento__panel {
   position: absolute;
-  left: 14%; top: 4%; right: 6%; bottom: 10%;
-  border: 1.5px solid var(--c-accent);
-  border-radius: 22px;
-  opacity: .35;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--c-bg-soft);
+}
+.about-bento__cell--eng { grid-area: eng; }
+/* Not `span`: that word is a grid keyword and would not name an area. */
+.about-bento__cell--cable { grid-area: cable; }
+.about-bento__cell--plant { grid-area: plant; }
+.about-bento__cell--joint { grid-area: joint; }
+.about-bento__cell--deck { grid-area: deck; }
+.about-bento__cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .7s cubic-bezier(.215, .61, .355, 1), filter .4s ease;
+}
+.about-bento__caption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 28px 14px 12px;
+  background: linear-gradient(to top, rgba(6, 22, 44, .85), transparent);
+  color: #fff;
+  font-size: .82rem;
+  font-weight: 600;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .35s ease, transform .35s ease;
 }
 
-/* Back to front, matching the COLLAGE list. */
-.about-collage__item--1 { left: 0;   top: 6%;  width: 40%; z-index: 1; }
-.about-collage__item--2 { right: 1%; top: 0;   width: 31%; z-index: 2; }
-.about-collage__item--3 { left: 25%; top: 14%; width: 41%; z-index: 3; }
-.about-collage__item--4 { left: 2%;  top: 62%; width: 39%; z-index: 4; }
-.about-collage__item--5 { right: 0;  top: 60%; width: 52%; z-index: 5; }
-.about-collage__item--1 img,
-.about-collage__item--4 img { aspect-ratio: 4 / 3; }
-.about-collage__item--2 img { aspect-ratio: 3 / 4; }
-.about-collage__item--3 img { aspect-ratio: 4 / 5; }
-.about-collage__item--5 img { aspect-ratio: 16 / 9; }
+/* Hover: the panel comes forward with its label, the rest step back. */
+@media (hover: hover) {
+  .about-bento__cell:hover img { transform: scale(1.06); }
+  .about-bento__cell:hover .about-bento__caption { opacity: 1; transform: none; }
+  .about-bento__grid:has(.about-bento__cell:hover) .about-bento__cell:not(:hover) img {
+    filter: saturate(.45) brightness(.7);
+  }
+}
+
+/* Scroll-in: each photo slides up into its frame from the bottom edge — set in
+   like a segment — and settles from a slight zoom. Only transform and opacity
+   move, so the browser composites it instead of repainting every frame (the
+   clip-path wipe this replaces stuttered). The cell stays put and unclipped so
+   the reveal can see it; its panel is the window the photo rises into.
+   Duration = the group's data-reveal-duration, so the hook cleans up as it lands. */
+.about-bento__cell { --bento-ms: 1100ms; --bento-ease: cubic-bezier(.22, 1, .36, 1); }
+.js-reveal .about-bento__cell[data-reveal] { opacity: 1; transform: none; transition: none; }
+.js-reveal .about-bento__cell[data-reveal] img {
+  opacity: 0;
+  transform: translate3d(0, 100%, 0) scale(1.12);
+  transition:
+    transform var(--bento-ms) var(--bento-ease),
+    opacity calc(var(--bento-ms) * .6) ease-out;
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: transform, opacity;
+}
+.js-reveal .about-bento__cell[data-reveal][data-revealed] img { opacity: 1; transform: none; }
 
 @media (max-width: 860px) {
   .about-intro { grid-template-columns: 1fr; }
-  .about-collage { order: -1; max-width: 560px; margin-inline: auto; }
+  .about-bento { order: -1; width: 100%; max-width: 560px; margin-inline: auto; }
 }
 
 /* ---------- Business fields ---------- */
@@ -259,11 +288,15 @@
   position: relative;
   isolation: isolate;
   display: grid;
-  grid-template-rows: auto auto auto 1fr auto;
+  /* media, eyebrow, title, description, list (takes the slack), button */
+  grid-template-rows: auto auto auto auto 1fr auto;
   padding: 0 30px 30px;
   background: #fff;
   border: 1px solid var(--c-border);
-  border-radius: 0;
+  /* Soft corners, in step with the rounded tiles inside; overflow clips the
+     photo and the accent bar to them. */
+  border-radius: 20px;
+  overflow: hidden;
   box-shadow: 0 1px 0 rgba(11, 37, 69, .04);
   transition: var(--transition);
 }
@@ -329,24 +362,77 @@
   transition: color var(--transition);
 }
 
-.service-group-card__list { list-style: none; margin-bottom: 20px; }
-.service-group-card__list li {
-  border-bottom: 1px solid var(--c-border);
-  transition: border-color var(--transition);
-}
-.service-group-card__list li:last-child { border-bottom: 0; }
-.service-group-card__list a {
-  display: flex;
-  align-items: center;
+/* The services of a group as small tiles, two to a row: each one a thing the
+   visitor can open, so each one gets an edge and a hover of its own. */
+.service-group-card__list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
-  padding: 12px 0;
-  color: var(--c-text);
-  font-size: .93rem;
-  transition: var(--transition);
+  /* Rows keep their own height at the top of the free space; otherwise a
+     group with a shorter description pushes its tiles down. */
+  align-content: start;
+  margin-bottom: 22px;
 }
-.service-group-card__list .domain-icon { width: 20px; height: 20px; color: var(--c-navy-600); }
-.service-group-card__list a:hover { color: var(--c-accent); }
-.service-group-card__list a:hover .domain-icon { color: var(--c-accent); }
+.service-group-card__list li { display: flex; }
+/* Hovering a tile moves the tile only, not the whole group card with it. */
+.service-group-card:has(.service-tile:hover) { transform: none; }
+.service-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 16px 16px 18px;
+  background: var(--c-bg-soft);
+  border: 1px solid var(--c-border);
+  border-radius: 12px;
+  color: var(--c-text);
+  font-size: .9rem;
+  font-weight: 500;
+  line-height: 1.45;
+  transition: background-color .25s ease, border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+.service-tile__icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--c-blue-100);
+  color: var(--c-navy-600);
+  transition: background-color .25s ease, color .25s ease;
+}
+.service-tile__icon .domain-icon { width: 22px; height: 22px; }
+/* Room on the right for the arrow, so a long name never runs under it. */
+.service-tile__name { padding-right: 18px; }
+.service-tile__arrow {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: var(--c-accent);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity .25s ease, transform .25s ease;
+}
+/* A tile inside a card: a smaller lift and shadow than the card's own, so the
+   two hovers do not compete. */
+.service-tile:hover {
+  background: #fff;
+  border-color: var(--c-accent);
+  box-shadow: 0 10px 24px rgba(11, 37, 69, .12), 0 2px 6px rgba(11, 37, 69, .06);
+  transform: translateY(-3px);
+  color: var(--c-navy-800);
+}
+.service-tile:hover .service-tile__icon { background: var(--c-accent); color: #fff; }
+.service-tile:hover .service-tile__arrow { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .service-tile:hover { transform: none; }
+}
+@media (max-width: 520px) {
+  .service-group-card__list { grid-template-columns: minmax(0, 1fr); }
+}
 
 /* Pushed to the foot of the panel so both buttons line up whatever the list
    length. */
@@ -358,7 +444,7 @@
   align-self: flex-start;
   padding: 11px 22px;
   border: 1px solid var(--c-border);
-  border-radius: 2px;
+  border-radius: 10px; /* matches the tiles above it */
   font-size: .86rem;
   font-weight: 600;
   color: var(--c-navy-700);
@@ -517,4 +603,183 @@
   .project-rail__track > * { flex-basis: 100%; }
   .project-rail__controls { justify-content: center; }
   .project-rail__arrows { display: none; }
+}
+
+/* ---------- Why us: commitments list beside a photo ----------
+   Desktop: heading and list on the left, photo on the right. Phones: heading,
+   photo, then list, so the picture still sits next to the item it shows. */
+.strengths__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  grid-template-areas: 'head stage' 'list stage';
+  grid-template-rows: auto 1fr;
+  column-gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+.strengths__head { grid-area: head; }
+.strengths__head .section-heading { margin-bottom: 28px; }
+.strengths__list { grid-area: list; list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(255, 255, 255, .14); }
+.strengths__stage { grid-area: stage; align-self: center; }
+
+.strength { position: relative; border-bottom: 1px solid rgba(255, 255, 255, .14); }
+.strength__head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  padding: 20px 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  font: inherit;
+  font-size: 1.04rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, .6);
+  cursor: pointer;
+  transition: color .3s ease;
+}
+.strength__head:hover,
+.strength.is-active .strength__head { color: #fff; }
+.strength__head:focus-visible { outline: 2px solid var(--c-accent-light); outline-offset: 4px; border-radius: 4px; }
+.strength__index {
+  flex: 0 0 auto;
+  min-width: 22px;
+  font-size: .78rem;
+  letter-spacing: .12em;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-accent-light);
+}
+.strength__title { flex: 1 1 auto; }
+.strength__icon {
+  flex: 0 0 auto;
+  color: var(--c-accent-light);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity .3s ease, transform .3s ease;
+}
+.strength__icon .domain-icon { width: 24px; height: 24px; }
+.strength.is-active .strength__icon { opacity: 1; transform: none; }
+
+/* Opens to its own height: grid rows animate where `height: auto` cannot. */
+.strength__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .45s ease;
+}
+.strength.is-active .strength__panel { grid-template-rows: 1fr; }
+.strength__panel > div { overflow: hidden; }
+.strength__panel p {
+  margin: 0;
+  padding: 0 0 22px 40px;
+  font-size: .93rem;
+  line-height: 1.75;
+  color: rgba(219, 230, 242, .78);
+}
+
+/* Time left on the open item, along its bottom rule; frozen while held. */
+.strength__progress {
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 2px;
+  background: var(--c-accent-light);
+  transform-origin: left;
+  animation: strength-progress var(--strength-cycle, 6s) linear forwards;
+}
+.strengths.is-held .strength__progress { animation-play-state: paused; }
+@keyframes strength-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* The photo, on the hero's diagonal hatching (same 115° rule), set off it. */
+.strengths__stage { position: relative; padding: 0 0 26px 26px; }
+.strengths__stage::before {
+  content: '';
+  position: absolute;
+  inset: 26px 26px 0 0;
+  border-radius: 28px;
+  background: repeating-linear-gradient(115deg, rgba(255, 255, 255, .08) 0 1px, transparent 1px 20px);
+  border: 1px solid rgba(255, 255, 255, .08);
+}
+.strengths__frame {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .05);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, .35);
+}
+.strengths__frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity .7s ease, transform 1.4s ease;
+}
+.strengths__frame img.is-active { opacity: 1; transform: none; }
+.strengths__count {
+  position: absolute;
+  top: 18px; right: 18px;
+  z-index: 1;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(6, 22, 44, .55);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  font-variant-numeric: tabular-nums;
+}
+.strengths__count span { opacity: .55; font-weight: 500; }
+.strengths__caption {
+  position: absolute;
+  left: 16px; right: 16px; bottom: 16px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  /* A frosted bar across the foot, so the caption reads on any photo. */
+  padding: 12px 16px 12px 12px;
+  border-radius: 16px;
+  background: rgba(6, 22, 44, .62);
+  border: 1px solid rgba(255, 255, 255, .12);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  animation: strength-caption .6s ease both;
+}
+.strengths__caption-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  background: var(--c-accent);
+}
+.strengths__caption-icon .domain-icon { width: 24px; height: 24px; color: #fff; }
+@keyframes strength-caption { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 900px) {
+  .strengths__grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'head' 'stage' 'list';
+    grid-template-rows: auto;
+  }
+  .strengths__stage { margin-bottom: 28px; padding: 0 0 18px 18px; }
+  .strengths__stage::before { inset: 18px 18px 0 0; }
+  .strengths__frame { aspect-ratio: 16 / 11; }
+  /* The open item's title sits right under the photo here; the bar would only
+     repeat it over half the picture. */
+  .strengths__caption { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strength__panel, .strengths__frame img { transition: none; }
+  .strengths__frame img { transform: none; }
+  .strengths__caption { animation: none; }
+  .strength__progress { display: none; }
 }

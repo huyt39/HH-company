@@ -12,7 +12,9 @@ const GROUPS = [
   {
     category: 'build',
     anchor: 'thi-cong-moi',
-    image: '/images/cong-truong/thiet-bi-cang-keo-du-ung-luc-tai-cong-truong-e86fd45e.jpg',
+    // A steel arch going up under cranes: new build at a glance. Not a project
+    // cover or a photo from the intro pile, so nothing repeats on the page.
+    image: '/images/cau-gioi-phien-yen-bai/lap-dung-vom-thep-cau-gioi-phien-e1d1dbae.jpg',
   },
   {
     category: 'repair',
@@ -63,9 +65,12 @@ export function ServicesSection({ services, loading, error }) {
                   <ul className="service-group-card__list">
                     {items.map((service) => (
                       <li key={service.id}>
-                        <Link to={`/dich-vu/${service.slug}`}>
-                          <DomainIcon slug={service.slug} />
-                          {service.name}
+                        <Link to={`/dich-vu/${service.slug}`} className="service-tile">
+                          <span className="service-tile__icon">
+                            <DomainIcon slug={service.slug} />
+                          </span>
+                          <span className="service-tile__name">{service.name}</span>
+                          <span className="service-tile__arrow" aria-hidden="true">→</span>
                         </Link>
                       </li>
                     ))}

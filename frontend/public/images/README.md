@@ -19,6 +19,6 @@ khung 16:9, khai báo ở trường `image` của `_PRODUCTS` và đẩy lên da
 Ảnh dùng chung, không thuộc dự án nào cụ thể (`cong-truong/`,
 `cao-toc-ben-luc-long-thanh-j2/`…) được tham chiếu trực tiếp từ CSS hoặc JSX.
 
-`collage/` là bản thu nhỏ (cạnh dài 520px, JPEG q78) của ảnh dùng trong khối ảnh
-xếp chồng ở mục "Về chúng tôi" trang chủ (`about-intro-section.jsx`). Ảnh đã có
-sẵn ở thư mục khác thì dùng thẳng, chỉ ảnh cần bản nhỏ mới đặt ở đây.
+`cam-ket/` là bản cắt bỏ dải đáy (dấu ngày giờ của máy ảnh) của 4 ảnh công trường
+Bến Lức – Long Thành, dùng cho khối "Vì sao chủ đầu tư chọn Hòa Hoàng" trang chủ
+(`strengths-section.jsx`). Ảnh gốc giữ nguyên trong thư mục dự án.

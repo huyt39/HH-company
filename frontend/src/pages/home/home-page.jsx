@@ -16,7 +16,8 @@ import { StrengthsSection } from './_components/strengths-section'
 import './home-page.css'
 
 const FEATURED_PROJECTS = 9
-const LATEST_NEWS = 3
+// Enough for the running strip to feel like a feed, not a loop of three.
+const LATEST_NEWS = 8
 
 export function HomePage() {
   useDocumentMeta()

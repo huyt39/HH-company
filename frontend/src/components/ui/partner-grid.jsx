@@ -18,12 +18,13 @@ function PartnerPlaceholder() {
 
 /**
  * Logo above, full company name below. `showCountry` adds the country line the
- * manufacturer list carries.
+ * manufacturer list carries; `as` changes the element when the card is not
+ * itself a list item (the marquee wraps it in one).
  */
-export function PartnerCard({ partner, showCountry = false }) {
+export function PartnerCard({ partner, showCountry = false, as: Tag = 'li' }) {
   const logo = thumbUrl(partner.logo)
   return (
-    <li className="partner-card">
+    <Tag className="partner-card">
       <div className="partner-card__logo-wrap">
         {logo ? (
           <img
@@ -41,7 +42,7 @@ export function PartnerCard({ partner, showCountry = false }) {
       {showCountry && partner.country && (
         <span className="partner-card__country">{partner.country}</span>
       )}
-    </li>
+    </Tag>
   )
 }
 

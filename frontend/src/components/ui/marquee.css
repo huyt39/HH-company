@@ -1,0 +1,43 @@
+/* ---------- Marquee: items running sideways in a loop ---------- */
+.marquee {
+  --marquee-gap: 20px;
+  overflow: hidden;
+  /* Room above and below for an item's hover lift and shadow. */
+  padding-block: 12px 32px;
+  margin-block: -12px -32px;
+  /* Items fade in and out at the edges instead of being cut off. */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+.marquee__track {
+  display: flex;
+  gap: var(--marquee-gap);
+  width: max-content;
+  animation: marquee var(--marquee-duration, 90s) linear infinite;
+}
+/* Pause while the pointer or keyboard focus is on it, so it can be read and clicked. */
+.marquee:hover .marquee__track,
+.marquee:focus-within .marquee__track { animation-play-state: paused; }
+
+.marquee__list {
+  display: flex;
+  gap: var(--marquee-gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.marquee__item { display: flex; flex: 0 0 var(--marquee-item-width, 240px); }
+.marquee__item > * { width: 100%; }
+
+/* Slide by exactly one lap (half the track plus half a gap), so the second
+   copy lands where the first began. */
+@keyframes marquee {
+  to { transform: translate3d(calc(-50% - var(--marquee-gap) / 2), 0, 0); }
+}
+
+/* Reduced motion: no running strip, just a row to scroll through, once. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+  .marquee__track { animation: none; }
+  .marquee__item[aria-hidden='true'], .marquee__list[aria-hidden='true'] { display: none; }
+}

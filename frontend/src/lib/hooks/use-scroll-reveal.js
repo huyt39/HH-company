@@ -14,6 +14,11 @@ const CHAR_MS = 600 // one letter's rise
  * Inside `ref`:
  * - `data-reveal` — the element fades up on its own;
  * - `data-reveal-stagger` — its direct children fade up one after another;
+ *   a value (`data-reveal-stagger="220"`) sets that group's own gap in ms,
+ *   and `data-reveal-sequence` on it plays all its children in order as soon
+ *   as the first one shows, however slowly the page is scrolled;
+ *   `data-reveal-duration` (ms) tells the hook how long that group's own CSS
+ *   animation runs, so it is not cleaned up before it lands;
  * - `data-reveal-text` — a heading whose letters are `SplitText` spans.
  * Content that mounts later (a new route, cards after a fetch, a filter or a
  * page change) is picked up too.
@@ -41,7 +46,8 @@ export function useScrollReveal(ref) {
     const groupOf = new WeakMap()
 
     const playTime = (el, delay) => {
-      if (!el.hasAttribute('data-reveal-text')) return delay + BLOCK_MS
+      const own = Number(groupOf.get(el)?.dataset.revealDuration)
+      if (!el.hasAttribute('data-reveal-text')) return delay + (own || BLOCK_MS)
       return delay + el.querySelectorAll('.split-char').length * CHAR_STEP_MS + CHAR_MS
     }
 
@@ -52,27 +58,43 @@ export function useScrollReveal(ref) {
       el.style.removeProperty('--reveal-delay')
     }
 
+    const reveal = (el, delay) => {
+      observer.unobserve(el)
+      if (delay) el.style.setProperty('--reveal-delay', `${delay}ms`)
+      el.setAttribute('data-revealed', '')
+      const timer = setTimeout(() => {
+        timers.delete(timer)
+        finish(el)
+      }, playTime(el, delay) + 100)
+      timers.add(timer)
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         const batch = new Map() // group -> items of it revealed in this callback
         entries
-          .filter((entry) => entry.isIntersecting)
+          .filter((entry) => entry.isIntersecting && !entry.target.hasAttribute('data-revealed'))
           .forEach((entry) => {
             const el = entry.target
-            observer.unobserve(el)
-
             const group = groupOf.get(el)
+            const gap = Number(group?.dataset.revealStagger) || STAGGER_MS
+
+            // A sequence plays the whole group, in its own order, at once.
+            if (group?.hasAttribute('data-reveal-sequence')) {
+              ;[...group.children]
+                .filter(
+                  (child) =>
+                    groupOf.get(child) === group &&
+                    child.hasAttribute('data-reveal') &&
+                    !child.hasAttribute('data-revealed'),
+                )
+                .forEach((child, index) => reveal(child, index * gap))
+              return
+            }
+
             const step = group ? (batch.get(group) ?? 0) : 0
             if (group) batch.set(group, step + 1)
-            const delay = Math.min(step, MAX_STAGGER_STEPS) * STAGGER_MS
-            if (delay) el.style.setProperty('--reveal-delay', `${delay}ms`)
-
-            el.setAttribute('data-revealed', '')
-            const timer = setTimeout(() => {
-              timers.delete(timer)
-              finish(el)
-            }, playTime(el, delay) + 100)
-            timers.add(timer)
+            reveal(el, Math.min(step, MAX_STAGGER_STEPS) * gap)
           })
       },
       { rootMargin: '0px 0px -10% 0px', threshold: 0.1 },

@@ -1,66 +1,52 @@
-import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 import { SectionHeading } from '@/components/ui/section-heading'
 import { useLang } from '@/lib/i18n/language-context'
-import { useMouseParallax } from '@/lib/hooks/use-mouse-parallax'
 
 /**
- * The photo pile beside the intro, back to front. `depth` is how far a photo
- * follows the mouse (the front ones furthest), `tilt` its resting angle; where
- * each one sits is in home-page.css (`.about-collage__item--<n>`).
+ * The photo grid beside the intro: straight panels on a grid. `area`
+ * places each one (see `.about-bento` in home-page.css); `caption` is shown on
+ * hover.
  */
-const COLLAGE = [
+const BENTO = [
   {
-    src: '/images/collage/cau-hoa-binh-2-cap-day-vang-01-7ba6b275.jpg',
-    alt: 'Hệ cáp dây văng cầu Hòa Bình 2',
-    width: 520,
-    height: 390,
-    depth: 0.35,
-    tilt: -6,
-  },
-  {
-    src: '/images/cong-truong/thiet-bi-cang-keo-du-ung-luc-tai-cong-truong-e86fd45e.jpg',
-    alt: 'Bộ nguồn thủy lực điều khiển căng kéo cáp dự ứng lực tại công trường',
-    width: 1200,
-    height: 1600,
-    depth: 0.5,
-    tilt: 5,
-  },
-  {
+    area: 'eng',
     src: '/images/cong-truong/ky-su-hoa-hoang-tai-cong-truong-6e4c117f.jpg',
     alt: 'Kỹ sư Hòa Hoàng tại công trường cầu lúc hoàng hôn',
-    width: 1349,
-    height: 1600,
-    depth: 0.7,
-    tilt: -2,
+    caption: 'Kỹ sư hiện trường Hòa Hoàng',
   },
   {
-    src: '/images/collage/doi-ky-thuat-hoa-hoang-cau-lo-dong-4093bdbf.jpg',
-    alt: 'Đội kỹ thuật Hòa Hoàng tại công trường cầu Lò Đúc, Hải Phòng',
-    width: 520,
-    height: 390,
-    depth: 0.9,
-    tilt: 4,
+    area: 'cable',
+    src: '/images/cau-hoa-binh-2-cap-day-vang/cau-hoa-binh-2-cap-day-vang-01-7ba6b275.jpg',
+    alt: 'Hệ cáp dây văng cầu Hòa Bình 2',
+    caption: 'Cầu Hòa Bình 2 · hệ cáp dây văng',
   },
   {
+    area: 'plant',
+    src: '/images/cong-truong/thiet-bi-cang-keo-du-ung-luc-tai-cong-truong-e86fd45e.jpg',
+    alt: 'Bộ nguồn thủy lực điều khiển căng kéo cáp dự ứng lực tại công trường',
+    caption: 'Bộ nguồn điều khiển căng kéo',
+  },
+  {
+    area: 'joint',
+    src: '/images/thi-cong-khe-co-gian/lap-dat-khe-co-gian-rang-luoc-22d899ec.jpg',
+    alt: 'Đội thi công lắp đặt khe co giãn răng lược trên mặt cầu',
+    caption: 'Lắp đặt khe co giãn răng lược',
+  },
+  {
+    area: 'deck',
     src: '/images/cao-toc-ben-luc-long-thanh-j2/cang-keo-cap-du-ung-luc-ngoai-cao-toc-ben-luc-long-thanh-86211e7f.jpg',
     alt: 'Giàn thao tác căng kéo cáp dự ứng lực ngoài bên hông dầm cầu cao tốc Bến Lức – Long Thành',
-    width: 1280,
-    height: 720,
-    depth: 1,
-    tilt: -3,
+    caption: 'Cao tốc Bến Lức – Long Thành · căng kéo cáp DƯL ngoài',
   },
 ]
 
 /** Short company intro on the home page. */
 export function AboutIntroSection() {
   const { t } = useLang()
-  const collageRef = useRef(null)
-  useMouseParallax(collageRef)
 
   return (
-    <section className="section">
+    <section className="section about-intro-section">
       <div className="container about-intro">
         <div>
           <SectionHeading
@@ -76,37 +62,25 @@ export function AboutIntroSection() {
           </div>
         </div>
 
-        {/* Hover and the pile drifts the way the mouse goes. The item carries
-            the scroll reveal, the frame inside it the mouse movement, so the
-            two transforms never fight. */}
-        <div className="about-collage" ref={collageRef} data-reveal-stagger>
-          {/* Backdrop: the hero's diagonal hatching and an offset drawing frame,
-              far behind the photos, so they move least of all. */}
-          <div className="about-collage__deco" aria-hidden="true">
-            <div className="about-collage__hatch" data-depth="0.12" />
+        {/* Panels go in one after another, rising into place like segments
+            set into a span, at a slower beat than the rest of the page so the
+            sequence reads; pointing at one brings it forward with its label. */}
+        <div className="about-bento">
+          <div
+            className="about-bento__grid"
+            data-reveal-stagger="200"
+            data-reveal-sequence
+            data-reveal-duration="1100"
+          >
+            {BENTO.map((photo) => (
+              <figure className={`about-bento__cell about-bento__cell--${photo.area}`} key={photo.src}>
+                <div className="about-bento__panel">
+                  <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
+                  <figcaption className="about-bento__caption">{photo.caption}</figcaption>
+                </div>
+              </figure>
+            ))}
           </div>
-          <div className="about-collage__deco" aria-hidden="true">
-            <div className="about-collage__outline" data-depth="0.22" />
-          </div>
-          {COLLAGE.map((photo, index) => (
-            <div className={`about-collage__item about-collage__item--${index + 1}`} key={photo.src}>
-              <div
-                className="about-collage__frame"
-                data-depth={photo.depth}
-                data-tilt={photo.tilt}
-                style={{ '--tilt': `${photo.tilt}deg` }}
-              >
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  width={photo.width}
-                  height={photo.height}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </section>
