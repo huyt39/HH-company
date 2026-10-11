@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { SectionHeading } from '@/components/ui/section-heading'
 import { useLang } from '@/lib/i18n/language-context'
@@ -13,77 +13,95 @@ import { useLang } from '@/lib/i18n/language-context'
  * takes one row instead of stacking its label above its value.
  */
 // Four sites, four kinds of work: an arch, a cable-stayed span going up, a
-// river crossing under construction, and the crew on the deck. `x`/`y` place each photo's centre
-// relative to the gallery's centre (in % of its width), `r` tilts it.
+// river crossing under construction, and the crew on the deck.
 const PHOTOS = [
   {
     src: '/images/cau-can-giuoc-thay-he-cap/thay-he-cap-cau-vom-can-giuoc-36f7ce62.jpg',
     alt: 'Thay hệ cáp cầu vòm Cần Giuộc',
-    x: -17, y: -24, r: -4, w: 62,
   },
   {
     src: '/images/cau-nhon-trach-vanh-dai-3/cau-nhon-trach-vanh-dai-3-01-f16caf22.jpg',
     alt: 'Cầu Nhơn Trạch, Vành đai 3 TP. Hồ Chí Minh, giai đoạn thi công',
-    x: 22, y: -14, r: 5, w: 50,
   },
   {
     src: '/images/cau-song-rang-long-son-cai-mep/thi-cong-cau-song-rang-long-son-cai-mep-7738ab78.jpg',
     alt: 'Thi công cầu Sông Rạng, Long Sơn – Cái Mép',
-    x: -20, y: 23, r: 3, w: 52,
   },
   {
-    src: '/images/cau-mong-sen-lao-cai/lap-dat-va-cang-keo-cap-cau-mong-sen-95d1d0b0.jpg',
-    alt: 'Kỹ sư Hòa Hoàng lắp đặt cáp dự ứng lực trên mặt cầu Móng Sến, Lào Cai',
-    x: 19, y: 22, r: -5, w: 56,
+    src: '/images/cau-tan-de-neo-kich/cau-tan-de-neo-kich-01-b7d6c044.jpg',
+    alt: 'Thi công cầu Tân Đệ, neo kích',
+  },
+  {
+    src: '/images/cau-phu-thinh-lao-cai/cau-phu-thinh-lao-cai-ve-dem-cd4de891.jpg',
+    alt: 'Cầu Phú Thịnh, Lào Cai về đêm',
+  },
+  {
+    src: '/images/cao-toc-ben-luc-long-thanh-j2/cang-keo-cap-du-ung-luc-ngoai-cao-toc-ben-luc-long-thanh-cdbedc9c.jpg',
+    alt: 'Căng kéo cáp dự ứng lực ngoài cao tốc Bến Lức – Long Thành',
+  },
+  {
+    src: '/images/khe-co-gian-cau-may-chai/khe-co-gian-cau-may-chai-d60f3b0f.jpg',
+    alt: 'Thi công khe co giãn cầu Mỹ Chai',
   },
 ]
 
 /**
- * Site photos beside the intro, scattered like prints on a table, with the
- * company mark pinned over them. They start stacked in the middle and fan out
- * one after another the first time the gallery scrolls into view.
+ * A sticky project stack. The first image is visible at the start of the
+ * overview; as the reader moves through the long introduction, the next site
+ * photos reveal in order and stop when this overview section ends.
  */
-function OverviewGallery({ logoAlt, ready }) {
-  const ref = useRef(null)
-  // Closed only once JS is running, so without it the photos are simply laid out.
-  const [state, setState] = useState('static')
+function OverviewGallery({ logoAlt, trackRef }) {
+  const galleryRef = useRef(null)
+  const [progress, setProgress] = useState(0)
 
-  useLayoutEffect(() => {
-    const node = ref.current
-    if (!node || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
-    setState('closed')
-    // Until the intro text arrives the gallery sits at the top of an empty
-    // column, already on screen — it would fan out before anyone scrolled to it.
-    if (!ready) return undefined
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return
-        setState('open')
-        observer.disconnect()
-      },
-      { threshold: 0.35 },
-    )
-    observer.observe(node)
-    return () => observer.disconnect()
-  }, [ready])
+  useEffect(() => {
+    let frame = 0
+    const updateProgress = () => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => {
+        const track = trackRef.current
+        const gallery = galleryRef.current
+        if (!track || !gallery) return
+        const trackBox = track.getBoundingClientRect()
+        const travel = Math.max(track.offsetHeight - gallery.offsetHeight, 1)
+        const next = Math.min(1, Math.max(0, (120 - trackBox.top) / travel))
+        setProgress(next)
+      })
+    }
+
+    updateProgress()
+    window.addEventListener('scroll', updateProgress, { passive: true })
+    window.addEventListener('resize', updateProgress)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', updateProgress)
+      window.removeEventListener('resize', updateProgress)
+    }
+  }, [trackRef])
 
   return (
-    <div className={`overview__gallery is-${state}`} ref={ref}>
-      {PHOTOS.map((photo, index) => (
-        <figure
-          className="overview__photo"
-          key={photo.src}
-          style={{
-            '--x': `${photo.x}cqw`,
-            '--y': `${photo.y}cqw`,
-            '--r': `${photo.r}deg`,
-            '--w': `${photo.w}%`,
-            '--i': index,
-          }}
-        >
-          <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
-        </figure>
-      ))}
+    <div className="overview__gallery" ref={galleryRef} style={{ '--gallery-progress': progress }}>
+      {PHOTOS.map((photo, index) => {
+        const reveal = index === 0
+          ? 1
+          : Math.min(1, Math.max(0, (progress - (index - 1) * 0.12) / 0.22))
+        return (
+          <figure
+            className="overview__photo"
+            key={photo.src}
+            style={{
+              '--i': index,
+              '--reveal': reveal,
+              '--photo-opacity': 0.035 + (reveal * 0.965),
+              '--photo-offset': `${((1 - reveal) * 58) + (index * 14)}px`,
+              '--photo-scale': 0.94 + (reveal * 0.06),
+              '--photo-z': reveal >= 0.99 ? 30 + index : index + 1,
+            }}
+          >
+            <img src={photo.src} alt={photo.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+          </figure>
+        )
+      })}
       <span className="overview__badge">
         <img src="/logo-full-alpha.png" alt={logoAlt} width="560" height="656" loading="lazy" decoding="async" />
       </span>
@@ -93,6 +111,7 @@ function OverviewGallery({ logoAlt, ready }) {
 
 export function CompanyFacts({ profile }) {
   const { t } = useLang()
+  const overviewRef = useRef(null)
   const labels = t('about.factLabels')
   const facts = [
     { label: labels.fullName, value: profile?.name },
@@ -115,14 +134,14 @@ export function CompanyFacts({ profile }) {
   return (
     <section className="section" id="tong-quan">
       <div className="container">
-        <div className="overview">
+        <div className="overview" ref={overviewRef}>
           <div className="overview__text">
             <SectionHeading eyebrow={t('about.factsEyebrow')} title={t('about.factsTitle')} />
             {profile?.intro?.map((paragraph, index) => (
               <p className="text-muted" key={index}>{paragraph}</p>
             ))}
           </div>
-          <OverviewGallery logoAlt={t('about.logoAlt')} ready={Boolean(profile)} />
+          <OverviewGallery logoAlt={t('about.logoAlt')} trackRef={overviewRef} />
         </div>
 
         <div className="company-record">

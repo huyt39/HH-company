@@ -1,90 +1,103 @@
-/* ---------- Overview: intro text + company mark ---------- */
+/* ---------- Overview: intro text + structured project imagery ---------- */
 .overview {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.08fr) minmax(360px, .92fr);
   gap: clamp(32px, 4vw, 56px);
   align-items: start;
 }
-/* Site photos scattered like prints, the company mark pinned over them
-   (OverviewGallery in company-facts.jsx). Every photo is anchored at the
-   gallery's centre and pushed out to its place, so "stacked" and "fanned out"
-   are the same element with and without its offset — the fan-out is one
-   transition. Offsets are in cqw, so the layout scales with the column. */
+/* A restrained editorial composition: one lead project image, three supporting
+   crops, and a quiet brand mark. This keeps the overview feeling precise and
+   infrastructural instead of scrapbook-like. */
 .overview__gallery {
-  /* The intro runs long; the photos travel down beside it rather than sit
-     stranded halfway. */
   position: sticky;
   top: 120px;
   align-self: start;
   width: 100%;
   max-width: 520px;
   justify-self: center;
-  aspect-ratio: 1 / 1.02;
-  container-type: inline-size;
+  height: min(560px, calc(100vh - 180px));
+  min-height: 460px;
+  padding: 18px 18px 48px;
+  overflow: hidden;
+  background: #f2f5f6;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  box-shadow: 0 22px 40px -30px rgba(11, 37, 69, .48);
+}
+.overview__gallery::after {
+  content: '';
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 20px;
+  height: 1px;
+  background: var(--c-accent-light);
 }
 .overview__photo {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: calc(1 + var(--i));
-  width: var(--w);
+  inset: 18px 18px 48px;
+  z-index: var(--photo-z);
   margin: 0;
-  padding: 6px;
-  background: #fff;
-  border-radius: 6px;
-  box-shadow: 0 14px 34px -14px rgba(11, 37, 69, .45), 0 2px 6px rgba(11, 37, 69, .12);
-  transform: translate(-50%, -50%) translate(var(--x), var(--y)) rotate(var(--r));
-  transition:
-    transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 500ms ease,
-    box-shadow 300ms;
-  transition-delay: calc(var(--i) * 130ms);
+  overflow: hidden;
+  border: 1px solid var(--c-border);
+  border-radius: 4px;
+  box-shadow: 0 18px 36px -24px rgba(11, 37, 69, .42);
+  opacity: var(--photo-opacity);
+  transform: translateY(var(--photo-offset)) scale(var(--photo-scale));
+  transition: opacity 180ms linear, transform 240ms ease-out, box-shadow 250ms ease;
 }
 .overview__photo img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 100%;
   object-fit: cover;
-  border-radius: 3px;
+  filter: saturate(.88) contrast(1.03);
 }
-/* Before it is reached: one pile in the middle, slightly turned. */
-.overview__gallery.is-closed .overview__photo {
-  opacity: 0;
-  transform: translate(-50%, -50%) rotate(calc(var(--r) * -1)) scale(.82);
-}
-/* Once open, a photo under the pointer comes to the top and straightens. */
-.overview__gallery.is-open .overview__photo:hover {
+.overview__photo:hover {
   z-index: 10;
-  transition-delay: 0ms;
-  transform: translate(-50%, -50%) translate(var(--x), var(--y)) rotate(0deg) scale(1.04);
-  box-shadow: 0 22px 46px -16px rgba(11, 37, 69, .55), 0 2px 8px rgba(11, 37, 69, .14);
+  box-shadow: 0 20px 34px -18px rgba(11, 37, 69, .58);
 }
+.overview__photo:hover img { filter: saturate(1) contrast(1.06); }
 
-/* The mark on a white disc where the four photos meet. */
+/* A small, architectural brand stamp rather than a dominant centre badge. */
 .overview__badge {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 8;
+  right: 28px;
+  top: 28px;
+  z-index: 30;
   display: grid;
   place-items: center;
-  width: 23%;
+  width: 62px;
   aspect-ratio: 1;
   border-radius: 50%;
   background: #fff;
-  box-shadow: 0 10px 28px -10px rgba(11, 37, 69, .5);
-  transform: translate(-50%, -50%);
-  transition: transform 600ms cubic-bezier(0.34, 1.56, 0.64, 1) 620ms, opacity 400ms ease 620ms;
+  box-shadow: 0 8px 18px rgba(11, 37, 69, .2);
 }
 .overview__badge img { width: 64%; height: auto; }
-.overview__gallery.is-closed .overview__badge {
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(.4);
+
+.overview__gallery::before {
+  content: 'DỰ ÁN TIÊU BIỂU · 01—07';
+  position: absolute;
+  left: 18px;
+  bottom: 8px;
+  z-index: 25;
+  color: var(--c-navy-700);
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .14em;
 }
 
 @media (max-width: 860px) {
   .overview { grid-template-columns: minmax(0, 1fr); }
-  .overview__gallery { position: relative; top: auto; max-width: 460px; margin-top: 8px; }
+  .overview__gallery { height: min(520px, calc(100vh - 150px)); max-width: 460px; margin-top: 8px; }
+}
+
+@media (max-width: 560px) {
+  .overview__gallery { height: 430px; min-height: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overview__photo { opacity: 1; transform: none; transition: none; }
 }
 
 /* ---------- Business registration record ---------- */
