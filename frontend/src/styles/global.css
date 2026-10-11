@@ -73,10 +73,12 @@ ul { margin: 0; padding: 0; list-style: none; }
    runs them into a single very long band with no edge between them. */
 .section--dark-soft { background: var(--c-navy-800); }
 
-/* Two plain sections in a row have no change of background to mark the join, so
-   88px top and bottom stack into 176px of empty page. Sections that do change
+/* Two sections on the same ground in a row (plain or soft) have no change of
+   background to mark the join, so 88px top and bottom stack into 176px of
+   empty page. Sections that do change
    colour keep the full measure — there the space belongs to the band. */
-.section:not(.section--soft):not(.section--dark) + .section:not(.section--soft):not(.section--dark) {
+.section:not(.section--soft):not(.section--dark) + .section:not(.section--soft):not(.section--dark),
+.section--soft + .section--soft {
   padding-top: clamp(18px, 2.4vw, 32px);
 }
 .section--dark h2, .section--dark h3 { color: #fff; }
