@@ -1,8 +1,10 @@
+import { useLayoutEffect, useRef, useState } from 'react'
+
 import { SectionHeading } from '@/components/ui/section-heading'
 import { useLang } from '@/lib/i18n/language-context'
 
 /**
- * Overview: intro text with the company mark alongside, then the registration
+ * Overview: intro text with site photos and the company mark alongside, then the registration
  * details as a flat two-column record below.
  *
  * The facts are the fields a main contractor copies into a bid file, so they
@@ -10,36 +12,82 @@ import { useLang } from '@/lib/i18n/language-context'
  * boxed sidebar card. Running full width also halves the height: each fact
  * takes one row instead of stacking its label above its value.
  */
+// Four sites, four kinds of work: an arch, a cable-stayed span going up, a
+// river crossing under construction, and the crew on the deck. `x`/`y` place each photo's centre
+// relative to the gallery's centre (in % of its width), `r` tilts it.
+const PHOTOS = [
+  {
+    src: '/images/cau-can-giuoc-thay-he-cap/thay-he-cap-cau-vom-can-giuoc-36f7ce62.jpg',
+    alt: 'Thay hệ cáp cầu vòm Cần Giuộc',
+    x: -17, y: -24, r: -4, w: 62,
+  },
+  {
+    src: '/images/cau-nhon-trach-vanh-dai-3/cau-nhon-trach-vanh-dai-3-01-f16caf22.jpg',
+    alt: 'Cầu Nhơn Trạch, Vành đai 3 TP. Hồ Chí Minh, giai đoạn thi công',
+    x: 22, y: -14, r: 5, w: 50,
+  },
+  {
+    src: '/images/cau-song-rang-long-son-cai-mep/thi-cong-cau-song-rang-long-son-cai-mep-7738ab78.jpg',
+    alt: 'Thi công cầu Sông Rạng, Long Sơn – Cái Mép',
+    x: -20, y: 23, r: 3, w: 52,
+  },
+  {
+    src: '/images/cau-mong-sen-lao-cai/lap-dat-va-cang-keo-cap-cau-mong-sen-95d1d0b0.jpg',
+    alt: 'Kỹ sư Hòa Hoàng lắp đặt cáp dự ứng lực trên mặt cầu Móng Sến, Lào Cai',
+    x: 19, y: 22, r: -5, w: 56,
+  },
+]
+
 /**
- * Line drawing behind the logo: a box-girder deck carried on twin-column piers
- * over water — the span type the company works on, drawn the way it appears on
- * a general-arrangement sheet. Decorative only, so it is hidden from readers.
+ * Site photos beside the intro, scattered like prints on a table, with the
+ * company mark pinned over them. They start stacked in the middle and fan out
+ * one after another the first time the gallery scrolls into view.
  */
-function BridgeBackdrop() {
-  const piers = [56, 170, 284]
-  const railPosts = Array.from({ length: 18 }, (_, i) => 4 + i * 20)
+function OverviewGallery({ logoAlt, ready }) {
+  const ref = useRef(null)
+  // Closed only once JS is running, so without it the photos are simply laid out.
+  const [state, setState] = useState('static')
+
+  useLayoutEffect(() => {
+    const node = ref.current
+    if (!node || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+    setState('closed')
+    // Until the intro text arrives the gallery sits at the top of an empty
+    // column, already on screen — it would fan out before anyone scrolled to it.
+    if (!ready) return undefined
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        setState('open')
+        observer.disconnect()
+      },
+      { threshold: 0.35 },
+    )
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [ready])
 
   return (
-    <svg className="overview__backdrop" viewBox="0 0 340 118" aria-hidden="true" focusable="false">
-      <g className="overview__backdrop-water">
-        <path d="M0 96q22-5 44 0t44 0 44 0 44 0 44 0 44 0 44 0" />
-        <path d="M0 106q22-5 44 0t44 0 44 0 44 0 44 0 44 0 44 0" />
-      </g>
-      <g className="overview__backdrop-structure">
-        {railPosts.map((x) => <path d={`M${x} 28V38`} key={x} />)}
-        <path d="M0 28h340" />
-        <path d="M0 38h340" />
-        <path d="M0 52h340" />
-        {piers.map((x) => (
-          <g key={x}>
-            <path d={`M${x - 17} 52h34v7h-34z`} />
-            <path d={`M${x - 10} 59V92`} />
-            <path d={`M${x + 10} 59V92`} />
-            <path d={`M${x - 15} 92h30`} />
-          </g>
-        ))}
-      </g>
-    </svg>
+    <div className={`overview__gallery is-${state}`} ref={ref}>
+      {PHOTOS.map((photo, index) => (
+        <figure
+          className="overview__photo"
+          key={photo.src}
+          style={{
+            '--x': `${photo.x}cqw`,
+            '--y': `${photo.y}cqw`,
+            '--r': `${photo.r}deg`,
+            '--w': `${photo.w}%`,
+            '--i': index,
+          }}
+        >
+          <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
+        </figure>
+      ))}
+      <span className="overview__badge">
+        <img src="/logo-full-alpha.png" alt={logoAlt} width="560" height="656" loading="lazy" decoding="async" />
+      </span>
+    </div>
   )
 }
 
@@ -74,18 +122,7 @@ export function CompanyFacts({ profile }) {
               <p className="text-muted" key={index}>{paragraph}</p>
             ))}
           </div>
-          <div className="overview__brand">
-            <img
-              className="overview__mark"
-              src="/logo-full-alpha.png"
-              alt={t('about.logoAlt')}
-              width="560"
-              height="656"
-              loading="lazy"
-              decoding="async"
-            />
-            <BridgeBackdrop />
-          </div>
+          <OverviewGallery logoAlt={t('about.logoAlt')} ready={Boolean(profile)} />
         </div>
 
         <div className="company-record">
