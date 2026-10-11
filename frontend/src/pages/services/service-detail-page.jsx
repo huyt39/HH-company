@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import { Card } from '@/components/ui/card'
+import { CtaBand } from '@/components/ui/cta-band'
 import { PageBanner } from '@/components/ui/page-banner'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { fieldsApi } from '@/lib/api/fields-client'
@@ -148,15 +149,12 @@ export function ServiceDetailPage() {
         </section>
       )}
 
-      <section className="cta">
-        <div className="container cta__inner">
-          <div>
-            <h2>{t('services.ctaTitle')}</h2>
-            <p className="mb-0">{t('services.ctaDesc')}</p>
-          </div>
-          <Link to="/lien-he" className="btn btn--primary">{t('services.ctaButton')}</Link>
-        </div>
-      </section>
+      <CtaBand
+        eyebrow={t('services.ctaEyebrow')}
+        title={t('services.ctaTitle')}
+        description={t('services.ctaDesc')}
+        buttonLabel={t('services.ctaButton')}
+      />
     </>
   )
 }

@@ -5,6 +5,7 @@ import { companyApi } from '@/lib/api/company-client'
 import { useFetch } from '@/lib/hooks/use-fetch'
 import { useScrollReveal } from '@/lib/hooks/use-scroll-reveal'
 import { LanguageProvider } from '@/lib/i18n/language-context'
+import { watchVietnameseLineBreaks } from '@/lib/utils/vi-line-breaks'
 
 import { SiteFooter } from './site-footer'
 import { SiteHeader } from './site-header'
@@ -41,6 +42,9 @@ export function SiteLayout() {
   // Every public page reveals its content on scroll; pages only mark what moves.
   const mainRef = useRef(null)
   useScrollReveal(mainRef)
+  // Keep Vietnamese words whole at line ends ("hạng mục", not "hạng / mục").
+  const shellRef = useRef(null)
+  useEffect(() => watchVietnameseLineBreaks(shellRef.current), [])
 
   // Jump to the anchor when there is one, otherwise start the page at the top.
   useEffect(() => {
@@ -53,7 +57,7 @@ export function SiteLayout() {
 
   return (
     <LanguageProvider>
-      <div className="app-shell">
+      <div className="app-shell" ref={shellRef}>
         <SiteHeader contact={contact} />
         <main className="app-main" ref={mainRef}>
           <Outlet />

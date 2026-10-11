@@ -1,3 +1,5 @@
+import { bindVietnameseWords } from '@/lib/utils/vi-line-breaks'
+
 // Split by grapheme, not code unit, so a Vietnamese letter with a combining
 // tone mark stays one piece.
 const segmenter =
@@ -8,7 +10,8 @@ const graphemes = (word) => (segmenter ? [...segmenter.segment(word)].map((part)
 /**
  * Text split into per-letter spans so a heading can rise in letter by letter
  * (see `data-reveal-text` in `use-scroll-reveal`). Words stay unbreakable and
- * wrap only at real spaces; screen readers get the plain text.
+ * wrap only at real spaces — a compound such as "thi công" counts as one word;
+ * screen readers get the plain text.
  *
  * @param {{text: string, offset?: number}} props `offset` continues the letter
  *   count from an earlier line, so a multi-line title plays as one sequence.
@@ -19,7 +22,7 @@ export function SplitText({ text, offset = 0 }) {
     <>
       <span className="visually-hidden">{text}</span>
       <span aria-hidden="true">
-        {text.split(/( +)/).map((part, wordIndex) =>
+        {bindVietnameseWords(text).split(/( +)/).map((part, wordIndex) =>
           /^ *$/.test(part) ? (
             part
           ) : (

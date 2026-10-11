@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 
+import { CtaBand } from '@/components/ui/cta-band'
 import { DomainIcon } from '@/components/ui/domain-icon'
 import { PageBanner } from '@/components/ui/page-banner'
 import { SectionHeading } from '@/components/ui/section-heading'
@@ -121,15 +122,12 @@ export function ServicesPage() {
         })}
       </StateBlock>
 
-      <section className="cta">
-        <div className="container cta__inner">
-          <div>
-            <h2>{t('services.ctaTitle')}</h2>
-            <p className="mb-0">{t('services.ctaDesc')}</p>
-          </div>
-          <Link to="/lien-he" className="btn btn--primary">{t('services.ctaButton')}</Link>
-        </div>
-      </section>
+      <CtaBand
+        eyebrow={t('services.ctaEyebrow')}
+        title={t('services.ctaTitle')}
+        description={t('services.ctaDesc')}
+        buttonLabel={t('services.ctaButton')}
+      />
     </>
   )
 }

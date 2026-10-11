@@ -22,6 +22,8 @@ h1, h2, h3, h4 {
   line-height: 1.25;
   font-weight: 700;
   color: var(--c-navy-900);
+  /* even line lengths, so a title never ends on one stray word */
+  text-wrap: balance;
 }
 
 /* Display sizes carry the page. Large type needs tighter tracking and leading
@@ -55,6 +57,9 @@ h3 { font-size: 1.22rem; letter-spacing: -.008em; }
 }
 
 p { margin: 0 0 1em; }
+/* No single word left alone on a paragraph's last line ("lộ 1.", "bộ.").
+   Splits inside Vietnamese words are handled in lib/utils/vi-line-breaks.js. */
+p, li, dd, figcaption, blockquote { text-wrap: pretty; }
 
 ul { margin: 0; padding: 0; list-style: none; }
 
