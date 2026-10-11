@@ -39,16 +39,38 @@
   color: #fff;
   display: grid;
   gap: clamp(6px, 1vw, 12px);
-  max-width: 920px;
-  font-size: clamp(2rem, 4.25vw, 3.35rem);
-  line-height: 1.26;
+  max-width: 1000px;
+  font-size: clamp(1.75rem, 4vw, 3.1rem);
+  line-height: 1.18;
   margin-bottom: 26px;
 }
 .hero__title-line { display: block; }
 .hero__title-line--accent {
-  color: #8fc8ff;
-  font-size: .82em;
-  letter-spacing: .025em;
+  font-size: .78em;
+  font-weight: 700;
+  font-stretch: 125%;
+  letter-spacing: .01em;
+  color: #8fc8ff; /* fallback where text clipping is not supported */
+}
+@media (max-width: 600px) {
+  .hero__title { font-stretch: 106%; }
+  .hero__title-line--accent { font-stretch: 112%; font-size: .82em; }
+}
+/* Sky blue running into the brand green, along the same 115° as the hatching,
+   across the line's own text width rather than the whole column. */
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .hero__title-line--accent {
+    width: fit-content;
+    /* The gradient only paints inside the box, and Vietnamese capitals stack
+       their marks (Ế, Ầ) above it: pad the box out to cover them, and pull the
+       margins back so the line does not move. */
+    padding-block: .3em .1em;
+    margin-block: -.3em -.1em;
+    background: linear-gradient(115deg, #b5daff 0%, #8fc8ff 40%, var(--c-accent-light) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }
 .hero__desc {
   max-width: 70ch;

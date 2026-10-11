@@ -17,6 +17,12 @@
 }
 .page-banner > .container { position: relative; z-index: 1; }
 .page-banner h1 { color: #fff; margin-bottom: 12px; }
+.page-banner--long h1 { font-size: clamp(1.45rem, 3.2vw, 2.5rem); max-width: 26ch; }
+/* The wide display face costs width a phone does not have: narrow it there. */
+@media (max-width: 600px) {
+  .page-banner h1 { font-stretch: 106%; }
+  .page-banner--long h1 { font-size: 1.35rem; }
+}
 .page-banner__subtitle { max-width: 62ch; color: #cfdcea; margin-bottom: 16px; }
 
 .breadcrumb { font-size: .85rem; color: #b9cbe0; }

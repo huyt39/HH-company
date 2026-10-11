@@ -56,6 +56,16 @@ h3 { font-size: 1.22rem; letter-spacing: -.008em; }
   line-height: 1.2;
 }
 
+/* The two big page titles are set wide, in the display face. */
+.hero__title,
+.page-banner h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 118%;
+  letter-spacing: -.005em;
+  line-height: 1.18;
+}
+
 p { margin: 0 0 1em; }
 /* No single word left alone on a paragraph's last line ("lộ 1.", "bộ.").
    Splits inside Vietnamese words are handled in lib/utils/vi-line-breaks.js. */

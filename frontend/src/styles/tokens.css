@@ -31,6 +31,9 @@
   --c-bg-dark: #0b2545;
 
   --font-sans: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Hero and page-banner titles only: a wide, engineered grotesque that reads
+     as structure. Its Vietnamese capitals keep their marks clear of each other. */
+  --font-display: 'Archivo', var(--font-sans);
 
   --container: 1200px;
   --radius-sm: 4px;
