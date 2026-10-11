@@ -375,16 +375,81 @@
 
 .org-connector { width: 2px; height: 28px; background: var(--c-navy-600); }
 
-.org-row {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 16px;
-  padding-top: 22px;
-  border-top: 2px solid var(--c-navy-600);
+/* Branch rows hang off a bus line; the spine keeps running down the centre to
+   the next row's bus. Rows hold an equal count, so with an even count the
+   centre falls in the gap between two columns rather than through a box. */
+.org-rows {
+  --org-gap: 16px;   /* between boxes in a row */
+  --org-drop: 22px;  /* bus line → top of box */
+  --org-row-gap: 30px;
+  display: flex; flex-direction: column; gap: var(--org-row-gap);
   width: 100%;
 }
-.org-branch { position: relative; display: flex; flex-direction: column; align-items: center; }
+.org-row {
+  position: relative;
+  display: flex; justify-content: center; gap: var(--org-gap);
+  padding-top: var(--org-drop);
+}
+.org-row + .org-row::before {
+  content: ''; position: absolute; left: calc(50% - 1px);
+  top: calc(-1 * var(--org-row-gap)); height: var(--org-row-gap);
+  width: 2px; background: var(--c-navy-600);
+}
+.org-branch {
+  position: relative;
+  flex: 0 0 calc((100% - (var(--org-cols) - 1) * var(--org-gap)) / var(--org-cols));
+  display: flex; flex-direction: column;
+}
+.org-branch > .org-node:first-child { flex: 1 0 auto; justify-content: center; min-width: 0; }
+/* drop line from the bus into the box */
 .org-branch::before {
-  content: ''; position: absolute; top: -22px; left: 50%;
-  width: 2px; height: 22px; background: var(--c-navy-600);
+  content: ''; position: absolute; left: calc(50% - 1px);
+  top: calc(-1 * var(--org-drop)); height: var(--org-drop);
+  width: 2px; background: var(--c-navy-600);
+}
+/* this box's share of the bus, reaching half a gap to each side so
+   neighbours join up; the end boxes stop at their own centre */
+.org-branch::after {
+  content: ''; position: absolute; top: calc(-1 * var(--org-drop));
+  left: calc(-1 * var(--org-gap) / 2); right: calc(-1 * var(--org-gap) / 2);
+  height: 2px; background: var(--c-navy-600);
+}
+.org-branch:first-child::after { left: 50%; }
+.org-branch:last-child::after { right: 50%; }
+.org-branch:only-child::after { display: none; }
+
+/* Narrow screens: one column hanging off a rail down the left edge. */
+@media (max-width: 760px) {
+  .org-rows {
+    --org-gap: 12px;
+    --org-rail: 20px;
+    position: relative;
+    gap: var(--org-gap);
+    padding: var(--org-drop) 0 0 var(--org-rail);
+  }
+  /* bus from the centre connector across to the rail */
+  .org-rows::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 50%;
+    height: 2px; background: var(--c-navy-600);
+  }
+  .org-row { flex-direction: column; padding-top: 0; }
+  .org-row + .org-row::before { display: none; }
+  .org-branch { flex-basis: auto; }
+  .org-branch::before {
+    top: 50%; left: calc(-1 * var(--org-rail)); width: var(--org-rail); height: 2px;
+  }
+  /* rail segment: from this box's top down through the gap to the next box */
+  .org-branch::after,
+  .org-branch:first-child::after,
+  .org-branch:last-child::after,
+  .org-branch:only-child::after {
+    display: block;
+    top: 0; bottom: calc(-1 * var(--org-gap));
+    left: calc(-1 * var(--org-rail)); right: auto;
+    width: 2px; height: auto;
+  }
+  .org-row:first-child .org-branch:first-child::after { top: calc(-1 * var(--org-drop)); }
+  .org-row:last-child .org-branch:last-child::after { bottom: 50%; }
 }
 
 /* ---------- Timeline ---------- */
