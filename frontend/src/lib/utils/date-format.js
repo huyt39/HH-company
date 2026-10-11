@@ -19,9 +19,14 @@ const DATE_TIME_FORMATTER = new Intl.DateTimeFormat('vi-VN', {
   hour12: false,
 })
 
-function toDate(value) {
+// The API sends UTC timestamps without a zone ("2026-09-05T16:35:03"), which
+// `Date` would read as local time — seven hours off in Vietnam, enough to
+// show the wrong day. Mark them as UTC; date-only values are left alone.
+const NAIVE_TIMESTAMP = /T\d{2}:\d{2}(:\d{2}(\.\d+)?)?$/
+
+export function toDate(value) {
   if (!value) return null
-  const date = new Date(value)
+  const date = new Date(typeof value === 'string' && NAIVE_TIMESTAMP.test(value) ? `${value}Z` : value)
   return Number.isNaN(date.getTime()) ? null : date
 }
 

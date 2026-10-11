@@ -19,9 +19,37 @@
 .article__facts dt { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--c-text-muted); }
 .article__facts dd { margin: 4px 0 0; font-weight: 600; color: var(--c-navy-800); }
 
+.article__dates {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px;
+  margin: 0 0 28px; padding-bottom: 18px;
+  border-bottom: 1px solid var(--c-border);
+  font-size: .9rem; color: var(--c-text-muted);
+}
+.article__dates time { font-weight: 600; color: var(--c-navy-800); }
+/* a dot between the two dates while they share a line */
+.article__dates-updated { position: relative; padding-left: 14px; }
+.article__dates-updated::before {
+  content: ''; position: absolute; left: 0; top: 50%;
+  width: 4px; height: 4px; margin-top: -2px; border-radius: 50%;
+  background: currentColor; opacity: .6;
+}
+.article__dates span:only-child { padding-left: 0; }
+.article__dates span:only-child::before { display: none; }
+
 .article__content { font-size: 1.02rem; line-height: 1.8; }
 .article__content img { border-radius: var(--radius); margin-block: 20px; }
 .article__content h2, .article__content h3 { margin-top: 1.6em; }
+/* Photo captions. Word/PDF imports put a caption in its own paragraph straight
+   after the photo's, in italics: <p><img></p><p><em>…</em></p>. Set it small,
+   centred and tucked under the photo, with a little air before the text. */
+.article__content p:has(> img) + p:has(> em:only-child) {
+  max-width: 68ch;
+  margin: -6px auto 28px;
+  text-align: center;
+  font-size: .86rem;
+  line-height: 1.55;
+  color: var(--c-text-muted);
+}
 .article__content ul { list-style: disc; padding-left: 22px; margin-bottom: 1em; }
 .article__content ol { list-style: decimal; padding-left: 22px; margin-bottom: 1em; }
 /* Tables come in from Word imports; scroll sideways rather than overflow on phones. */

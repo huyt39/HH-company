@@ -8,6 +8,7 @@ import { useDocumentMeta } from '@/lib/hooks/use-document-meta'
 import { useFetch } from '@/lib/hooks/use-fetch'
 import { useLang } from '@/lib/i18n/language-context'
 
+import { ArticleDates } from './_components/article-dates'
 import { ArticleGallery } from './_components/article-gallery'
 import { ProjectContext } from './_components/project-context'
 import { ProjectFacts } from './_components/project-facts'
@@ -73,7 +74,7 @@ export function ArticleDetailPage({ type }) {
 
           {!loading && !error && data && (
             <article data-reveal>
-              {isProject && <ProjectFacts project={data} />}
+              {isProject ? <ProjectFacts project={data} /> : <ArticleDates article={data} />}
 
               {/* Articles imported from Word/PDF already show their first photo,
                   with its caption, inside the body; don't print it twice. */}

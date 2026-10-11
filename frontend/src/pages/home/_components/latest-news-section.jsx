@@ -6,6 +6,7 @@ import { Marquee } from '@/components/ui/marquee'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { StateBlock } from '@/components/ui/state-block'
 import { useLang } from '@/lib/i18n/language-context'
+import { articleDates } from '@/lib/utils/article-dates'
 import { formatDate } from '@/lib/utils/date-format'
 
 // Below this the strip would loop one or two articles past each other; a plain
@@ -13,6 +14,13 @@ import { formatDate } from '@/lib/utils/date-format'
 const MIN_TO_RUN = 3
 
 /** Latest articles on the home page: a running strip, like the customer one. */
+/** The card's date line: when it went up, or when it was last edited. */
+function cardDate(article, t) {
+  const { published, updated } = articleDates(article)
+  if (updated) return `${t('article.updatedOn')} ${formatDate(updated)}`
+  return published ? `${t('article.publishedOn')} ${formatDate(published)}` : null
+}
+
 export function LatestNewsSection({ articles, loading, error }) {
   const { t } = useLang()
   const runs = !loading && !error && articles?.length >= MIN_TO_RUN
@@ -23,7 +31,7 @@ export function LatestNewsSection({ articles, loading, error }) {
       media={article.cover}
       tag={article.category?.name}
       title={article.title}
-      meta={formatDate(article.published_at)}
+      meta={cardDate(article, t)}
       excerpt={article.excerpt}
     />
   )

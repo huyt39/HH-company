@@ -8,9 +8,17 @@ import { newsApi } from '@/lib/api/news-client'
 import { useDocumentMeta } from '@/lib/hooks/use-document-meta'
 import { useFetch } from '@/lib/hooks/use-fetch'
 import { useLang } from '@/lib/i18n/language-context'
+import { articleDates } from '@/lib/utils/article-dates'
 import { formatDate } from '@/lib/utils/date-format'
 
 const PAGE_SIZE = 9
+
+/** The card's date line: when it went up, or when it was last edited. */
+function cardDate(article, t) {
+  const { published, updated } = articleDates(article)
+  if (updated) return `${t('article.updatedOn')} ${formatDate(updated)}`
+  return published ? `${t('article.publishedOn')} ${formatDate(published)}` : null
+}
 
 export function NewsPage() {
   const { t } = useLang()
@@ -69,7 +77,7 @@ export function NewsPage() {
                   media={article.cover}
                   tag={article.category?.name}
                   title={article.title}
-                  meta={formatDate(article.published_at)}
+                  meta={cardDate(article, t)}
                   excerpt={article.excerpt}
                 />
               ))}
