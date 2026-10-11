@@ -104,16 +104,14 @@
 .capability-aside p { font-size: .88rem; margin-bottom: 18px; }
 
 /* ---------- Construction plant ---------- */
-/* Was a three-column schedule with the one photograph parked underneath it, so
-   the picture belonged to nothing and the specification column carried whole
-   paragraphs of prose in a table cell. The plant now reads as a schedule
-   without the table chrome: grouped the way it is asked about — stressing
-   gear, access platforms, gauges — one hairline-separated row per machine, and
-   the photograph sitting in the row of the machine it shows. */
+/* Grouped the way it is asked about — stressing gear, access platforms,
+   gauges. Each group is one site photo beside a two-column schedule (what the
+   machine is, what it does), so every group has the same shape whatever
+   photos the records carry. */
 
 .equipment-groups {
   display: grid;
-  gap: clamp(34px, 3.6vw, 52px);
+  gap: clamp(40px, 4.4vw, 60px);
 }
 
 /* The group label reads as a rule across the column with a caption on it, the
@@ -122,7 +120,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 4px;
+  margin-bottom: 20px;
   padding-bottom: 12px;
   border-bottom: 2px solid var(--c-navy-800);
   font-size: .8rem;
@@ -138,149 +136,226 @@
   color: var(--c-accent);
 }
 
-/* The count sits at the far end of the rule, set as the figures are set
-   elsewhere on the page. */
-.equipment-group__title b {
-  margin-left: auto;
-  color: var(--c-text-muted);
-  font-variant-numeric: tabular-nums;
-}
-
-/* Name on the left, what it does in the middle, how many on the right — the
-   three things the schedule answered, without ruling a box around them. */
-.equipment-row {
+.equipment-group__body {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr) 88px;
-  grid-template-areas: 'name detail qty';
-  gap: 6px 32px;
-  padding: 22px 0;
-  border-bottom: 1px solid var(--c-border);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 8fr);
+  gap: clamp(24px, 3vw, 40px);
+  align-items: stretch;
 }
+.equipment-group__body--plain { grid-template-columns: minmax(0, 1fr); }
 
-.equipment-row:last-child { border-bottom: 0; }
-
-.equipment-row__name {
-  grid-area: name;
+/* The photo takes the table's height, so the two halves end level. */
+.equipment-group__photo {
+  position: relative;
   margin: 0;
-  font-size: 1.02rem;
-  line-height: 1.45;
-  letter-spacing: -.008em;
-  color: var(--c-navy-800);
-}
-
-.equipment-row__detail { grid-area: detail; }
-.equipment-row__detail p {
-  margin: 0;
-  font-size: .92rem;
-  line-height: 1.7;
-  color: var(--c-text-muted);
-}
-
-/* The scope note is background detail, so it drops a size below the
-   specification rather than running on from it. */
-.equipment-row__detail .equipment-row__note {
-  margin-top: 8px;
-  font-size: .85rem;
-}
-
-/* The count as a figure with its caption under it, the way the headline
-   statistics at the top of the page are set. */
-.equipment-row__qty {
-  grid-area: qty;
-  margin: 0;
-  text-align: right;
-  font-size: .66rem;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  line-height: 1.3;
-  color: var(--c-text-muted);
-}
-
-.equipment-row__qty b {
-  display: block;
-  font-size: 1.45rem;
-  font-weight: 800;
-  letter-spacing: -.02em;
-  line-height: 1.1;
-  color: var(--c-navy-800);
-  font-variant-numeric: tabular-nums;
-}
-
-/* A photographed machine keeps the same three columns; the picture opens a
-   fourth on the left and spans both lines of the row, so the image stays with
-   its own specification instead of being parked at the foot of the section. */
-.equipment-row--photo {
-  grid-template-columns: minmax(0, 380px) minmax(0, 1fr) 88px;
-  grid-template-areas:
-    'photo name   qty'
-    'photo detail detail';
-  /* The picture is the tallest thing in the row, and a spanning item hands its
-     surplus height to every track it crosses — which pushed the specification
-     into the middle of the photograph. The heading track is held to its own
-     content so the surplus lands under the text instead. */
-  grid-template-rows: max-content minmax(0, 1fr);
-  align-content: start;
-  gap: 10px 32px;
-  padding: 26px 0 30px;
-}
-
-.equipment-row__photo {
-  grid-area: photo;
-  margin: 0;
+  min-height: 240px;
   overflow: hidden;
   border-radius: var(--radius);
+  background: var(--c-border);
 }
-
-/* A site photograph in landscape, cropped no deeper than the text beside it
-   needs — a 4:3 frame left the right-hand column empty below the caption. */
-.equipment-row__photo img {
-  display: block;
+.equipment-group__photo img {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 10;
+  height: 100%;
   object-fit: cover;
 }
 
-.equipment-row--photo .equipment-row__name { font-size: 1.16rem; }
+.equipment-table {
+  width: 100%;
+  align-self: start;
+  background: #fff;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  /* `border-radius` does not clip a collapsed table; separate borders do. */
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.equipment-table th,
+.equipment-table td {
+  padding: 16px 20px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--c-border);
+}
+.equipment-table tbody tr:last-child > * { border-bottom: 0; }
 
+.equipment-table thead th {
+  padding-block: 12px;
+  background: var(--c-navy-800);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: #dbe6f2;
+  border-bottom: 0;
+}
+.equipment-table thead th:first-child { width: 40%; }
+
+.equipment-table tbody th {
+  font-size: .97rem;
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--c-navy-800);
+}
+.equipment-table tbody td {
+  font-size: .9rem;
+  line-height: 1.65;
+  color: var(--c-text-muted);
+}
+.equipment-table tbody tr:nth-child(even) > * { background: #f8fafc; }
+
+/* The scope note is background detail, a size below the specification. */
+.equipment-table__note {
+  display: block;
+  margin-top: 6px;
+  font-size: .82rem;
+}
+
+/* Phone: photo as a banner over the table, and each row stacks name over
+   description instead of squeezing two columns into the width. */
 @media (max-width: 860px) {
-  .equipment-row,
-  .equipment-row--photo {
-    grid-template-columns: minmax(0, 1fr) 88px;
-    grid-template-areas:
-      'photo  photo'
-      'name   qty'
-      'detail detail';
-    gap: 8px 24px;
-  }
-  .equipment-row__photo { margin-bottom: 6px; }
+  .equipment-group__body { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .equipment-group__photo { min-height: 0; aspect-ratio: 16 / 9; }
+}
+@media (max-width: 560px) {
+  .equipment-table thead { display: none; }
+  .equipment-table tr,
+  .equipment-table th,
+  .equipment-table td { display: block; }
+  .equipment-table tbody tr { border-bottom: 1px solid var(--c-border); }
+  .equipment-table tbody tr:last-child { border-bottom: 0; }
+  .equipment-table tbody th,
+  .equipment-table tbody td { border-bottom: 0; padding: 0 16px; }
+  .equipment-table tbody th { padding-top: 14px; }
+  .equipment-table tbody td { padding-top: 4px; padding-bottom: 14px; }
 }
 
 /* ---------- Quality process ---------- */
 
-.capability-steps { list-style: none; }
-.capability-steps li {
-  display: flex;
-  align-items: flex-start;
-  gap: 24px;
-  padding: 22px 0;
-  border-bottom: 1px solid var(--c-border);
+/* Read like the about page's milestones: a sticky step number on the left
+   follows the step being read, and the rail on the right fills as the page
+   scrolls, lighting each numbered stop as it is reached (quality-steps.jsx). */
+.process {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 56px;
 }
-.capability-steps li:last-child { border-bottom: 0; }
-.capability-steps h3 { font-size: 1.04rem; margin-bottom: 7px; }
-.capability-steps p { font-size: .92rem; line-height: 1.7; margin-bottom: 0; }
-/* The step number set as a figure, not as a badge — at 34px in a pale disc it
-   disappeared next to the enlarged headings. */
-.capability-steps__index {
-  flex-shrink: 0;
-  width: 48px;
-  font-size: 1.5rem;
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -.02em;
-  color: var(--c-accent);
+.process__sticky {
+  position: sticky; top: 140px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.process__label {
+  font-size: .76rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--c-accent);
+}
+.process__number {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 7vw, 6rem);
+  font-weight: 800; font-stretch: 118%;
+  line-height: .95; letter-spacing: -.03em;
+  color: var(--c-navy-900);
   font-variant-numeric: tabular-nums;
+  animation: process-number-in 480ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+@keyframes process-number-in {
+  from { opacity: 0; transform: translateY(16px); filter: blur(4px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+.process__title {
+  min-height: 3em; /* titles run one or two lines; keep the bar from jumping */
+  font-weight: 600; font-size: .95rem; line-height: 1.5;
+  color: var(--c-navy-800);
+}
+.process__bar {
+  display: block; width: 160px; height: 3px; border-radius: 3px;
+  background: var(--c-border); overflow: hidden;
+}
+.process__bar span {
+  display: block; height: 100%; background: var(--c-accent);
+  transform-origin: left;
+  transition: transform 420ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.process__list {
+  --rail-fill: 0px;
+  --marker: 40px;
+  position: relative;
+  margin: 0;
+  list-style: none;
+}
+/* the track, and over it the part already travelled, through the markers' centres */
+.process__list::before,
+.process__list::after {
+  content: '';
+  position: absolute;
+  left: calc(var(--marker) / 2 - 1px); top: calc(var(--marker) / 2);
+  width: 2px; border-radius: 2px;
+}
+.process__list::before { bottom: calc(var(--marker) / 2); background: var(--c-border); }
+.process__list::after {
+  height: min(var(--rail-fill), calc(100% - var(--marker)));
+  background: linear-gradient(to bottom, var(--c-accent-light), var(--c-accent));
+}
+
+.process__step {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--marker) minmax(0, 1fr);
+  gap: 22px;
+  padding-bottom: 34px;
+}
+.process__step:last-child { padding-bottom: 0; }
+
+.process__marker {
+  position: relative; z-index: 1;
+  display: grid; place-items: center;
+  width: var(--marker); height: var(--marker);
+  border-radius: 50%;
+  background: var(--c-bg);
+  border: 2px solid var(--c-border);
+  font-size: .8rem; font-weight: 800;
+  color: var(--c-text-muted);
+  font-variant-numeric: tabular-nums;
+  transition: background-color 300ms, border-color 300ms, color 300ms, box-shadow 300ms, transform 300ms;
+}
+.process__step.is-reached .process__marker {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+  color: #fff;
+  box-shadow: 0 0 0 5px var(--c-blue-100);
+}
+.process__step.is-current .process__marker {
+  transform: scale(1.08);
+  animation: process-pulse 1.8s ease-out infinite;
+}
+@keyframes process-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(20, 99, 52, .35); }
+  100% { box-shadow: 0 0 0 14px rgba(20, 99, 52, 0); }
+}
+
+.process__body {
+  padding-top: 8px;
+  opacity: .5;
+  transition: opacity 400ms;
+}
+.process__step.is-reached .process__body { opacity: 1; }
+.process__body h3 { font-size: 1.04rem; margin-bottom: 7px; }
+.process__body p { font-size: .92rem; line-height: 1.7; }
+
+@media (max-width: 900px) {
+  .process { display: block; }
+  .process__aside { display: none; }
+}
+@media (max-width: 560px) {
+  .process__list { --marker: 34px; }
+  .process__step { gap: 16px; }
+  .process__body { padding-top: 5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .process__number,
+  .process__step.is-current .process__marker { animation: none; }
 }
 
 /* ---------- Downloads ---------- */
@@ -416,12 +491,6 @@
   font-size: .85rem;
   line-height: 1.6;
   color: var(--c-text-muted);
-}
-
-.personnel-list__count {
-  float: right;
-  font-variant-numeric: tabular-nums;
-  color: var(--c-navy-600);
 }
 
 @media (max-width: 560px) {

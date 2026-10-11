@@ -251,7 +251,7 @@ export const translations = {
       equipmentTitle: 'Thiết bị thi công',
       equipmentDesc: 'Thiết bị căng kéo và phụ trợ công ty sở hữu, huy động thẳng ra công trường mà không phụ thuộc lịch thuê ngoài.',
       equipmentEmpty: 'Danh mục thiết bị đang được cập nhật',
-      equipmentQuantityLabel: 'Số lượng',
+      equipmentColumns: { name: 'Thiết bị', spec: 'Công dụng và thông số' },
       equipmentCategories: {
         'cang-keo': 'Thiết bị căng kéo dự ứng lực',
         'nang-ha': 'Giàn thao tác và thiết bị nâng hạ',
@@ -264,6 +264,7 @@ export const translations = {
       certificateViewOriginal: 'Bấm để xem bản gốc',
       certificateLabels: { issuer: 'Cơ quan cấp', issued: 'Ngày cấp', validity: 'Hiệu lực' },
       qualityEyebrow: 'Chất lượng',
+      qualityStepLabel: 'Bước',
       qualityTitle: 'Quy trình thi công và nghiệm thu',
       qualityDesc: 'Trình tự áp dụng cho mọi hạng mục, từ lúc nhận hồ sơ thiết kế đến khi bàn giao hồ sơ hoàn công.',
       qualitySteps: [
@@ -768,7 +769,7 @@ export const translations = {
       equipmentTitle: 'Construction equipment',
       equipmentDesc: 'Stressing and ancillary equipment the company owns and mobilises straight to site, with no dependence on a hire schedule.',
       equipmentEmpty: 'The equipment schedule is being updated',
-      equipmentQuantityLabel: 'Units',
+      equipmentColumns: { name: 'Equipment', spec: 'Use and specification' },
       equipmentCategories: {
         'cang-keo': 'Prestressing and stressing equipment',
         'nang-ha': 'Access platforms and lifting equipment',
@@ -781,6 +782,7 @@ export const translations = {
       certificateViewOriginal: 'Click to view the original',
       certificateLabels: { issuer: 'Issued by', issued: 'Date issued', validity: 'Validity' },
       qualityEyebrow: 'Quality',
+      qualityStepLabel: 'Step',
       qualityTitle: 'Construction and acceptance process',
       qualityDesc: 'The sequence applied to every package, from receiving the design documents to handing over the as-built records.',
       qualitySteps: [

@@ -1,11 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 
 import { SectionHeading } from '@/components/ui/section-heading'
+import { useScrollProgress } from '@/lib/hooks/use-scroll-progress'
 import { useLang } from '@/lib/i18n/language-context'
-
-// The line on screen that counts as "now": a milestone whose dot has scrolled
-// above it is reached, and the rail is filled down to it.
-const READ_LINE = 0.55
 
 /**
  * Milestones as a journey the reader travels down: the rail fills as the page
@@ -16,40 +13,7 @@ export function MilestonesSection({ milestones }) {
   const { t } = useLang()
   const items = milestones ?? []
   const listRef = useRef(null)
-  const [active, setActive] = useState(-1)
-
-  useEffect(() => {
-    const list = listRef.current
-    if (!list) return undefined
-
-    let frame = 0
-    const update = () => {
-      frame = 0
-      const line = window.innerHeight * READ_LINE
-      const box = list.getBoundingClientRect()
-      const fill = Math.min(Math.max(line - box.top, 0), box.height)
-      list.style.setProperty('--timeline-fill', `${fill}px`)
-
-      let reached = -1
-      list.querySelectorAll('.timeline__item').forEach((item, index) => {
-        // the dot sits a few px below the item's top edge
-        if (item.getBoundingClientRect().top + 14 <= line) reached = index
-      })
-      setActive(reached)
-    }
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(update)
-    }
-
-    update()
-    window.addEventListener('scroll', schedule, { passive: true })
-    window.addEventListener('resize', schedule)
-    return () => {
-      cancelAnimationFrame(frame)
-      window.removeEventListener('scroll', schedule)
-      window.removeEventListener('resize', schedule)
-    }
-  }, [items.length])
+  const active = useScrollProgress(listRef, '.timeline__item', 14, [items.length])
 
   const shown = items[Math.max(active, 0)]
 

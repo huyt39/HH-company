@@ -10,6 +10,7 @@ import { useDocumentMeta } from '@/lib/hooks/use-document-meta'
 import { useFetch } from '@/lib/hooks/use-fetch'
 import { useLang } from '@/lib/i18n/language-context'
 
+import { QualitySteps } from './_components/quality-steps'
 import './capability-page.css'
 
 /* The plant list is read by group — a bidder asks "what stressing gear do they
@@ -20,6 +21,15 @@ import './capability-page.css'
    disappearing off the page. */
 const EQUIPMENT_CATEGORIES = ['cang-keo', 'nang-ha', 'do-kiem', 'khac']
 
+// A site photo for a group none of whose records carries one, so every group
+// is set the same way: one picture for the group beside its table.
+const GROUP_PHOTOS = {
+  'cang-keo': {
+    url: '/images/cao-toc-ben-luc-long-thanh-j2/cang-keo-cap-du-ung-luc-ngoai-cao-toc-ben-luc-long-thanh-e630ccc7.jpg',
+    alt: 'Kỹ thuật viên Hòa Hoàng vận hành kích căng kéo cáp dự ứng lực ngoài, cao tốc Bến Lức – Long Thành',
+  },
+}
+
 function groupEquipment(items) {
   const buckets = new Map()
   for (const item of items) {
@@ -29,9 +39,10 @@ function groupEquipment(items) {
   }
   return [...buckets].map(([key, rows]) => ({
     key,
-    // A photographed item leads its group: the picture is what makes the plant
-    // credible, and it has to sit with the line it belongs to.
-    items: [...rows].sort((a, b) => Number(Boolean(b.image?.url)) - Number(Boolean(a.image?.url))),
+    items: rows,
+    // One photo illustrates the whole group: a picture on one row out of three
+    // left the other two looking unfinished.
+    photo: rows.find((item) => item.image?.url)?.image ?? GROUP_PHOTOS[key] ?? null,
   }))
 }
 
@@ -76,10 +87,7 @@ export function CapabilityPage() {
             <ul className="personnel-list">
               {(profile?.personnel ?? []).map((row) => (
                 <li key={row.title}>
-                  <span className="personnel-list__role">
-                    {row.title}
-                    {row.count != null && <b className="personnel-list__count">{row.count}</b>}
-                  </span>
+                  <span className="personnel-list__role">{row.title}</span>
                   {row.note && <span className="personnel-list__note">{row.note}</span>}
                 </li>
               ))}
@@ -113,40 +121,41 @@ export function CapabilityPage() {
                     <h3 className="equipment-group__title">
                       <DomainIcon slug={group.key} kind="equipment" />
                       {t('capability.equipmentCategories')[group.key]}
-                      <b>{String(group.items.length).padStart(2, '0')}</b>
                     </h3>
                   )}
-                  <div className="equipment-list" data-reveal-stagger>
-                    {group.items.map((item) => (
-                      <article
-                        className={`equipment-row${item.image?.url ? ' equipment-row--photo' : ''}`}
-                        key={item.id}
-                      >
-                        {item.image?.url && (
-                          <figure className="equipment-row__photo">
-                            <img
-                              src={item.image.url}
-                              alt={item.image.alt || item.name}
-                              width={item.image.width}
-                              height={item.image.height}
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          </figure>
-                        )}
-                        <h4 className="equipment-row__name">{item.name}</h4>
-                        {item.quantity != null && (
-                          <p className="equipment-row__qty">
-                            <b>{item.quantity}</b>
-                            {t('capability.equipmentQuantityLabel')}
-                          </p>
-                        )}
-                        <div className="equipment-row__detail">
-                          {item.spec && <p>{item.spec}</p>}
-                          {item.note && <p className="equipment-row__note">{item.note}</p>}
-                        </div>
-                      </article>
-                    ))}
+                  <div
+                    className={`equipment-group__body${group.photo ? '' : ' equipment-group__body--plain'}`}
+                    data-reveal-stagger
+                  >
+                    {group.photo && (
+                      <figure className="equipment-group__photo">
+                        <img
+                          src={group.photo.url}
+                          alt={group.photo.alt || t('capability.equipmentCategories')[group.key]}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </figure>
+                    )}
+                    <table className="equipment-table">
+                      <thead>
+                        <tr>
+                          <th scope="col">{t('capability.equipmentColumns').name}</th>
+                          <th scope="col">{t('capability.equipmentColumns').spec}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {group.items.map((item) => (
+                          <tr key={item.id}>
+                            <th scope="row">{item.name}</th>
+                            <td>
+                              {item.spec}
+                              {item.note && <span className="equipment-table__note">{item.note}</span>}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 </section>
               ))}
@@ -237,17 +246,7 @@ export function CapabilityPage() {
             title={t('capability.qualityTitle')}
             description={t('capability.qualityDesc')}
           />
-          <ol className="capability-steps" data-reveal-stagger>
-            {t('capability.qualitySteps').map((step, index) => (
-              <li key={step.title}>
-                <span className="capability-steps__index">{String(index + 1).padStart(2, '0')}</span>
-                <div>
-                  <h3>{step.title}</h3>
-                  <p className="text-muted mb-0">{step.text}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <QualitySteps steps={t('capability.qualitySteps')} label={t('capability.qualityStepLabel')} />
         </div>
       </section>
 

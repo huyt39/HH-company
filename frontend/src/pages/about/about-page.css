@@ -493,7 +493,7 @@
 }
 
 .timeline {
-  --timeline-fill: 0px;
+  --rail-fill: 0px;
   position: relative;
   padding-left: 34px;
   margin: 0;
@@ -508,7 +508,7 @@
 }
 .timeline::before { bottom: 6px; background: var(--c-border); }
 .timeline::after {
-  height: min(var(--timeline-fill), calc(100% - 12px));
+  height: min(var(--rail-fill), calc(100% - 12px));
   background: linear-gradient(to bottom, var(--c-accent-light), var(--c-accent));
 }
 .timeline__item { position: relative; padding-bottom: 34px; }
