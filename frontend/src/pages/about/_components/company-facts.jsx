@@ -1,5 +1,3 @@
-import { useEffect, useRef, useState } from 'react'
-
 import { SectionHeading } from '@/components/ui/section-heading'
 import { useLang } from '@/lib/i18n/language-context'
 
@@ -46,72 +44,29 @@ const PHOTOS = [
 ]
 
 /**
- * A sticky project stack. The first image is visible at the start of the
- * overview; as the reader moves through the long introduction, the next site
- * photos reveal in order and stop when this overview section ends.
+ * A vertical project gallery. The first images sit beside the opening copy;
+ * more project images continue below them in normal document flow, so nothing
+ * replaces or overlays an image that the reader has already seen.
  */
-function OverviewGallery({ logoAlt, trackRef }) {
-  const galleryRef = useRef(null)
-  const [progress, setProgress] = useState(0)
-
-  useEffect(() => {
-    let frame = 0
-    const updateProgress = () => {
-      cancelAnimationFrame(frame)
-      frame = requestAnimationFrame(() => {
-        const track = trackRef.current
-        const gallery = galleryRef.current
-        if (!track || !gallery) return
-        const trackBox = track.getBoundingClientRect()
-        const travel = Math.max(track.offsetHeight - gallery.offsetHeight, 1)
-        const next = Math.min(1, Math.max(0, (120 - trackBox.top) / travel))
-        setProgress(next)
-      })
-    }
-
-    updateProgress()
-    window.addEventListener('scroll', updateProgress, { passive: true })
-    window.addEventListener('resize', updateProgress)
-    return () => {
-      cancelAnimationFrame(frame)
-      window.removeEventListener('scroll', updateProgress)
-      window.removeEventListener('resize', updateProgress)
-    }
-  }, [trackRef])
-
+function OverviewGallery({ logoAlt }) {
   return (
-    <div className="overview__gallery" ref={galleryRef} style={{ '--gallery-progress': progress }}>
-      {PHOTOS.map((photo, index) => {
-        const reveal = index === 0
-          ? 1
-          : Math.min(1, Math.max(0, (progress - (index - 1) * 0.12) / 0.22))
-        return (
-          <figure
-            className="overview__photo"
-            key={photo.src}
-            style={{
-              '--i': index,
-              '--reveal': reveal,
-              '--photo-opacity': 0.035 + (reveal * 0.965),
-              '--photo-offset': `${((1 - reveal) * 58) + (index * 14)}px`,
-              '--photo-scale': 0.94 + (reveal * 0.06),
-              '--photo-z': reveal >= 0.99 ? 30 + index : index + 1,
-            }}
-          >
-            <img src={photo.src} alt={photo.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+    <div className="overview__gallery">
+      {PHOTOS.map((photo, index) => (
+        <figure className={`overview__photo overview__photo--${index + 1}`} key={photo.src}>
+          <img src={photo.src} alt={photo.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+          {index === 0 && (
+            <span className="overview__badge">
+              <img src="/logo-full-alpha.png" alt={logoAlt} width="560" height="656" loading="lazy" decoding="async" />
+            </span>
+          )}
           </figure>
-        )
-      })}
-      <span className="overview__badge">
-        <img src="/logo-full-alpha.png" alt={logoAlt} width="560" height="656" loading="lazy" decoding="async" />
-      </span>
+      ))}
     </div>
   )
 }
 
 export function CompanyFacts({ profile }) {
   const { t } = useLang()
-  const overviewRef = useRef(null)
   const labels = t('about.factLabels')
   const facts = [
     { label: labels.fullName, value: profile?.name },
@@ -134,14 +89,14 @@ export function CompanyFacts({ profile }) {
   return (
     <section className="section" id="tong-quan">
       <div className="container">
-        <div className="overview" ref={overviewRef}>
+        <div className="overview">
           <div className="overview__text">
             <SectionHeading eyebrow={t('about.factsEyebrow')} title={t('about.factsTitle')} />
             {profile?.intro?.map((paragraph, index) => (
               <p className="text-muted" key={index}>{paragraph}</p>
             ))}
           </div>
-          <OverviewGallery logoAlt={t('about.logoAlt')} trackRef={overviewRef} />
+          <OverviewGallery logoAlt={t('about.logoAlt')} />
         </div>
 
         <div className="company-record">

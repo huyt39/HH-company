@@ -9,43 +9,32 @@
    crops, and a quiet brand mark. This keeps the overview feeling precise and
    infrastructural instead of scrapbook-like. */
 .overview__gallery {
-  position: sticky;
-  top: 120px;
-  align-self: start;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-content: start;
   width: 100%;
   max-width: 520px;
   justify-self: center;
-  height: min(560px, calc(100vh - 180px));
-  min-height: 460px;
-  padding: 18px 18px 48px;
-  overflow: hidden;
-  background: #f2f5f6;
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius);
-  box-shadow: 0 22px 40px -30px rgba(11, 37, 69, .48);
-}
-.overview__gallery::after {
-  content: '';
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 20px;
-  height: 1px;
-  background: var(--c-accent-light);
 }
 .overview__photo {
-  position: absolute;
-  inset: 18px 18px 48px;
-  z-index: var(--photo-z);
+  position: relative;
+  min-width: 0;
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--c-border);
   border-radius: 4px;
   box-shadow: 0 18px 36px -24px rgba(11, 37, 69, .42);
-  opacity: var(--photo-opacity);
-  transform: translateY(var(--photo-offset)) scale(var(--photo-scale));
-  transition: opacity 180ms linear, transform 240ms ease-out, box-shadow 250ms ease;
+  background: #eef2f5;
+  transition: box-shadow 250ms ease, transform 250ms ease;
 }
+.overview__photo--1 { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+.overview__photo--2,
+.overview__photo--3 { aspect-ratio: 4 / 3; }
+.overview__photo--4 { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+.overview__photo--5,
+.overview__photo--6,
+.overview__photo--7 { aspect-ratio: 4 / 3; }
 .overview__photo img {
   display: block;
   width: 100%;
@@ -54,7 +43,8 @@
   filter: saturate(.88) contrast(1.03);
 }
 .overview__photo:hover {
-  z-index: 10;
+  z-index: 1;
+  transform: translateY(-3px);
   box-shadow: 0 20px 34px -18px rgba(11, 37, 69, .58);
 }
 .overview__photo:hover img { filter: saturate(1) contrast(1.06); }
@@ -64,7 +54,7 @@
   position: absolute;
   right: 28px;
   top: 28px;
-  z-index: 30;
+  z-index: 2;
   display: grid;
   place-items: center;
   width: 62px;
@@ -75,29 +65,20 @@
 }
 .overview__badge img { width: 64%; height: auto; }
 
-.overview__gallery::before {
-  content: 'DỰ ÁN TIÊU BIỂU · 01—07';
-  position: absolute;
-  left: 18px;
-  bottom: 8px;
-  z-index: 25;
-  color: var(--c-navy-700);
-  font-size: .58rem;
-  font-weight: 700;
-  letter-spacing: .14em;
-}
-
 @media (max-width: 860px) {
   .overview { grid-template-columns: minmax(0, 1fr); }
-  .overview__gallery { height: min(520px, calc(100vh - 150px)); max-width: 460px; margin-top: 8px; }
+  .overview__gallery { max-width: 460px; margin-top: 8px; }
 }
 
 @media (max-width: 560px) {
-  .overview__gallery { height: 430px; min-height: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .overview__photo { opacity: 1; transform: none; transition: none; }
+  .overview__gallery { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .overview__photo--1,
+  .overview__photo--4 { grid-column: auto; }
+  .overview__photo--2,
+  .overview__photo--3,
+  .overview__photo--5,
+  .overview__photo--6,
+  .overview__photo--7 { aspect-ratio: 16 / 10; }
 }
 
 /* ---------- Business registration record ---------- */
